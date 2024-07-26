@@ -5,7 +5,9 @@
 
 </div>
 
-一键部署到 Vercel（填入 nezha 地址与 token）
+一键部署到 Vercel
+<br>
+（填入 nezha 地址(例如:http://120.5.4.32:8008)与 token）
 
 ![get-token](/.github/get-token.png)
 
