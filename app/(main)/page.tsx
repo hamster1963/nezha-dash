@@ -9,7 +9,6 @@ export default function Home() {
     <div className="mx-auto grid w-full max-w-5xl gap-4 md:gap-6">
       <ServerOverview />
       <ServerList />
-      <div className={"mt-20 sm:mt-12"}></div>
     </div>
   );
 }
