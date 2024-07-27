@@ -27,7 +27,7 @@ export default function ServerListClient() {
             status={DateTime.now().toUnixInteger() - server.last_active > 300 ? "offline" : "online"}
             uptime={server.status.Uptime / 86400}
             mem={(server.status.MemUsed / server.host.MemTotal) * 100}
-            stg={server.status.DiskUsed / server.host.DiskTotal}
+            stg={(server.status.DiskUsed / server.host.DiskTotal) * 100}
           />
         ),
       )}
