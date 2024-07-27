@@ -2,6 +2,7 @@
 import { NezhaAPI, ServerApi } from "@/app/types/nezha-api";
 import { MakeOptional } from "@/app/types/utils";
 import { NextResponse } from "next/server";
+import { DateTime } from "luxon";
 
 export async function GET(_: Request) {
     if (!process.env.NezhaBaseUrl) {
@@ -33,10 +34,10 @@ export async function GET(_: Request) {
         }
 
         data.result = nezhaData.map((element: MakeOptional<NezhaAPI, "ipv4" | "ipv6" | "valid_ip">) => {
-            if (element.status.Uptime !== 0) {
-                data.live_servers += 1;
-            } else {
+            if (DateTime.now().toUnixInteger() - element.last_active > 300) {
                 data.offline_servers += 1;
+            } else {
+                data.live_servers += 1;
             }
             data.total_bandwidth += element.status.NetOutTransfer;
 
