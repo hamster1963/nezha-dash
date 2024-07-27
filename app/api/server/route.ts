@@ -2,9 +2,19 @@
 import { NextResponse } from "next/server";
 
 export async function GET(_: Request) {
+    if (!process.env.NezhaBaseUrl) {
+        return NextResponse.json({ error: 'NezhaBaseUrl is not set' }, { status: 400 })
+    }
+
+    // Remove trailing slash
+    var nezhaBaseUrl = process.env.NezhaBaseUrl;
+
+    if (process.env.NezhaBaseUrl[process.env.NezhaBaseUrl.length - 1] === '/') {
+        nezhaBaseUrl = process.env.NezhaBaseUrl.slice(0, -1);
+    }
 
     try {
-        const response = await fetch(process.env.NezhaBaseUrl+ '/api/v1/server/details',{
+        const response = await fetch(nezhaBaseUrl+ '/api/v1/server/details',{
             headers: {
                 'Authorization': process.env.NezhaAuth as string
             },
