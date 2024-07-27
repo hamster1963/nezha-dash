@@ -8,7 +8,9 @@ import { formatBytes, nezhaFetcher } from "@/lib/utils";
 import { Loader } from "@/components/loading/Loader";
 
 export default function ServerOverviewClient() {
-    const { data } = useSWR('/api/server', nezhaFetcher);
+    const { data } = useSWR('/api/server', nezhaFetcher, {
+        refreshInterval: 30000
+    });
 
     return (
         <section className="grid md:grid-cols-4 gap-4 grid-cols-2">
