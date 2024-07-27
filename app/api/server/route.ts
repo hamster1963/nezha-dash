@@ -1,4 +1,6 @@
 
+import { NezhaAPI, ServerApi } from "@/app/types/nezha-api";
+import { MakeOptional } from "@/app/types/utils";
 import { NextResponse } from "next/server";
 
 export async function GET(_: Request) {
@@ -22,19 +24,29 @@ export async function GET(_: Request) {
                 revalidate:1
             }
         });
-        const data = await response.json();
-        data.live_servers = 0;
-        data.offline_servers = 0;
-        data.total_bandwidth = 0;
+        const nezhaData = (await response.json()).result as NezhaAPI[];
+        const data: ServerApi = {
+            live_servers: 0,
+            offline_servers: 0,
+            total_bandwidth: 0,
+            result: []
+        }
 
-        data.result.forEach((element: { status: { Uptime: number; NetOutTransfer: any; }; }) => {
+        data.result = nezhaData.map((element: MakeOptional<NezhaAPI, "ipv4" | "ipv6" | "valid_ip">) => {
             if (element.status.Uptime !== 0) {
                 data.live_servers += 1;
             } else {
                 data.offline_servers += 1;
             }
             data.total_bandwidth += element.status.NetOutTransfer;
+
+            delete element.ipv4;
+            delete element.ipv6;
+            delete element.valid_ip;
+
+            return element;
         });
+
         return NextResponse.json(data, { status: 200 })
     } catch (error) {
         return NextResponse.json({ error: error }, { status: 200 })
