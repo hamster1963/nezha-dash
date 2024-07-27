@@ -42,7 +42,7 @@ export default function ServerCard({
           <TooltipTrigger asChild>
             <section className={"flex lg:w-28 items-center justify-start gap-2"}>
               <span className="h-2 w-2 shrink-0 rounded-full bg-green-500"></span>
-              <p className="shrink truncate text-sm font-bold tracking-tight">
+              <p className="text-sm font-bold tracking-tight break-all">
                 {name}
               </p>
             </section>
