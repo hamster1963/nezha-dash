@@ -22,7 +22,7 @@ export default function ServerListClient() {
             name={server.name}
             up={server.status.NetOutSpeed / 1024 / 1024}
             down={server.status.NetInSpeed / 1024 / 1024}
-            status={server.status.Uptime !== 0 ? "online" : "offline"}
+            status={server.status.Uptime > 0 ? "online" : "offline"}
             uptime={server.status.Uptime / 86400}
             mem={(server.status.MemUsed / server.host.MemTotal) * 100}
             stg={server.status.DiskUsed / server.host.DiskTotal}
