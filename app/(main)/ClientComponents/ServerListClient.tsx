@@ -3,6 +3,7 @@
 import ServerCard from "@/components/ServerCard";
 import { nezhaFetcher } from "@/lib/utils";
 import useSWR from "swr";
+import { DateTime } from "luxon";
 
 export default function ServerListClient() {
   const { data } = useSWR('/api/server', nezhaFetcher, {
@@ -22,7 +23,7 @@ export default function ServerListClient() {
             name={server.name}
             up={server.status.NetOutSpeed / 1024 / 1024}
             down={server.status.NetInSpeed / 1024 / 1024}
-            status={server.status.Uptime > 0 ? "online" : "offline"}
+            status={DateTime.now().toUnixInteger() - server.last_active > 300 ? "offline" : "online"}
             uptime={server.status.Uptime / 86400}
             mem={(server.status.MemUsed / server.host.MemTotal) * 100}
             stg={server.status.DiskUsed / server.host.DiskTotal}
