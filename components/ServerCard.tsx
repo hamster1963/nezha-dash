@@ -34,18 +34,25 @@ export default function ServerCard({
   return status === "online" ? (
     <Card
       className={
-        "flex flex-col items-center justify-center gap-3 p-3 md:px-5 lg:flex-row"
+        "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row"
       }
     >
       <TooltipProvider delayDuration={0}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <section className={"flex w-28 items-center justify-center gap-2"}>
-              <p className="text-sm font-bold tracking-tight">{name}</p>
-              <span className="h-2 w-2 rounded-full bg-green-500"></span>
+            <section className={"flex lg:w-28 items-center justify-start gap-2"}>
+              <span className="h-2 w-2 shrink-0 rounded-full bg-green-500"></span>
+              <p className="shrink truncate text-sm font-bold tracking-tight">
+                {name}
+              </p>
             </section>
           </TooltipTrigger>
-          <TooltipContent>Online: {uptime.toFixed(0)} Days</TooltipContent>
+          <TooltipContent>
+            <section>
+              <div>Hostname: {name}</div>
+              <div>Online: {uptime.toFixed(0)} Days</div>
+            </section>
+          </TooltipContent>
         </Tooltip>
       </TooltipProvider>
       <section className={"grid grid-cols-5 items-center gap-3"}>
@@ -76,14 +83,16 @@ export default function ServerCard({
     </Card>
   ) : (
     <Card
-      className={"flex flex-col h-[61px] items-center gap-3 p-3 md:px-6 lg:flex-row"}
+      className={
+        "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row"
+      }
     >
       <TooltipProvider delayDuration={0}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <section className={"flex w-28 items-center justify-center gap-2"}>
+            <section className={"flex lg:w-28 items-center justify-start gap-2"}>
+              <span className="h-2 w-2 shrink-0 rounded-full bg-red-500"></span>
               <p className="text-sm font-bold tracking-tight">{name}</p>
-              <span className="h-2 w-2 rounded-full bg-red-500"></span>
             </section>
           </TooltipTrigger>
           <TooltipContent>Offline</TooltipContent>

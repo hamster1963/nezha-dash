@@ -6,9 +6,10 @@ import Image from "next/image";
 import useSWR from "swr";
 import { formatBytes, nezhaFetcher } from "@/lib/utils";
 import { Loader } from "@/components/loading/Loader";
+import { ServerApi } from "@/app/types/nezha-api";
 
 export default function ServerOverviewClient() {
-    const { data } = useSWR('/api/server', nezhaFetcher, {
+    const { data } = useSWR<ServerApi>('/api/server', nezhaFetcher, {
         refreshInterval: 30000
     });
 

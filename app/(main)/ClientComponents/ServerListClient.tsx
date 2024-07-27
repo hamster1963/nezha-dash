@@ -1,11 +1,12 @@
 "use client";
 
+import { ServerApi } from "@/app/types/nezha-api";
 import ServerCard from "@/components/ServerCard";
 import { nezhaFetcher } from "@/lib/utils";
 import useSWR from "swr";
 
 export default function ServerListClient() {
-  const { data } = useSWR('/api/server', nezhaFetcher, {
+  const { data } = useSWR<ServerApi>('/api/server', nezhaFetcher, {
     refreshInterval: 3000,
   });
   if (!data) return null;

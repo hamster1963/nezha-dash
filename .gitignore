@@ -38,7 +38,7 @@ next-env.d.ts
 # pwa
 /public/sw.js
 /public/sw.js.map
-/public/swe-worker-development.js
+/public/swe-worker-*.js
 /public/workbox*.js
 /public/workbox*.js.map
 
