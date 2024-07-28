@@ -18,6 +18,9 @@ const withPWA = withPWAInit({
 });
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  output: "standalone",
+  reactStrictMode: true,
+};
 
 export default bundleAnalyzer(withPWA(nextConfig));
