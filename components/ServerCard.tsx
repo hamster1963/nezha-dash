@@ -73,7 +73,9 @@ export default function ServerCard({
             <p className="text-sm font-bold tracking-tight">{name}</p>
           </section>
         </PopoverTrigger>
-        <PopoverContent side="top">Offline</PopoverContent>
+        <PopoverContent className="w-fit p-2" side="top">
+          <p className="text-sm text-muted-foreground">Offline</p>
+        </PopoverContent>
       </Popover>
     </Card>
   );
