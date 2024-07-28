@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3020",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "node .next/standalone/server.js",
+    "lint": "next lint",
+    "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.6",
@@ -33,7 +33,7 @@
     "react-wrap-balancer": "^1.1.0",
     "sharp": "^0.33.3",
     "sonner": "^1.4.41",
-    "swr": "^2.2.6-beta.3",
+    "swr": "^2.2.6-beta.4",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"

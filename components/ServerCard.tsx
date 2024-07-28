@@ -40,9 +40,11 @@ export default function ServerCard({
       <TooltipProvider delayDuration={0}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <section className={"flex lg:w-28 items-center justify-start gap-2"}>
+            <section
+              className={"flex items-center justify-start gap-2 lg:w-28"}
+            >
               <span className="h-2 w-2 shrink-0 rounded-full bg-green-500"></span>
-              <p className="text-sm font-bold tracking-tight break-all">
+              <p className="break-all text-sm font-bold tracking-tight">
                 {name}
               </p>
             </section>
@@ -90,7 +92,9 @@ export default function ServerCard({
       <TooltipProvider delayDuration={0}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <section className={"flex lg:w-28 items-center justify-start gap-2"}>
+            <section
+              className={"flex items-center justify-start gap-2 lg:w-28"}
+            >
               <span className="h-2 w-2 shrink-0 rounded-full bg-red-500"></span>
               <p className="text-sm font-bold tracking-tight">{name}</p>
             </section>
