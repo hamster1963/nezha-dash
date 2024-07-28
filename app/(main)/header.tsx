@@ -38,7 +38,7 @@ function Header() {
 
 // https://github.com/streamich/react-use/blob/master/src/useInterval.ts
 const useInterval = (callback: Function, delay?: number | null) => {
-  const savedCallback = useRef<Function>(() => { });
+  const savedCallback = useRef<Function>(() => {});
 
   useEffect(() => {
     savedCallback.current = callback;
@@ -61,7 +61,9 @@ function Overview() {
   }, []);
   const timeOption = DateTime.TIME_SIMPLE;
   timeOption.hour12 = true;
-  const [timeString, setTimeString] = useState(DateTime.now().setLocale("en-US").toLocaleString(timeOption));
+  const [timeString, setTimeString] = useState(
+    DateTime.now().setLocale("en-US").toLocaleString(timeOption),
+  );
 
   useInterval(() => {
     setTimeString(DateTime.now().setLocale("en-US").toLocaleString(timeOption));
@@ -73,9 +75,7 @@ function Overview() {
       <div className="flex items-center gap-1.5">
         <p className="text-sm font-medium opacity-50">where the time is</p>
         {mouted && (
-          <p className="opacity-1 text-sm font-medium">
-            {timeString}
-          </p>
+          <p className="opacity-1 text-sm font-medium">{timeString}</p>
         )}
       </div>
     </section>

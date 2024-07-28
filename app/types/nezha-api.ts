@@ -12,6 +12,7 @@ export interface NezhaAPI {
   name: string;
   tag: string;
   last_active: number;
+  online_status: boolean;
   ipv4: string;
   ipv6: string;
   valid_ip: string;

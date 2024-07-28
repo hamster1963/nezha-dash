@@ -1,6 +1,7 @@
 import ServerList from "@/components/ServerList";
 import ServerOverview from "@/components/ServerOverview";
-import { GetNezhaData } from "@/lib/prefetch";
+import { GetNezhaData } from "@/lib/serverFetch";
+
 import { SWRConfig } from "swr";
 
 export default function Home() {

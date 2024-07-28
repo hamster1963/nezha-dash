@@ -10,18 +10,14 @@ import { formatNezhaInfo } from "@/lib/utils";
 import ServerCardPopover from "./ServerCardPopover";
 
 export default function ServerCard({
-  timestamp,
   serverInfo,
 }: {
-  timestamp: number;
   serverInfo: NezhaAPISafe;
 }) {
-  const { name, online, cpu, up, down, mem, stg, ...props } = formatNezhaInfo(
-    timestamp,
-    serverInfo,
-  );
+  const { name, online, cpu, up, down, mem, stg, ...props } =
+    formatNezhaInfo(serverInfo);
 
-  return online === "online" ? (
+  return online ? (
     <Card
       className={
         "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row"

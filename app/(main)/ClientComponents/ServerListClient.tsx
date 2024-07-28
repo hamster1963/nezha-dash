@@ -11,12 +11,11 @@ export default function ServerListClient() {
   });
   if (!data) return null;
   const sortedResult = data.result.sort((a, b) => a.id - b.id);
-  const timestamp = Date.now() / 1000;
 
   return (
     <section className={"grid grid-cols-1 gap-2 md:grid-cols-2"}>
       {sortedResult.map((serverInfo) => (
-        <ServerCard key={serverInfo.id} timestamp={timestamp} serverInfo={serverInfo} />
+        <ServerCard key={serverInfo.id} serverInfo={serverInfo} />
       ))}
     </section>
   );
