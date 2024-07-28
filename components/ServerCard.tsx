@@ -7,7 +7,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { formatNezhaInfo } from "@/lib/utils";
-import ServerCardPopover from "./ServerPopover";
+import ServerCardPopover from "./ServerCardPopover";
 
 export default function ServerCard({
   timestamp,
