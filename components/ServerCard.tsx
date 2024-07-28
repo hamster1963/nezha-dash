@@ -1,62 +1,43 @@
-import React from "react";
-
+import { NezhaAPISafe } from "@/app/types/nezha-api";
 import ServerUsageBar from "@/components/ServerUsageBar";
 import { Card } from "@/components/ui/card";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-
-type ServerCardProps = {
-  id: number;
-  status: string;
-  name: string;
-  uptime: number;
-  cpu: number;
-  mem: number;
-  stg: number;
-  up: number;
-  down: number;
-};
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { formatNezhaInfo } from "@/lib/utils";
+import ServerCardPopover from "./ServerPopover";
 
 export default function ServerCard({
-  status,
-  name,
-  uptime,
-  cpu,
-  mem,
-  stg,
-  up,
-  down,
-}: ServerCardProps) {
-  return status === "online" ? (
+  timestamp,
+  serverInfo,
+}: {
+  timestamp: number;
+  serverInfo: NezhaAPISafe;
+}) {
+  const { name, online, cpu, up, down, mem, stg, ...props } = formatNezhaInfo(
+    timestamp,
+    serverInfo,
+  );
+
+  return online === "online" ? (
     <Card
       className={
         "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row"
       }
     >
-      <TooltipProvider delayDuration={0}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <section
-              className={"flex items-center justify-start gap-2 lg:w-28"}
-            >
-              <span className="h-2 w-2 shrink-0 rounded-full bg-green-500"></span>
-              <p className="break-all text-sm font-bold tracking-tight">
-                {name}
-              </p>
-            </section>
-          </TooltipTrigger>
-          <TooltipContent>
-            <section>
-              <div>Hostname: {name}</div>
-              <div>Online: {uptime.toFixed(0)} Days</div>
-            </section>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <Popover>
+        <PopoverTrigger asChild>
+          <section className={"flex items-center justify-start gap-2 lg:w-28"}>
+            <span className="h-2 w-2 shrink-0 rounded-full bg-green-500"></span>
+            <p className="break-all text-sm font-bold tracking-tight">{name}</p>
+          </section>
+        </PopoverTrigger>
+        <PopoverContent side="top">
+          <ServerCardPopover status={props.status} host={props.host} />
+        </PopoverContent>
+      </Popover>
       <section className={"grid grid-cols-5 items-center gap-3"}>
         <div className={"flex flex-col"}>
           <p className="text-xs text-muted-foreground">CPU</p>
@@ -89,19 +70,15 @@ export default function ServerCard({
         "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row"
       }
     >
-      <TooltipProvider delayDuration={0}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <section
-              className={"flex items-center justify-start gap-2 lg:w-28"}
-            >
-              <span className="h-2 w-2 shrink-0 rounded-full bg-red-500"></span>
-              <p className="text-sm font-bold tracking-tight">{name}</p>
-            </section>
-          </TooltipTrigger>
-          <TooltipContent>Offline</TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <Popover>
+        <PopoverTrigger asChild>
+          <section className={"flex items-center justify-start gap-2 lg:w-28"}>
+            <span className="h-2 w-2 shrink-0 rounded-full bg-red-500"></span>
+            <p className="text-sm font-bold tracking-tight">{name}</p>
+          </section>
+        </PopoverTrigger>
+        <PopoverContent side="top">Offline</PopoverContent>
+      </Popover>
     </Card>
   );
 }
