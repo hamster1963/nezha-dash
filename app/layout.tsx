@@ -5,7 +5,6 @@ import { Inter as FontSans } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import React from "react";
 
-import NextThemeToaster from "@/components/client/NextToast";
 import { cn } from "@/lib/utils";
 
 const fontSans = FontSans({
@@ -43,7 +42,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          <NextThemeToaster />
           {children}
         </ThemeProvider>
       </body>
