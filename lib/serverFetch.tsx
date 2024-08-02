@@ -21,7 +21,7 @@ export async function GetNezhaData() {
         Authorization: process.env.NezhaAuth as string,
       },
       next: {
-        revalidate: 1,
+        revalidate: 0,
       },
     });
     const nezhaData = (await response.json()).result as NezhaAPI[];
