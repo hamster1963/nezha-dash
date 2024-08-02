@@ -7,7 +7,9 @@ import useSWR from "swr";
 
 export default function ServerListClient() {
   const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher, {
-    refreshInterval: 3000,
+    refreshInterval: process.env.NEXT_PUBLIC_NezhaFetchInterval
+      ? Number(process.env.NEXT_PUBLIC_NezhaFetchInterval)
+      : 2000,
   });
   if (!data) return null;
   const sortedResult = data.result.sort((a, b) => a.id - b.id);
