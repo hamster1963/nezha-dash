@@ -9,9 +9,7 @@ import { Loader } from "@/components/loading/Loader";
 import { ServerApi } from "@/app/types/nezha-api";
 
 export default function ServerOverviewClient() {
-  const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher, {
-    refreshInterval: 30000,
-  });
+  const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher);
 
   return (
     <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
