@@ -14,11 +14,11 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   manifest: "/manifest.json",
-  title: "HomeDash",
+  title: "NezhaDash",
   description: "A dashboard for nezha",
   appleWebApp: {
     capable: true,
-    title: "HomeDash",
+    title: "NezhaDash",
     statusBarStyle: "black-translucent",
   },
 };
