@@ -6,16 +6,19 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { formatNezhaInfo } from "@/lib/utils";
+import { cn, formatNezhaInfo } from "@/lib/utils";
 import ServerCardPopover from "./ServerCardPopover";
+import getUnicodeFlagIcon from "country-flag-icons/unicode";
 
 export default function ServerCard({
   serverInfo,
 }: {
   serverInfo: NezhaAPISafe;
 }) {
-  const { name, online, cpu, up, down, mem, stg, ...props } =
+  const { name, country_code, online, cpu, up, down, mem, stg, ...props } =
     formatNezhaInfo(serverInfo);
+
+  const showFlag = process.env.NEXT_PUBLIC_ShowFlag === "true";
 
   return online ? (
     <Card
@@ -26,8 +29,24 @@ export default function ServerCard({
       <Popover>
         <PopoverTrigger asChild>
           <section className={"flex items-center justify-start gap-2 lg:w-28"}>
+            {showFlag ? (
+              country_code ? (
+                <span className="text-[12px] text-muted-foreground">
+                  {getUnicodeFlagIcon(country_code)}
+                </span>
+              ) : (
+                <span className="text-[12px] text-muted-foreground">🏴‍☠️</span>
+              )
+            ) : null}
             <span className="h-2 w-2 shrink-0 rounded-full bg-green-500"></span>
-            <p className="break-all text-sm font-bold tracking-tight">{name}</p>
+            <p
+              className={cn(
+                "break-all font-bold tracking-tight",
+                showFlag ? "text-xs" : "text-sm",
+              )}
+            >
+              {name}
+            </p>
           </section>
         </PopoverTrigger>
         <PopoverContent side="top">
@@ -69,8 +88,24 @@ export default function ServerCard({
       <Popover>
         <PopoverTrigger asChild>
           <section className={"flex items-center justify-start gap-2 lg:w-28"}>
+            {showFlag ? (
+              country_code ? (
+                <span className="text-[12px] text-muted-foreground">
+                  {getUnicodeFlagIcon(country_code)}
+                </span>
+              ) : (
+                <span className="text-[12px] text-muted-foreground">🏴‍☠️</span>
+              )
+            ) : null}
             <span className="h-2 w-2 shrink-0 rounded-full bg-red-500"></span>
-            <p className="text-sm font-bold tracking-tight">{name}</p>
+            <p
+              className={cn(
+                "break-all font-bold tracking-tight",
+                showFlag ? "text-xs" : "text-sm",
+              )}
+            >
+              {name}
+            </p>
           </section>
         </PopoverTrigger>
         <PopoverContent className="w-fit p-2" side="top">

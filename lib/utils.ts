@@ -15,6 +15,7 @@ export function formatNezhaInfo(serverInfo: NezhaAPISafe) {
     online: serverInfo.online_status,
     mem: (serverInfo.status.MemUsed / serverInfo.host.MemTotal) * 100,
     stg: (serverInfo.status.DiskUsed / serverInfo.host.DiskTotal) * 100,
+    country_code: serverInfo.host.CountryCode,
   };
 }
 
