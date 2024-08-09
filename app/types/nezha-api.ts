@@ -16,6 +16,7 @@ export interface NezhaAPI {
   ipv4: string;
   ipv6: string;
   valid_ip: string;
+  display_index: number;
   host: NezhaAPIHost;
   status: NezhaAPIStatus;
 }

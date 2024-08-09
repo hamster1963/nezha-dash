@@ -35,10 +35,9 @@ export default function ServerCard({
                   {getUnicodeFlagIcon(country_code)}
                 </span>
               ) : (
-                <span className="text-[12px] text-muted-foreground">🏴‍☠️</span>
+                <span className="text-[12px] text-muted-foreground">🏁</span>
               )
             ) : null}
-            <span className="h-2 w-2 shrink-0 rounded-full bg-green-500"></span>
             <p
               className={cn(
                 "break-all font-bold tracking-tight",
@@ -47,6 +46,7 @@ export default function ServerCard({
             >
               {name}
             </p>
+            <span className="h-2 w-2 shrink-0 rounded-full bg-green-500"></span>
           </section>
         </PopoverTrigger>
         <PopoverContent side="top">
@@ -94,10 +94,9 @@ export default function ServerCard({
                   {getUnicodeFlagIcon(country_code)}
                 </span>
               ) : (
-                <span className="text-[12px] text-muted-foreground">🏴‍☠️</span>
+                <span className="text-[12px] text-muted-foreground">🏁</span>
               )
             ) : null}
-            <span className="h-2 w-2 shrink-0 rounded-full bg-red-500"></span>
             <p
               className={cn(
                 "break-all font-bold tracking-tight",
@@ -106,6 +105,7 @@ export default function ServerCard({
             >
               {name}
             </p>
+            <span className="h-2 w-2 shrink-0 rounded-full bg-red-500"></span>
           </section>
         </PopoverTrigger>
         <PopoverContent className="w-fit p-2" side="top">
