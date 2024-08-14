@@ -1,7 +1,6 @@
 import React from "react";
 
 import Header from "@/app/(main)/header";
-import BlurLayers from "@/components/BlurLayer";
 import Footer from "./footer";
 
 type DashboardProps = {
