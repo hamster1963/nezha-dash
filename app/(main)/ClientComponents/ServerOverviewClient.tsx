@@ -7,6 +7,7 @@ import useSWR from "swr";
 import { formatBytes, nezhaFetcher } from "@/lib/utils";
 import { Loader } from "@/components/loading/Loader";
 import { ServerApi } from "@/app/types/nezha-api";
+import MotionNumber from "motion-number";
 
 export default function ServerOverviewClient() {
   const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher);
@@ -24,7 +25,13 @@ export default function ServerOverviewClient() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
               </span>
               {data ? (
-                <p className="text-lg font-semibold">{data?.result.length}</p>
+                <div className="text-lg font-semibold">
+                  <MotionNumber
+                    value={data?.result.length}
+                    format={{ notation: "compact" }}
+                    locales="en-US"
+                  />
+                </div>
               ) : (
                 <div className="flex h-7 items-center">
                   <Loader visible={true} />
@@ -44,7 +51,13 @@ export default function ServerOverviewClient() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
               </span>
               {data ? (
-                <p className="text-lg font-semibold">{data?.live_servers}</p>
+                <div className="text-lg font-semibold">
+                  <MotionNumber
+                    value={data?.live_servers}
+                    format={{ notation: "compact" }}
+                    locales="en-US"
+                  />
+                </div>
               ) : (
                 <div className="flex h-7 items-center">
                   <Loader visible={true} />
@@ -64,7 +77,13 @@ export default function ServerOverviewClient() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
               </span>
               {data ? (
-                <p className="text-lg font-semibold">{data?.offline_servers}</p>
+                <div className="text-lg font-semibold">
+                  <MotionNumber
+                    value={data?.offline_servers}
+                    format={{ notation: "compact" }}
+                    locales="en-US"
+                  />
+                </div>
               ) : (
                 <div className="flex h-7 items-center">
                   <Loader visible={true} />
