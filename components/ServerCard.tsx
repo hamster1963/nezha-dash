@@ -91,9 +91,9 @@ export default function ServerCard({
           </div>
           <ServerUsageBar value={stg} />
         </div>
-        <div className={"flex flex-col"}>
+        <div className={"flex flex-col items-end"}>
           <p className="text-xs text-muted-foreground">Upload</p>
-          <div className="text-xs font-semibold flex items-center">
+          <div className="text-xs font-semibold flex items-center justify-end">
             <MotionNumber
               value={up.toFixed(2)}
               format={{ notation: "compact" }}
@@ -104,7 +104,7 @@ export default function ServerCard({
         </div>
         <div className={"flex flex-col"}>
           <p className="text-xs text-muted-foreground">Download</p>
-          <div className="text-xs font-semibold flex items-center">
+          <div className="text-xs font-semibold flex items-center justify-end">
             <MotionNumber
               value={down.toFixed(2)}
               format={{ notation: "compact" }}
