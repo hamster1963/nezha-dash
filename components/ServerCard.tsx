@@ -9,7 +9,6 @@ import {
 import { cn, formatNezhaInfo } from "@/lib/utils";
 import ServerCardPopover from "./ServerCardPopover";
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
-import MotionNumber from "motion-number";
 
 export default function ServerCard({
   serverInfo,
@@ -58,11 +57,7 @@ export default function ServerCard({
         <div className={"flex flex-col"}>
           <p className="text-xs text-muted-foreground">CPU</p>
           <div className="text-xs font-semibold flex items-center">
-            <MotionNumber
-              value={cpu.toFixed(2)}
-              format={{ notation: "compact" }}
-              locales="en-US"
-            />
+            {cpu.toFixed(2)}
             %
           </div>
           <ServerUsageBar value={cpu} />
@@ -70,11 +65,7 @@ export default function ServerCard({
         <div className={"flex flex-col"}>
           <p className="text-xs text-muted-foreground">Mem</p>
           <div className="text-xs font-semibold flex items-center">
-            <MotionNumber
-              value={mem.toFixed(2)}
-              format={{ notation: "compact" }}
-              locales="en-US"
-            />
+            {mem.toFixed(2)}
             %
           </div>
           <ServerUsageBar value={mem} />
@@ -82,34 +73,22 @@ export default function ServerCard({
         <div className={"flex flex-col"}>
           <p className="text-xs text-muted-foreground">STG</p>
           <div className="text-xs font-semibold flex items-center">
-            <MotionNumber
-              value={stg.toFixed(2)}
-              format={{ notation: "compact" }}
-              locales="en-US"
-            />
+            {stg.toFixed(2)}
             %
           </div>
           <ServerUsageBar value={stg} />
         </div>
-        <div className={"flex flex-col items-end"}>
+        <div className={"flex flex-col"}>
           <p className="text-xs text-muted-foreground">Upload</p>
-          <div className="text-xs font-semibold flex items-center justify-end">
-            <MotionNumber
-              value={up.toFixed(2)}
-              format={{ notation: "compact" }}
-              locales="en-US"
-            />
+          <div className="text-xs font-semibold flex items-center">
+            {up.toFixed(2)}
             Mb/s
           </div>
         </div>
         <div className={"flex flex-col"}>
           <p className="text-xs text-muted-foreground">Download</p>
-          <div className="text-xs font-semibold flex items-center justify-end">
-            <MotionNumber
-              value={down.toFixed(2)}
-              format={{ notation: "compact" }}
-              locales="en-US"
-            />
+          <div className="text-xs font-semibold flex items-center">
+            {down.toFixed(2)}
             Mb/s
           </div>
         </div>

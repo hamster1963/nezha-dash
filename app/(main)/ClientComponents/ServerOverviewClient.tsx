@@ -7,7 +7,6 @@ import useSWR from "swr";
 import { formatBytes, nezhaFetcher } from "@/lib/utils";
 import { Loader } from "@/components/loading/Loader";
 import { ServerApi } from "@/app/types/nezha-api";
-import MotionNumber from "motion-number";
 
 export default function ServerOverviewClient() {
   const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher);
@@ -26,11 +25,7 @@ export default function ServerOverviewClient() {
               </span>
               {data ? (
                 <div className="text-lg font-semibold">
-                  <MotionNumber
-                    value={data?.result.length}
-                    format={{ notation: "compact" }}
-                    locales="en-US"
-                  />
+                  {data?.result.length}
                 </div>
               ) : (
                 <div className="flex h-7 items-center">
@@ -52,11 +47,7 @@ export default function ServerOverviewClient() {
               </span>
               {data ? (
                 <div className="text-lg font-semibold">
-                  <MotionNumber
-                    value={data?.live_servers}
-                    format={{ notation: "compact" }}
-                    locales="en-US"
-                  />
+                  {data?.live_servers}
                 </div>
               ) : (
                 <div className="flex h-7 items-center">
@@ -78,11 +69,7 @@ export default function ServerOverviewClient() {
               </span>
               {data ? (
                 <div className="text-lg font-semibold">
-                  <MotionNumber
-                    value={data?.offline_servers}
-                    format={{ notation: "compact" }}
-                    locales="en-US"
-                  />
+                  {data?.offline_servers}
                 </div>
               ) : (
                 <div className="flex h-7 items-center">
