@@ -43,7 +43,7 @@ export default function ServerCardPopover({
       />
       <ServerCardPopoverCard
         title="Mem"
-        content={`${formatBytes(host.MemTotal)} / ${formatBytes(status.MemUsed)}`}
+        content={`${formatBytes(status.MemUsed)} / ${formatBytes(host.MemTotal)}`}
       />
       <ServerCardPopoverCard
         title="STG"
@@ -55,7 +55,7 @@ export default function ServerCardPopover({
       />
       <ServerCardPopoverCard
         title="Network"
-        content={`${formatBytes(status.NetInTransfer)} / ${formatBytes(status.NetOutTransfer)}`}
+        content={`${formatBytes(status.NetOutTransfer)} / ${formatBytes(status.NetInTransfer)}`}
       />
       <ServerCardPopoverCard
         title="Load"
