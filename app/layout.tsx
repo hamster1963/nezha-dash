@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import React from "react";
-
+import { Viewport } from "next";
 import { cn } from "@/lib/utils";
 
 const fontSans = FontSans({
@@ -21,6 +21,13 @@ export const metadata: Metadata = {
     title: "NezhaDash",
     statusBarStyle: "black-translucent",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 interface RootLayoutProps {
