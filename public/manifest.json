@@ -1,6 +1,6 @@
 {
-  "name": "HomeDash",
-  "short_name": "HomeDash PWA App",
+  "name": "Status",
+  "short_name": "Status-Dash",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
