@@ -21,13 +21,13 @@ function Header() {
               className="relative !m-0 h-6 w-6 border-2 border-white object-cover object-top !p-0 transition duration-500 group-hover:z-30 group-hover:scale-105"
             />
           </div>
-          NezhaDash
+          SciSurf System Status 
           <Separator
             orientation="vertical"
             className="mx-2 hidden h-4 w-[1px] md:block"
           />
           <p className="hidden text-sm font-medium opacity-40 md:block">
-            Simple and beautiful dashboard
+            A Simple dashboard for SciSurf System Status 
           </p>
         </section>
         <ModeToggle />
