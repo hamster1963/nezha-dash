@@ -3,9 +3,13 @@
 import { NezhaAPI, ServerApi } from "@/app/types/nezha-api";
 import { MakeOptional } from "@/app/types/utils";
 import { error } from "console";
+import { unstable_noStore as noStore } from "next/cache";
 import getEnv from "./env-entry";
 
+
 export async function GetNezhaData() {
+  noStore();
+
   var nezhaBaseUrl = getEnv("NezhaBaseUrl");
   if (!nezhaBaseUrl) {
     error("NezhaBaseUrl is not set");
