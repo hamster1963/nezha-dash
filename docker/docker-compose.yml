@@ -1,0 +1,9 @@
+services:
+  nezha-dash:
+    container_name: nezha-dash
+    image: hamster1963/nezha-dash:latest
+    volumes:
+      - ./.env:/app/.env
+    restart: always
+    ports:
+      - "4123:3000"

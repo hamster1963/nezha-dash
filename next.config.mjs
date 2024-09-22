@@ -1,11 +1,5 @@
 import withPWAInit from "@ducanh2912/next-pwa";
 
-import withBundleAnalyzer from "@next/bundle-analyzer";
-
-const bundleAnalyzer = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === "true",
-});
-
 const withPWA = withPWAInit({
   dest: "public",
   cacheOnFrontEndNav: true,
@@ -23,4 +17,4 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
-export default bundleAnalyzer(withPWA(nextConfig));
+export default withPWA(nextConfig);

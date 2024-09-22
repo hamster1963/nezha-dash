@@ -24,9 +24,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ARG PROD_ENV=""
-# Appends to .env.production
-RUN printf "$PROD_ENV" >> .env.production
 
 RUN yarn build
 
@@ -41,12 +38,10 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.env.production ./.env.production
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-
+COPY --from=builder --chown=nextjs:nodejs /app/.env.example ./.env
 
 USER nextjs
 

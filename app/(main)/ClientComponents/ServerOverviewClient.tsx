@@ -7,11 +7,12 @@ import useSWR from "swr";
 import { formatBytes, nezhaFetcher } from "@/lib/utils";
 import { Loader } from "@/components/loading/Loader";
 import { ServerApi } from "@/app/types/nezha-api";
+import getEnv from "@/lib/env-entry";
 
 export default function ServerOverviewClient() {
   const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher);
 
-  const disableCartoon = process.env.NEXT_PUBLIC_DisableCartoon === "true";
+  const disableCartoon = getEnv("NEXT_PUBLIC_DisableCartoon") === "true";
 
   return (
     <section className="grid grid-cols-2 gap-4 md:grid-cols-4">

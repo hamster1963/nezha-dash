@@ -3,22 +3,23 @@
 import { NezhaAPI, ServerApi } from "@/app/types/nezha-api";
 import { MakeOptional } from "@/app/types/utils";
 import { error } from "console";
+import getEnv from "./env-entry";
 
 export async function GetNezhaData() {
-  if (!process.env.NezhaBaseUrl) {
+  var nezhaBaseUrl = getEnv("NezhaBaseUrl");
+  if (!nezhaBaseUrl) {
     error("NezhaBaseUrl is not set");
     return;
   }
-  // Remove trailing slash
-  var nezhaBaseUrl = process.env.NezhaBaseUrl;
 
-  if (process.env.NezhaBaseUrl[process.env.NezhaBaseUrl.length - 1] === "/") {
-    nezhaBaseUrl = process.env.NezhaBaseUrl.slice(0, -1);
+  // Remove trailing slash
+  if (nezhaBaseUrl[nezhaBaseUrl.length - 1] === "/") {
+    nezhaBaseUrl = nezhaBaseUrl.slice(0, -1);
   }
   try {
     const response = await fetch(nezhaBaseUrl + "/api/v1/server/details", {
       headers: {
-        Authorization: process.env.NezhaAuth as string,
+        Authorization: getEnv("NezhaAuth") as string,
       },
       next: {
         revalidate: 0,

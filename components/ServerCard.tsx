@@ -9,6 +9,7 @@ import {
 import { cn, formatNezhaInfo } from "@/lib/utils";
 import ServerCardPopover from "./ServerCardPopover";
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
+import { env } from "next-runtime-env";
 
 export default function ServerCard({
   serverInfo,
@@ -18,7 +19,7 @@ export default function ServerCard({
   const { name, country_code, online, cpu, up, down, mem, stg, ...props } =
     formatNezhaInfo(serverInfo);
 
-  const showFlag = process.env.NEXT_PUBLIC_ShowFlag === "true";
+  const showFlag = env("NEXT_PUBLIC_ShowFlag") === "true";
 
   return online ? (
     <Card
