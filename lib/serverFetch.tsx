@@ -6,7 +6,6 @@ import { error } from "console";
 import getEnv from "./env-entry";
 
 export async function GetNezhaData() {
-
   var nezhaBaseUrl = getEnv("NezhaBaseUrl");
   if (!nezhaBaseUrl) {
     error("NezhaBaseUrl is not set");

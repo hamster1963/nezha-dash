@@ -8,7 +8,7 @@ import getEnv from "@/lib/env-entry";
 
 export default function ServerListClient() {
   const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher, {
-    refreshInterval: Number(getEnv('NEXT_PUBLIC_NezhaFetchInterval')) || 2000,
+    refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 2000,
   });
 
   if (!data) return null;

@@ -6,6 +6,7 @@ import { ThemeProvider } from "next-themes";
 import React from "react";
 import { Viewport } from "next";
 import { cn } from "@/lib/utils";
+import { PublicEnvScript } from "next-runtime-env";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -37,6 +38,9 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <PublicEnvScript />
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
