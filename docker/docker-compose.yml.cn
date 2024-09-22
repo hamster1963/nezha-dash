@@ -1,7 +1,7 @@
 services:
   nezha-dash:
     container_name: nezha-dash
-    image: hamster1963/nezha-dash:latest
+    image: registry.cn-guangzhou.aliyuncs.com/hamster-home/nezha-dash:latest
     volumes:
       - ./.env:/app/.env
     restart: always
