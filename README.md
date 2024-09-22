@@ -8,6 +8,7 @@
 ### 一键部署到 Vercel
 
 [部署简易教程](https://buycoffee.top/blog/tech/nezha)
+[Docker 部署教程](https://buycoffee.top/blog/tech/nezha-docker)
 
 #### 环境变量
 
