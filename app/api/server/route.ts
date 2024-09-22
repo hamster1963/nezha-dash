@@ -6,6 +6,7 @@ export async function GET(_: Request) {
     const response = await GetNezhaData();
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: error }, { status: 200 });
+    console.error(error);
+    return NextResponse.json({ error: error }, { status: 400 });
   }
 }
