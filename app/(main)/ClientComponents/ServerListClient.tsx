@@ -4,10 +4,11 @@ import { ServerApi } from "@/app/types/nezha-api";
 import ServerCard from "@/components/ServerCard";
 import { nezhaFetcher } from "@/lib/utils";
 import useSWR from "swr";
+import getEnv from "@/lib/env-entry";
 
 export default function ServerListClient() {
   const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher, {
-    refreshInterval: Number(process.env.NEXT_PUBLIC_NezhaFetchInterval) || 2000,
+    refreshInterval: Number(getEnv('NEXT_PUBLIC_NezhaFetchInterval')) || 2000,
   });
 
   if (!data) return null;

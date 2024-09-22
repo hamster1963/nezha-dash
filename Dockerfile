@@ -24,9 +24,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ARG PROD_ENV=""
-# Appends to .env.production
-RUN printf "$PROD_ENV" >> .env.production
 
 RUN yarn build
 
