@@ -2,6 +2,7 @@ services:
   nezha-dash:
     container_name: nezha-dash
     image: registry.cn-guangzhou.aliyuncs.com/hamster-home/nezha-dash:latest
+    entrypoint: /app/public/docker-start/docker-entrypoint.sh
     volumes:
       - ./.env:/app/.env
     restart: always

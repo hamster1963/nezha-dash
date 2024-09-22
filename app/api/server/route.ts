@@ -1,6 +1,8 @@
 import { GetNezhaData } from "@/lib/serverFetch";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(_: Request) {
   try {
     const response = await GetNezhaData();
