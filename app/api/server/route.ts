@@ -9,6 +9,9 @@ export async function GET(_: Request) {
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: "fetch nezha data failed" }, { status: 400 });
+    return NextResponse.json(
+      { error: "fetch nezha data failed" },
+      { status: 400 },
+    );
   }
 }
