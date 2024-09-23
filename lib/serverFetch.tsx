@@ -6,7 +6,6 @@ import { error } from "console";
 import { unstable_noStore as noStore } from "next/cache";
 import getEnv from "./env-entry";
 
-
 export async function GetNezhaData() {
   noStore();
 

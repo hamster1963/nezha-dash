@@ -1,22 +1,11 @@
-FROM node:21-alpine AS base
+FROM oven/bun:1 AS base
 
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-RUN apk --no-cache add ca-certificates wget
-RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
-RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.28-r0/glibc-2.28-r0.apk
-RUN apk add --no-cache --force-overwrite glibc-2.28-r0.apk
 
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* bun.lockb* ./
-RUN \
-    if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-    elif [ -f package-lock.json ]; then npm ci; \
-    elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
-    elif [ -f bun.lockb ]; then npm install -g bun && bun install; \
-    else echo "Lockfile not found." && exit 1; \
-    fi
+RUN bun install
 
 
 FROM base AS builder
@@ -25,7 +14,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 
-RUN yarn build
+RUN bun run build
 
 
 FROM base AS runner
