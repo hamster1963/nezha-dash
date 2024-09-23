@@ -4,10 +4,20 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-RUN apk --no-cache add ca-certificates wget
-RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
-RUN wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.28-r0/glibc-2.28-r0.apk
-RUN apk add --no-cache --force-overwrite glibc-2.28-r0.apk
+# Install glibc to run Bun
+RUN if [[ $(uname -m) == "aarch64" ]] ; \
+    then \
+    # aarch64
+    wget https://raw.githubusercontent.com/squishyu/alpine-pkg-glibc-aarch64-bin/master/glibc-2.26-r1.apk ; \
+    apk add --no-cache --allow-untrusted --force-overwrite glibc-2.26-r1.apk ; \
+    rm glibc-2.26-r1.apk ; \
+    else \
+    # x86_64
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.28-r0/glibc-2.28-r0.apk ; \
+    wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub ; \
+    apk add --no-cache --force-overwrite glibc-2.28-r0.apk ; \
+    rm glibc-2.28-r0.apk ; \
+    fi
 
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* bun.lockb* ./
 RUN \
