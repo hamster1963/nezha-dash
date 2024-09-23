@@ -1,4 +1,10 @@
-FROM node:21-alpine AS base
+# 添加多架构支持
+FROM --platform=linux/amd64 node:21-alpine AS base-amd64
+FROM --platform=linux/arm64 node:21-alpine AS base-arm64
+
+# 选择基础镜像
+ARG TARGETARCH
+FROM base-${TARGETARCH} AS base
 
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
