@@ -19,7 +19,7 @@ RUN if [[ $(uname -m) == "aarch64" ]] ; \
     rm glibc-2.28-r0.apk ; \
     fi
 
-COPY bun.lockb* ./
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* bun.lockb* ./
 RUN npm install -g bun && bun install
 
 
