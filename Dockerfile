@@ -14,7 +14,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 
-RUN yarn build
+RUN bun run build
 
 
 FROM base AS runner
