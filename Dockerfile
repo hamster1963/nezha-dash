@@ -19,14 +19,8 @@ RUN if [[ $(uname -m) == "aarch64" ]] ; \
     rm glibc-2.28-r0.apk ; \
     fi
 
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* bun.lockb* ./
-RUN \
-    if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-    elif [ -f package-lock.json ]; then npm ci; \
-    elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
-    elif [ -f bun.lockb ]; then npm install -g bun && bun install; \
-    else echo "Lockfile not found." && exit 1; \
-    fi
+COPY bun.lockb* ./
+RUN npm install -g bun && bun install
 
 
 FROM base AS builder
