@@ -8,7 +8,7 @@
 
 | 一键部署到 Vercel-推荐                         | Docker部署                 | Cloudflare部署                             |
 | ------------------------------ | -------------------- | -------------------------------- |
-| [部署简易教程](https://buycoffee.top/blog/tech/nezha)                  | [Docker 部署教程](https://buycoffee.top/blog/tech/nezha-docker)       | [Cloudflare 部署教程(编写中)](https://buycoffee.top/blog/tech/)           |
+| [部署简易教程](https://buycoffee.top/blog/tech/nezha)                  | [Docker 部署教程](https://buycoffee.top/blog/tech/nezha-docker)       | [Cloudflare 部署教程](https://buycoffee.top/blog/tech/nezha-cloudflare)           |
 
 
 
