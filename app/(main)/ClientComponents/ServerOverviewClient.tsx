@@ -19,7 +19,7 @@ export default function ServerOverviewClient() {
       <Card>
         <CardContent className="px-6 py-3">
           <section className="flex flex-col gap-1">
-            <p className="text-md font-medium">Total servers</p>
+            <p className="text-sm md:text-base font-medium">Total servers</p>
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
@@ -40,7 +40,7 @@ export default function ServerOverviewClient() {
       <Card>
         <CardContent className="px-6 py-3">
           <section className="flex flex-col gap-1">
-            <p className="text-md font-medium">Online servers</p>
+            <p className="text-sm md:text-base font-medium">Online servers</p>
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
@@ -62,7 +62,7 @@ export default function ServerOverviewClient() {
       <Card>
         <CardContent className="px-6 py-3">
           <section className="flex flex-col gap-1">
-            <p className="text-md font-medium">Offline servers</p>
+            <p className="text-sm md:text-base font-medium">Offline servers</p>
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75"></span>
@@ -84,7 +84,7 @@ export default function ServerOverviewClient() {
       <Card>
         <CardContent className="relative px-6 py-3">
           <section className="flex flex-col gap-1">
-            <p className="text-md font-medium">Total bandwidth</p>
+            <p className="text-sm md:text-base font-medium">Total bandwidth</p>
             {data ? (
               <p className="text-lg font-semibold">
                 {formatBytes(data?.total_bandwidth)}
