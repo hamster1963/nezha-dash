@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3020 --turbo",
+    "dev": "next dev -p 3020",
     "start": "node .next/standalone/server.js",
     "lint": "next lint",
     "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/"
@@ -20,6 +20,7 @@
     "@radix-ui/react-tooltip": "^1.1.2",
     "@types/luxon": "^3.4.2",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "caniuse-lite": "^1.0.30001663",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "country-flag-icons": "^1.5.13",
@@ -43,16 +44,16 @@
     "eslint-plugin-turbo": "^2.1.2",
     "eslint-plugin-unused-imports": "^4.1.4",
     "@next/bundle-analyzer": "^14.2.13",
-    "@types/node": "^22.5.5",
-    "@types/react": "^18.3.8",
+    "@types/node": "^22.7.0",
+    "@types/react": "^18.3.9",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.20",
-    "eslint": "^9.11.0",
+    "eslint": "^9.11.1",
     "eslint-config-next": "^14.2.13",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.6",
-    "tailwindcss": "^3.4.12",
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "tailwindcss": "^3.4.13",
     "typescript": "^5.6.2"
   }
 }

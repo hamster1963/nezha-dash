@@ -10,7 +10,7 @@ function Header() {
   return (
     <div className="mx-auto w-full max-w-5xl">
       <section className="flex items-center justify-between">
-        <section className="text-md flex items-center font-medium">
+        <section className="flex items-center text-base font-medium">
           <div className="mr-1 flex flex-row items-center justify-start">
             <Image
               width={40}
@@ -72,7 +72,7 @@ function Overview() {
 
   return (
     <section className={"mt-10 flex flex-col md:mt-16"}>
-      <p className="text-md font-semibold">👋 Overview</p>
+      <p className="text-base font-semibold">👋 Overview</p>
       <div className="flex items-center gap-1.5">
         <p className="text-sm font-medium opacity-50">where the time is</p>
         {mouted && (
