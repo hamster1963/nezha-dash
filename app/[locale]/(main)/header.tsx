@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Separator } from "../../../components/ui/separator";
 import { DateTime } from "luxon";
 import { ModeToggle } from "../../../components/ThemeSwitcher";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 function Header() {
   const t = useTranslations("Header");
   return (
@@ -31,7 +32,10 @@ function Header() {
             {t("p_1079-1199_Simpleandbeautifuldashbo")}
           </p>
         </section>
-        <ModeToggle />
+        <section className="flex items-center gap-2">
+          <LanguageSwitcher />
+          <ModeToggle />
+        </section>
       </section>
       <Overview />
     </div>
