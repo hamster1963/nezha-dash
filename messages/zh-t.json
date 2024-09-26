@@ -5,6 +5,30 @@
     "p_2532-2599_Offlineservers": "離線伺服器",
     "p_3463-3530_Totalbandwidth": "總流量"
   },
+  "ServerCard": {
+    "CPU": "CPU",
+    "Mem": "記憶體",
+    "STG": "儲存",
+    "Upload": "上傳",
+    "Download": "下載",
+    "Offline": "離線"
+  },
+  "ServerCardPopover": {
+    "System": "系統",
+    "CPU": "CPU",
+    "Mem": "記憶體",
+    "STG": "儲存",
+    "Swap": "虛擬記憶體",
+    "Network": "網路",
+    "Load": "負載",
+    "Online": "在線時間",
+    "Offline": "離線"
+  },
+  "ThemeSwitcher": {
+    "Light": "亮色",
+    "Dark": "暗色",
+    "System": "系統"
+  },
   "Footer": {
     "p_146-598_Findthecodeon": "程式碼開源",
     "a_303-585_GitHub": "GitHub",

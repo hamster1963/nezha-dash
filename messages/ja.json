@@ -5,6 +5,30 @@
     "p_2532-2599_Offlineservers": "オフラインサーバー",
     "p_3463-3530_Totalbandwidth": "総流量"
   },
+  "ServerCard": {
+    "CPU": "CPU",
+    "Mem": "Mem",
+    "STG": "STG",
+    "Upload": "Upload",
+    "Download": "Download",
+    "Offline": "Offline"
+  },
+  "ServerCardPopover": {
+    "System": "システム",
+    "CPU": "CPU",
+    "Mem": "メモリ",
+    "STG": "ストレージ",
+    "Swap": "スワップ",
+    "Network": "ネットワーク",
+    "Load": "負荷",
+    "Online": "オンライン時間",
+    "Offline": "オフライン"
+  },
+  "ThemeSwitcher": {
+    "Light": "ライト",
+    "Dark": "ダーク",
+    "System": "システム"
+  },
   "Footer": {
     "p_146-598_Findthecodeon": "コードのオープンソース",
     "a_303-585_GitHub": "GitHub",

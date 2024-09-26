@@ -5,6 +5,30 @@
     "p_2532-2599_Offlineservers": "Offline servers",
     "p_3463-3530_Totalbandwidth": "Total bandwidth"
   },
+  "ServerCard": {
+    "CPU": "CPU",
+    "Mem": "Mem",
+    "STG": "STG",
+    "Upload": "Upload",
+    "Download": "Download",
+    "Offline": "Offline"
+  },
+  "ServerCardPopover": {
+    "System": "System",
+    "CPU": "CPU",
+    "Mem": "Mem",
+    "STG": "STG",
+    "Swap": "Swap",
+    "Network": "Network",
+    "Load": "Load",
+    "Online": "Online",
+    "Offline": "Offline"
+  },
+  "ThemeSwitcher": {
+    "Light": "Light",
+    "Dark": "Dark",
+    "System": "System"
+  },
   "Footer": {
     "p_146-598_Findthecodeon": "Find the code on",
     "a_303-585_GitHub": "GitHub",

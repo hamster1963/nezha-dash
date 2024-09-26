@@ -5,6 +5,30 @@
     "p_2532-2599_Offlineservers": "离线服务器",
     "p_3463-3530_Totalbandwidth": "总流量"
   },
+  "ServerCard": {
+    "CPU": "CPU",
+    "Mem": "内存",
+    "STG": "存储",
+    "Upload": "上传",
+    "Download": "下载",
+    "Offline": "离线"
+  },
+  "ServerCardPopover": {
+    "System": "系统",
+    "CPU": "CPU",
+    "Mem": "内存",
+    "STG": "存储",
+    "Swap": "虚拟内存",
+    "Network": "网络",
+    "Load": "负载",
+    "Online": "在线时间",
+    "Offline": "离线"
+  },
+  "ThemeSwitcher": {
+    "Light": "亮色",
+    "Dark": "暗色",
+    "System": "系统"
+  },
   "Footer": {
     "p_146-598_Findthecodeon": "代码开源在",
     "a_303-585_GitHub": "GitHub",
