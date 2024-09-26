@@ -1,25 +1,26 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
-import blogMan from "@/public/blog-man.webp";
+import { useTranslations } from "next-intl";
+import { Card, CardContent } from "../../../../components/ui/card";
+import blogMan from "../../../../public/blog-man.webp";
 import Image from "next/image";
 import useSWR from "swr";
-import { formatBytes, nezhaFetcher } from "@/lib/utils";
-import { Loader } from "@/components/loading/Loader";
-import { ServerApi } from "@/app/types/nezha-api";
-import getEnv from "@/lib/env-entry";
-
+import { formatBytes, nezhaFetcher } from "../../../../lib/utils";
+import { Loader } from "../../../../components/loading/Loader";
+import { ServerApi } from "../../types/nezha-api";
+import getEnv from "../../../../lib/env-entry";
 export default function ServerOverviewClient() {
+  const t = useTranslations("ServerOverviewClient");
   const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher);
-
   const disableCartoon = getEnv("NEXT_PUBLIC_DisableCartoon") === "true";
-
   return (
     <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
       <Card>
         <CardContent className="px-6 py-3">
           <section className="flex flex-col gap-1">
-            <p className="text-sm md:text-base font-medium">Total servers</p>
+            <p className="text-sm font-medium md:text-base">
+              {t("p_816-881_Totalservers")}
+            </p>
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
@@ -40,7 +41,9 @@ export default function ServerOverviewClient() {
       <Card>
         <CardContent className="px-6 py-3">
           <section className="flex flex-col gap-1">
-            <p className="text-sm md:text-base font-medium">Online servers</p>
+            <p className="text-sm font-medium md:text-base">
+              {t("p_1610-1676_Onlineservers")}
+            </p>
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
@@ -62,7 +65,9 @@ export default function ServerOverviewClient() {
       <Card>
         <CardContent className="px-6 py-3">
           <section className="flex flex-col gap-1">
-            <p className="text-sm md:text-base font-medium">Offline servers</p>
+            <p className="text-sm font-medium md:text-base">
+              {t("p_2532-2599_Offlineservers")}
+            </p>
             <div className="flex items-center gap-2">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75"></span>
@@ -84,7 +89,9 @@ export default function ServerOverviewClient() {
       <Card>
         <CardContent className="relative px-6 py-3">
           <section className="flex flex-col gap-1">
-            <p className="text-sm md:text-base font-medium">Total bandwidth</p>
+            <p className="text-sm font-medium md:text-base">
+              {t("p_3463-3530_Totalbandwidth")}
+            </p>
             {data ? (
               <p className="text-lg font-semibold">
                 {formatBytes(data?.total_bandwidth)}
@@ -97,7 +104,7 @@ export default function ServerOverviewClient() {
           </section>
           {!disableCartoon && (
             <Image
-              className="pointer-events-none absolute right-3 top-[-85px] z-10 w-20"
+              className="pointer-events-none absolute right-3 top-[-85px] z-10 w-20 scale-90 md:scale-100"
               alt={"Hamster1963"}
               src={blogMan}
               priority

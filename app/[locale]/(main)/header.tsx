@@ -1,16 +1,18 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "../../../components/ui/separator";
 import { DateTime } from "luxon";
-import { ModeToggle } from "@/components/ThemeSwitcher";
-
+import { ModeToggle } from "../../../components/ThemeSwitcher";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 function Header() {
+  const t = useTranslations("Header");
   return (
     <div className="mx-auto w-full max-w-5xl">
       <section className="flex items-center justify-between">
-        <section className="text-base flex items-center font-medium">
+        <section className="flex items-center text-base font-medium">
           <div className="mr-1 flex flex-row items-center justify-start">
             <Image
               width={40}
@@ -27,10 +29,13 @@ function Header() {
             className="mx-2 hidden h-4 w-[1px] md:block"
           />
           <p className="hidden text-sm font-medium opacity-40 md:block">
-            Simple and beautiful dashboard
+            {t("p_1079-1199_Simpleandbeautifuldashbo")}
           </p>
         </section>
-        <ModeToggle />
+        <section className="flex items-center gap-2">
+          <LanguageSwitcher />
+          <ModeToggle />
+        </section>
       </section>
       <Overview />
     </div>
@@ -40,22 +45,19 @@ function Header() {
 // https://github.com/streamich/react-use/blob/master/src/useInterval.ts
 const useInterval = (callback: Function, delay?: number | null) => {
   const savedCallback = useRef<Function>(() => { });
-
   useEffect(() => {
     savedCallback.current = callback;
   });
-
   useEffect(() => {
     if (delay !== null) {
       const interval = setInterval(() => savedCallback.current(), delay || 0);
       return () => clearInterval(interval);
     }
-
     return undefined;
   }, [delay]);
 };
-
 function Overview() {
+  const t = useTranslations("Overview");
   const [mouted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
@@ -65,16 +67,16 @@ function Overview() {
   const [timeString, setTimeString] = useState(
     DateTime.now().setLocale("en-US").toLocaleString(timeOption),
   );
-
   useInterval(() => {
     setTimeString(DateTime.now().setLocale("en-US").toLocaleString(timeOption));
   }, 1000);
-
   return (
     <section className={"mt-10 flex flex-col md:mt-16"}>
-      <p className="text-base font-semibold">👋 Overview</p>
+      <p className="text-base font-semibold">{t("p_2277-2331_Overview")}</p>
       <div className="flex items-center gap-1.5">
-        <p className="text-sm font-medium opacity-50">where the time is</p>
+        <p className="text-sm font-medium opacity-50">
+          {t("p_2390-2457_wherethetimeis")}
+        </p>
         {mouted && (
           <p className="opacity-1 text-sm font-medium">{timeString}</p>
         )}
@@ -82,5 +84,4 @@ function Overview() {
     </section>
   );
 }
-
 export default Header;

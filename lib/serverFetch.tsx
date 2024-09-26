@@ -1,32 +1,17 @@
+"use server";
 
-import { NezhaAPI, ServerApi } from "@/app/[locale]/types/nezha-api";
-import { MakeOptional } from "@/app/[locale]/types/utils";
-import getEnv from "@/lib/env-entry";
-import { NextResponse } from "next/server";
+import { NezhaAPI, ServerApi } from "../app/[locale]/types/nezha-api";
+import { MakeOptional } from "../app/[locale]/types/utils";
+import { unstable_noStore as noStore } from "next/cache";
+import getEnv from "./env-entry";
 
-export const dynamic = "force-dynamic";
-
-export const runtime = 'edge';
-
-export async function GET(_: Request) {
-  try {
-    const response = await GetNezhaData();
-    return NextResponse.json(response, { status: 200 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { error: "fetch nezha data failed" },
-      { status: 400 },
-    );
-  }
-}
-
-async function GetNezhaData() {
+export async function GetNezhaData() {
+  noStore();
 
   var nezhaBaseUrl = getEnv("NezhaBaseUrl");
   if (!nezhaBaseUrl) {
-    console.log("NezhaBaseUrl is not set");
-    return;
+    console.error("NezhaBaseUrl is not set");
+    throw new Error("NezhaBaseUrl is not set");
   }
 
   // Remove trailing slash
