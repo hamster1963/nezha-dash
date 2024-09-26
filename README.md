@@ -23,5 +23,14 @@
 
 <br>
 
+#### 多语言支持
+
+| 语言     | 代码 | 是否完成翻译 |
+| -------- | ---- | ------------ |
+| 简体中文 | zh   | 是           |
+| 繁体中文 | zh-t | 是           |
+| 英语     | en   | 是           |
+| 日语     | ja   | 是           |
+
 ![screen-shot-one](/.github/shotOne.png)
 ![screen-shot-two](/.github/shotTwo.png)
