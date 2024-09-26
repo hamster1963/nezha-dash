@@ -1,0 +1,26 @@
+{
+  "ServerOverviewClient": {
+    "p_816-881_Totalservers": "伺服器總數",
+    "p_1610-1676_Onlineservers": "在線伺服器",
+    "p_2532-2599_Offlineservers": "離線伺服器",
+    "p_3463-3530_Totalbandwidth": "總頻寬"
+  },
+  "Footer": {
+    "p_146-598_Findthecodeon": "查找代碼",
+    "a_303-585_GitHub": "GitHub的",
+    "section_607-869_2020": "© 2020 年-",
+    "a_800-850_Hamster1963": "@Hamster1963"
+  },
+  "Header": {
+    "p_1079-1199_Simpleandbeautifuldashbo": "簡單美觀的儀錶板"
+  },
+  "Overview": {
+    "p_2277-2331_Overview": "👋 概述",
+    "p_2390-2457_wherethetimeis": "時間在哪裡"
+  },
+  "NotFoundPage": {
+    "h1_490-590_404NotFound": "404 未找到",
+    "p_601-665_TARDISERROR": "TARDIS 錯誤！",
+    "Link_676-775_Doctor": "醫生？"
+  }
+}

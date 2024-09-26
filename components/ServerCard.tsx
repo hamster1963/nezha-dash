@@ -1,4 +1,4 @@
-import { NezhaAPISafe } from "@/app/types/nezha-api";
+import { NezhaAPISafe } from "../app/[locale]/types/nezha-api";
 import ServerUsageBar from "@/components/ServerUsageBar";
 import { Card } from "@/components/ui/card";
 import {

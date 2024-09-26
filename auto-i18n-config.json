@@ -1,0 +1,15 @@
+{
+    "defaultLang": "en",
+    "translatorServerName": "azure",
+    "needLangs": [
+        "en",
+        "zh",
+        "zh-t",
+        "ja"
+    ],
+    "brandWords": [],
+    "unMoveToLocaleDirFiles": [],
+    "enableStaticRendering": false,
+    "enableSubPageRedirectToLocale": false,
+    "disableDefaultLangRedirect": true
+}

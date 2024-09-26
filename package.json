@@ -6,7 +6,9 @@
     "dev": "next dev -p 3020",
     "start": "node .next/standalone/server.js",
     "lint": "next lint",
-    "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/"
+    "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
+    "build-dev": "next build",
+    "start-dev": "next start"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.9",
@@ -28,6 +30,7 @@
     "lucide-react": "^0.414.0",
     "luxon": "^3.5.0",
     "next": "^14.2.13",
+    "next-intl": "^3.20.0",
     "next-runtime-env": "^3.2.2",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
