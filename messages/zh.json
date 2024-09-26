@@ -3,24 +3,24 @@
     "p_816-881_Totalservers": "服务器总数",
     "p_1610-1676_Onlineservers": "在线服务器",
     "p_2532-2599_Offlineservers": "离线服务器",
-    "p_3463-3530_Totalbandwidth": "总带宽"
+    "p_3463-3530_Totalbandwidth": "总流量"
   },
   "Footer": {
-    "p_146-598_Findthecodeon": "查找代码",
-    "a_303-585_GitHub": "GitHub的",
-    "section_607-869_2020": "© 2020 年-",
+    "p_146-598_Findthecodeon": "代码开源在",
+    "a_303-585_GitHub": "GitHub",
+    "section_607-869_2020": "© 2020-",
     "a_800-850_Hamster1963": "@Hamster1963"
   },
   "Header": {
     "p_1079-1199_Simpleandbeautifuldashbo": "简单美观的仪表板"
   },
   "Overview": {
-    "p_2277-2331_Overview": "👋 概述",
-    "p_2390-2457_wherethetimeis": "时间在哪里"
+    "p_2277-2331_Overview": "👋 概览",
+    "p_2390-2457_wherethetimeis": "当前时间"
   },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "404 未找到",
     "p_601-665_TARDISERROR": "TARDIS 错误！",
-    "Link_676-775_Doctor": "医生？"
+    "Link_676-775_Doctor": "Doctor？"
   }
 }
