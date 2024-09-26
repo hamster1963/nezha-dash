@@ -8,17 +8,19 @@ export const dynamic = "force-dynamic";
 
 export const runtime = 'edge';
 
+interface NezhaDataResponse {
+  error?: string;
+  data?: ServerApi;
+}
+
+
 export async function GET(_: Request) {
-  try {
-    const response = await GetNezhaData();
-    return NextResponse.json(response, { status: 200 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { error: "fetch nezha data failed" },
-      { status: 400 },
-    );
+  const response = (await GetNezhaData()) as NezhaDataResponse;
+  if (response.error) {
+    console.log(response.error);
+    return NextResponse.json({ error: response.error }, { status: 400 });
   }
+  return NextResponse.json(response, { status: 200 });
 }
 
 async function GetNezhaData() {
@@ -26,7 +28,7 @@ async function GetNezhaData() {
   var nezhaBaseUrl = getEnv("NezhaBaseUrl");
   if (!nezhaBaseUrl) {
     console.log("NezhaBaseUrl is not set");
-    return;
+    return { error: "NezhaBaseUrl is not set" };
   }
 
   // Remove trailing slash
@@ -42,7 +44,12 @@ async function GetNezhaData() {
         revalidate: 0,
       },
     });
-    const nezhaData = (await response.json()).result as NezhaAPI[];
+    const resData = await response.json();
+    const nezhaData = resData.result as NezhaAPI[];
+    if (!nezhaData) {
+      console.log(resData);
+      return { error: "NezhaData fetch failed" };
+    }
     const data: ServerApi = {
       live_servers: 0,
       offline_servers: 0,

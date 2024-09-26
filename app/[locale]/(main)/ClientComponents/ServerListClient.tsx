@@ -6,9 +6,18 @@ import { nezhaFetcher } from "../../../../lib/utils";
 import useSWR from "swr";
 import getEnv from "../../../../lib/env-entry";
 export default function ServerListClient() {
-  const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher, {
+  const { data, error } = useSWR<ServerApi>("/api/server", nezhaFetcher, {
     refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 2000,
   });
+  if (error)
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <p className="text-sm font-medium opacity-40">{error.message}</p>
+        <p className="text-sm font-medium opacity-40">
+          Please check your environment variables and review the server console logs for more details.
+        </p>
+      </div>
+    );
   if (!data) return null;
   const sortedServers = data.result.sort((a, b) => {
     if (a.display_index && b.display_index) {
