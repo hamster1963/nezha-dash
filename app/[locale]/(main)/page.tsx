@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl";
 import ServerList from "../../../components/ServerList";
 import ServerOverview from "../../../components/ServerOverview";
 import getEnv from "../../../lib/env-entry";
@@ -8,8 +7,8 @@ const disablePrefetch = getEnv("ServerDisablePrefetch") === "true";
 const fallback = disablePrefetch
   ? {}
   : {
-      "/api/server": GetNezhaData(),
-    };
+    "/api/server": GetNezhaData(),
+  };
 export default function Home() {
   return (
     <SWRConfig

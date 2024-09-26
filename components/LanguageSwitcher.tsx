@@ -40,12 +40,11 @@ export function LanguageSwitcher() {
       pathname === currentLocalePath ||
       pathname === `${currentLocalePath}/`
     ) {
-      router.replace(newLocalePath);
+      router.push(newLocalePath);
     } else {
       const newPath = constructLocalePath(pathname, newLocale);
-      router.replace(newPath);
+      router.push(newPath);
     }
-    router.refresh();
   };
 
   return (
