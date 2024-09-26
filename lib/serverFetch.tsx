@@ -2,7 +2,6 @@
 
 import { NezhaAPI, ServerApi } from "../app/[locale]/types/nezha-api";
 import { MakeOptional } from "../app/[locale]/types/utils";
-import { error } from "console";
 import { unstable_noStore as noStore } from "next/cache";
 import getEnv from "./env-entry";
 
@@ -11,8 +10,8 @@ export async function GetNezhaData() {
 
   var nezhaBaseUrl = getEnv("NezhaBaseUrl");
   if (!nezhaBaseUrl) {
-    error("NezhaBaseUrl is not set");
-    return;
+    console.log("NezhaBaseUrl is not set");
+    return { error: "NezhaBaseUrl is not set" };
   }
 
   // Remove trailing slash
@@ -28,7 +27,12 @@ export async function GetNezhaData() {
         revalidate: 0,
       },
     });
-    const nezhaData = (await response.json()).result as NezhaAPI[];
+    const resData = await response.json();
+    const nezhaData = resData.result as NezhaAPI[];
+    if (!nezhaData) {
+      console.log(resData);
+      return { error: "NezhaData fetch failed" };
+    }
     const data: ServerApi = {
       live_servers: 0,
       offline_servers: 0,
