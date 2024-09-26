@@ -40,10 +40,10 @@ export function LanguageSwitcher() {
       pathname === currentLocalePath ||
       pathname === `${currentLocalePath}/`
     ) {
-      router.push(newLocalePath);
+      router.replace(newLocalePath);
     } else {
       const newPath = constructLocalePath(pathname, newLocale);
-      router.push(newPath);
+      router.replace(newPath);
     }
     router.refresh();
   };
