@@ -21,8 +21,6 @@
 | NEXT_PUBLIC_ShowFlag           | 是否显示旗帜         | **默认**：false                  |
 | NEXT_PUBLIC_DisableCartoon     | 是否禁用卡通人物     | **默认**：false                  |
 
-<br>
-
 #### 多语言支持
 
 | 语言     | 代码 | 是否完成翻译 |
