@@ -9,6 +9,7 @@ import { Inter as FontSans } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Viewport } from "next";
 import { cn } from "@/lib/utils";
+import { locales } from "@/i18n-metadata";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -32,6 +33,11 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
 };
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
 
 export default function LocaleLayout({
   children,
