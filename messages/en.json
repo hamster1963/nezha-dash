@@ -1,0 +1,50 @@
+{
+  "ServerOverviewClient": {
+    "p_816-881_Totalservers": "Total servers",
+    "p_1610-1676_Onlineservers": "Online servers",
+    "p_2532-2599_Offlineservers": "Offline servers",
+    "p_3463-3530_Totalbandwidth": "Total bandwidth"
+  },
+  "ServerCard": {
+    "CPU": "CPU",
+    "Mem": "Mem",
+    "STG": "STG",
+    "Upload": "Upload",
+    "Download": "Download",
+    "Offline": "Offline"
+  },
+  "ServerCardPopover": {
+    "System": "System",
+    "CPU": "CPU",
+    "Mem": "Mem",
+    "STG": "STG",
+    "Swap": "Swap",
+    "Network": "Network",
+    "Load": "Load",
+    "Online": "Online",
+    "Offline": "Offline"
+  },
+  "ThemeSwitcher": {
+    "Light": "Light",
+    "Dark": "Dark",
+    "System": "System"
+  },
+  "Footer": {
+    "p_146-598_Findthecodeon": "Find the code on",
+    "a_303-585_GitHub": "GitHub",
+    "section_607-869_2020": "© 2020-",
+    "a_800-850_Hamster1963": "@Hamster1963"
+  },
+  "Header": {
+    "p_1079-1199_Simpleandbeautifuldashbo": "Simple and beautiful dashboard"
+  },
+  "Overview": {
+    "p_2277-2331_Overview": "👋 Overview",
+    "p_2390-2457_wherethetimeis": "where the time is"
+  },
+  "NotFoundPage": {
+    "h1_490-590_404NotFound": "404 Not Found",
+    "p_601-665_TARDISERROR": "TARDIS ERROR!",
+    "Link_676-775_Doctor": "Doctor?"
+  }
+}

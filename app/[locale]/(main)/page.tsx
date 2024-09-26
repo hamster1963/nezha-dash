@@ -1,18 +1,14 @@
-import ServerList from "@/components/ServerList";
-import ServerOverview from "@/components/ServerOverview";
-import getEnv from "@/lib/env-entry";
-import { GetNezhaData } from "@/lib/serverFetch";
-
+import ServerList from "../../../components/ServerList";
+import ServerOverview from "../../../components/ServerOverview";
+import getEnv from "../../../lib/env-entry";
+import { GetNezhaData } from "../../../lib/serverFetch";
 import { SWRConfig } from "swr";
-
 const disablePrefetch = getEnv("ServerDisablePrefetch") === "true";
-
 const fallback = disablePrefetch
   ? {}
   : {
-      "/api/server": GetNezhaData(),
-    };
-
+    "/api/server": GetNezhaData(),
+  };
 export default function Home() {
   return (
     <SWRConfig
