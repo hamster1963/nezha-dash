@@ -14,7 +14,7 @@ export default function ServerListClient() {
       <div className="flex flex-col items-center justify-center">
         <p className="text-sm font-medium opacity-40">{error.message}</p>
         <p className="text-sm font-medium opacity-40">
-          Please check your env variables
+          Please check your environment variables and review the server console logs for more details.
         </p>
       </div>
     );
