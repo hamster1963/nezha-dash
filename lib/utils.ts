@@ -10,12 +10,33 @@ export function formatNezhaInfo(serverInfo: NezhaAPISafe) {
   return {
     ...serverInfo,
     cpu: serverInfo.status.CPU,
-    up: serverInfo.status.NetOutSpeed / 1024 / 1024,
-    down: serverInfo.status.NetInSpeed / 1024 / 1024,
+    up: serverInfo.status.NetOutSpeed,
+    down: serverInfo.status.NetInSpeed,
     online: serverInfo.online_status,
     mem: (serverInfo.status.MemUsed / serverInfo.host.MemTotal) * 100,
     stg: (serverInfo.status.DiskUsed / serverInfo.host.DiskTotal) * 100,
     country_code: serverInfo.host.CountryCode,
+  };
+}
+
+interface FormattedSpeed {
+  value: number;
+  unit: string;
+}
+
+export function formatNetworkSpeed(bytesPerSecond: number): FormattedSpeed {
+  const units = ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s'];
+  let speed = bytesPerSecond;
+  let unitIndex = 0;
+
+  while (speed >= 1024 && unitIndex < units.length - 1) {
+    speed /= 1024;
+    unitIndex++;
+  }
+
+  return {
+    value: parseFloat(speed.toFixed(2)),
+    unit: units[unitIndex]
   };
 }
 

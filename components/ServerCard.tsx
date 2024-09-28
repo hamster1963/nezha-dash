@@ -7,7 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn, formatNezhaInfo } from "@/lib/utils";
+import { cn, formatNezhaInfo, formatNetworkSpeed } from "@/lib/utils";
 import ServerCardPopover from "./ServerCardPopover";
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
 import { env } from "next-runtime-env";
@@ -20,6 +20,9 @@ export default function ServerCard({
   const t = useTranslations("ServerCard");
   const { name, country_code, online, cpu, up, down, mem, stg, ...props } =
     formatNezhaInfo(serverInfo);
+
+  const formattedUpSpeed = formatNetworkSpeed(up);
+  const formattedDownSpeed = formatNetworkSpeed(down);
 
   const showFlag = env("NEXT_PUBLIC_ShowFlag") === "true";
 
@@ -89,8 +92,8 @@ export default function ServerCard({
           {/* 设置固定宽度 */}
           <p className="text-xs text-muted-foreground">{t("Upload")}</p>
           <div className="flex items-center text-xs font-semibold">
-            {up.toFixed(2)}
-            Mb/s
+            {formattedUpSpeed.value}
+            {formattedUpSpeed.unit}
           </div>
         </div>
         <div className={"flex w-14 flex-col"}>
@@ -98,8 +101,8 @@ export default function ServerCard({
           {/* 设置固定宽度 */}
           <p className="text-xs text-muted-foreground">{t("Download")}</p>
           <div className="flex items-center text-xs font-semibold">
-            {down.toFixed(2)}
-            Mb/s
+            {formattedDownSpeed.value}
+            {formattedDownSpeed.unit}
           </div>
         </div>
       </section>
