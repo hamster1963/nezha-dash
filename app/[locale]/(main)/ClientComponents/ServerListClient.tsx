@@ -19,14 +19,25 @@ export default function ServerListClient() {
       </div>
     );
   if (!data) return null;
-  const sortedServers = data.result.sort((a, b) => {
-    if (a.display_index && b.display_index) {
-      return b.display_index - a.display_index;
-    }
-    if (a.display_index) return -1;
-    if (b.display_index) return 1;
-    return a.id - b.id;
-  });
+  const { result } = data;
+
+  const positiveDisplayIndex = result
+    .filter((server) => server.display_index > 0)
+    .sort((a, b) => b.display_index - a.display_index);
+
+  const noDisplayIndex = result
+    .filter((server) => !server.display_index)
+    .sort((a, b) => a.id - b.id);
+
+  const negativeDisplayIndex = result
+    .filter((server) => server.display_index < 0)
+    .sort((a, b) => b.display_index - a.display_index);
+
+  const sortedServers = [
+    ...positiveDisplayIndex,
+    ...noDisplayIndex,
+    ...negativeDisplayIndex,
+  ];
   return (
     <section className="grid grid-cols-1 gap-2 md:grid-cols-2">
       {sortedServers.map((serverInfo) => (
