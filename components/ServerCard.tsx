@@ -59,51 +59,43 @@ export default function ServerCard({
           <ServerCardPopover status={props.status} host={props.host} />
         </PopoverContent>
       </Popover>
-      <section className={"grid grid-cols-5 items-center gap-3"}>
-        <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
+      <section className={"grid grid-cols-[1fr_1fr_1fr_auto_auto] items-center gap-3 md:gap-1 md-820:gap-3"}>
+        <div className={"flex min-w-14 flex-col"}>
           <p className="text-xs text-muted-foreground">{t("CPU")}</p>
           <div className="flex items-center text-xs font-semibold">
             {cpu.toFixed(2)}%
           </div>
           <ServerUsageBar value={cpu} />
         </div>
-        <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
+        <div className={"flex min-w-14 flex-col"}>
           <p className="text-xs text-muted-foreground">{t("Mem")}</p>
           <div className="flex items-center text-xs font-semibold">
             {mem.toFixed(2)}%
           </div>
           <ServerUsageBar value={mem} />
         </div>
-        <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
+        <div className={"flex min-w-14 flex-col"}>
           <p className="text-xs text-muted-foreground">{t("STG")}</p>
           <div className="flex items-center text-xs font-semibold">
             {stg.toFixed(2)}%
           </div>
           <ServerUsageBar value={stg} />
         </div>
-        <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
+        <div className={"flex flex-col"}>
           <p className="text-xs text-muted-foreground">{t("Upload")}</p>
           <div className="flex items-center text-xs font-semibold">
             {formattedUpSpeed.value}
             {formattedUpSpeed.unit}
           </div>
+          <div className="h-[3px]" />
         </div>
-        <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
+        <div className={"flex flex-col"}>
           <p className="text-xs text-muted-foreground">{t("Download")}</p>
           <div className="flex items-center text-xs font-semibold">
             {formattedDownSpeed.value}
             {formattedDownSpeed.unit}
           </div>
+          <div className="h-[3px]" />
         </div>
       </section>
     </Card>
