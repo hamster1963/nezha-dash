@@ -14,11 +14,13 @@ export default function ServerListClient() {
       <div className="flex flex-col items-center justify-center">
         <p className="text-sm font-medium opacity-40">{error.message}</p>
         <p className="text-sm font-medium opacity-40">
-          Please check your environment variables and review the server console logs for more details.
+          Please check your environment variables and review the server console
+          logs for more details.
         </p>
       </div>
     );
   if (!data) return null;
+
   const { result } = data;
 
   const positiveDisplayIndex = result
@@ -38,6 +40,7 @@ export default function ServerListClient() {
     ...noDisplayIndex,
     ...negativeDisplayIndex,
   ];
+
   return (
     <section className="grid grid-cols-1 gap-2 md:grid-cols-2">
       {sortedServers.map((serverInfo) => (
