@@ -1,6 +1,8 @@
 // @auto-i18n-check. Please do not delete the line.
 
 import "@/styles/globals.css";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
+
 import React from "react";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { PublicEnvScript } from "next-runtime-env";
