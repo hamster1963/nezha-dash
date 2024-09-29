@@ -1,5 +1,7 @@
 // @auto-i18n-check. Please do not delete the line.
 
+import getEnv from "./lib/env-entry";
+
 export const localeItems = [
   { code: "en", name: "English" },
   { code: "ja", name: "日本語" },
@@ -21,4 +23,4 @@ export const localeItems = [
 ];
 
 export const locales = localeItems.map((item) => item.code);
-export const defaultLocale = "en";
+export const defaultLocale = getEnv("DefaultLocale") || "en";
