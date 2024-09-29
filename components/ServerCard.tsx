@@ -9,41 +9,20 @@ import {
 } from "@/components/ui/popover";
 import { cn, formatNezhaInfo } from "@/lib/utils";
 import ServerCardPopover from "./ServerCardPopover";
-import getUnicodeFlagIcon from "country-flag-icons/unicode";
+
 import { env } from "next-runtime-env";
-import { useEffect, useState } from "react";
+import ServerFlag from "./ServerFlag";
 
 export default function ServerCard({
   serverInfo,
 }: {
   serverInfo: NezhaAPISafe;
 }) {
-  const [supportsEmojiFlags, setSupportsEmojiFlags] = useState(false);
-
-  useEffect(() => {
-    const checkEmojiSupport = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      const emojiFlag = "🇺🇸"; // 使用美国国旗作为测试
-      if (!ctx) return;
-      ctx.fillStyle = "#000";
-      ctx.textBaseline = 'top';
-      ctx.font = '32px Arial';
-      ctx.fillText(emojiFlag, 0, 0);
-
-      const support = ctx.getImageData(16, 16, 1, 1).data[3] !== 0;
-      setSupportsEmojiFlags(support);
-    };
-
-    checkEmojiSupport();
-  }, []);
-
   const t = useTranslations("ServerCard");
   const { name, country_code, online, cpu, up, down, mem, stg, ...props } =
     formatNezhaInfo(serverInfo);
 
   const showFlag = env("NEXT_PUBLIC_ShowFlag") === "true";
-
 
   return online ? (
     <Card
@@ -54,15 +33,7 @@ export default function ServerCard({
       <Popover>
         <PopoverTrigger asChild>
           <section className={"flex items-center justify-start gap-2 lg:w-28"}>
-            {showFlag ? (
-              <span className="text-[12px] text-muted-foreground">
-                {!supportsEmojiFlags ? (
-                  <span className={`fi fi-${country_code}`}></span>
-                ) : (
-                  getUnicodeFlagIcon(country_code)
-                )}
-              </span>
-            ) : null}
+            {showFlag ? <ServerFlag country_code={country_code} /> : null}
             <p
               className={cn(
                 "break-all font-bold tracking-tight",
@@ -80,8 +51,6 @@ export default function ServerCard({
       </Popover>
       <section className={"grid grid-cols-5 items-center gap-3"}>
         <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
           <p className="text-xs text-muted-foreground">{t("CPU")}</p>
           <div className="flex items-center text-xs font-semibold">
             {cpu.toFixed(2)}%
@@ -89,8 +58,6 @@ export default function ServerCard({
           <ServerUsageBar value={cpu} />
         </div>
         <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
           <p className="text-xs text-muted-foreground">{t("Mem")}</p>
           <div className="flex items-center text-xs font-semibold">
             {mem.toFixed(2)}%
@@ -98,8 +65,6 @@ export default function ServerCard({
           <ServerUsageBar value={mem} />
         </div>
         <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
           <p className="text-xs text-muted-foreground">{t("STG")}</p>
           <div className="flex items-center text-xs font-semibold">
             {stg.toFixed(2)}%
@@ -107,8 +72,6 @@ export default function ServerCard({
           <ServerUsageBar value={stg} />
         </div>
         <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
           <p className="text-xs text-muted-foreground">{t("Upload")}</p>
           <div className="flex items-center text-xs font-semibold">
             {up.toFixed(2)}
@@ -116,8 +79,6 @@ export default function ServerCard({
           </div>
         </div>
         <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
           <p className="text-xs text-muted-foreground">{t("Download")}</p>
           <div className="flex items-center text-xs font-semibold">
             {down.toFixed(2)}
@@ -135,15 +96,7 @@ export default function ServerCard({
       <Popover>
         <PopoverTrigger asChild>
           <section className={"flex items-center justify-start gap-2 lg:w-28"}>
-            {showFlag ? (
-              <span className="text-[12px] text-muted-foreground">
-                {!supportsEmojiFlags ? (
-                  <span className={`fi fi-${country_code}`}></span>
-                ) : (
-                  getUnicodeFlagIcon(country_code)
-                )}
-              </span>
-            ) : null}
+            {showFlag ? <ServerFlag country_code={country_code} /> : null}
             <p
               className={cn(
                 "break-all font-bold tracking-tight",
