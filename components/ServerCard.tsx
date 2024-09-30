@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/popover";
 import { cn, formatNezhaInfo } from "@/lib/utils";
 import ServerCardPopover from "./ServerCardPopover";
-import getUnicodeFlagIcon from "country-flag-icons/unicode";
+
 import { env } from "next-runtime-env";
+import ServerFlag from "./ServerFlag";
 
 export default function ServerCard({
   serverInfo,
@@ -32,15 +33,7 @@ export default function ServerCard({
       <Popover>
         <PopoverTrigger asChild>
           <section className={"flex items-center justify-start gap-2 lg:w-28"}>
-            {showFlag ? (
-              country_code ? (
-                <span className="text-[12px] text-muted-foreground">
-                  {getUnicodeFlagIcon(country_code)}
-                </span>
-              ) : (
-                <span className="text-[12px] text-muted-foreground">🏁</span>
-              )
-            ) : null}
+            {showFlag ? <ServerFlag country_code={country_code} /> : null}
             <p
               className={cn(
                 "break-all font-bold tracking-tight",
@@ -58,8 +51,6 @@ export default function ServerCard({
       </Popover>
       <section className={"grid grid-cols-5 items-center gap-3"}>
         <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
           <p className="text-xs text-muted-foreground">{t("CPU")}</p>
           <div className="flex items-center text-xs font-semibold">
             {cpu.toFixed(2)}%
@@ -67,8 +58,6 @@ export default function ServerCard({
           <ServerUsageBar value={cpu} />
         </div>
         <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
           <p className="text-xs text-muted-foreground">{t("Mem")}</p>
           <div className="flex items-center text-xs font-semibold">
             {mem.toFixed(2)}%
@@ -76,8 +65,6 @@ export default function ServerCard({
           <ServerUsageBar value={mem} />
         </div>
         <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
           <p className="text-xs text-muted-foreground">{t("STG")}</p>
           <div className="flex items-center text-xs font-semibold">
             {stg.toFixed(2)}%
@@ -85,8 +72,6 @@ export default function ServerCard({
           <ServerUsageBar value={stg} />
         </div>
         <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
           <p className="text-xs text-muted-foreground">{t("Upload")}</p>
           <div className="flex items-center text-xs font-semibold">
             {up.toFixed(2)}
@@ -94,8 +79,6 @@ export default function ServerCard({
           </div>
         </div>
         <div className={"flex w-14 flex-col"}>
-          {" "}
-          {/* 设置固定宽度 */}
           <p className="text-xs text-muted-foreground">{t("Download")}</p>
           <div className="flex items-center text-xs font-semibold">
             {down.toFixed(2)}
@@ -113,15 +96,7 @@ export default function ServerCard({
       <Popover>
         <PopoverTrigger asChild>
           <section className={"flex items-center justify-start gap-2 lg:w-28"}>
-            {showFlag ? (
-              country_code ? (
-                <span className="text-[12px] text-muted-foreground">
-                  {getUnicodeFlagIcon(country_code)}
-                </span>
-              ) : (
-                <span className="text-[12px] text-muted-foreground">🏁</span>
-              )
-            ) : null}
+            {showFlag ? <ServerFlag country_code={country_code} /> : null}
             <p
               className={cn(
                 "break-all font-bold tracking-tight",

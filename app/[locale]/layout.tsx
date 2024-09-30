@@ -1,6 +1,8 @@
 // @auto-i18n-check. Please do not delete the line.
 
 import "@/styles/globals.css";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
+
 import React from "react";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { PublicEnvScript } from "next-runtime-env";
@@ -10,6 +12,7 @@ import { ThemeProvider } from "next-themes";
 import { Viewport } from "next";
 import { cn } from "@/lib/utils";
 import { locales } from "@/i18n-metadata";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -34,10 +37,11 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export function generateStaticParams() {
+export const dynamic = "force-static";
+
+export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
-
 
 export default function LocaleLayout({
   children,
@@ -46,6 +50,8 @@ export default function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
+  unstable_setRequestLocale(locale);
+
   const messages = useMessages();
   return (
     <html lang={locale} suppressHydrationWarning>
