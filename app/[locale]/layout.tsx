@@ -35,6 +35,8 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
+export const dynamic = "force-static";
+
 export default function LocaleLayout({
   children,
   params: { locale },
@@ -45,9 +47,9 @@ export default function LocaleLayout({
   const messages = useMessages();
   return (
     <html lang={locale} suppressHydrationWarning>
-      <head>
+      {/* <head>
         <PublicEnvScript />
-      </head>
+      </head> */}
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
