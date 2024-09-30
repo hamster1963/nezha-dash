@@ -23,23 +23,11 @@ export default function ServerListClient() {
 
   const { result } = data;
 
-  const positiveDisplayIndex = result
-    .filter((server) => server.display_index > 0)
-    .sort((a, b) => b.display_index - a.display_index);
-
-  const noDisplayIndex = result
-    .filter((server) => !server.display_index)
-    .sort((a, b) => a.id - b.id);
-
-  const negativeDisplayIndex = result
-    .filter((server) => server.display_index < 0)
-    .sort((a, b) => b.display_index - a.display_index);
-
-  const sortedServers = [
-    ...positiveDisplayIndex,
-    ...noDisplayIndex,
-    ...negativeDisplayIndex,
-  ];
+  const sortedServers = result.sort((a, b) => {
+    const displayIndexDiff = (b.display_index || 0) - (a.display_index || 0);
+    if (displayIndexDiff !== 0) return displayIndexDiff;
+    return a.id - b.id;
+  });
 
   return (
     <section className="grid grid-cols-1 gap-2 md:grid-cols-2">
