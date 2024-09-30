@@ -11,6 +11,8 @@ import { Inter as FontSans } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Viewport } from "next";
 import { cn } from "@/lib/utils";
+import { locales } from "@/i18n-metadata";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -35,7 +37,10 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export const dynamic = "force-static";
+// export const dynamic = "force-static";
+export async function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 export default function LocaleLayout({
   children,
@@ -44,12 +49,14 @@ export default function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
+  unstable_setRequestLocale(locale);
+
   const messages = useMessages();
   return (
     <html lang={locale} suppressHydrationWarning>
-      {/* <head>
+      <head>
         <PublicEnvScript />
-      </head> */}
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
