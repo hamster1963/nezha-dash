@@ -5,8 +5,40 @@ on:
     tags:
       - "v*"
 
+env:
+  REGISTRY_IMAGE: hamster1963/nezha-dash
+  ALIYUN_REGISTRY_IMAGE: registry.cn-guangzhou.aliyuncs.com/hamster-home/nezha-dash
+
 jobs:
+  changelog:
+    name: Generate Changelog
+    runs-on: ubuntu-latest
+    outputs:
+      release_body: ${{ steps.git-cliff.outputs.content }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v4
+        id: git-cliff
+        with:
+          config: git-cliff-config/cliff.toml
+          args: -vv --latest --strip 'footer'
+        env:
+          OUTPUT: CHANGES.md
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          body: ${{ steps.git-cliff.outputs.content }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
   build-and-push:
+    name: Build and push Docker image
     runs-on: ubuntu-latest
     environment: Production
     steps:
@@ -30,7 +62,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            hamster1963/nezha-dash
+            ${{ env.REGISTRY_IMAGE }}
+            ${{ env.ALIYUN_REGISTRY_IMAGE }}
           tags: |
             type=raw,value=latest
             type=ref,event=tag
