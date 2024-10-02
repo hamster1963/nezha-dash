@@ -30,18 +30,18 @@ export default function ServerListClient() {
 
   const { result } = data;
 
-  const allTag = result.map((server) => server.tag).filter((tag) => tag);
-  const uniqueTags = [...new Set(allTag)];
 
-  uniqueTags.sort((a, b) => a.localeCompare(b));
-
-  uniqueTags.unshift(defaultTag);
 
   const sortedServers = result.sort((a, b) => {
     const displayIndexDiff = (b.display_index || 0) - (a.display_index || 0);
     if (displayIndexDiff !== 0) return displayIndexDiff;
     return a.id - b.id;
   });
+
+  const allTag = sortedServers.map((server) => server.tag).filter((tag) => tag);
+  const uniqueTags = [...new Set(allTag)];
+
+  uniqueTags.unshift(defaultTag);
 
   const filteredServers =
     tag === defaultTag
