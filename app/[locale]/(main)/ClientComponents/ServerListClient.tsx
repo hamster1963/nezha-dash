@@ -32,6 +32,9 @@ export default function ServerListClient() {
 
   const allTag = result.map((server) => server.tag).filter((tag) => tag);
   const uniqueTags = [...new Set(allTag)];
+
+  uniqueTags.sort((a, b) => a.localeCompare(b));
+
   uniqueTags.unshift(defaultTag);
 
   const sortedServers = result.sort((a, b) => {
