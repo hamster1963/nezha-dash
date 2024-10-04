@@ -14,7 +14,7 @@ export default function Switch({
   setTag: (tag: string) => void;
 }) {
   return (
-    <div className="z-50 flex flex-col overflow-x-scroll scrollbar-hidden rounded-[50px] items-start">
+    <div className="scrollbar-hidden z-50 flex flex-col items-start overflow-x-scroll rounded-[50px]">
       <div className="flex items-center gap-1 rounded-[50px] bg-stone-100 p-[3px] dark:bg-stone-800">
         {allTag.map((tag) => (
           <div

@@ -5,6 +5,10 @@
     "p_2532-2599_Offlineservers": "オフラインサーバー",
     "p_3463-3530_Totalbandwidth": "総流量"
   },
+  "ServerListClient": {
+    "error_message": "環境変数を確認し、サーバーコンソールを確認してください",
+    "defaultTag": "すべて"
+  },
   "ServerCard": {
     "CPU": "CPU",
     "Mem": "Mem",

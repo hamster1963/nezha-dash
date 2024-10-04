@@ -7,11 +7,12 @@ import useSWR from "swr";
 import getEnv from "../../../../lib/env-entry";
 import Switch from "@/components/Switch";
 import { useState } from "react";
-
-const defaultTag = "All";
+import { useTranslations } from "next-intl";
 
 export default function ServerListClient() {
-  const [tag, setTag] = useState<string>(defaultTag);
+  const t = useTranslations("ServerListClient");
+
+  const [tag, setTag] = useState<string>(t("defaultTag"));
 
   const { data, error } = useSWR<ServerApi>("/api/server", nezhaFetcher, {
     refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 2000,
@@ -20,17 +21,12 @@ export default function ServerListClient() {
     return (
       <div className="flex flex-col items-center justify-center">
         <p className="text-sm font-medium opacity-40">{error.message}</p>
-        <p className="text-sm font-medium opacity-40">
-          Please check your environment variables and review the server console
-          logs for more details.
-        </p>
+        <p className="text-sm font-medium opacity-40">{t("error_message")}</p>
       </div>
     );
   if (!data) return null;
 
   const { result } = data;
-
-
 
   const sortedServers = result.sort((a, b) => {
     const displayIndexDiff = (b.display_index || 0) - (a.display_index || 0);
@@ -41,10 +37,10 @@ export default function ServerListClient() {
   const allTag = sortedServers.map((server) => server.tag).filter((tag) => tag);
   const uniqueTags = [...new Set(allTag)];
 
-  uniqueTags.unshift(defaultTag);
+  uniqueTags.unshift(t("defaultTag"));
 
   const filteredServers =
-    tag === defaultTag
+    tag === t("defaultTag")
       ? sortedServers
       : sortedServers.filter((server) => server.tag === tag);
 
