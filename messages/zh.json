@@ -5,6 +5,10 @@
     "p_2532-2599_Offlineservers": "离线服务器",
     "p_3463-3530_Totalbandwidth": "总流量"
   },
+  "ServerListClient": {
+    "error_message": "请检查您的环境变量并检查服务器控制台",
+    "defaultTag": "全部"
+  },
   "ServerCard": {
     "CPU": "CPU",
     "Mem": "内存",
