@@ -37,7 +37,6 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
