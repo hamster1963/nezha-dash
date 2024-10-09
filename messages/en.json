@@ -28,6 +28,12 @@
     "Online": "Online",
     "Offline": "Offline"
   },
+  "NetworkChartClient": {
+    "avg_delay": "Latency"
+  },
+  "NetworkChart": {
+    "ServerMonitorCount": "Services"
+  },
   "ThemeSwitcher": {
     "Light": "Light",
     "Dark": "Dark",
