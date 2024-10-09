@@ -1,6 +1,6 @@
 import { NetworkChartClient } from "../ClientComponents/NetworkChart";
 
-export const dynamic = "auto";
+export const dynamic = "force-dynamic"
 
 export default function Page({ params }: { params: { id: string } }) {
   return (
