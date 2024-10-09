@@ -118,7 +118,10 @@ export function NetworkChart({
                   {chart}
                 </span>
                 <span className="text-md font-bold leading-none sm:text-lg">
-                  {chartData[key][0].avg_delay.toFixed(2)}ms
+                  {chartData[key][chartData[key].length - 1].avg_delay.toFixed(
+                    2,
+                  )}
+                  ms
                 </span>
               </button>
             );
