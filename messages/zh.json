@@ -28,6 +28,12 @@
     "Online": "在线时间",
     "Offline": "离线"
   },
+  "NetworkChartClient": {
+    "avg_delay": "延迟"
+  },
+  "NetworkChart": {
+    "ServerMonitorCount": "个监控服务"
+  },
   "ThemeSwitcher": {
     "Light": "亮色",
     "Dark": "暗色",

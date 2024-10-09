@@ -28,6 +28,12 @@
     "Online": "在線時間",
     "Offline": "離線"
   },
+  "NetworkChartClient": {
+    "avg_delay": "延遲"
+  },
+  "NetworkChart": {
+    "ServerMonitorCount": "個監測服務"
+  },
   "ThemeSwitcher": {
     "Light": "亮色",
     "Dark": "暗色",

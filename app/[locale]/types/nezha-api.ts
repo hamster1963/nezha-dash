@@ -55,3 +55,20 @@ export interface NezhaAPIStatus {
   Temperatures: number;
   GPU: number;
 }
+
+export type ServerMonitorChart = {
+  [key: string]: {
+    server_name: string;
+    created_at: number;
+    avg_delay: number;
+  }[];
+};
+
+export interface NezhaAPIMonitor {
+  monitor_id: number;
+  monitor_name: string;
+  server_id: number;
+  server_name: string;
+  created_at: number[];
+  avg_delay: number[];
+}

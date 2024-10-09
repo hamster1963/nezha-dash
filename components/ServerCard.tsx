@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { NezhaAPISafe } from "../app/[locale]/types/nezha-api";
 import ServerUsageBar from "@/components/ServerUsageBar";
 import { Card } from "@/components/ui/card";
@@ -12,6 +12,7 @@ import ServerCardPopover from "./ServerCardPopover";
 
 import { env } from "next-runtime-env";
 import ServerFlag from "./ServerFlag";
+import { useRouter } from "next/navigation";
 
 export default function ServerCard({
   serverInfo,
@@ -19,10 +20,13 @@ export default function ServerCard({
   serverInfo: NezhaAPISafe;
 }) {
   const t = useTranslations("ServerCard");
-  const { name, country_code, online, cpu, up, down, mem, stg, ...props } =
+  const router = useRouter();
+  const { id, name, country_code, online, cpu, up, down, mem, stg, ...props } =
     formatNezhaInfo(serverInfo);
 
   const showFlag = env("NEXT_PUBLIC_ShowFlag") === "true";
+
+  const locale = useLocale();
 
   return online ? (
     <Card
@@ -49,7 +53,12 @@ export default function ServerCard({
           <ServerCardPopover status={props.status} host={props.host} />
         </PopoverContent>
       </Popover>
-      <section className={"grid grid-cols-5 items-center gap-3"}>
+      <section
+        onClick={() => {
+          router.push(`/${locale}/${id}`);
+        }}
+        className={"grid cursor-pointer grid-cols-5 items-center gap-3"}
+      >
         <div className={"flex w-14 flex-col"}>
           <p className="text-xs text-muted-foreground">{t("CPU")}</p>
           <div className="flex items-center text-xs font-semibold">
