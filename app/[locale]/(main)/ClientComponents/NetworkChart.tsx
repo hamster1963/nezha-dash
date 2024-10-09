@@ -24,6 +24,8 @@ import { BackIcon } from "@/components/Icon";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { useTranslations } from "next-intl";
+import NetworkChartLoading from "./NetworkChartLoading";
+
 export function NetworkChartClient({ server_id }: { server_id: number }) {
   const t = useTranslations("NetworkChartClient");
   const { data, error } = useSWR<ServerMonitorChart>(
@@ -37,7 +39,7 @@ export function NetworkChartClient({ server_id }: { server_id: number }) {
         <p className="text-sm font-medium opacity-40">{error.message}</p>
       </div>
     );
-  if (!data) return null;
+  if (!data) return <NetworkChartLoading />;
 
   const initChartConfig = {
     avg_delay: {
