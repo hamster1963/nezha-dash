@@ -17,7 +17,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import useSWR from "swr";
-import { ServerMonitorChart } from "../../types/nezha-api";
+import { NezhaAPIMonitor, ServerMonitorChart } from "../../types/nezha-api";
 import { formatTime, nezhaFetcher } from "@/lib/utils";
 import { formatRelativeTime } from "@/lib/utils";
 import { BackIcon } from "@/components/Icon";
@@ -26,9 +26,14 @@ import { useLocale } from "next-intl";
 import { useTranslations } from "next-intl";
 import NetworkChartLoading from "./NetworkChartLoading";
 
+interface ResultItem {
+  created_at: number;
+  [key: string]: number;
+}
+
 export function NetworkChartClient({ server_id }: { server_id: number }) {
   const t = useTranslations("NetworkChartClient");
-  const { data, error } = useSWR<ServerMonitorChart>(
+  const { data, error } = useSWR<NezhaAPIMonitor[]>(
     `/api/monitor?server_id=${server_id}`,
     nezhaFetcher,
   );
@@ -41,19 +46,64 @@ export function NetworkChartClient({ server_id }: { server_id: number }) {
     );
   if (!data) return <NetworkChartLoading />;
 
+  function transformData(data: NezhaAPIMonitor[]) {
+    const monitorData: ServerMonitorChart = {};
+
+    data.forEach((item) => {
+      const monitorName = item.monitor_name;
+
+      if (!monitorData[monitorName]) {
+        monitorData[monitorName] = [];
+      }
+
+      for (let i = 0; i < item.created_at.length; i++) {
+        monitorData[monitorName].push({
+          created_at: item.created_at[i],
+          avg_delay: item.avg_delay[i],
+        });
+      }
+    });
+
+    return monitorData;
+  }
+
+  const formatData = (rawData: NezhaAPIMonitor[]) => {
+    const result: { [time: number]: ResultItem } = {};
+
+    // 遍历每个监控项
+    rawData.forEach((item) => {
+      const { monitor_name, created_at, avg_delay } = item;
+
+      created_at.forEach((time, index) => {
+        if (!result[time]) {
+          result[time] = { created_at: time };
+        }
+        result[time][monitor_name] = parseFloat(avg_delay[index].toFixed(2));
+      });
+    });
+
+    return Object.values(result).sort((a, b) => a.created_at - b.created_at);
+  };
+
+  const transformedData = transformData(data);
+
+  const formattedData = formatData(data);
+
   const initChartConfig = {
     avg_delay: {
       label: t("avg_delay"),
     },
   } satisfies ChartConfig;
 
-  const chartDataKey = Object.keys(data);
+  const chartDataKey = Object.keys(transformedData);
 
   return (
     <NetworkChart
       chartDataKey={chartDataKey}
       chartConfig={initChartConfig}
-      chartData={data}
+      chartData={transformedData}
+      serverName={data[0].server_name}
+      formattedData={formattedData}
     />
   );
 }
@@ -62,22 +112,34 @@ export function NetworkChart({
   chartDataKey,
   chartConfig,
   chartData,
+  serverName,
+  formattedData,
 }: {
   chartDataKey: string[];
   chartConfig: ChartConfig;
   chartData: ServerMonitorChart;
+  serverName: string;
+  formattedData: ResultItem[];
 }) {
   const t = useTranslations("NetworkChart");
   const router = useRouter();
   const locale = useLocale();
 
-  const [activeChart, setActiveChart] = React.useState<
-    keyof typeof chartConfig
-  >(chartDataKey[0]);
+  const defaultChart = "All";
+
+  const [activeChart, setActiveChart] = React.useState(defaultChart);
+
+  const handleButtonClick = (chart: string) => {
+    if (chart === activeChart) {
+      setActiveChart(defaultChart);
+    } else {
+      setActiveChart(chart);
+    }
+  };
 
   const getColorByIndex = (chart: string) => {
     const index = chartDataKey.indexOf(chart);
-    return `hsl(var(--chart-${(index % 5) + 1}))`;
+    return `hsl(var(--chart-${(index % 10) + 1}))`;
   };
 
   return (
@@ -91,24 +153,23 @@ export function NetworkChart({
             className="flex flex-none cursor-pointer items-center gap-0.5 text-xl"
           >
             <BackIcon />
-            {chartData[chartDataKey[0]][0].server_name}
+            {serverName}
           </CardTitle>
           <CardDescription className="text-xs">
             {chartDataKey.length} {t("ServerMonitorCount")}
           </CardDescription>
         </div>
         <div className="flex flex-wrap">
-          {chartDataKey.map((key, index) => {
-            const chart = key as keyof typeof chartConfig;
+          {chartDataKey.map((key) => {
             return (
               <button
                 key={key}
                 data-active={activeChart === key}
                 className={`relative z-30 flex flex-1 flex-col justify-center gap-1 border-b px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-6`}
-                onClick={() => setActiveChart(key as keyof typeof chartConfig)}
+                onClick={() => handleButtonClick(key)}
               >
                 <span className="whitespace-nowrap text-xs text-muted-foreground">
-                  {chart}
+                  {key}
                 </span>
                 <span className="text-md font-bold leading-none sm:text-lg">
                   {chartData[key][chartData[key].length - 1].avg_delay.toFixed(
@@ -128,7 +189,11 @@ export function NetworkChart({
         >
           <LineChart
             accessibilityLayer
-            data={chartData[activeChart]}
+            data={
+              activeChart === defaultChart
+                ? formattedData
+                : chartData[activeChart]
+            }
             margin={{
               left: 12,
               right: 12,
@@ -143,7 +208,6 @@ export function NetworkChart({
               tickFormatter={(value) => formatRelativeTime(value)}
             />
             <YAxis
-              dataKey="avg_delay"
               tickLine={false}
               axisLine={false}
               mirror={true}
@@ -155,8 +219,7 @@ export function NetworkChart({
               content={
                 <ChartTooltipContent
                   indicator={"dot"}
-                  className="w-fit"
-                  nameKey="avg_delay"
+                  className="gap-2"
                   labelKey="created_at"
                   labelClassName="text-muted-foreground"
                   labelFormatter={(_, payload) => {
@@ -165,14 +228,28 @@ export function NetworkChart({
                 />
               }
             />
-            <Line
-              isAnimationActive={false}
-              strokeWidth={2}
-              type="linear"
-              dot={false}
-              dataKey="avg_delay"
-              stroke={getColorByIndex(activeChart)}
-            />
+            {activeChart !== defaultChart && (
+              <Line
+                isAnimationActive={false}
+                strokeWidth={2}
+                type="linear"
+                dot={false}
+                dataKey="avg_delay"
+                stroke={getColorByIndex(activeChart)}
+              />
+            )}
+            {activeChart === defaultChart &&
+              chartDataKey.map((key) => (
+                <Line
+                  key={key}
+                  isAnimationActive={false}
+                  strokeWidth={2}
+                  type="linear"
+                  dot={false}
+                  dataKey={key}
+                  stroke={getColorByIndex(key)}
+                />
+              ))}
           </LineChart>
         </ChartContainer>
       </CardContent>
