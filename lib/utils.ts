@@ -88,13 +88,13 @@ export function formatRelativeTime(timestamp: number): string {
 
   if (hours > 24) {
     const days = Math.floor(hours / 24);
-    return `${days}天前`;
+    return `${days}d`;
   } else if (hours > 0) {
-    return `${hours}小时前`;
+    return `${hours}h`;
   } else if (minutes >= 0) {
-    return `${minutes}分钟前`;
+    return `${minutes}m`;
   } else {
-    return "刚刚";
+    return "just now";
   }
 }
 
