@@ -28,6 +28,12 @@
     "Online": "オンライン時間",
     "Offline": "オフライン"
   },
+  "NetworkChartClient": {
+    "avg_delay": "遅延"
+  },
+  "NetworkChart": {
+    "ServerMonitorCount": "サービス"
+  },
   "ThemeSwitcher": {
     "Light": "ライト",
     "Dark": "ダーク",
