@@ -1,11 +1,6 @@
 "use server";
 
-import {
-  NezhaAPI,
-  NezhaAPIMonitor,
-  ServerApi,
-  ServerMonitorChart,
-} from "../app/[locale]/types/nezha-api";
+import { NezhaAPI, ServerApi } from "../app/[locale]/types/nezha-api";
 import { MakeOptional } from "../app/[locale]/types/utils";
 import { unstable_noStore as noStore } from "next/cache";
 import getEnv from "./env-entry";
@@ -71,28 +66,6 @@ export async function GetNezhaData() {
 }
 
 export async function GetServerMonitor({ server_id }: { server_id: number }) {
-  function transformData(data: NezhaAPIMonitor[]) {
-    const monitorData: ServerMonitorChart = {};
-
-    data.forEach((item) => {
-      const monitorName = item.monitor_name;
-
-      if (!monitorData[monitorName]) {
-        monitorData[monitorName] = [];
-      }
-
-      for (let i = 0; i < item.created_at.length; i++) {
-        monitorData[monitorName].push({
-          server_name: item.server_name,
-          created_at: item.created_at[i],
-          avg_delay: item.avg_delay[i],
-        });
-      }
-    });
-
-    return monitorData;
-  }
-
   var nezhaBaseUrl = getEnv("NezhaBaseUrl");
   if (!nezhaBaseUrl) {
     console.log("NezhaBaseUrl is not set");
@@ -122,7 +95,7 @@ export async function GetServerMonitor({ server_id }: { server_id: number }) {
       console.log(resData);
       return { error: "MonitorData fetch failed" };
     }
-    return transformData(monitorData);
+    return monitorData;
   } catch (error) {
     return error;
   }

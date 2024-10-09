@@ -58,7 +58,6 @@ export interface NezhaAPIStatus {
 
 export type ServerMonitorChart = {
   [key: string]: {
-    server_name: string;
     created_at: number;
     avg_delay: number;
   }[];
