@@ -49,22 +49,10 @@ export function NetworkChartClient({ server_id }: { server_id: number }) {
 
   const chartDataKey = Object.keys(data);
 
-  const generateChartConfig = chartDataKey.reduce((config, key, index) => {
-    return {
-      ...config,
-      [key]: {
-        label: key,
-        color: `hsl(var(--chart-${(index % 5) + 1}))`,
-      },
-    };
-  }, {} as ChartConfig);
-
-  const chartConfig = { ...initChartConfig, ...generateChartConfig };
-
   return (
     <NetworkChart
       chartDataKey={chartDataKey}
-      chartConfig={chartConfig}
+      chartConfig={initChartConfig}
       chartData={data}
     />
   );
@@ -86,6 +74,11 @@ export function NetworkChart({
   const [activeChart, setActiveChart] = React.useState<
     keyof typeof chartConfig
   >(chartDataKey[0]);
+
+  const getColorByIndex = (chart: string) => {
+    const index = chartDataKey.indexOf(chart);
+    return `hsl(var(--chart-${(index % 5) + 1}))`;
+  };
 
   return (
     <Card>
@@ -178,7 +171,7 @@ export function NetworkChart({
               type="linear"
               dot={false}
               dataKey="avg_delay"
-              stroke={`var(--color-${activeChart})`}
+              stroke={getColorByIndex(activeChart)}
             />
           </LineChart>
         </ChartContainer>
