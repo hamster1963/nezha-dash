@@ -236,7 +236,7 @@ export function NetworkChart({
             {activeChart !== defaultChart && (
               <Line
                 isAnimationActive={false}
-                strokeWidth={2}
+                strokeWidth={1}
                 type="linear"
                 dot={false}
                 dataKey="avg_delay"
