@@ -13,6 +13,8 @@ import {
 import {
   ChartConfig,
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
@@ -228,6 +230,9 @@ export function NetworkChart({
                 />
               }
             />
+            {activeChart === defaultChart && (
+              <ChartLegend content={<ChartLegendContent />} />
+            )}
             {activeChart !== defaultChart && (
               <Line
                 isAnimationActive={false}
