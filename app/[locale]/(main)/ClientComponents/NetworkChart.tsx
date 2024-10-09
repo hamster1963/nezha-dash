@@ -54,7 +54,7 @@ export function NetworkChartClient({ server_id }: { server_id: number }) {
       ...config,
       [key]: {
         label: key,
-        color: `hsl(var(--chart-${index + 1}))`,
+        color: `hsl(var(--chart-${(index % 5) + 1}))`,
       },
     };
   }, {} as ChartConfig);
