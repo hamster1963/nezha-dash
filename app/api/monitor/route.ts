@@ -2,6 +2,8 @@ import { ServerMonitorChart } from "@/app/[locale]/types/nezha-api";
 import { GetServerMonitor } from "@/lib/serverFetch";
 import { NextResponse } from "next/server";
 
+export const runtime = 'edge';
+
 interface NezhaDataResponse {
   error?: string;
   data?: ServerMonitorChart;
