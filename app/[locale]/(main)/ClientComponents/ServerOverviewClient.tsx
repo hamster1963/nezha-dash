@@ -1,14 +1,16 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Card, CardContent } from "../../../../components/ui/card";
-import blogMan from "../../../../public/blog-man.webp";
 import Image from "next/image";
 import useSWR from "swr";
-import { formatBytes, nezhaFetcher } from "../../../../lib/utils";
-import { Loader } from "../../../../components/loading/Loader";
-import { ServerApi } from "../../types/nezha-api";
-import getEnv from "../../../../lib/env-entry";
+
+import { Loader } from "@/components/loading/Loader";
+import { Card, CardContent } from "@/components/ui/card";
+import getEnv from "@/lib/env-entry";
+import { formatBytes, nezhaFetcher } from "@/lib/utils";
+import blogMan from "@/public/blog-man.webp";
+import { ServerApi } from "@/app/[locale]/types/nezha-api";
+
 export default function ServerOverviewClient() {
   const t = useTranslations("ServerOverviewClient");
   const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher);

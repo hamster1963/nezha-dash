@@ -1,6 +1,7 @@
-import { NezhaAPISafe } from "../app/[locale]/types/nezha-api";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+
+import { NezhaAPISafe } from "@/app/[locale]/types/nezha-api";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

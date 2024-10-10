@@ -1,12 +1,13 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { Separator } from "../../../components/ui/separator";
-import { DateTime } from "luxon";
-import { ModeToggle } from "../../../components/ThemeSwitcher";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { ModeToggle } from "@/components/ThemeSwitcher";
+import { Separator } from "@/components/ui/separator";
+import { DateTime } from "luxon";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
+
 function Header() {
   const t = useTranslations("Header");
   return (

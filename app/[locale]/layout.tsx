@@ -1,18 +1,17 @@
 // @auto-i18n-check. Please do not delete the line.
-
-import "@/styles/globals.css";
-import "/node_modules/flag-icons/css/flag-icons.min.css";
-
-import React from "react";
-import { NextIntlClientProvider, useMessages } from "next-intl";
-import { PublicEnvScript } from "next-runtime-env";
-import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
-import { ThemeProvider } from "next-themes";
-import { Viewport } from "next";
-import { cn } from "@/lib/utils";
 import { locales } from "@/i18n-metadata";
+import { cn } from "@/lib/utils";
+import "@/styles/globals.css";
+import type { Metadata } from "next";
+import { Viewport } from "next";
+import { NextIntlClientProvider, useMessages } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
+import { PublicEnvScript } from "next-runtime-env";
+import { ThemeProvider } from "next-themes";
+import { Inter as FontSans } from "next/font/google";
+import React from "react";
+
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const fontSans = FontSans({
   subsets: ["latin"],

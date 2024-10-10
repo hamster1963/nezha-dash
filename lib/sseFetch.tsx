@@ -1,4 +1,5 @@
 "use client";
+
 import useSWRSubscription, {
   type SWRSubscriptionOptions,
 } from "swr/subscription";
