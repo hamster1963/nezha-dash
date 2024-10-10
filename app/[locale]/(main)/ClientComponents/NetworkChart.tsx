@@ -43,7 +43,7 @@ export function NetworkChartClient({ server_id }: { server_id: number }) {
     nezhaFetcher,
     {
       refreshInterval:
-        Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 10000,
+        Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 15000,
     },
   );
 
