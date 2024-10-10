@@ -255,7 +255,7 @@ export function NetworkChart({
                 <Line
                   key={key}
                   isAnimationActive={false}
-                  strokeWidth={2}
+                  strokeWidth={1}
                   type="linear"
                   dot={false}
                   dataKey={key}
