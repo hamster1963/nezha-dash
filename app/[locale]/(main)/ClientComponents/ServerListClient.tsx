@@ -1,13 +1,13 @@
 "use client";
 
-import { ServerApi } from "../../types/nezha-api";
-import ServerCard from "../../../../components/ServerCard";
-import { nezhaFetcher } from "../../../../lib/utils";
-import useSWR from "swr";
-import getEnv from "../../../../lib/env-entry";
+import { ServerApi } from "@/app/[locale]/types/nezha-api";
+import ServerCard from "@/components/ServerCard";
 import Switch from "@/components/Switch";
-import { useState } from "react";
+import getEnv from "@/lib/env-entry";
+import { nezhaFetcher } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+import useSWR from "swr";
 
 export default function ServerListClient() {
   const t = useTranslations("ServerListClient");

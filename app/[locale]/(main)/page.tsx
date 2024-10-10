@@ -1,6 +1,6 @@
+import ServerList from "@/components/ServerList";
+import ServerOverview from "@/components/ServerOverview";
 import { unstable_setRequestLocale } from "next-intl/server";
-import ServerList from "../../../components/ServerList";
-import ServerOverview from "../../../components/ServerOverview";
 
 export default function Home({
   params: { locale },

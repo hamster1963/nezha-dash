@@ -1,6 +1,6 @@
-import React from "react";
+import Footer from "@/app/[locale]/(main)/footer";
 import Header from "@/app/[locale]/(main)/header";
-import Footer from "./footer";
+import React from "react";
 
 type DashboardProps = {
   children: React.ReactNode;

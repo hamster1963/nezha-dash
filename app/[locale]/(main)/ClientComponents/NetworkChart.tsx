@@ -1,8 +1,11 @@
 "use client";
 
-import * as React from "react";
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
-
+import NetworkChartLoading from "@/app/[locale]/(main)/ClientComponents/NetworkChartLoading";
+import {
+  NezhaAPIMonitor,
+  ServerMonitorChart,
+} from "@/app/[locale]/types/nezha-api";
+import { BackIcon } from "@/components/Icon";
 import {
   Card,
   CardContent,
@@ -18,15 +21,15 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import useSWR from "swr";
-import { NezhaAPIMonitor, ServerMonitorChart } from "../../types/nezha-api";
+import getEnv from "@/lib/env-entry";
 import { formatTime, nezhaFetcher } from "@/lib/utils";
 import { formatRelativeTime } from "@/lib/utils";
-import { BackIcon } from "@/components/Icon";
-import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { useTranslations } from "next-intl";
-import NetworkChartLoading from "./NetworkChartLoading";
+import { useRouter } from "next/navigation";
+import * as React from "react";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
+import useSWR from "swr";
 
 interface ResultItem {
   created_at: number;
@@ -38,6 +41,10 @@ export function NetworkChartClient({ server_id }: { server_id: number }) {
   const { data, error } = useSWR<NezhaAPIMonitor[]>(
     `/api/monitor?server_id=${server_id}`,
     nezhaFetcher,
+    {
+      refreshInterval:
+        Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 15000,
+    },
   );
 
   if (error)
