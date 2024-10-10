@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
+import { useEffect, useState } from "react";
 
 export default function ServerFlag({ country_code }: { country_code: string }) {
   const [supportsEmojiFlags, setSupportsEmojiFlags] = useState(false);

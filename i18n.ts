@@ -1,7 +1,7 @@
 // @auto-i18n-check. Please do not delete the line.
-
-import { notFound } from "next/navigation";
 import { getRequestConfig } from "next-intl/server";
+import { notFound } from "next/navigation";
+
 import { locales } from "./i18n-metadata";
 
 export default getRequestConfig(async ({ locale }) => {

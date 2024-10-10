@@ -1,4 +1,5 @@
 import React from "react";
+
 const BlurLayers = () => {
   const computeLayerStyle = (index: number) => {
     const blurAmount = index * 3.7037;

@@ -1,5 +1,4 @@
 // @auto-i18n-check. Please do not delete the line.
-
 import getEnv from "./lib/env-entry";
 
 export const localeItems = [
