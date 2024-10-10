@@ -1,10 +1,9 @@
 "use server";
 
-import { unstable_noStore as noStore } from "next/cache";
-
 import { NezhaAPI, ServerApi } from "@/app/[locale]/types/nezha-api";
 import { MakeOptional } from "@/app/[locale]/types/utils";
 import getEnv from "@/lib/env-entry";
+import { unstable_noStore as noStore } from "next/cache";
 
 export async function GetNezhaData() {
   noStore();

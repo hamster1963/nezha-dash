@@ -47,12 +47,20 @@ export function NetworkChartClient({ server_id }: { server_id: number }) {
     },
   );
 
-  if (error)
+  if (error) {
     return (
-      <div className="flex flex-col items-center justify-center">
-        <p className="text-sm font-medium opacity-40">{error.message}</p>
-      </div>
+      <>
+        <div className="flex flex-col items-center justify-center">
+          <p className="text-sm font-medium opacity-40">{error.message}</p>
+          <p className="text-sm font-medium opacity-40">
+            {t("chart_fetch_error_message")}
+          </p>
+        </div>
+        <NetworkChartLoading />
+      </>
     );
+  }
+
   if (!data) return <NetworkChartLoading />;
 
   function transformData(data: NezhaAPIMonitor[]) {
