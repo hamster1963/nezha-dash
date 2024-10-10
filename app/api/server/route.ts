@@ -1,4 +1,3 @@
-
 import { NezhaAPI, ServerApi } from "@/app/[locale]/types/nezha-api";
 import { MakeOptional } from "@/app/[locale]/types/utils";
 import getEnv from "@/lib/env-entry";
@@ -6,13 +5,12 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 interface NezhaDataResponse {
   error?: string;
   data?: ServerApi;
 }
-
 
 export async function GET(_: Request) {
   const response = (await GetNezhaData()) as NezhaDataResponse;
@@ -24,7 +22,6 @@ export async function GET(_: Request) {
 }
 
 async function GetNezhaData() {
-
   var nezhaBaseUrl = getEnv("NezhaBaseUrl");
   if (!nezhaBaseUrl) {
     console.log("NezhaBaseUrl is not set");

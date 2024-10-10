@@ -29,7 +29,8 @@
     "Offline": "オフライン"
   },
   "NetworkChartClient": {
-    "avg_delay": "遅延"
+    "avg_delay": "遅延",
+    "chart_fetch_error_message": "ネットワークデータの取得に失敗しました。サーバーの監視が有効になっているかどうかを確認してください"
   },
   "NetworkChart": {
     "ServerMonitorCount": "サービス"

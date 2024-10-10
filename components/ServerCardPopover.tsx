@@ -1,7 +1,6 @@
+import { NezhaAPISafe } from "@/app/[locale]/types/nezha-api";
 import { cn, formatBytes } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-
-import { NezhaAPISafe } from "@/app/[locale]/types/nezha-api";
 
 export function ServerCardPopoverCard({
   className,

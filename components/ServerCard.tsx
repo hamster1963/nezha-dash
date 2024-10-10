@@ -1,3 +1,6 @@
+import { NezhaAPISafe } from "@/app/[locale]/types/nezha-api";
+import ServerCardPopover from "@/components/ServerCardPopover";
+import ServerFlag from "@/components/ServerFlag";
 import ServerUsageBar from "@/components/ServerUsageBar";
 import { Card } from "@/components/ui/card";
 import {
@@ -9,10 +12,6 @@ import { cn, formatNezhaInfo } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
 import { env } from "next-runtime-env";
 import { useRouter } from "next/navigation";
-
-import { NezhaAPISafe } from "@/app/[locale]/types/nezha-api";
-import ServerCardPopover from "@/components/ServerCardPopover";
-import ServerFlag from "@/components/ServerFlag";
 
 export default function ServerCard({
   serverInfo,

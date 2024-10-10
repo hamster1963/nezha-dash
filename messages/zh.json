@@ -29,7 +29,8 @@
     "Offline": "离线"
   },
   "NetworkChartClient": {
-    "avg_delay": "延迟"
+    "avg_delay": "延迟",
+    "chart_fetch_error_message": "获取网络数据失败，请检查是否开启服务端监控"
   },
   "NetworkChart": {
     "ServerMonitorCount": "个监控服务"

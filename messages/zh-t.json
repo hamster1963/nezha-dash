@@ -29,7 +29,8 @@
     "Offline": "離線"
   },
   "NetworkChartClient": {
-    "avg_delay": "延遲"
+    "avg_delay": "延遲",
+    "chart_fetch_error_message": "獲取網絡數據失敗，請檢查是否開啟服務端監控"
   },
   "NetworkChart": {
     "ServerMonitorCount": "個監測服務"

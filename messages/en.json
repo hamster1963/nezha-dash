@@ -29,7 +29,8 @@
     "Offline": "Offline"
   },
   "NetworkChartClient": {
-    "avg_delay": "Latency"
+    "avg_delay": "Latency",
+    "chart_fetch_error_message": "Failed to fetch network data, please check if the server monitoring is enabled"
   },
   "NetworkChart": {
     "ServerMonitorCount": "Services"
