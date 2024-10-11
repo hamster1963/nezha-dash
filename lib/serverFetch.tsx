@@ -39,8 +39,14 @@ export async function GetNezhaData() {
       total_bandwidth: 0,
       result: [],
     };
+
+    // remove hidden servers
+    const nezhaDataFiltered = nezhaData.filter(
+      (element) => !element.hide_for_guest,
+    );
+
     const timestamp = Date.now() / 1000;
-    data.result = nezhaData.map(
+    data.result = nezhaDataFiltered.map(
       (element: MakeOptional<NezhaAPI, "ipv4" | "ipv6" | "valid_ip">) => {
         if (timestamp - element.last_active > 300) {
           data.offline_servers += 1;
