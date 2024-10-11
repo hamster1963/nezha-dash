@@ -22,6 +22,7 @@
 | NEXT_PUBLIC_DisableCartoon     | 是否禁用卡通人物                 | **默认**：false                  |
 | NEXT_PUBLIC_ShowTag            | 是否显示标签                     | **默认**：false                  |
 | NEXT_PUBLIC_ShowNetTransfer    | 是否显示流量信息                 | **默认**：false                  |
+| NEXT_PUBLIC_ForceUseSvgFlag    | 是否强制使用SVG显示旗帜          | **默认**：false                  |
 
 #### 多语言支持
 
