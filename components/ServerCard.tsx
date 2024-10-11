@@ -2,13 +2,14 @@ import { NezhaAPISafe } from "@/app/[locale]/types/nezha-api";
 import ServerCardPopover from "@/components/ServerCardPopover";
 import ServerFlag from "@/components/ServerFlag";
 import ServerUsageBar from "@/components/ServerUsageBar";
+import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn, formatNezhaInfo } from "@/lib/utils";
+import { cn, formatBytes, formatNezhaInfo } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
 import { env } from "next-runtime-env";
 import { useRouter } from "next/navigation";
@@ -24,6 +25,8 @@ export default function ServerCard({
     formatNezhaInfo(serverInfo);
 
   const showFlag = env("NEXT_PUBLIC_ShowFlag") === "true";
+
+  const showNetTransfer = env("NEXT_PUBLIC_ShowNetTransfer") === "true";
 
   const locale = useLocale();
 
@@ -52,46 +55,75 @@ export default function ServerCard({
           <ServerCardPopover status={props.status} host={props.host} />
         </PopoverContent>
       </Popover>
-      <section
+      <div
         onClick={() => {
           router.push(`/${locale}/${id}`);
         }}
-        className={"grid cursor-pointer grid-cols-5 items-center gap-3"}
+        className="flex flex-col gap-2 cursor-pointer"
       >
-        <div className={"flex w-14 flex-col"}>
-          <p className="text-xs text-muted-foreground">{t("CPU")}</p>
-          <div className="flex items-center text-xs font-semibold">
-            {cpu.toFixed(2)}%
+        <section className={"grid  grid-cols-5 items-center gap-3"}>
+          <div className={"flex w-14 flex-col"}>
+            <p className="text-xs text-muted-foreground">{t("CPU")}</p>
+            <div className="flex items-center text-xs font-semibold">
+              {cpu.toFixed(2)}%
+            </div>
+            <ServerUsageBar value={cpu} />
           </div>
-          <ServerUsageBar value={cpu} />
-        </div>
-        <div className={"flex w-14 flex-col"}>
-          <p className="text-xs text-muted-foreground">{t("Mem")}</p>
-          <div className="flex items-center text-xs font-semibold">
-            {mem.toFixed(2)}%
+          <div className={"flex w-14 flex-col"}>
+            <p className="text-xs text-muted-foreground">{t("Mem")}</p>
+            <div className="flex items-center text-xs font-semibold">
+              {mem.toFixed(2)}%
+            </div>
+            <ServerUsageBar value={mem} />
           </div>
-          <ServerUsageBar value={mem} />
-        </div>
-        <div className={"flex w-14 flex-col"}>
-          <p className="text-xs text-muted-foreground">{t("STG")}</p>
-          <div className="flex items-center text-xs font-semibold">
-            {stg.toFixed(2)}%
+          <div className={"flex w-14 flex-col"}>
+            <p className="text-xs text-muted-foreground">{t("STG")}</p>
+            <div className="flex items-center text-xs font-semibold">
+              {stg.toFixed(2)}%
+            </div>
+            <ServerUsageBar value={stg} />
           </div>
-          <ServerUsageBar value={stg} />
-        </div>
-        <div className={"flex w-14 flex-col"}>
-          <p className="text-xs text-muted-foreground">{t("Upload")}</p>
-          <div className="flex items-center text-xs font-semibold">
-            {up.toFixed(2)}M/s
+          <div className={"flex w-14 flex-col"}>
+            <p className="text-xs text-muted-foreground">{t("Upload")}</p>
+            <div className="flex items-center text-xs font-semibold">
+              {up.toFixed(2)}M/s
+            </div>
           </div>
-        </div>
-        <div className={"flex w-14 flex-col"}>
-          <p className="text-xs text-muted-foreground">{t("Download")}</p>
-          <div className="flex items-center text-xs font-semibold">
-            {down.toFixed(2)}M/s
+          <div className={"flex w-14 flex-col"}>
+            <p className="text-xs text-muted-foreground">{t("Download")}</p>
+            <div className="flex items-center text-xs font-semibold">
+              {down.toFixed(2)}M/s
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+        {showNetTransfer && (
+          <section
+            onClick={() => {
+              router.push(`/${locale}/${id}`);
+            }}
+            className={"flex items-center justify-between gap-1"}
+          >
+            <Badge
+              variant="secondary"
+              className="items-center justify-center rounded-[8px] text-nowrap text-[11px] border-muted-50 shadow-md shadow-neutral-200/30 dark:shadow-none"
+              style={{
+                width: `${(serverInfo.status.NetInTransfer / (serverInfo.status.NetInTransfer + serverInfo.status.NetOutTransfer)) * 100}%`,
+              }}
+            >
+              {t("Upload")}:{formatBytes(serverInfo.status.NetInTransfer)}
+            </Badge>
+            <Badge
+              variant="outline"
+              className="items-center justify-center rounded-[8px] text-nowrap text-[11px] shadow-md shadow-neutral-200/30 dark:shadow-none"
+              style={{
+                width: `${(serverInfo.status.NetOutTransfer / (serverInfo.status.NetInTransfer + serverInfo.status.NetOutTransfer)) * 100}%`,
+              }}
+            >
+              {t("Download")}:{formatBytes(serverInfo.status.NetOutTransfer)}
+            </Badge>
+          </section>
+        )}
+      </div>
     </Card>
   ) : (
     <Card
