@@ -105,19 +105,13 @@ export default function ServerCard({
           >
             <Badge
               variant="secondary"
-              className="items-center justify-center rounded-[8px] text-nowrap text-[11px] border-muted-50 shadow-md shadow-neutral-200/30 dark:shadow-none"
-              style={{
-                width: `${(serverInfo.status.NetOutTransfer / (serverInfo.status.NetInTransfer + serverInfo.status.NetOutTransfer)) * 100}%`,
-              }}
+              className="items-center flex-1 justify-center rounded-[8px] text-nowrap text-[11px] border-muted-50 shadow-md shadow-neutral-200/30 dark:shadow-none"
             >
               {t("Upload")}:{formatBytes(serverInfo.status.NetOutTransfer)}
             </Badge>
             <Badge
               variant="outline"
-              className="items-center justify-center rounded-[8px] text-nowrap text-[11px] shadow-md shadow-neutral-200/30 dark:shadow-none"
-              style={{
-                width: `${(serverInfo.status.NetInTransfer / (serverInfo.status.NetInTransfer + serverInfo.status.NetOutTransfer)) * 100}%`,
-              }}
+              className="items-center flex-1 justify-center rounded-[8px] text-nowrap text-[11px] shadow-md shadow-neutral-200/30 dark:shadow-none"
             >
               {t("Download")}:{formatBytes(serverInfo.status.NetInTransfer)}
             </Badge>
