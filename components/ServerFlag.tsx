@@ -5,7 +5,7 @@ import { env } from "next-runtime-env";
 export default function ServerFlag({ country_code }: { country_code: string }) {
   const [supportsEmojiFlags, setSupportsEmojiFlags] = useState(false);
 
-  const useSvgFlag = env("ForceUseSvgFlag") === "true";
+  const useSvgFlag = env("NEXT_PUBLIC_ForceUseSvgFlag") === "true";
 
   useEffect(() => {
     if (useSvgFlag) {
