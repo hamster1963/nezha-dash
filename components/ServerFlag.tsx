@@ -1,19 +1,10 @@
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
 import { useEffect, useState } from "react";
-import { env } from "next-runtime-env";
 
 export default function ServerFlag({ country_code }: { country_code: string }) {
   const [supportsEmojiFlags, setSupportsEmojiFlags] = useState(false);
 
-  const useSvgFlag = env("NEXT_PUBLIC_USE_SVG_FLAG") === "true";
-
   useEffect(() => {
-    if (useSvgFlag) {
-      // 如果环境变量要求直接使用 SVG，则无需检查 Emoji 支持
-      setSupportsEmojiFlags(false); 
-      return;
-    }
-
     const checkEmojiSupport = () => {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
@@ -29,7 +20,7 @@ export default function ServerFlag({ country_code }: { country_code: string }) {
     };
 
     checkEmojiSupport();
-  }, [useSvgFlag]); // 将 `useSvgFlag` 作为依赖，当其变化时重新触发
+  }, []);
 
   if (!country_code) return null;
 
@@ -39,7 +30,7 @@ export default function ServerFlag({ country_code }: { country_code: string }) {
 
   return (
     <span className="text-[12px] text-muted-foreground">
-      {useSvgFlag || !supportsEmojiFlags ? (
+      {!supportsEmojiFlags ? (
         <span className={`fi fi-${country_code}`}></span>
       ) : (
         getUnicodeFlagIcon(country_code)
