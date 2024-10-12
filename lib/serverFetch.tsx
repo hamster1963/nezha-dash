@@ -40,10 +40,16 @@ export async function GetNezhaData() {
       result: [],
     };
 
-    // remove hidden servers
-    const nezhaDataFiltered = nezhaData.filter(
-      (element) => !element.hide_for_guest,
-    );
+    var forceShowAllServers = getEnv("ForceShowAllServers");
+    let nezhaDataFiltered: NezhaAPI[];
+    if (forceShowAllServers === "true") {
+      nezhaDataFiltered = nezhaData;
+    } else {
+      // remove hidden servers
+      nezhaDataFiltered = nezhaData.filter(
+        (element) => !element.hide_for_guest,
+      );
+    }
 
     const timestamp = Date.now() / 1000;
     data.result = nezhaDataFiltered.map(
