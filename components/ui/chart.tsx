@@ -172,6 +172,10 @@ const ChartTooltipContent = React.forwardRef<
       return null;
     }
 
+    payload.sort((a, b) => {
+      return Number(b.value) - Number(a.value);
+    });
+
     const nestLabel = payload.length === 1 && indicator !== "dot";
 
     return (
