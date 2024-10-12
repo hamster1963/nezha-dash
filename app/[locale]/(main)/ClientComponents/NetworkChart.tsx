@@ -246,12 +246,12 @@ export function NetworkChart({
               tickFormatter={(value) => `${value}ms`}
             />
             <ChartTooltip
+              cursor={false}
+              defaultIndex={1}
               content={
                 <ChartTooltipContent
-                  indicator={"dot"}
-                  className="gap-2"
+                  indicator={"line"}
                   labelKey="created_at"
-                  labelClassName="text-muted-foreground"
                   labelFormatter={(_, payload) => {
                     return formatTime(payload[0].payload.created_at);
                   }}
