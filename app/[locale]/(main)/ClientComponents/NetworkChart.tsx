@@ -235,6 +235,8 @@ export function NetworkChart({
               tickLine={false}
               axisLine={false}
               tickMargin={8}
+              minTickGap={32}
+              interval={"preserveStartEnd"}
               tickFormatter={(value) => formatRelativeTime(value)}
             />
             <YAxis
