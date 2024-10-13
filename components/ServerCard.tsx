@@ -131,9 +131,12 @@ export default function ServerCard({
     </Card>
   ) : (
     <Card
-      className={
-        "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row"
-      }
+      className={cn(
+        "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row",
+        showNetTransfer
+          ? "lg:min-h-[91px] min-h-[123px]"
+          : "lg:min-h-[61px] min-h-[93px]",
+      )}
     >
       <Popover>
         <PopoverTrigger asChild>
