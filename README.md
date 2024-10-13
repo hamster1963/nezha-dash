@@ -12,18 +12,21 @@
 
 #### 环境变量
 
-| 变量名                         | 含义                             | 示例                             |
-| ------------------------------ | -------------------------------- | -------------------------------- |
-| NezhaBaseUrl                   | nezha 面板地址                   | http://120.x.x.x:8008            |
-| NezhaAuth                      | nezha 面板 API Token             | 5hAY3QX6Nl9B3Uxxxx26KMvOMyXS1Udi |
-| DefaultLocale                  | 面板默认显示语言（代码参考下表） | **默认**：en                     |
-| ForceShowAllServers            | 是否强制显示所有服务器           | **默认**：false                  |
-| NEXT_PUBLIC_NezhaFetchInterval | 获取数据间隔（毫秒）             | **默认**：2000                   |
-| NEXT_PUBLIC_ShowFlag           | 是否显示旗帜                     | **默认**：false                  |
-| NEXT_PUBLIC_DisableCartoon     | 是否禁用卡通人物                 | **默认**：false                  |
-| NEXT_PUBLIC_ShowTag            | 是否显示标签                     | **默认**：false                  |
-| NEXT_PUBLIC_ShowNetTransfer    | 是否显示流量信息                 | **默认**：false                  |
-| NEXT_PUBLIC_ForceUseSvgFlag    | 是否强制使用SVG旗帜              | **默认**：false                  |
+| 变量名                         | 含义                             | 示例                                                          |
+| ------------------------------ | -------------------------------- | ------------------------------------------------------------- |
+| NezhaBaseUrl                   | nezha 面板地址                   | http://120.x.x.x:8008                                         |
+| NezhaAuth                      | nezha 面板 API Token             | 5hAY3QX6Nl9B3Uxxxx26KMvOMyXS1Udi                              |
+| DefaultLocale                  | 面板默认显示语言（代码参考下表） | **默认**：en                                                  |
+| ForceShowAllServers            | 是否强制显示所有服务器           | **默认**：false                                               |
+| NEXT_PUBLIC_NezhaFetchInterval | 获取数据间隔（毫秒）             | **默认**：2000                                                |
+| NEXT_PUBLIC_ShowFlag           | 是否显示旗帜                     | **默认**：false                                               |
+| NEXT_PUBLIC_DisableCartoon     | 是否禁用卡通人物                 | **默认**：false                                               |
+| NEXT_PUBLIC_ShowTag            | 是否显示标签                     | **默认**：false                                               |
+| NEXT_PUBLIC_ShowNetTransfer    | 是否显示流量信息                 | **默认**：false                                               |
+| NEXT_PUBLIC_ForceUseSvgFlag    | 是否强制使用SVG旗帜              | **默认**：false                                               |
+| NEXT_PUBLIC_CustomLogo         | 自定义Logo                       | **示例**：https://nezha-cf.buycoffee.top/apple-touch-icon.png |
+| NEXT_PUBLIC_CustomTitle        | 自定义标题                       |                                                               |
+| NEXT_PUBLIC_CustomDescription  | 自定义描述(无多语言支持)         |                                                               |
 
 #### 多语言支持
 
