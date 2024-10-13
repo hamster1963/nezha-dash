@@ -42,7 +42,12 @@ export default function ServerCard({
             className="grid items-center gap-2 lg:w-28"
             style={{ gridTemplateColumns: "auto 1fr auto" }}
           >
-            <div className="flex min-w-[17px] items-center justify-center">
+            <div
+              className={cn(
+                "flex items-center justify-center",
+                showFlag ? "min-w-[17px]" : "min-w-0",
+              )}
+            >
               {showFlag ? <ServerFlag country_code={country_code} /> : null}
             </div>
             <p
@@ -136,7 +141,12 @@ export default function ServerCard({
             className="grid items-center gap-2 lg:w-28"
             style={{ gridTemplateColumns: "auto 1fr auto" }}
           >
-            <div className="flex items-center min-w-[17px] justify-center">
+            <div
+              className={cn(
+                "flex items-center justify-center",
+                showFlag ? "min-w-[17px]" : "min-w-0",
+              )}
+            >
               {showFlag ? <ServerFlag country_code={country_code} /> : null}
             </div>
             <p
