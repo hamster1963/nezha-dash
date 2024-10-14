@@ -30,6 +30,7 @@ import { useRouter } from "next/navigation";
 import * as React from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 import useSWR from "swr";
+import { useMemo, useCallback } from 'react';
 
 interface ResultItem {
   created_at: number;
@@ -63,57 +64,6 @@ export function NetworkChartClient({ server_id }: { server_id: number }) {
 
   if (!data) return <NetworkChartLoading />;
 
-  function transformData(data: NezhaAPIMonitor[]) {
-    const monitorData: ServerMonitorChart = {};
-
-    data.forEach((item) => {
-      const monitorName = item.monitor_name;
-
-      if (!monitorData[monitorName]) {
-        monitorData[monitorName] = [];
-      }
-
-      for (let i = 0; i < item.created_at.length; i++) {
-        monitorData[monitorName].push({
-          created_at: item.created_at[i],
-          avg_delay: item.avg_delay[i],
-        });
-      }
-    });
-
-    return monitorData;
-  }
-
-  const formatData = (rawData: NezhaAPIMonitor[]) => {
-    const result: { [time: number]: ResultItem } = {};
-
-    // 获取所有时间点
-    const allTimes = new Set<number>();
-    rawData.forEach((item) => {
-      item.created_at.forEach((time) => allTimes.add(time));
-    });
-
-    const allTimeArray = Array.from(allTimes).sort((a, b) => a - b);
-
-    // 遍历所有时间点，补全每个监控服务的数据
-    rawData.forEach((item) => {
-      const { monitor_name, created_at, avg_delay } = item;
-
-      // 初始化监控项在每个时间点的值
-      allTimeArray.forEach((time) => {
-        if (!result[time]) {
-          result[time] = { created_at: time };
-        }
-
-        // 如果该时间点有数据，使用实际数据，否则补 null
-        const timeIndex = created_at.indexOf(time);
-        result[time][monitor_name] =
-          timeIndex !== -1 ? avg_delay[timeIndex] : null;
-      });
-    });
-
-    return Object.values(result).sort((a, b) => a.created_at - b.created_at);
-  };
 
   const transformedData = transformData(data);
 
@@ -138,7 +88,7 @@ export function NetworkChartClient({ server_id }: { server_id: number }) {
   );
 }
 
-export function NetworkChart({
+export const NetworkChart = React.memo(function NetworkChart({
   chartDataKey,
   chartConfig,
   chartData,
@@ -159,18 +109,59 @@ export function NetworkChart({
 
   const [activeChart, setActiveChart] = React.useState(defaultChart);
 
-  const handleButtonClick = (chart: string) => {
-    if (chart === activeChart) {
-      setActiveChart(defaultChart);
-    } else {
-      setActiveChart(chart);
-    }
-  };
+  const handleButtonClick = useCallback((chart: string) => {
+    setActiveChart(prev => prev === chart ? defaultChart : chart);
+  }, [defaultChart]);
 
-  const getColorByIndex = (chart: string) => {
+  const getColorByIndex = useCallback((chart: string) => {
     const index = chartDataKey.indexOf(chart);
     return `hsl(var(--chart-${(index % 10) + 1}))`;
-  };
+  }, [chartDataKey]);
+
+  const chartButtons = useMemo(() => (
+    chartDataKey.map((key) => (
+      <button
+        key={key}
+        data-active={activeChart === key}
+        className={`relative z-30 flex flex-1 flex-col justify-center gap-1 border-b px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-6`}
+        onClick={() => handleButtonClick(key)}
+      >
+        <span className="whitespace-nowrap text-xs text-muted-foreground">
+          {key}
+        </span>
+        <span className="text-md font-bold leading-none sm:text-lg">
+          {chartData[key][chartData[key].length - 1].avg_delay.toFixed(2)}ms
+        </span>
+      </button>
+    ))
+  ), [chartDataKey, activeChart, chartData, handleButtonClick]);
+
+  const chartLines = useMemo(() => {
+    if (activeChart !== defaultChart) {
+      return (
+        <Line
+          isAnimationActive={false}
+          strokeWidth={1}
+          type="linear"
+          dot={false}
+          dataKey="avg_delay"
+          stroke={getColorByIndex(activeChart)}
+        />
+      );
+    }
+    return chartDataKey.map((key) => (
+      <Line
+        key={key}
+        isAnimationActive={false}
+        strokeWidth={1}
+        type="linear"
+        dot={false}
+        dataKey={key}
+        stroke={getColorByIndex(key)}
+        connectNulls={true}
+      />
+    ));
+  }, [activeChart, defaultChart, chartDataKey, getColorByIndex]);
 
   return (
     <Card>
@@ -190,26 +181,7 @@ export function NetworkChart({
           </CardDescription>
         </div>
         <div className="flex flex-wrap">
-          {chartDataKey.map((key) => {
-            return (
-              <button
-                key={key}
-                data-active={activeChart === key}
-                className={`relative z-30 flex flex-1 flex-col justify-center gap-1 border-b px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-6`}
-                onClick={() => handleButtonClick(key)}
-              >
-                <span className="whitespace-nowrap text-xs text-muted-foreground">
-                  {key}
-                </span>
-                <span className="text-md font-bold leading-none sm:text-lg">
-                  {chartData[key][chartData[key].length - 1].avg_delay.toFixed(
-                    2,
-                  )}
-                  ms
-                </span>
-              </button>
-            );
-          })}
+          {chartButtons}
         </div>
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
@@ -219,15 +191,8 @@ export function NetworkChart({
         >
           <LineChart
             accessibilityLayer
-            data={
-              activeChart === defaultChart
-                ? formattedData
-                : chartData[activeChart]
-            }
-            margin={{
-              left: 12,
-              right: 12,
-            }}
+            data={activeChart === defaultChart ? formattedData : chartData[activeChart]}
+            margin={{ left: 12, right: 12 }}
           >
             <CartesianGrid vertical={false} />
             <XAxis
@@ -262,32 +227,59 @@ export function NetworkChart({
             {activeChart === defaultChart && (
               <ChartLegend content={<ChartLegendContent />} />
             )}
-            {activeChart !== defaultChart && (
-              <Line
-                isAnimationActive={false}
-                strokeWidth={1}
-                type="linear"
-                dot={false}
-                dataKey="avg_delay"
-                stroke={getColorByIndex(activeChart)}
-              />
-            )}
-            {activeChart === defaultChart &&
-              chartDataKey.map((key) => (
-                <Line
-                  key={key}
-                  isAnimationActive={false}
-                  strokeWidth={1}
-                  type="linear"
-                  dot={false}
-                  dataKey={key}
-                  stroke={getColorByIndex(key)}
-                  connectNulls={true}
-                />
-              ))}
+            {chartLines}
           </LineChart>
         </ChartContainer>
       </CardContent>
     </Card>
   );
+});
+
+
+const transformData = (data: NezhaAPIMonitor[]) => {
+  const monitorData: ServerMonitorChart = {};
+
+  data.forEach((item) => {
+    const monitorName = item.monitor_name;
+
+    if (!monitorData[monitorName]) {
+      monitorData[monitorName] = [];
+    }
+
+    for (let i = 0; i < item.created_at.length; i++) {
+      monitorData[monitorName].push({
+        created_at: item.created_at[i],
+        avg_delay: item.avg_delay[i],
+      });
+    }
+  });
+
+  return monitorData;
 }
+
+const formatData = (rawData: NezhaAPIMonitor[]) => {
+  const result: { [time: number]: ResultItem } = {};
+
+  const allTimes = new Set<number>();
+  rawData.forEach((item) => {
+    item.created_at.forEach((time) => allTimes.add(time));
+  });
+
+  const allTimeArray = Array.from(allTimes).sort((a, b) => a - b);
+
+  rawData.forEach((item) => {
+    const { monitor_name, created_at, avg_delay } = item;
+
+    allTimeArray.forEach((time) => {
+      if (!result[time]) {
+        result[time] = { created_at: time };
+      }
+
+      const timeIndex = created_at.indexOf(time);
+      result[time][monitor_name] =
+        timeIndex !== -1 ? avg_delay[timeIndex] : null;
+    });
+  });
+
+  return Object.values(result).sort((a, b) => a.created_at - b.created_at);
+};
