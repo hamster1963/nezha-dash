@@ -64,57 +64,6 @@ export function NetworkChartClient({ server_id }: { server_id: number }) {
 
   if (!data) return <NetworkChartLoading />;
 
-  function transformData(data: NezhaAPIMonitor[]) {
-    const monitorData: ServerMonitorChart = {};
-
-    data.forEach((item) => {
-      const monitorName = item.monitor_name;
-
-      if (!monitorData[monitorName]) {
-        monitorData[monitorName] = [];
-      }
-
-      for (let i = 0; i < item.created_at.length; i++) {
-        monitorData[monitorName].push({
-          created_at: item.created_at[i],
-          avg_delay: item.avg_delay[i],
-        });
-      }
-    });
-
-    return monitorData;
-  }
-
-  const formatData = (rawData: NezhaAPIMonitor[]) => {
-    const result: { [time: number]: ResultItem } = {};
-
-    // 获取所有时间点
-    const allTimes = new Set<number>();
-    rawData.forEach((item) => {
-      item.created_at.forEach((time) => allTimes.add(time));
-    });
-
-    const allTimeArray = Array.from(allTimes).sort((a, b) => a - b);
-
-    // 遍历所有时间点，补全每个监控服务的数据
-    rawData.forEach((item) => {
-      const { monitor_name, created_at, avg_delay } = item;
-
-      // 初始化监控项在每个时间点的值
-      allTimeArray.forEach((time) => {
-        if (!result[time]) {
-          result[time] = { created_at: time };
-        }
-
-        // 如果该时间点有数据，使用实际数据，否则补 null
-        const timeIndex = created_at.indexOf(time);
-        result[time][monitor_name] =
-          timeIndex !== -1 ? avg_delay[timeIndex] : null;
-      });
-    });
-
-    return Object.values(result).sort((a, b) => a.created_at - b.created_at);
-  };
 
   const transformedData = transformData(data);
 
@@ -285,3 +234,52 @@ export const NetworkChart = React.memo(function NetworkChart({
     </Card>
   );
 });
+
+
+const transformData = (data: NezhaAPIMonitor[]) => {
+  const monitorData: ServerMonitorChart = {};
+
+  data.forEach((item) => {
+    const monitorName = item.monitor_name;
+
+    if (!monitorData[monitorName]) {
+      monitorData[monitorName] = [];
+    }
+
+    for (let i = 0; i < item.created_at.length; i++) {
+      monitorData[monitorName].push({
+        created_at: item.created_at[i],
+        avg_delay: item.avg_delay[i],
+      });
+    }
+  });
+
+  return monitorData;
+}
+
+const formatData = (rawData: NezhaAPIMonitor[]) => {
+  const result: { [time: number]: ResultItem } = {};
+
+  const allTimes = new Set<number>();
+  rawData.forEach((item) => {
+    item.created_at.forEach((time) => allTimes.add(time));
+  });
+
+  const allTimeArray = Array.from(allTimes).sort((a, b) => a - b);
+
+  rawData.forEach((item) => {
+    const { monitor_name, created_at, avg_delay } = item;
+
+    allTimeArray.forEach((time) => {
+      if (!result[time]) {
+        result[time] = { created_at: time };
+      }
+
+      const timeIndex = created_at.indexOf(time);
+      result[time][monitor_name] =
+        timeIndex !== -1 ? avg_delay[timeIndex] : null;
+    });
+  });
+
+  return Object.values(result).sort((a, b) => a.created_at - b.created_at);
+};
