@@ -248,6 +248,7 @@ export function NetworkChart({
               tickFormatter={(value) => `${value}ms`}
             />
             <ChartTooltip
+              isAnimationActive={false}
               content={
                 <ChartTooltipContent
                   indicator={"line"}
