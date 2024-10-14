@@ -38,8 +38,18 @@ export default function ServerCard({
     >
       <Popover>
         <PopoverTrigger asChild>
-          <section className={"flex items-center justify-start gap-2 lg:w-28"}>
-            {showFlag ? <ServerFlag country_code={country_code} /> : null}
+          <section
+            className="grid items-center gap-2 lg:w-28"
+            style={{ gridTemplateColumns: "auto 1fr auto" }}
+          >
+            <div
+              className={cn(
+                "flex items-center justify-center",
+                showFlag ? "min-w-[17px]" : "min-w-0",
+              )}
+            >
+              {showFlag ? <ServerFlag country_code={country_code} /> : null}
+            </div>
             <p
               className={cn(
                 "break-all font-bold tracking-tight",
@@ -48,7 +58,7 @@ export default function ServerCard({
             >
               {name}
             </p>
-            <span className="h-2 w-2 shrink-0 rounded-full bg-green-500"></span>
+            <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
           </section>
         </PopoverTrigger>
         <PopoverContent side="top">
@@ -121,14 +131,27 @@ export default function ServerCard({
     </Card>
   ) : (
     <Card
-      className={
-        "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row"
-      }
+      className={cn(
+        "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row",
+        showNetTransfer
+          ? "lg:min-h-[91px] min-h-[123px]"
+          : "lg:min-h-[61px] min-h-[93px]",
+      )}
     >
       <Popover>
         <PopoverTrigger asChild>
-          <section className={"flex items-center justify-start gap-2 lg:w-28"}>
-            {showFlag ? <ServerFlag country_code={country_code} /> : null}
+          <section
+            className="grid items-center gap-2 lg:w-28"
+            style={{ gridTemplateColumns: "auto 1fr auto" }}
+          >
+            <div
+              className={cn(
+                "flex items-center justify-center",
+                showFlag ? "min-w-[17px]" : "min-w-0",
+              )}
+            >
+              {showFlag ? <ServerFlag country_code={country_code} /> : null}
+            </div>
             <p
               className={cn(
                 "break-all font-bold tracking-tight",
@@ -137,7 +160,7 @@ export default function ServerCard({
             >
               {name}
             </p>
-            <span className="h-2 w-2 shrink-0 rounded-full bg-red-500"></span>
+            <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center"></span>
           </section>
         </PopoverTrigger>
         <PopoverContent className="w-fit p-2" side="top">
