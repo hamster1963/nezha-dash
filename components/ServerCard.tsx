@@ -40,8 +40,9 @@ export default function ServerCard({
         <PopoverTrigger asChild>
           <section
             className="grid items-center gap-2 lg:w-28"
-            style={{ gridTemplateColumns: "auto 1fr auto" }}
+            style={{ gridTemplateColumns: "auto auto 1fr" }}
           >
+            <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
             <div
               className={cn(
                 "flex items-center justify-center",
@@ -58,7 +59,6 @@ export default function ServerCard({
             >
               {name}
             </p>
-            <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
           </section>
         </PopoverTrigger>
         <PopoverContent side="top">
@@ -142,8 +142,9 @@ export default function ServerCard({
         <PopoverTrigger asChild>
           <section
             className="grid items-center gap-2 lg:w-28"
-            style={{ gridTemplateColumns: "auto 1fr auto" }}
+            style={{ gridTemplateColumns: "auto auto 1fr" }}
           >
+            <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center"></span>
             <div
               className={cn(
                 "flex items-center justify-center",
@@ -160,7 +161,6 @@ export default function ServerCard({
             >
               {name}
             </p>
-            <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center"></span>
           </section>
         </PopoverTrigger>
         <PopoverContent className="w-fit p-2" side="top">
