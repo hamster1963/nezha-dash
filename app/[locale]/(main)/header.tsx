@@ -6,7 +6,9 @@ import { Separator } from "@/components/ui/separator";
 import getEnv from "@/lib/env-entry";
 import { DateTime } from "luxon";
 import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 
 function Header() {
@@ -15,10 +17,18 @@ function Header() {
   const customTitle = getEnv("NEXT_PUBLIC_CustomTitle");
   const customDescription = getEnv("NEXT_PUBLIC_CustomDescription");
 
+  const router = useRouter();
+  const locale = useLocale();
+
   return (
     <div className="mx-auto w-full max-w-5xl">
       <section className="flex items-center justify-between">
-        <section className="flex items-center text-base font-medium">
+        <section
+          onClick={() => {
+            router.push(`/${locale}/`);
+          }}
+          className="flex cursor-pointer items-center text-base font-medium"
+        >
           <div className="mr-1 flex flex-row items-center justify-start">
             <Image
               width={40}
