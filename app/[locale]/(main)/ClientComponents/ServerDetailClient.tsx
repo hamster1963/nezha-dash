@@ -6,7 +6,7 @@ import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progr
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import getEnv from "@/lib/env-entry";
-import { cn, nezhaFetcher } from "@/lib/utils";
+import { cn, formatBytes, nezhaFetcher } from "@/lib/utils";
 import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
@@ -51,10 +51,10 @@ export default function ServerDetailClient({
                 {data?.name}
             </div>
             <section className="flex flex-wrap gap-2 mt-2">
-                <Card className="rounded-[10px]">
+                <Card className="rounded-[10px] bg-transparent border-none shadow-none">
                     <CardContent className="px-1.5 py-1">
-                        <section className="flex items-center gap-2">
-                            <p className="text-xs font-semibold">Status</p>
+                        <section className="flex flex-col items-start gap-0.5">
+                            <p className="text-xs text-muted-foreground">Status</p>
                             <Badge
                                 className={cn(
                                     "text-xs rounded-[6px] w-fit px-1 py-0 dark:text-white",
@@ -69,160 +69,85 @@ export default function ServerDetailClient({
                         </section>
                     </CardContent>
                 </Card>
-                <Card className="rounded-[10px]">
+                <Card className="rounded-[10px] bg-transparent border-none shadow-none">
                     <CardContent className="px-1.5 py-1">
-                        <section className="flex items-center gap-2">
-                            <p className="text-xs font-semibold">Uptime</p>
-                            <Badge
-                                className="text-xs rounded-[6px] w-fit px-1 py-0"
-                                variant="secondary"
-                            >
+                        <section className="flex flex-col items-start gap-0.5">
+                            <p className="text-xs text-muted-foreground">Uptime</p>
+                            <div className="text-xs">
                                 {" "}
                                 {(data?.status.Uptime / 86400).toFixed(0)} Days{" "}
-                            </Badge>
+                            </div>
                         </section>
                     </CardContent>
                 </Card>
-                <Card className="rounded-[10px]">
+                <Card className="rounded-[10px] bg-transparent border-none shadow-none">
                     <CardContent className="px-1.5 py-1">
-                        <section className="flex items-center gap-2">
-                            <p className="text-xs font-semibold">Arch</p>
-                            <Badge
-                                className="text-xs rounded-[6px] w-fit px-1 py-0"
-                                variant="secondary"
-                            >
-                                {" "}
-                                {data?.host.Arch || "Unknown"}{" "}
-                            </Badge>
-                        </section>
-                    </CardContent>
-                </Card>
-                <Card className="rounded-[10px]">
-                    <CardContent className="px-1.5 py-1">
-                        <section className="flex items-center gap-2">
-                            <p className="text-xs font-semibold">Version</p>
-                            <Badge
-                                className="text-xs rounded-[6px] w-fit px-1 py-0"
-                                variant="secondary"
-                            >
-                                {" "}
+                        <section className="flex flex-col items-start gap-0.5">
+                            <p className="text-xs text-muted-foreground">Version</p>
+                            <div className="text-xs">
                                 {data?.host.Version || "Unknown"}{" "}
-                            </Badge>
+                            </div>
+                        </section>
+                    </CardContent>
+                </Card>
+                <Card className="rounded-[10px] bg-transparent border-none shadow-none">
+                    <CardContent className="px-1.5 py-1">
+                        <section className="flex flex-col items-start gap-0.5">
+                            <p className="text-xs text-muted-foreground">Arch</p>
+                            <div className="text-xs">
+                                {data?.host.Arch || "Unknown"}{" "}
+                            </div>
+                        </section>
+                    </CardContent>
+                </Card>
+                <Card className="rounded-[10px] bg-transparent border-none shadow-none">
+                    <CardContent className="px-1.5 py-1">
+                        <section className="flex flex-col items-start gap-0.5">
+                            <p className="text-xs text-muted-foreground">Mem</p>
+                            <div className="text-xs">
+                                {formatBytes(data?.host.MemTotal)}
+                            </div>
+                        </section>
+                    </CardContent>
+                </Card>
+                <Card className="rounded-[10px] bg-transparent border-none shadow-none">
+                    <CardContent className="px-1.5 py-1">
+                        <section className="flex flex-col items-start gap-0.5">
+                            <p className="text-xs text-muted-foreground">Disk</p>
+                            <div className="text-xs">
+                                {formatBytes(data?.host.DiskTotal)}
+                            </div>
                         </section>
                     </CardContent>
                 </Card>
             </section>
-            <section className="flex flex-wrap gap-2 mt-2">
-                <Card className="rounded-[10px] flex flex-col justify-center">
+            <section className="flex flex-wrap gap-2 mt-1">
+                <Card className="rounded-[10px] bg-transparent border-none shadow-none">
                     <CardContent className="px-1.5 py-1">
-                        <section className="flex items-center gap-2">
-                            <p className="text-xs font-semibold">System</p>
+                        <section className="flex flex-col items-start gap-0.5">
+                            <p className="text-xs text-muted-foreground">System</p>
                             {data?.host.Platform ? (
-                                <div className="text-xs w-fit font-medium">
+                                <div className="text-xs">
                                     {" "}
                                     {data?.host.Platform || "Unknown"} -{" "}
                                     {data?.host.PlatformVersion}{" "}
-                                </div>
-                            ) : (
-                                <div className="text-xs w-fit font-medium"> Unknown </div>
-                            )}
+                                </div>) : <div className="text-xs">Unknown</div>}
                         </section>
                     </CardContent>
                 </Card>
-                <Card className="rounded-[10px] flex flex-col justify-center">
+                <Card className="rounded-[10px] bg-transparent border-none shadow-none">
                     <CardContent className="px-1.5 py-1">
-                        <section className="flex items-center gap-2">
-                            <p className="text-xs font-semibold">CPU</p>
+                        <section className="flex flex-col items-start gap-0.5">
+                            <p className="text-xs text-muted-foreground">CPU</p>
                             {data?.host.CPU ? (
-                                <div className="text-xs w-fit font-medium">
+                                <div className="text-xs">
                                     {" "}
-                                    {data?.host.CPU || "Unknown"}
-                                </div>
-                            ) : (
-                                <div className="text-xs w-fit font-medium"> Unknown </div>
-                            )}
+                                    {data?.host.CPU}
+                                </div>) : <div className="text-xs">Unknown</div>}
                         </section>
                     </CardContent>
                 </Card>
             </section>
-            {/* <section className="flex flex-wrap gap-2 mt-1">
-                <Card className="rounded-[10px]">
-                    <CardContent className="px-1.5 py-1">
-                        <section className="flex items-center gap-2">
-                            <p className="text-xs font-semibold">CPU</p>
-                            <p className="text-xs text-end w-10 font-medium">
-                                {data?.status.CPU.toFixed(0)}%
-                            </p>
-                            <AnimatedCircularProgressBar
-                                className="size-3 text-[0px]"
-                                max={100}
-                                min={0}
-                                value={data?.status.CPU}
-                            />
-                        </section>
-                    </CardContent>
-                </Card>
-                <Card className="rounded-[10px]">
-                    <CardContent className="px-1.5 py-1">
-                        <section className="flex items-center gap-2">
-                            <p className="text-xs font-semibold">Mem</p>
-                            <p className="text-xs w-10 text-end font-medium">
-                                {((data?.status.MemUsed / data?.host.MemTotal) * 100).toFixed(
-                                    0,
-                                )}
-                                %
-                            </p>
-                            <AnimatedCircularProgressBar
-                                className="size-3 text-[0px]"
-                                max={100}
-                                min={0}
-                                value={(data?.status.MemUsed / data?.host.MemTotal) * 100}
-                            />
-                        </section>
-                    </CardContent>
-                </Card>
-                <Card className="rounded-[10px]">
-                    <CardContent className="px-1.5 py-1">
-                        <section className="flex items-center gap-2">
-                            <p className="text-xs font-semibold">Swap</p>
-                            <p className="text-xs w-10 text-end font-medium">
-                                {data?.status.SwapUsed
-                                    ? (
-                                        (data?.status.SwapUsed / data?.host.SwapTotal) *
-                                        100
-                                    ).toFixed(0)
-                                    : 0}
-                                %
-                            </p>
-                            <AnimatedCircularProgressBar
-                                className="size-3 text-[0px]"
-                                max={100}
-                                min={0}
-                                value={(data?.status.SwapUsed / data?.host.SwapTotal) * 100}
-                            />
-                        </section>
-                    </CardContent>
-                </Card>
-                <Card className="rounded-[10px]">
-                    <CardContent className="px-1.5 py-1">
-                        <section className="flex items-center gap-2">
-                            <p className="text-xs font-semibold">Disk</p>
-                            <p className="text-xs w-10 text-end font-medium">
-                                {((data?.status.DiskUsed / data?.host.DiskTotal) * 100).toFixed(
-                                    0,
-                                )}
-                                %
-                            </p>
-                            <AnimatedCircularProgressBar
-                                className="size-3 text-[0px]"
-                                max={100}
-                                min={0}
-                                value={(data?.status.DiskUsed / data?.host.DiskTotal) * 100}
-                            />
-                        </section>
-                    </CardContent>
-                </Card>
-            </section> */}
         </div>
     );
 }
