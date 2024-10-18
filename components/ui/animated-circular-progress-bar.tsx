@@ -5,12 +5,14 @@ interface Props {
   value: number;
   min: number;
   className?: string;
+  primaryColor?: string;
 }
 
 export default function AnimatedCircularProgressBar({
   max = 100,
   min = 0,
   value = 0,
+  primaryColor,
   className,
 }: Props) {
   const circumference = 2 * Math.PI * 45;
@@ -74,9 +76,12 @@ export default function AnimatedCircularProgressBar({
           strokeDashoffset="0"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="opacity-100 stroke-current"
+          className={cn("opacity-100 stroke-current", {
+            "stroke-[var(--stroke-primary-color)]": primaryColor,
+          })}
           style={
             {
+              "--stroke-primary-color": primaryColor,
               "--stroke-percent": currentPercent,
               strokeDasharray:
                 "calc(var(--stroke-percent) * var(--percent-to-px)) var(--circumference)",
