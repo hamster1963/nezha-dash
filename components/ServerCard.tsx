@@ -36,14 +36,6 @@ export default function ServerCard({
         "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row"
       }
     >
-      {/* <Popover>
-        <PopoverTrigger asChild>
-          
-        </PopoverTrigger>
-        <PopoverContent side="top">
-          <ServerCardPopover status={props.status} host={props.host} />
-        </PopoverContent>
-      </Popover> */}
       <section
         className="grid items-center gap-2 lg:w-28 cursor-pointer"
         style={{ gridTemplateColumns: "auto 1fr auto" }}
@@ -71,7 +63,7 @@ export default function ServerCard({
       </section>
       <div
         onClick={() => {
-          router.push(`/${locale}/${id}`);
+          router.push(`/${locale}/network/${id}`);
         }}
         className="flex flex-col gap-2 cursor-pointer"
       >
@@ -113,7 +105,7 @@ export default function ServerCard({
         {showNetTransfer && (
           <section
             onClick={() => {
-              router.push(`/${locale}/${id}`);
+              router.push(`/${locale}/network/${id}`);
             }}
             className={"flex items-center justify-between gap-1"}
           >
