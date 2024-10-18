@@ -145,17 +145,19 @@ export async function GetServerDetail({ server_id }: { server_id: number }) {
     }
 
     const timestamp = Date.now() / 1000;
-    const detailData = detailDataList.map((element: MakeOptional<NezhaAPI, "ipv4" | "ipv6" | "valid_ip">) => {
-      if (timestamp - element.last_active > 300) {
-        element.online_status = false;
-      } else {
-        element.online_status = true;
-      }
-      delete element.ipv4;
-      delete element.ipv6;
-      delete element.valid_ip;
-      return element;
-    })[0];
+    const detailData = detailDataList.map(
+      (element: MakeOptional<NezhaAPI, "ipv4" | "ipv6" | "valid_ip">) => {
+        if (timestamp - element.last_active > 300) {
+          element.online_status = false;
+        } else {
+          element.online_status = true;
+        }
+        delete element.ipv4;
+        delete element.ipv6;
+        delete element.valid_ip;
+        return element;
+      },
+    )[0];
 
     return detailData;
   } catch (error) {
