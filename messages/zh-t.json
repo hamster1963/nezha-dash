@@ -3,7 +3,9 @@
     "p_816-881_Totalservers": "伺服器總數",
     "p_1610-1676_Onlineservers": "在線伺服器",
     "p_2532-2599_Offlineservers": "離線伺服器",
-    "p_3463-3530_Totalbandwidth": "總流量"
+    "p_3463-3530_Totalbandwidth": "總流量",
+    "error_message": "請檢查您的環境變數並檢查伺服器控制台",
+    "no_data_message": "無資料"
   },
   "ServerListClient": {
     "error_message": "請檢查您的環境變數並檢查伺服器控制台",

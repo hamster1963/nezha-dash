@@ -3,7 +3,9 @@
     "p_816-881_Totalservers": "Total servers",
     "p_1610-1676_Onlineservers": "Online servers",
     "p_2532-2599_Offlineservers": "Offline servers",
-    "p_3463-3530_Totalbandwidth": "Total bandwidth"
+    "p_3463-3530_Totalbandwidth": "Total bandwidth",
+    "error_message": "Please check your environment variables and review the server console",
+    "no_data_message": "No data"
   },
   "ServerListClient": {
     "error_message": "Please check your environment variables and review the server console",
