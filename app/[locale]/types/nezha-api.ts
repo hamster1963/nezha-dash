@@ -1,7 +1,8 @@
 export type ServerApi = {
   live_servers: number;
   offline_servers: number;
-  total_bandwidth: number;
+  total_out_bandwidth: number;
+  total_in_bandwidth: number;
   result: NezhaAPISafe[];
 };
 
