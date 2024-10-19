@@ -36,7 +36,8 @@ export async function GetNezhaData() {
     const data: ServerApi = {
       live_servers: 0,
       offline_servers: 0,
-      total_bandwidth: 0,
+      total_out_bandwidth: 0,
+      total_in_bandwidth: 0,
       result: [],
     };
 
@@ -61,7 +62,8 @@ export async function GetNezhaData() {
           data.live_servers += 1;
           element.online_status = true;
         }
-        data.total_bandwidth += element.status.NetOutTransfer;
+        data.total_out_bandwidth += element.status.NetOutTransfer;
+        data.total_in_bandwidth += element.status.NetInTransfer;
 
         delete element.ipv4;
         delete element.ipv6;
