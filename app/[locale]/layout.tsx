@@ -1,5 +1,6 @@
 // @auto-i18n-check. Please do not delete the line.
 import { locales } from "@/i18n-metadata";
+import getEnv from "@/lib/env-entry";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -18,13 +19,16 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
+const customTitle = getEnv("NEXT_PUBLIC_CustomTitle");
+const customDescription = getEnv("NEXT_PUBLIC_CustomDescription");
+
 export const metadata: Metadata = {
   manifest: "/manifest.json",
-  title: "NezhaDash",
-  description: "A dashboard for nezha",
+  title: customTitle || "NezhaDash",
+  description: customDescription || "A dashboard for nezha",
   appleWebApp: {
     capable: true,
-    title: "NezhaDash",
+    title: customTitle || "NezhaDash",
     statusBarStyle: "black-translucent",
   },
 };
