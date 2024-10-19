@@ -38,11 +38,12 @@ export default function ServerCard({
     >
       <section
         className="grid items-center gap-2 lg:w-28 cursor-pointer"
-        style={{ gridTemplateColumns: "auto 1fr auto" }}
+        style={{ gridTemplateColumns: "auto auto 1fr" }}
         onClick={() => {
           router.push(`/${locale}/detail/${id}`);
         }}
       >
+        <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
         <div
           className={cn(
             "flex items-center justify-center",
@@ -59,7 +60,7 @@ export default function ServerCard({
         >
           {name}
         </p>
-        <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
+
       </section>
       <div
         onClick={() => {
