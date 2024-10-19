@@ -35,6 +35,29 @@
   "NetworkChart": {
     "ServerMonitorCount": "个监控服务"
   },
+  "ServerDetailClient": {
+    "detail_fetch_error_message": "获取服务器详情失败,请检查您的环境变量并检查服务器控制台",
+    "status": "状态",
+    "Online": "在线",
+    "Offline": "离线",
+    "Uptime": "运行时间",
+    "Days": "天",
+    "Version": "版本",
+    "Arch": "架构",
+    "Mem": "内存",
+    "Disk": "磁盘",
+    "System": "系统",
+    "CPU": "CPU"
+  },
+  "ServerDetailChartClient": {
+    "chart_fetch_error_message": "获取服务器详情失败,请检查您的环境变量并检查服务器控制台",
+    "Process": "进程",
+    "Disk": "磁盘",
+    "Mem": "内存",
+    "Swap": "虚拟内存",
+    "Upload": "上传",
+    "Download": "下载"
+  },
   "ThemeSwitcher": {
     "Light": "亮色",
     "Dark": "暗色",

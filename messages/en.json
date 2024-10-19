@@ -35,6 +35,29 @@
   "NetworkChart": {
     "ServerMonitorCount": "Services"
   },
+  "ServerDetailClient": {
+    "detail_fetch_error_message": "Please check your environment variables and review the server console",
+    "status": "Status",
+    "Online": "Online",
+    "Offline": "Offline",
+    "Uptime": "Uptime",
+    "Days": "Days",
+    "Version": "Version",
+    "Arch": "Arch",
+    "Mem": "Mem",
+    "Disk": "Disk",
+    "System": "System",
+    "CPU": "CPU"
+  },
+  "ServerDetailChartClient": {
+    "chart_fetch_error_message": "Please check your environment variables and review the server console",
+    "Process": "Process",
+    "Disk": "Disk",
+    "Mem": "Mem",
+    "Swap": "Swap",
+    "Upload": "Upload",
+    "Download": "Download"
+  },
   "ThemeSwitcher": {
     "Light": "Light",
     "Dark": "Dark",

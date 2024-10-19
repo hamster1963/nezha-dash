@@ -10,10 +10,15 @@ export function formatNezhaInfo(serverInfo: NezhaAPISafe) {
   return {
     ...serverInfo,
     cpu: serverInfo.status.CPU,
+    process: serverInfo.status.ProcessCount,
     up: serverInfo.status.NetOutSpeed / 1024 / 1024,
     down: serverInfo.status.NetInSpeed / 1024 / 1024,
     online: serverInfo.online_status,
+    tcp: serverInfo.status.TcpConnCount,
+    udp: serverInfo.status.UdpConnCount,
     mem: (serverInfo.status.MemUsed / serverInfo.host.MemTotal) * 100,
+    swap: (serverInfo.status.SwapUsed / serverInfo.host.SwapTotal) * 100,
+    disk: (serverInfo.status.DiskUsed / serverInfo.host.DiskTotal) * 100,
     stg: (serverInfo.status.DiskUsed / serverInfo.host.DiskTotal) * 100,
     country_code: serverInfo.host.CountryCode,
   };

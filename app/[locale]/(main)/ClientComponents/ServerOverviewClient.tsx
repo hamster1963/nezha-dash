@@ -15,7 +15,7 @@ export default function ServerOverviewClient() {
   const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher);
   const disableCartoon = getEnv("NEXT_PUBLIC_DisableCartoon") === "true";
   return (
-    <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
+    <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
       <Card>
         <CardContent className="px-6 py-3">
           <section className="flex flex-col gap-1">
@@ -94,9 +94,14 @@ export default function ServerOverviewClient() {
               {t("p_3463-3530_Totalbandwidth")}
             </p>
             {data ? (
-              <p className="text-lg font-semibold">
-                {formatBytes(data?.total_bandwidth)}
-              </p>
+              <section className="flex pt-[4px] items-center gap-2">
+                <p className="text-[14px]  font-semibold">
+                  ↑{formatBytes(data?.total_out_bandwidth)}
+                </p>
+                <p className="text-[14px]  font-semibold">
+                  ↓{formatBytes(data?.total_in_bandwidth)}
+                </p>
+              </section>
             ) : (
               <div className="flex h-7 items-center">
                 <Loader visible={true} />

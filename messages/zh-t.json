@@ -35,6 +35,29 @@
   "NetworkChart": {
     "ServerMonitorCount": "個監測服務"
   },
+  "ServerDetailClient": {
+    "detail_fetch_error_message": "獲取伺服器詳情失敗,請檢查您的環境變數並檢查伺服器控制台",
+    "status": "狀態",
+    "Online": "在線",
+    "Offline": "離線",
+    "Uptime": "稼働時間",
+    "Days": "天",
+    "Version": "版本",
+    "Arch": "架構",
+    "Mem": "記憶體",
+    "Disk": "磁碟",
+    "System": "系統",
+    "CPU": "CPU"
+  },
+  "ServerDetailChartClient": {
+    "chart_fetch_error_message": "獲取伺服器詳情失敗,請檢查您的環境變數並檢查伺服器控制台",
+    "Process": "進程",
+    "Disk": "磁碟",
+    "Mem": "記憶體",
+    "Swap": "虛擬記憶體",
+    "Upload": "上傳",
+    "Download": "下載"
+  },
   "ThemeSwitcher": {
     "Light": "亮色",
     "Dark": "暗色",

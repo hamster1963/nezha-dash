@@ -36,38 +36,34 @@ export default function ServerCard({
         "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row"
       }
     >
-      <Popover>
-        <PopoverTrigger asChild>
-          <section
-            className="grid items-center gap-2 lg:w-28"
-            style={{ gridTemplateColumns: "auto auto 1fr" }}
-          >
-            <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
-            <div
-              className={cn(
-                "flex items-center justify-center",
-                showFlag ? "min-w-[17px]" : "min-w-0",
-              )}
-            >
-              {showFlag ? <ServerFlag country_code={country_code} /> : null}
-            </div>
-            <p
-              className={cn(
-                "break-all font-bold tracking-tight",
-                showFlag ? "text-xs" : "text-sm",
-              )}
-            >
-              {name}
-            </p>
-          </section>
-        </PopoverTrigger>
-        <PopoverContent side="top">
-          <ServerCardPopover status={props.status} host={props.host} />
-        </PopoverContent>
-      </Popover>
+      <section
+        className="grid items-center gap-2 lg:w-28 cursor-pointer"
+        style={{ gridTemplateColumns: "auto auto 1fr" }}
+        onClick={() => {
+          router.push(`/${locale}/detail/${id}`);
+        }}
+      >
+        <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
+        <div
+          className={cn(
+            "flex items-center justify-center",
+            showFlag ? "min-w-[17px]" : "min-w-0",
+          )}
+        >
+          {showFlag ? <ServerFlag country_code={country_code} /> : null}
+        </div>
+        <p
+          className={cn(
+            "break-all font-bold tracking-tight",
+            showFlag ? "text-xs" : "text-sm",
+          )}
+        >
+          {name}
+        </p>
+      </section>
       <div
         onClick={() => {
-          router.push(`/${locale}/${id}`);
+          router.push(`/${locale}/network/${id}`);
         }}
         className="flex flex-col gap-2 cursor-pointer"
       >
@@ -109,7 +105,7 @@ export default function ServerCard({
         {showNetTransfer && (
           <section
             onClick={() => {
-              router.push(`/${locale}/${id}`);
+              router.push(`/${locale}/network/${id}`);
             }}
             className={"flex items-center justify-between gap-1"}
           >
