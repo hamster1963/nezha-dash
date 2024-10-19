@@ -37,7 +37,13 @@ interface ResultItem {
   [key: string]: number | null;
 }
 
-export function NetworkChartClient({ server_id }: { server_id: number }) {
+export function NetworkChartClient({
+  server_id,
+  show,
+}: {
+  server_id: number;
+  show: boolean;
+}) {
   const t = useTranslations("NetworkChartClient");
   const { data, error } = useSWR<NezhaAPIMonitor[]>(
     `/api/monitor?server_id=${server_id}`,
@@ -45,6 +51,7 @@ export function NetworkChartClient({ server_id }: { server_id: number }) {
     {
       refreshInterval:
         Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 15000,
+      isPaused: () => !show,
     },
   );
 

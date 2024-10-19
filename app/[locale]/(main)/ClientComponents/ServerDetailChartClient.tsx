@@ -55,8 +55,10 @@ type connectChartData = {
 
 export default function ServerDetailChartClient({
   server_id,
+  show,
 }: {
   server_id: number;
+  show: boolean;
 }) {
   const t = useTranslations("ServerDetailChartClient");
 
@@ -65,6 +67,7 @@ export default function ServerDetailChartClient({
     nezhaFetcher,
     {
       refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 5000,
+      isPaused: () => !show,
     },
   );
 
