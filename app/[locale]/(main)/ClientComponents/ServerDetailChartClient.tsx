@@ -102,7 +102,15 @@ function CpuChart({ data }: { data: NezhaAPISafe }) {
   useEffect(() => {
     if (data) {
       const timestamp = Date.now().toString();
-      const newData = [...cpuChartData, { timeStamp: timestamp, cpu: cpu }];
+      let newData = [] as cpuChartData[];
+      if (cpuChartData.length === 0) {
+        newData = [
+          { timeStamp: timestamp, cpu: cpu },
+          { timeStamp: timestamp, cpu: cpu },
+        ];
+      } else {
+        newData = [...cpuChartData, { timeStamp: timestamp, cpu: cpu }];
+      }
       if (newData.length > 30) {
         newData.shift();
       }
@@ -194,10 +202,18 @@ function ProcessChart({ data }: { data: NezhaAPISafe }) {
   useEffect(() => {
     if (data) {
       const timestamp = Date.now().toString();
-      const newData = [
-        ...processChartData,
-        { timeStamp: timestamp, process: process },
-      ];
+      let newData = [] as processChartData[];
+      if (processChartData.length === 0) {
+        newData = [
+          { timeStamp: timestamp, process: process },
+          { timeStamp: timestamp, process: process },
+        ];
+      } else {
+        newData = [
+          ...processChartData,
+          { timeStamp: timestamp, process: process },
+        ];
+      }
       if (newData.length > 30) {
         newData.shift();
       }
@@ -276,10 +292,18 @@ function MemChart({ data }: { data: NezhaAPISafe }) {
   useEffect(() => {
     if (data) {
       const timestamp = Date.now().toString();
-      const newData = [
-        ...memChartData,
-        { timeStamp: timestamp, mem: mem, swap: swap },
-      ];
+      let newData = [] as memChartData[];
+      if (memChartData.length === 0) {
+        newData = [
+          { timeStamp: timestamp, mem: mem, swap: swap },
+          { timeStamp: timestamp, mem: mem, swap: swap },
+        ];
+      } else {
+        newData = [
+          ...memChartData,
+          { timeStamp: timestamp, mem: mem, swap: swap },
+        ];
+      }
       if (newData.length > 30) {
         newData.shift();
       }
@@ -395,7 +419,15 @@ function DiskChart({ data }: { data: NezhaAPISafe }) {
   useEffect(() => {
     if (data) {
       const timestamp = Date.now().toString();
-      const newData = [...diskChartData, { timeStamp: timestamp, disk: disk }];
+      let newData = [] as diskChartData[];
+      if (diskChartData.length === 0) {
+        newData = [
+          { timeStamp: timestamp, disk: disk },
+          { timeStamp: timestamp, disk: disk },
+        ];
+      } else {
+        newData = [...diskChartData, { timeStamp: timestamp, disk: disk }];
+      }
       if (newData.length > 30) {
         newData.shift();
       }
@@ -487,10 +519,18 @@ function NetworkChart({ data }: { data: NezhaAPISafe }) {
   useEffect(() => {
     if (data) {
       const timestamp = Date.now().toString();
-      const newData = [
-        ...networkChartData,
-        { timeStamp: timestamp, upload: up, download: down },
-      ];
+      let newData = [] as networkChartData[];
+      if (networkChartData.length === 0) {
+        newData = [
+          { timeStamp: timestamp, upload: up, download: down },
+          { timeStamp: timestamp, upload: up, download: down },
+        ];
+      } else {
+        newData = [
+          ...networkChartData,
+          { timeStamp: timestamp, upload: up, download: down },
+        ];
+      }
       if (newData.length > 30) {
         newData.shift();
       }
@@ -605,10 +645,18 @@ function ConnectChart({ data }: { data: NezhaAPISafe }) {
   useEffect(() => {
     if (data) {
       const timestamp = Date.now().toString();
-      const newData = [
-        ...connectChartData,
-        { timeStamp: timestamp, tcp: tcp, udp: udp },
-      ];
+      let newData = [] as connectChartData[];
+      if (connectChartData.length === 0) {
+        newData = [
+          { timeStamp: timestamp, tcp: tcp, udp: udp },
+          { timeStamp: timestamp, tcp: tcp, udp: udp },
+        ];
+      } else {
+        newData = [
+          ...connectChartData,
+          { timeStamp: timestamp, tcp: tcp, udp: udp },
+        ];
+      }
       if (newData.length > 30) {
         newData.shift();
       }
