@@ -24,7 +24,7 @@ export default function ServerListClient() {
         <p className="text-sm font-medium opacity-40">{t("error_message")}</p>
       </div>
     );
-  if (!data) return null;
+  if (!data?.result) return null;
 
   const { result } = data;
 
