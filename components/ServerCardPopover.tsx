@@ -57,7 +57,7 @@ export default function ServerCardPopover({
       />
       <ServerCardPopoverCard
         title={t("Network")}
-        content={`${formatBytes(status.NetOutTransfer)} / ${formatBytes(status.NetInTransfer)}`}
+        content={`↑ ${formatBytes(status.NetOutTransfer)} / ↓ ${formatBytes(status.NetInTransfer)}`}
       />
       <ServerCardPopoverCard
         title={t("Load")}
