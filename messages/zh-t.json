@@ -19,6 +19,10 @@
     "Download": "下載",
     "Offline": "離線"
   },
+  "TabSwitch": {
+    "Detail": "詳細",
+    "Network": "網路"
+  },
   "ServerCardPopover": {
     "System": "系統",
     "CPU": "CPU",

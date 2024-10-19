@@ -33,15 +33,15 @@ export default function ServerCard({
   return online ? (
     <Card
       className={
-        "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row"
+        "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row cursor-pointer"
       }
+      onClick={() => {
+        router.push(`/${locale}/${id}`);
+      }}
     >
       <section
-        className="grid items-center gap-2 lg:w-28 cursor-pointer"
+        className="grid items-center gap-2 lg:w-28 "
         style={{ gridTemplateColumns: "auto auto 1fr" }}
-        onClick={() => {
-          router.push(`/${locale}/detail/${id}`);
-        }}
       >
         <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
         <div
@@ -61,12 +61,7 @@ export default function ServerCard({
           {name}
         </p>
       </section>
-      <div
-        onClick={() => {
-          router.push(`/${locale}/network/${id}`);
-        }}
-        className="flex flex-col gap-2 cursor-pointer"
-      >
+      <div className="flex flex-col gap-2">
         <section className={"grid  grid-cols-5 items-center gap-3"}>
           <div className={"flex w-14 flex-col"}>
             <p className="text-xs text-muted-foreground">{t("CPU")}</p>
