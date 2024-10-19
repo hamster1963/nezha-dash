@@ -2,6 +2,8 @@ import { NezhaAPISafe } from "@/app/[locale]/types/nezha-api";
 import { GetServerDetail } from "@/lib/serverFetch";
 import { NextResponse } from "next/server";
 
+export const runtime = 'edge';
+
 export const dynamic = "force-dynamic";
 
 interface NezhaDataResponse {
