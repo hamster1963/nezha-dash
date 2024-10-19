@@ -90,17 +90,19 @@ export function formatRelativeTime(timestamp: number): string {
   const diff = now - timestamp;
   const hours = Math.floor(diff / (1000 * 60 * 60));
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
   if (hours > 24) {
     const days = Math.floor(hours / 24);
     return `${days}d`;
   } else if (hours > 0) {
     return `${hours}h`;
-  } else if (minutes >= 0) {
+  } else if (minutes > 0) {
     return `${minutes}m`;
-  } else {
-    return "just now";
+  } else if (seconds >= 0) {
+    return `${seconds}s`;
   }
+  return "0s";
 }
 
 export function formatTime(timestamp: number): string {
