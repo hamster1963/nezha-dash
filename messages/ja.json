@@ -35,6 +35,29 @@
   "NetworkChart": {
     "ServerMonitorCount": "サービス"
   },
+  "ServerDetailClient": {
+    "detail_fetch_error_message": "環境変数を確認し、サーバーコンソールを確認してください",
+    "status": "ステータス",
+    "Online": "オンライン",
+    "Offline": "オフライン",
+    "Uptime": "稼働時間",
+    "Days": "日",
+    "Version": "バージョン",
+    "Arch": "アーキテクチャ",
+    "Mem": "メモリ",
+    "Disk": "ディスク",
+    "System": "システム",
+    "CPU": "CPU"
+  },
+  "ServerDetailChartClient": {
+    "chart_fetch_error_message": "環境変数を確認し、サーバーコンソールを確認してください",
+    "Process": "進捗状況",
+    "Disk": "ディスク",
+    "Mem": "メモリ",
+    "Swap": "スワップ",
+    "Upload": "アップロード",
+    "Download": "ダウンロード"
+  },
   "ThemeSwitcher": {
     "Light": "ライト",
     "Dark": "ダーク",
