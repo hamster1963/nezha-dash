@@ -3,7 +3,9 @@
     "p_816-881_Totalservers": "服务器总数",
     "p_1610-1676_Onlineservers": "在线服务器",
     "p_2532-2599_Offlineservers": "离线服务器",
-    "p_3463-3530_Totalbandwidth": "总流量"
+    "p_3463-3530_Totalbandwidth": "总流量",
+    "error_message": "请检查您的环境变量并检查服务器控制台",
+    "no_data_message": "无数据"
   },
   "ServerListClient": {
     "error_message": "请检查您的环境变量并检查服务器控制台",

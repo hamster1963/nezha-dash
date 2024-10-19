@@ -12,8 +12,24 @@ import useSWR from "swr";
 
 export default function ServerOverviewClient() {
   const t = useTranslations("ServerOverviewClient");
-  const { data } = useSWR<ServerApi>("/api/server", nezhaFetcher);
+  const { data, error } = useSWR<ServerApi>("/api/server", nezhaFetcher);
   const disableCartoon = getEnv("NEXT_PUBLIC_DisableCartoon") === "true";
+
+  if (error)
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <p className="text-sm font-medium opacity-40">{error.message}</p>
+        <p className="text-sm font-medium opacity-40">{t("error_message")}</p>
+      </div>
+    );
+
+  if (!data?.result)
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <p className="text-sm font-medium opacity-40">{t("no_data_message")}</p>
+      </div>
+    );
+
   return (
     <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
       <Card>
