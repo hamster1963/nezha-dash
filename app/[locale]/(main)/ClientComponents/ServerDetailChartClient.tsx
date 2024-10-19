@@ -2,19 +2,10 @@
 
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "@/components/ui/chart";
+import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import getEnv from "@/lib/env-entry";
-import {
-  formatNezhaInfo,
-  formatRelativeTime,
-  formatTime,
-  nezhaFetcher,
-} from "@/lib/utils";
+import { formatNezhaInfo, formatRelativeTime, nezhaFetcher } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import {
   Area,
@@ -67,6 +58,8 @@ export default function ServerDetailChartClient({
 }: {
   server_id: number;
 }) {
+  const t = useTranslations("ServerDetailChartClient");
+
   const { data, error } = useSWR<NezhaAPISafe>(
     `/api/detail?server_id=${server_id}`,
     nezhaFetcher,
@@ -81,8 +74,7 @@ export default function ServerDetailChartClient({
         <div className="flex flex-col items-center justify-center">
           <p className="text-sm font-medium opacity-40">{error.message}</p>
           <p className="text-sm font-medium opacity-40">
-            {/* {t("chart_fetch_error_message")} */}
-            fetch_error_message
+            {t("chart_fetch_error_message")}
           </p>
         </div>
       </>
@@ -191,6 +183,8 @@ function CpuChart({ data }: { data: NezhaAPISafe }) {
 }
 
 function ProcessChart({ data }: { data: NezhaAPISafe }) {
+  const t = useTranslations("ServerDetailChartClient");
+
   const [processChartData, setProcessChartData] = useState(
     [] as processChartData[],
   );
@@ -222,7 +216,7 @@ function ProcessChart({ data }: { data: NezhaAPISafe }) {
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
-            <p className="text-md font-medium">Process</p>
+            <p className="text-md font-medium">{t("Process")}</p>
             <section className="flex items-center gap-2">
               <p className="text-xs text-end w-10 font-medium">{process}</p>
             </section>
@@ -273,6 +267,8 @@ function ProcessChart({ data }: { data: NezhaAPISafe }) {
 }
 
 function MemChart({ data }: { data: NezhaAPISafe }) {
+  const t = useTranslations("ServerDetailChartClient");
+
   const [memChartData, setMemChartData] = useState([] as memChartData[]);
 
   const { mem, swap } = formatNezhaInfo(data);
@@ -307,7 +303,7 @@ function MemChart({ data }: { data: NezhaAPISafe }) {
           <div className="flex items-center">
             <section className="flex items-center gap-4">
               <div className="flex flex-col">
-                <p className=" text-xs text-muted-foreground">Mem</p>
+                <p className=" text-xs text-muted-foreground">{t("Mem")}</p>
                 <div className="flex items-center gap-2">
                   <AnimatedCircularProgressBar
                     className="size-3 text-[0px]"
@@ -320,7 +316,7 @@ function MemChart({ data }: { data: NezhaAPISafe }) {
                 </div>
               </div>
               <div className="flex flex-col">
-                <p className=" text-xs text-muted-foreground">Swap</p>
+                <p className=" text-xs text-muted-foreground">{t("Swap")}</p>
                 <div className="flex items-center gap-2">
                   <AnimatedCircularProgressBar
                     className="size-3 text-[0px]"
@@ -390,6 +386,8 @@ function MemChart({ data }: { data: NezhaAPISafe }) {
 }
 
 function DiskChart({ data }: { data: NezhaAPISafe }) {
+  const t = useTranslations("ServerDetailChartClient");
+
   const [diskChartData, setDiskChartData] = useState([] as diskChartData[]);
 
   const { disk } = formatNezhaInfo(data);
@@ -412,11 +410,11 @@ function DiskChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className=" rounded-sm">
+    <Card className="rounded-sm">
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
-            <p className="text-md font-medium">Disk</p>
+            <p className="text-md font-medium">{t("Disk")}</p>
             <section className="flex items-center gap-2">
               <p className="text-xs text-end w-10 font-medium">
                 {disk.toFixed(0)}%
@@ -478,6 +476,8 @@ function DiskChart({ data }: { data: NezhaAPISafe }) {
 }
 
 function NetworkChart({ data }: { data: NezhaAPISafe }) {
+  const t = useTranslations("ServerDetailChartClient");
+
   const [networkChartData, setNetworkChartData] = useState(
     [] as networkChartData[],
   );
@@ -520,14 +520,16 @@ function NetworkChart({ data }: { data: NezhaAPISafe }) {
           <div className="flex items-center">
             <section className="flex items-center gap-4">
               <div className="flex flex-col w-20">
-                <p className="text-xs text-muted-foreground">Upload</p>
+                <p className="text-xs text-muted-foreground">{t("Upload")}</p>
                 <div className="flex items-center gap-1">
                   <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-1))]"></span>
                   <p className="text-xs font-medium">{up.toFixed(2)} M/s</p>
                 </div>
               </div>
               <div className="flex flex-col w-20">
-                <p className=" text-xs text-muted-foreground">Download</p>
+                <p className=" text-xs text-muted-foreground">
+                  {t("Download")}
+                </p>
                 <div className="flex items-center gap-1">
                   <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-4))]"></span>
                   <p className="text-xs font-medium">{down.toFixed(2)} M/s</p>
@@ -624,7 +626,7 @@ function ConnectChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className=" rounded-sm">
+    <Card className="rounded-sm">
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center">

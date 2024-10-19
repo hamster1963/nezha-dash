@@ -60,7 +60,6 @@ export default function ServerCard({
         >
           {name}
         </p>
-
       </section>
       <div
         onClick={() => {
