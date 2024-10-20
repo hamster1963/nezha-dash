@@ -25,7 +25,7 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     serverActions: {
-      allowedOrigins: ['*'],
+      allowedOrigins: ["*"],
     },
   },
   logging: {
