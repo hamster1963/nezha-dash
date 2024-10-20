@@ -1,5 +1,6 @@
 "use client";
 
+import { ServerDetailLoading } from "@/app/[locale]/(main)/ClientComponents/ServerDetailLoading";
 import { NezhaAPISafe } from "@/app/[locale]/types/nezha-api";
 import { BackIcon } from "@/components/Icon";
 import { Badge } from "@/components/ui/badge";
@@ -9,8 +10,6 @@ import { cn, formatBytes, nezhaFetcher } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
-
-import ServerDetailLoading from "./ServerDetailLoading";
 
 export default function ServerDetailClient({
   server_id,
