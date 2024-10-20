@@ -1,31 +1,34 @@
 // @auto-i18n-check. Please do not delete the line.
-
-import "@/styles/globals.css";
-import "/node_modules/flag-icons/css/flag-icons.min.css";
-
-import React from "react";
-import { NextIntlClientProvider, useMessages } from "next-intl";
-import { PublicEnvScript } from "next-runtime-env";
-import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
-import { ThemeProvider } from "next-themes";
-import { Viewport } from "next";
-import { cn } from "@/lib/utils";
 import { locales } from "@/i18n-metadata";
+import getEnv from "@/lib/env-entry";
+import { cn } from "@/lib/utils";
+import "@/styles/globals.css";
+import type { Metadata } from "next";
+import { Viewport } from "next";
+import { NextIntlClientProvider, useMessages } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
+import { PublicEnvScript } from "next-runtime-env";
+import { ThemeProvider } from "next-themes";
+import { Inter as FontSans } from "next/font/google";
+import React from "react";
+
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
+const customTitle = getEnv("NEXT_PUBLIC_CustomTitle");
+const customDescription = getEnv("NEXT_PUBLIC_CustomDescription");
+
 export const metadata: Metadata = {
   manifest: "/manifest.json",
-  title: "NezhaDash",
-  description: "A dashboard for nezha",
+  title: customTitle || "NezhaDash",
+  description: customDescription || "A dashboard for nezha",
   appleWebApp: {
     capable: true,
-    title: "NezhaDash",
+    title: customTitle || "NezhaDash",
     statusBarStyle: "black-translucent",
   },
 };
@@ -36,8 +39,6 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
 };
-
-export const dynamic = "force-static";
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

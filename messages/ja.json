@@ -3,7 +3,13 @@
     "p_816-881_Totalservers": "サーバーの総数",
     "p_1610-1676_Onlineservers": "オンラインサーバー",
     "p_2532-2599_Offlineservers": "オフラインサーバー",
-    "p_3463-3530_Totalbandwidth": "総流量"
+    "p_3463-3530_Totalbandwidth": "総流量",
+    "error_message": "環境変数を確認し、サーバーコンソールを確認してください",
+    "no_data_message": "データなし"
+  },
+  "ServerListClient": {
+    "error_message": "環境変数を確認し、サーバーコンソールを確認してください",
+    "defaultTag": "すべて"
   },
   "ServerCard": {
     "CPU": "CPU",
@@ -12,6 +18,10 @@
     "Upload": "Upload",
     "Download": "Download",
     "Offline": "Offline"
+  },
+  "TabSwitch": {
+    "Detail": "詳細",
+    "Network": "ネットワーク"
   },
   "ServerCardPopover": {
     "System": "システム",
@@ -23,6 +33,36 @@
     "Load": "負荷",
     "Online": "オンライン時間",
     "Offline": "オフライン"
+  },
+  "NetworkChartClient": {
+    "avg_delay": "遅延",
+    "chart_fetch_error_message": "ネットワークデータの取得に失敗しました。サーバーの監視が有効になっているかどうかを確認してください"
+  },
+  "NetworkChart": {
+    "ServerMonitorCount": "サービス"
+  },
+  "ServerDetailClient": {
+    "detail_fetch_error_message": "環境変数を確認し、サーバーコンソールを確認してください",
+    "status": "ステータス",
+    "Online": "オンライン",
+    "Offline": "オフライン",
+    "Uptime": "稼働時間",
+    "Days": "日",
+    "Version": "バージョン",
+    "Arch": "アーキテクチャ",
+    "Mem": "メモリ",
+    "Disk": "ディスク",
+    "System": "システム",
+    "CPU": "CPU"
+  },
+  "ServerDetailChartClient": {
+    "chart_fetch_error_message": "環境変数を確認し、サーバーコンソールを確認してください",
+    "Process": "進捗状況",
+    "Disk": "ディスク",
+    "Mem": "メモリ",
+    "Swap": "スワップ",
+    "Upload": "アップロード",
+    "Download": "ダウンロード"
   },
   "ThemeSwitcher": {
     "Light": "ライト",

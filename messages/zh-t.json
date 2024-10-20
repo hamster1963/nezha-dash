@@ -3,7 +3,13 @@
     "p_816-881_Totalservers": "伺服器總數",
     "p_1610-1676_Onlineservers": "在線伺服器",
     "p_2532-2599_Offlineservers": "離線伺服器",
-    "p_3463-3530_Totalbandwidth": "總流量"
+    "p_3463-3530_Totalbandwidth": "總流量",
+    "error_message": "請檢查您的環境變數並檢查伺服器控制台",
+    "no_data_message": "無資料"
+  },
+  "ServerListClient": {
+    "error_message": "請檢查您的環境變數並檢查伺服器控制台",
+    "defaultTag": "全部"
   },
   "ServerCard": {
     "CPU": "CPU",
@@ -12,6 +18,10 @@
     "Upload": "上傳",
     "Download": "下載",
     "Offline": "離線"
+  },
+  "TabSwitch": {
+    "Detail": "詳細",
+    "Network": "網路"
   },
   "ServerCardPopover": {
     "System": "系統",
@@ -23,6 +33,36 @@
     "Load": "負載",
     "Online": "在線時間",
     "Offline": "離線"
+  },
+  "NetworkChartClient": {
+    "avg_delay": "延遲",
+    "chart_fetch_error_message": "獲取網絡數據失敗，請檢查是否開啟服務端監控"
+  },
+  "NetworkChart": {
+    "ServerMonitorCount": "個監測服務"
+  },
+  "ServerDetailClient": {
+    "detail_fetch_error_message": "獲取伺服器詳情失敗,請檢查您的環境變數並檢查伺服器控制台",
+    "status": "狀態",
+    "Online": "在線",
+    "Offline": "離線",
+    "Uptime": "稼働時間",
+    "Days": "天",
+    "Version": "版本",
+    "Arch": "架構",
+    "Mem": "記憶體",
+    "Disk": "磁碟",
+    "System": "系統",
+    "CPU": "CPU"
+  },
+  "ServerDetailChartClient": {
+    "chart_fetch_error_message": "獲取伺服器詳情失敗,請檢查您的環境變數並檢查伺服器控制台",
+    "Process": "進程",
+    "Disk": "磁碟",
+    "Mem": "記憶體",
+    "Swap": "虛擬記憶體",
+    "Upload": "上傳",
+    "Download": "下載"
   },
   "ThemeSwitcher": {
     "Light": "亮色",

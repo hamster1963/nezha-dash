@@ -1,35 +1,53 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { Separator } from "../../../components/ui/separator";
-import { DateTime } from "luxon";
-import { ModeToggle } from "../../../components/ThemeSwitcher";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { ModeToggle } from "@/components/ThemeSwitcher";
+import { Separator } from "@/components/ui/separator";
+import getEnv from "@/lib/env-entry";
+import { DateTime } from "luxon";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
+
 function Header() {
   const t = useTranslations("Header");
+  const customLogo = getEnv("NEXT_PUBLIC_CustomLogo");
+  const customTitle = getEnv("NEXT_PUBLIC_CustomTitle");
+  const customDescription = getEnv("NEXT_PUBLIC_CustomDescription");
+
+  const router = useRouter();
+  const locale = useLocale();
+
   return (
     <div className="mx-auto w-full max-w-5xl">
       <section className="flex items-center justify-between">
-        <section className="flex items-center text-base font-medium">
+        <section
+          onClick={() => {
+            router.push(`/${locale}/`);
+          }}
+          className="flex cursor-pointer items-center text-base font-medium"
+        >
           <div className="mr-1 flex flex-row items-center justify-start">
             <Image
               width={40}
               height={40}
               unoptimized
               alt="apple-touch-icon"
-              src={"/apple-touch-icon.png"}
-              className="relative !m-0 h-6 w-6 border-2 border-white object-cover object-top !p-0 transition duration-500 group-hover:z-30 group-hover:scale-105"
+              src={customLogo ? customLogo : "/apple-touch-icon.png"}
+              className="relative !m-0 border-2 border-transparent h-6 w-6 object-cover object-top !p-0"
             />
           </div>
-          NezhaDash
+          {customTitle ? customTitle : "NezhaDash"}
           <Separator
             orientation="vertical"
             className="mx-2 hidden h-4 w-[1px] md:block"
           />
           <p className="hidden text-sm font-medium opacity-40 md:block">
-            {t("p_1079-1199_Simpleandbeautifuldashbo")}
+            {customDescription
+              ? customDescription
+              : t("p_1079-1199_Simpleandbeautifuldashbo")}
           </p>
         </section>
         <section className="flex items-center gap-2">

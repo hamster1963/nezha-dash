@@ -3,7 +3,13 @@
     "p_816-881_Totalservers": "服务器总数",
     "p_1610-1676_Onlineservers": "在线服务器",
     "p_2532-2599_Offlineservers": "离线服务器",
-    "p_3463-3530_Totalbandwidth": "总流量"
+    "p_3463-3530_Totalbandwidth": "总流量",
+    "error_message": "请检查您的环境变量并检查服务器控制台",
+    "no_data_message": "无数据"
+  },
+  "ServerListClient": {
+    "error_message": "请检查您的环境变量并检查服务器控制台",
+    "defaultTag": "全部"
   },
   "ServerCard": {
     "CPU": "CPU",
@@ -12,6 +18,10 @@
     "Upload": "上传",
     "Download": "下载",
     "Offline": "离线"
+  },
+  "TabSwitch": {
+    "Detail": "详情",
+    "Network": "网络"
   },
   "ServerCardPopover": {
     "System": "系统",
@@ -23,6 +33,36 @@
     "Load": "负载",
     "Online": "在线时间",
     "Offline": "离线"
+  },
+  "NetworkChartClient": {
+    "avg_delay": "延迟",
+    "chart_fetch_error_message": "获取网络数据失败，请检查是否开启服务端监控"
+  },
+  "NetworkChart": {
+    "ServerMonitorCount": "个监控服务"
+  },
+  "ServerDetailClient": {
+    "detail_fetch_error_message": "获取服务器详情失败,请检查您的环境变量并检查服务器控制台",
+    "status": "状态",
+    "Online": "在线",
+    "Offline": "离线",
+    "Uptime": "运行时间",
+    "Days": "天",
+    "Version": "版本",
+    "Arch": "架构",
+    "Mem": "内存",
+    "Disk": "磁盘",
+    "System": "系统",
+    "CPU": "CPU"
+  },
+  "ServerDetailChartClient": {
+    "chart_fetch_error_message": "获取服务器详情失败,请检查您的环境变量并检查服务器控制台",
+    "Process": "进程",
+    "Disk": "磁盘",
+    "Mem": "内存",
+    "Swap": "虚拟内存",
+    "Upload": "上传",
+    "Download": "下载"
   },
   "ThemeSwitcher": {
     "Light": "亮色",

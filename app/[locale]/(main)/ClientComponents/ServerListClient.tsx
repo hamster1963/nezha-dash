@@ -1,11 +1,19 @@
 "use client";
 
-import { ServerApi } from "../../types/nezha-api";
-import ServerCard from "../../../../components/ServerCard";
-import { nezhaFetcher } from "../../../../lib/utils";
+import { ServerApi } from "@/app/[locale]/types/nezha-api";
+import ServerCard from "@/components/ServerCard";
+import Switch from "@/components/Switch";
+import getEnv from "@/lib/env-entry";
+import { nezhaFetcher } from "@/lib/utils";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 import useSWR from "swr";
-import getEnv from "../../../../lib/env-entry";
+
 export default function ServerListClient() {
+  const t = useTranslations("ServerListClient");
+
+  const [tag, setTag] = useState<string>(t("defaultTag"));
+
   const { data, error } = useSWR<ServerApi>("/api/server", nezhaFetcher, {
     refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 2000,
   });
@@ -13,13 +21,10 @@ export default function ServerListClient() {
     return (
       <div className="flex flex-col items-center justify-center">
         <p className="text-sm font-medium opacity-40">{error.message}</p>
-        <p className="text-sm font-medium opacity-40">
-          Please check your environment variables and review the server console
-          logs for more details.
-        </p>
+        <p className="text-sm font-medium opacity-40">{t("error_message")}</p>
       </div>
     );
-  if (!data) return null;
+  if (!data?.result) return null;
 
   const { result } = data;
 
@@ -29,11 +34,26 @@ export default function ServerListClient() {
     return a.id - b.id;
   });
 
+  const allTag = sortedServers.map((server) => server.tag).filter((tag) => tag);
+  const uniqueTags = [...new Set(allTag)];
+
+  uniqueTags.unshift(t("defaultTag"));
+
+  const filteredServers =
+    tag === t("defaultTag")
+      ? sortedServers
+      : sortedServers.filter((server) => server.tag === tag);
+
   return (
-    <section className="grid grid-cols-1 gap-2 md:grid-cols-2">
-      {sortedServers.map((serverInfo) => (
-        <ServerCard key={serverInfo.id} serverInfo={serverInfo} />
-      ))}
-    </section>
+    <>
+      {getEnv("NEXT_PUBLIC_ShowTag") === "true" && uniqueTags.length > 1 && (
+        <Switch allTag={uniqueTags} nowTag={tag} setTag={setTag} />
+      )}
+      <section className="grid grid-cols-1 gap-2 md:grid-cols-2">
+        {filteredServers.map((serverInfo) => (
+          <ServerCard key={serverInfo.id} serverInfo={serverInfo} />
+        ))}
+      </section>
+    </>
   );
 }

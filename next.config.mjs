@@ -1,12 +1,13 @@
+import withPWAInit from "@ducanh2912/next-pwa";
 import withBundleAnalyzer from "@next/bundle-analyzer";
+import createNextIntlPlugin from "next-intl/plugin";
 
 const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
-import withPWAInit from "@ducanh2912/next-pwa";
+
 const withPWA = withPWAInit({
   dest: "public",
   cacheOnFrontEndNav: true,

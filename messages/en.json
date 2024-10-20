@@ -3,7 +3,13 @@
     "p_816-881_Totalservers": "Total servers",
     "p_1610-1676_Onlineservers": "Online servers",
     "p_2532-2599_Offlineservers": "Offline servers",
-    "p_3463-3530_Totalbandwidth": "Total bandwidth"
+    "p_3463-3530_Totalbandwidth": "Total bandwidth",
+    "error_message": "Please check your environment variables and review the server console",
+    "no_data_message": "No data"
+  },
+  "ServerListClient": {
+    "error_message": "Please check your environment variables and review the server console",
+    "defaultTag": "All"
   },
   "ServerCard": {
     "CPU": "CPU",
@@ -12,6 +18,10 @@
     "Upload": "Upload",
     "Download": "Download",
     "Offline": "Offline"
+  },
+  "TabSwitch": {
+    "Detail": "Detail",
+    "Network": "Network"
   },
   "ServerCardPopover": {
     "System": "System",
@@ -23,6 +33,36 @@
     "Load": "Load",
     "Online": "Online",
     "Offline": "Offline"
+  },
+  "NetworkChartClient": {
+    "avg_delay": "Latency",
+    "chart_fetch_error_message": "Failed to fetch network data, please check if the server monitoring is enabled"
+  },
+  "NetworkChart": {
+    "ServerMonitorCount": "Services"
+  },
+  "ServerDetailClient": {
+    "detail_fetch_error_message": "Please check your environment variables and review the server console",
+    "status": "Status",
+    "Online": "Online",
+    "Offline": "Offline",
+    "Uptime": "Uptime",
+    "Days": "Days",
+    "Version": "Version",
+    "Arch": "Arch",
+    "Mem": "Mem",
+    "Disk": "Disk",
+    "System": "System",
+    "CPU": "CPU"
+  },
+  "ServerDetailChartClient": {
+    "chart_fetch_error_message": "Please check your environment variables and review the server console",
+    "Process": "Process",
+    "Disk": "Disk",
+    "Mem": "Mem",
+    "Swap": "Swap",
+    "Upload": "Upload",
+    "Download": "Download"
   },
   "ThemeSwitcher": {
     "Light": "Light",
