@@ -10,9 +10,8 @@ import { useLocale } from "next-intl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import { auth } from "@/auth";
 
-async function Header() {
+function Header() {
   const t = useTranslations("Header");
   const customLogo = getEnv("NEXT_PUBLIC_CustomLogo");
   const customTitle = getEnv("NEXT_PUBLIC_CustomTitle");
@@ -21,11 +20,6 @@ async function Header() {
   const router = useRouter();
   const locale = useLocale();
 
-  const session = await auth();
-
-  if (session) {
-    console.log(session);
-  }
 
   return (
     <div className="mx-auto w-full max-w-5xl">
