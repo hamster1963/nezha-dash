@@ -4,7 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import getEnv from "./lib/env-entry";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  secret: "this_is_nezha_dash_web_secret",
+  secret: "H7Fijn9veJRkbizIwUQEpBAzzhRwkv7/ZoB5sGF5cwm5",
   providers: [
     Credentials({
       credentials: {
