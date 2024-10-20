@@ -3,6 +3,7 @@
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ModeToggle } from "@/components/ThemeSwitcher";
 import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
 import getEnv from "@/lib/env-entry";
 import { DateTime } from "luxon";
 import { useTranslations } from "next-intl";
@@ -62,7 +63,7 @@ function Header() {
 
 // https://github.com/streamich/react-use/blob/master/src/useInterval.ts
 const useInterval = (callback: Function, delay?: number | null) => {
-  const savedCallback = useRef<Function>(() => {});
+  const savedCallback = useRef<Function>(() => { });
   useEffect(() => {
     savedCallback.current = callback;
   });
@@ -95,9 +96,9 @@ function Overview() {
         <p className="text-sm font-medium opacity-50">
           {t("p_2390-2457_wherethetimeis")}
         </p>
-        {mouted && (
+        {mouted ? (
           <p className="opacity-1 text-sm font-medium">{timeString}</p>
-        )}
+        ) : <Skeleton className="h-[20px] w-[50px] rounded-[5px] bg-muted-foreground/10 animate-none"></Skeleton>}
       </div>
     </section>
   );
