@@ -5,6 +5,7 @@ import getEnv from "./lib/env-entry";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: "this_is_nezha_dash_web_secret",
+  trustHost: true,
   providers: [
     Credentials({
       credentials: {
