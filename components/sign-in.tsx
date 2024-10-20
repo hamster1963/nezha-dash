@@ -1,19 +1,25 @@
 import Footer from "@/app/[locale]/(main)/footer"
 import Header from "@/app/[locale]/(main)/header"
 import { signIn } from "@/auth"
+import { redirect } from "next/navigation"
 
 export function SignIn() {
+    async function handleSubmit(formData: FormData) {
+        'use server'
+        try {
+            await signIn("credentials", formData)
+        } catch (error) {
+            redirect('/')
+        }
+    }
+
     return (
         <div className="flex min-h-screen w-full flex-col">
             <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:p-10 md:pt-8">
                 <Header />
                 <form
                     className="flex flex-col items-center justify-start gap-4 p-4 "
-                    action={async (formData) => {
-                        "use server"
-                        const res = await signIn("credentials", formData)
-                        console.log(res)
-                    }}
+                    action={handleSubmit}
                 >
                     <section className="flex flex-col items-start gap-2">
                         <label className="flex flex-col items-start gap-1 ">
