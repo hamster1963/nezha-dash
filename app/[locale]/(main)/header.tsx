@@ -10,8 +10,9 @@ import { useLocale } from "next-intl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
+import { auth } from "@/auth";
 
-function Header() {
+async function Header() {
   const t = useTranslations("Header");
   const customLogo = getEnv("NEXT_PUBLIC_CustomLogo");
   const customTitle = getEnv("NEXT_PUBLIC_CustomTitle");
@@ -19,6 +20,12 @@ function Header() {
 
   const router = useRouter();
   const locale = useLocale();
+
+  const session = await auth();
+
+  if (session) {
+    console.log(session);
+  }
 
   return (
     <div className="mx-auto w-full max-w-5xl">
@@ -62,7 +69,7 @@ function Header() {
 
 // https://github.com/streamich/react-use/blob/master/src/useInterval.ts
 const useInterval = (callback: Function, delay?: number | null) => {
-  const savedCallback = useRef<Function>(() => {});
+  const savedCallback = useRef<Function>(() => { });
   useEffect(() => {
     savedCallback.current = callback;
   });

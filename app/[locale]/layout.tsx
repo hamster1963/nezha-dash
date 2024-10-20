@@ -13,6 +13,7 @@ import { Inter as FontSans } from "next/font/google";
 import React from "react";
 
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import { auth } from "@/auth";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -54,6 +55,7 @@ export default function LocaleLayout({
   unstable_setRequestLocale(locale);
 
   const messages = useMessages();
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
