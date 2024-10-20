@@ -1,15 +1,19 @@
 import Footer from "@/app/[locale]/(main)/footer"
 import Header from "@/app/[locale]/(main)/header"
 import { signIn } from "@/auth"
+import { useLocale } from "next-intl"
 import { redirect } from "next/navigation"
 
 export function SignIn() {
+    const locale = useLocale()
+
+
     async function handleSubmit(formData: FormData) {
         'use server'
         try {
             await signIn("credentials", formData)
         } catch (error) {
-            redirect('/')
+            redirect(`/${locale}`)
         }
     }
 
