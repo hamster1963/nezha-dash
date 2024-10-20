@@ -12,7 +12,7 @@ type DashboardProps = {
 export default async function MainLayout({ children }: DashboardProps) {
   const session = await auth();
 
-  if (!session && getEnv("SITE_PASSWORD")) {
+  if (!session && getEnv("Site_Password")) {
     if (getEnv("CF_PAGES")) {
       redirect("/api/auth/signin");
     } else {

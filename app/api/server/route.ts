@@ -12,7 +12,7 @@ interface NezhaDataResponse {
 }
 
 export const GET = auth(async function GET(req) {
-  if (!req.auth && getEnv("SITE_PASSWORD")) {
+  if (!req.auth && getEnv("Site_Password")) {
     return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
   }
 
