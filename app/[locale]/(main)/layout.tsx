@@ -1,16 +1,18 @@
 import Footer from "@/app/[locale]/(main)/footer";
 import Header from "@/app/[locale]/(main)/header";
 import { auth } from "@/auth";
-import { SignIn } from "@/components/sign-in";
 import getEnv from "@/lib/env-entry";
 import React from "react";
+import { redirect } from "next/navigation";
 
 type DashboardProps = {
   children: React.ReactNode;
 };
 export default async function MainLayout({ children }: DashboardProps) {
   const session = await auth()
-  if (!session && getEnv("SITE_PASSWORD")) return <SignIn />
+  if (!session && getEnv("SITE_PASSWORD")) {
+    redirect("/api/auth/signin");
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col">
