@@ -1,4 +1,5 @@
 // @auto-i18n-check. Please do not delete the line.
+import { auth } from "@/auth";
 import { locales } from "@/i18n-metadata";
 import getEnv from "@/lib/env-entry";
 import { cn } from "@/lib/utils";
@@ -13,7 +14,6 @@ import { Inter as FontSans } from "next/font/google";
 import React from "react";
 
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-import { auth } from "@/auth";
 
 const fontSans = FontSans({
   subsets: ["latin"],

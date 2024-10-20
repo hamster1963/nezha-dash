@@ -21,7 +21,6 @@ function Header() {
   const router = useRouter();
   const locale = useLocale();
 
-
   return (
     <div className="mx-auto w-full max-w-5xl">
       <section className="flex items-center justify-between">
@@ -64,7 +63,7 @@ function Header() {
 
 // https://github.com/streamich/react-use/blob/master/src/useInterval.ts
 const useInterval = (callback: Function, delay?: number | null) => {
-  const savedCallback = useRef<Function>(() => { });
+  const savedCallback = useRef<Function>(() => {});
   useEffect(() => {
     savedCallback.current = callback;
   });

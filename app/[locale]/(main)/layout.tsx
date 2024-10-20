@@ -3,14 +3,22 @@ import Header from "@/app/[locale]/(main)/header";
 import { auth } from "@/auth";
 import { SignIn } from "@/components/sign-in";
 import getEnv from "@/lib/env-entry";
+import { redirect } from "next/navigation";
 import React from "react";
 
 type DashboardProps = {
   children: React.ReactNode;
 };
 export default async function MainLayout({ children }: DashboardProps) {
-  const session = await auth()
-  if (!session && getEnv("SITE_PASSWORD")) return <SignIn />
+  const session = await auth();
+
+  if (!session && getEnv("SITE_PASSWORD")) {
+    if (getEnv("CF_PAGES")) {
+      redirect("/api/auth/signin");
+    } else {
+      return <SignIn />;
+    }
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col">
