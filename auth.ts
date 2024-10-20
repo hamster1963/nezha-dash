@@ -11,7 +11,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        if (credentials.password === getEnv("Site_Password")) {
+        if (credentials.password === getEnv("SitePassword")) {
           return { id: "0" };
         }
         return null;
