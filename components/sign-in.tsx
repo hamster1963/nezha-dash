@@ -4,6 +4,8 @@ import { signIn } from "@/auth"
 import { useLocale } from "next-intl"
 import { redirect } from "next/navigation"
 
+export const runtime = 'edge';
+
 export function SignIn() {
     const locale = useLocale()
 
