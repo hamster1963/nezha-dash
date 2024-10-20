@@ -1,5 +1,7 @@
 "use client";
 
+import { ServerDetailChartLoading } from "@/app/[locale]/(main)/ClientComponents/ServerDetailLoading";
+import { NezhaAPISafe } from "@/app/[locale]/types/nezha-api";
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
@@ -17,8 +19,6 @@ import {
   YAxis,
 } from "recharts";
 import useSWR from "swr";
-
-import { NezhaAPISafe } from "../../types/nezha-api";
 
 type cpuChartData = {
   timeStamp: string;
@@ -83,7 +83,7 @@ export default function ServerDetailChartClient({
       </>
     );
   }
-  if (!data) return null;
+  if (!data) return <ServerDetailChartLoading />;
 
   return (
     <section className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-3">

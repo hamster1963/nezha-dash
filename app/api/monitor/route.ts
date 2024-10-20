@@ -4,6 +4,8 @@ import getEnv from "@/lib/env-entry";
 import { GetServerMonitor } from "@/lib/serverFetch";
 import { NextResponse } from "next/server";
 
+export const runtime = "edge";
+
 export const dynamic = "force-dynamic";
 export const runtime = 'edge';
 
@@ -13,8 +15,7 @@ interface NezhaDataResponse {
 }
 
 export const GET = auth(async function GET(req) {
-  
-  if (!req.auth && getEnv("SITE_PASSWORD")) {
+  if (!req.auth && getEnv("SitePassword")) {
     return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
   }
 

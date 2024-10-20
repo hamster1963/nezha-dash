@@ -1,20 +1,23 @@
 import Footer from "@/app/[locale]/(main)/footer";
 import Header from "@/app/[locale]/(main)/header";
 import { auth } from "@/auth";
+import { SignIn } from "@/components/sign-in";
 import getEnv from "@/lib/env-entry";
-import React from "react";
 import { redirect } from "next/navigation";
-import { getLocale } from "next-intl/server";
+import React from "react";
 
 type DashboardProps = {
   children: React.ReactNode;
 };
 export default async function MainLayout({ children }: DashboardProps) {
-  const session = await auth()
-  const locale = await getLocale()
+  const session = await auth();
 
-  if (!session && getEnv("SITE_PASSWORD")) {
-    redirect(`/${locale}/login`);
+  if (!session && getEnv("SitePassword")) {
+    if (getEnv("CF_PAGES")) {
+      redirect("/api/auth/signin");
+    } else {
+      return <SignIn />;
+    }
   }
 
   return (
