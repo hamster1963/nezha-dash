@@ -8,6 +8,7 @@ export default function Home({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
+
   return (
     <div className="mx-auto grid w-full max-w-5xl gap-4 md:gap-6">
       <ServerOverview />

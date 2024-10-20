@@ -1,4 +1,5 @@
 // @auto-i18n-check. Please do not delete the line.
+import { auth } from "@/auth";
 import { locales } from "@/i18n-metadata";
 import getEnv from "@/lib/env-entry";
 import { cn } from "@/lib/utils";
@@ -54,6 +55,7 @@ export default function LocaleLayout({
   unstable_setRequestLocale(locale);
 
   const messages = useMessages();
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
