@@ -8,6 +8,8 @@ import { Separator } from "@/components/ui/separator";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
+export const runtime = 'edge';
+
 export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("TabSwitch");
 

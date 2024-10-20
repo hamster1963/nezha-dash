@@ -2,6 +2,8 @@ import ServerList from "@/components/ServerList";
 import ServerOverview from "@/components/ServerOverview";
 import { unstable_setRequestLocale } from "next-intl/server";
 
+export const runtime = 'edge';
+
 export default function Home({
   params: { locale },
 }: {

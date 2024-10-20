@@ -3,6 +3,7 @@ import { GetServerMonitor } from "@/lib/serverFetch";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
+export const runtime = 'edge';
 
 interface NezhaDataResponse {
   error?: string;
