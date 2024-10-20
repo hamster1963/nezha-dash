@@ -4,14 +4,17 @@ import { auth } from "@/auth";
 import getEnv from "@/lib/env-entry";
 import React from "react";
 import { redirect } from "next/navigation";
+import { getLocale } from "next-intl/server";
 
 type DashboardProps = {
   children: React.ReactNode;
 };
 export default async function MainLayout({ children }: DashboardProps) {
   const session = await auth()
+  const locale = await getLocale()
+
   if (!session && getEnv("SITE_PASSWORD")) {
-    redirect("/api/auth/signin");
+    redirect(`/${locale}/login`);
   }
 
   return (
