@@ -1,4 +1,6 @@
 import { ServerMonitorChart } from "@/app/[locale]/types/nezha-api";
+import { auth } from "@/auth";
+import getEnv from "@/lib/env-entry";
 import { GetServerMonitor } from "@/lib/serverFetch";
 import { NextResponse } from "next/server";
 
@@ -10,7 +12,12 @@ interface NezhaDataResponse {
   data?: ServerMonitorChart;
 }
 
-export async function GET(req: Request) {
+export const GET = auth(async function GET(req) {
+  
+  if (!req.auth && getEnv("SITE_PASSWORD")) {
+    return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+  }
+
   const { searchParams } = new URL(req.url);
   const server_id = searchParams.get("server_id");
   if (!server_id) {
@@ -27,4 +34,4 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: response.error }, { status: 400 });
   }
   return NextResponse.json(response, { status: 200 });
-}
+});

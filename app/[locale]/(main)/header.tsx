@@ -20,6 +20,7 @@ function Header() {
   const router = useRouter();
   const locale = useLocale();
 
+
   return (
     <div className="mx-auto w-full max-w-5xl">
       <section className="flex items-center justify-between">
