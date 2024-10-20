@@ -14,8 +14,9 @@ interface NezhaDataResponse {
 
 export const GET = auth(async function GET(req) {
   
-  if (!req.auth)
+  if (!req.auth) {
     return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+  }
 
   const { searchParams } = new URL(req.url);
   const server_id = searchParams.get("server_id");
