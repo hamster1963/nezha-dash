@@ -23,6 +23,11 @@
     "Detail": "详情",
     "Network": "网络"
   },
+  "SignIn": {
+    "SignInMessage": "请输入密码",
+    "Submit": "登录",
+    "ErrorMessage": "密码错误"
+  },
   "ServerCardPopover": {
     "System": "系统",
     "CPU": "CPU",

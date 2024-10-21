@@ -63,7 +63,7 @@ function Header() {
 
 // https://github.com/streamich/react-use/blob/master/src/useInterval.ts
 const useInterval = (callback: Function, delay?: number | null) => {
-  const savedCallback = useRef<Function>(() => { });
+  const savedCallback = useRef<Function>(() => {});
   useEffect(() => {
     savedCallback.current = callback;
   });
@@ -98,7 +98,9 @@ function Overview() {
         </p>
         {mouted ? (
           <p className="opacity-1 text-sm font-medium">{timeString}</p>
-        ) : <Skeleton className="h-[20px] w-[50px] rounded-[5px] bg-muted-foreground/10 animate-none"></Skeleton>}
+        ) : (
+          <Skeleton className="h-[20px] w-[50px] rounded-[5px] bg-muted-foreground/10 animate-none"></Skeleton>
+        )}
       </div>
     </section>
   );
