@@ -26,7 +26,8 @@
   "SignIn": {
     "SignInMessage": "请输入密码",
     "Submit": "登录",
-    "ErrorMessage": "密码错误"
+    "ErrorMessage": "密码错误",
+    "SuccessMessage": "登录成功"
   },
   "ServerCardPopover": {
     "System": "系统",
