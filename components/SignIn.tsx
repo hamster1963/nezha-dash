@@ -1,8 +1,8 @@
 "use client";
 
-import { getCsrfToken } from "next-auth/react";
+import { getCsrfToken, signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export function SignIn() {
@@ -13,6 +13,7 @@ export function SignIn() {
 
   const search = useSearchParams();
   const error = search.get("error");
+  const router = useRouter();
 
   useEffect(() => {
     if (error) {
@@ -28,11 +29,26 @@ export function SignIn() {
     loadProviders();
   }, []);
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const password = formData.get("password");
+    const res = await signIn("credentials", {
+      password,
+      redirect: false,
+    });
+    if (res?.error) {
+      setErrorState(true);
+    } else {
+      router.push("/");
+      router.refresh();
+    }
+  };
+
   return (
     <form
       className="flex flex-col items-center justify-start gap-4 p-4 "
-      method="post"
-      action="/api/auth/callback/credentials"
+      onSubmit={handleSubmit}
     >
       <input type="hidden" name="csrfToken" value={csrfToken} />
       <section className="flex flex-col items-start gap-2">
