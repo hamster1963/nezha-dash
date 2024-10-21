@@ -12,6 +12,7 @@ export function SignIn() {
 
   const [csrfToken, setCsrfToken] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorState, setErrorState] = useState(false);
 
   const router = useRouter();
 
@@ -36,16 +37,23 @@ export function SignIn() {
       `password=${encodeURIComponent(formData.get('password') as string)}`,
     ].join('&');
 
-    await fetch("/api/auth/callback/credentials", {
+    const res = await fetch("/api/auth/callback/credentials", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: urlEncodedData,
     });
+
+    if (res.url.includes("error")) {
+      setLoading(false)
+      setErrorState(true)
+    } else {
+      setLoading(false)
+      setErrorState(false)
+    }
     router.push("/");
     router.refresh();
-    setLoading(false)
   };
 
   return (
@@ -56,6 +64,11 @@ export function SignIn() {
       <input type="hidden" name="csrfToken" value={csrfToken} />
       <section className="flex flex-col items-start gap-2">
         <label className="flex flex-col items-start gap-1 ">
+          {errorState && (
+            <p className="text-red-500 text-sm font-semibold">
+              {t("ErrorMessage")}
+            </p>
+          )}
           <p className="text-base font-semibold">{t("SignInMessage")}</p>
           <input
             className="px-1 border-[1px] rounded-[5px]"
