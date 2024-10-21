@@ -23,6 +23,7 @@
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/luxon": "^3.4.2",
     "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@vercel/analytics": "^1.0.1",
     "caniuse-lite": "^1.0.30001669",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
