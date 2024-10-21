@@ -1,30 +1,19 @@
 "use client";
 
-import { getCsrfToken, signIn } from "next-auth/react";
+import { getCsrfToken } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Loader } from "./loading/Loader";
-import { auth } from "@/auth";
 
 export function SignIn() {
   const t = useTranslations("SignIn");
 
   const [csrfToken, setCsrfToken] = useState("");
-  const [errorState, setErrorState] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [successState, setSuccessState] = useState(false);
 
-  const search = useSearchParams();
-  const error = search.get("error");
   const router = useRouter();
-
-  useEffect(() => {
-    if (error) {
-      setErrorState(true);
-    }
-  }, [error]);
 
   useEffect(() => {
     async function loadProviders() {
@@ -54,19 +43,9 @@ export function SignIn() {
       },
       body: urlEncodedData,
     });
-
-    const session = await auth();
-
-
-    if (session) {
-      setSuccessState(true);
-    } else {
-      setErrorState(true);
-    }
-
-    setLoading(false)
     router.push("/");
     router.refresh();
+    setLoading(false)
   };
 
   return (
@@ -77,16 +56,6 @@ export function SignIn() {
       <input type="hidden" name="csrfToken" value={csrfToken} />
       <section className="flex flex-col items-start gap-2">
         <label className="flex flex-col items-start gap-1 ">
-          {errorState && (
-            <p className="text-red-500 text-sm font-semibold">
-              {t("ErrorMessage")}
-            </p>
-          )}
-          {successState && (
-            <p className="text-green-500 text-sm font-semibold">
-              {t("SuccessMessage")}
-            </p>
-          )}
           <p className="text-base font-semibold">{t("SignInMessage")}</p>
           <input
             className="px-1 border-[1px] rounded-[5px]"
