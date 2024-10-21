@@ -1,22 +1,22 @@
+"use client"
+
 import Footer from "@/app/[locale]/(main)/footer";
 import Header from "@/app/[locale]/(main)/header";
-import { signIn } from "@/auth";
-import { useLocale } from "next-intl";
-import { redirect } from "next/navigation";
 
-export const runtime = 'edge';
+import { getCsrfToken } from "next-auth/react"
+import { useEffect, useState } from "react";
 
 export function SignIn() {
-  const locale = useLocale();
+  const [csrfToken, setCsrfToken] = useState("")
 
-  async function handleSubmit(formData: FormData) {
-    "use server";
-    try {
-      await signIn("credentials", formData);
-    } catch (error) {
-      redirect(`/${locale}`);
+  useEffect(() => {
+    async function loadProviders() {
+      const csrf = await getCsrfToken()
+      setCsrfToken(csrf)
     }
-  }
+    loadProviders()
+  }, [])
+
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -24,8 +24,10 @@ export function SignIn() {
         <Header />
         <form
           className="flex flex-col items-center justify-start gap-4 p-4 "
-          action={handleSubmit}
+          method="post"
+          action="/api/auth/callback/credentials"
         >
+          <input type="hidden" name="csrfToken" value={csrfToken} />
           <section className="flex flex-col items-start gap-2">
             <label className="flex flex-col items-start gap-1 ">
               <p className="text-base font-semibold">请输入页面密码</p>
