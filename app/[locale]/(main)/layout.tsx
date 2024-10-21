@@ -3,7 +3,6 @@ import Header from "@/app/[locale]/(main)/header";
 import { auth } from "@/auth";
 import { SignIn } from "@/components/SignIn";
 import getEnv from "@/lib/env-entry";
-import { redirect } from "next/navigation";
 import React from "react";
 
 type DashboardProps = {
