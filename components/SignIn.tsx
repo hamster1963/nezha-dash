@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Loader } from "./loading/Loader";
+import { auth } from "@/auth";
 
 export function SignIn() {
   const t = useTranslations("SignIn");
@@ -37,20 +38,35 @@ export function SignIn() {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.currentTarget);
-    const password = formData.get("password");
-    const res = await signIn("credentials", {
-      password,
-      redirect: false,
+
+
+    // 直接构建 URL 编码的字符串
+    const urlEncodedData = [
+      `csrfToken=${encodeURIComponent(csrfToken)}`,
+      `redirect=false`,
+      `password=${encodeURIComponent(formData.get('password') as string)}`,
+    ].join('&');
+
+    await fetch("/api/auth/callback/credentials", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: urlEncodedData,
     });
-    if (res?.error) {
-      setErrorState(true);
-    } else {
-      setErrorState(false);
+
+    const session = await auth();
+
+
+    if (session) {
       setSuccessState(true);
-      router.push("/");
-      router.refresh();
+    } else {
+      setErrorState(true);
     }
-    setLoading(false);
+
+    setLoading(false)
+    router.push("/");
+    router.refresh();
   };
 
   return (
