@@ -1,6 +1,6 @@
 "use client";
 
-import { getCsrfToken } from "next-auth/react";
+import { getCsrfToken, signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -13,6 +13,7 @@ export function SignIn() {
   const [csrfToken, setCsrfToken] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorState, setErrorState] = useState(false);
+  const [successState, setSuccessState] = useState(false);
 
   const router = useRouter();
 
@@ -28,34 +29,26 @@ export function SignIn() {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.currentTarget);
-
-
-    // 直接构建 URL 编码的字符串
-    const urlEncodedData = [
-      `csrfToken=${encodeURIComponent(csrfToken)}`,
-      `redirect=false`,
-      `password=${encodeURIComponent(formData.get('password') as string)}`,
-    ].join('&');
-
-    const res = await fetch("/api/auth/callback/credentials", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: urlEncodedData,
+    const password = formData.get("password") as string;
+    const res = await signIn("credentials", {
+      password: password,
+      redirect: false,
     });
-
-    if (res.url.includes("error")) {
-      setLoading(false)
-      setErrorState(true)
+    if (res?.error) {
+      console.log("login error");
+      console.log(res);
+      setErrorState(true);
+      setSuccessState(false);
     } else {
-      setLoading(false)
-      setErrorState(false)
+      console.log("login success");
+      console.log(res);
+      setErrorState(false);
+      setSuccessState(true);
+      router.push("/");
+      router.refresh();
     }
-    router.push("/");
-    router.refresh();
+    setLoading(false);
   };
-
   return (
     <form
       className="flex flex-col items-center justify-start gap-4 p-4 "
@@ -67,6 +60,11 @@ export function SignIn() {
           {errorState && (
             <p className="text-red-500 text-sm font-semibold">
               {t("ErrorMessage")}
+            </p>
+          )}
+          {successState && (
+            <p className="text-green-500 text-sm font-semibold">
+              {t("SuccessMessage")}
             </p>
           )}
           <p className="text-base font-semibold">{t("SignInMessage")}</p>
