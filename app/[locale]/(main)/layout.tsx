@@ -1,7 +1,7 @@
 import Footer from "@/app/[locale]/(main)/footer";
 import Header from "@/app/[locale]/(main)/header";
 import { auth } from "@/auth";
-import { SignIn } from "@/components/sign-in";
+import { SignIn } from "@/components/SignIn";
 import getEnv from "@/lib/env-entry";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -13,11 +13,7 @@ export default async function MainLayout({ children }: DashboardProps) {
   const session = await auth();
 
   if (!session && getEnv("SitePassword")) {
-    if (getEnv("CF_PAGES")) {
-      redirect("/api/auth/signin");
-    } else {
-      return <SignIn />;
-    }
+    return <SignIn />;
   }
 
   return (

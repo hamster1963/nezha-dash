@@ -23,6 +23,11 @@
     "Detail": "Detail",
     "Network": "Network"
   },
+  "SignIn": {
+    "SignInMessage": "Please enter the password",
+    "Submit": "Login",
+    "ErrorMessage": "Invalid password"
+  },
   "ServerCardPopover": {
     "System": "System",
     "CPU": "CPU",
