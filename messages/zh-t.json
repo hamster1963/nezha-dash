@@ -23,6 +23,11 @@
     "Detail": "詳細",
     "Network": "網路"
   },
+  "SignIn": {
+    "SignInMessage": "請輸入密碼",
+    "Submit": "登入",
+    "ErrorMessage": "密碼錯誤"
+  },
   "ServerCardPopover": {
     "System": "系統",
     "CPU": "CPU",
