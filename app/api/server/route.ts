@@ -2,6 +2,7 @@ import { ServerApi } from "@/app/[locale]/types/nezha-api";
 import { auth } from "@/auth";
 import getEnv from "@/lib/env-entry";
 import { GetNezhaData } from "@/lib/serverFetch";
+import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +14,7 @@ interface NezhaDataResponse {
 
 export const GET = auth(async function GET(req) {
   if (!req.auth && getEnv("SitePassword")) {
-    return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+    redirect("/api/auth/signin");
   }
 
   const response = (await GetNezhaData()) as NezhaDataResponse;
