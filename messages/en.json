@@ -26,7 +26,8 @@
   "SignIn": {
     "SignInMessage": "Please enter the password",
     "Submit": "Login",
-    "ErrorMessage": "Invalid password"
+    "ErrorMessage": "Invalid password",
+    "SuccessMessage": "Login successful"
   },
   "ServerCardPopover": {
     "System": "System",
