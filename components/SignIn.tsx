@@ -36,12 +36,10 @@ export function SignIn() {
     });
     if (res?.error) {
       console.log("login error");
-      console.log(res);
       setErrorState(true);
       setSuccessState(false);
     } else {
       console.log("login success");
-      console.log(res);
       setErrorState(false);
       setSuccessState(true);
       router.push("/");
@@ -75,7 +73,7 @@ export function SignIn() {
           />
         </label>
         <button
-          className=" px-1.5 py-0.5 w-fit flex items-center gap-1 text-sm font-semibold rounded-[8px] border bg-card hover:brightness-95 transition-all text-card-foreground shadow-lg shadow-neutral-200/40 dark:shadow-none"
+          className="px-1.5 py-0.5 w-fit flex items-center gap-1 text-sm font-semibold rounded-[8px] border bg-card hover:brightness-95 transition-all text-card-foreground shadow-lg shadow-neutral-200/40 dark:shadow-none"
           disabled={loading}
         >
           {t("Submit")}

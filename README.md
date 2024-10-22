@@ -16,7 +16,7 @@
 | ------------------------------ | ------------------------ | ------------------------------------------------------------- |
 | NezhaBaseUrl                   | nezha 面板地址           | http://120.x.x.x:8008                                         |
 | NezhaAuth                      | nezha 面板 API Token     | 5hAY3QX6Nl9B3Uxxxx26KMvOMyXS1Udi                              |
-| SitePassword                   | 页面密码                 | 123456                                                        |
+| SitePassword                   | 页面密码                 | **默认**：无密码                                              |
 | DefaultLocale                  | 面板默认显示语言         | **默认**：en [简中:zh 繁中:zh-t 英语:en 日语:ja]              |
 | ForceShowAllServers            | 是否强制显示所有服务器   | **默认**：false                                               |
 | NEXT_PUBLIC_NezhaFetchInterval | 获取数据间隔（毫秒）     | **默认**：2000                                                |

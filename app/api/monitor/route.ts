@@ -16,7 +16,7 @@ interface NezhaDataResponse {
 
 export const GET = auth(async function GET(req) {
   if (!req.auth && getEnv("SitePassword")) {
-    redirect("/api/auth/signin");
+    redirect("/");
   }
 
   const { searchParams } = new URL(req.url);
