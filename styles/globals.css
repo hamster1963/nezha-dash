@@ -68,23 +68,34 @@
 
             /* 字体样式 */
             .glowing-text {
-                font-size: 40px;
+                font-size: 50px; /* 调整字体大小 */
                 font-weight: bold;
             }
 
             .weather-detail {
-                font-size: 20px;
+                font-size: 24px; /* 调整天气详情字体大小 */
             }
 
             #mapContainer {
                 width: 100%;
-                height: 400px;
+                height: 500px; /* 调整地图大小 */
                 margin-top: 20px;
+            }
+
+            .flag-img {
+                width: 100px; /* 设置国旗大小 */
+                height: auto;
+                margin: 20px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- 添加国旗图标 -->
+    <div class="flex justify-center">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_People%27s_Republic_of_China.svg" class="flag-img" alt="国旗">
+    </div>
+
     <h1 class="glowing-text">您的IPv4地址是：</h1>
     <p id="ipAddress" class="glowing-text"></p>
     <h1 class="glowing-text">详细地址（IPv4）：</h1>
