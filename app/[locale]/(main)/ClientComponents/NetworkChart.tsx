@@ -51,7 +51,7 @@ export function NetworkChartClient({
     {
       refreshInterval:
         Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 15000,
-      isPaused: () => !show,
+      isVisible: () => show,
     },
   );
 

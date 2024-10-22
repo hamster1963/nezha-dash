@@ -67,7 +67,7 @@ export default function ServerDetailChartClient({
     nezhaFetcher,
     {
       refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 5000,
-      isPaused: () => !show,
+      isVisible: () => show,
     },
   );
 
