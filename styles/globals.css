@@ -78,7 +78,20 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* font-feature-settings: "rlig" 1, "calt" 1; */
+    
+    /* 添加背景图片设置 */
+    content: " " !important;
+    background: fixed !important;
+    z-index: -1 !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    background-position: top !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-image: url(https://t.mwm.moe/ys/) !important;
+    font-family: Arial, Helvetica, sans-serif !important;
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
   }
