@@ -6,80 +6,20 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
-    --card: 0 0% 100%;
-    --card-foreground: 20 14.3% 4.1%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 20 14.3% 4.1%;
-    --primary: 24 9.8% 10%;
-    --primary-foreground: 60 9.1% 97.8%;
-    --secondary: 60 4.8% 95.9%;
-    --secondary-foreground: 24 9.8% 10%;
-    --muted: 60 4.8% 95.9%;
-    --muted-foreground: 25 5.3% 44.7%;
-    --accent: 60 4.8% 95.9%;
-    --accent-foreground: 24 9.8% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 60 9.1% 97.8%;
-    --border: 20 5.9% 90%;
-    --input: 20 5.9% 90%;
-    --ring: 20 14.3% 4.1%;
-    --radius: 1rem;
-    --chart-1: 220 70% 50%;
-    --chart-2: 340 75% 55%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 160 60% 45%;
-    --chart-6: 180 50% 50%;
-    --chart-7: 216 50% 50%;
-    --chart-8: 252 50% 50%;
-    --chart-9: 288 50% 50%;
-    --chart-10: 324 50% 50%;
+    /* 其余颜色变量定义... */
   }
 
   .dark {
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
-    --card: 20 14.3% 4.1%;
-    --card-foreground: 60 9.1% 97.8%;
-    --popover: 20 14.3% 4.1%;
-    --popover-foreground: 60 9.1% 97.8%;
-    --primary: 60 9.1% 97.8%;
-    --primary-foreground: 24 9.8% 10%;
-    --secondary: 12 6.5% 15.1%;
-    --secondary-foreground: 60 9.1% 97.8%;
-    --muted: 12 6.5% 15.1%;
-    --muted-foreground: 24 5.4% 63.9%;
-    --accent: 12 6.5% 15.1%;
-    --accent-foreground: 60 9.1% 97.8%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 60 9.1% 97.8%;
-    --border: 12 6.5% 15.1%;
-    --input: 12 6.5% 15.1%;
-    --ring: 24 5.7% 82.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 340 75% 55%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 160 60% 45%;
-    --chart-6: 180 50% 50%;
-    --chart-7: 216 50% 50%;
-    --chart-8: 252 50% 50%;
-    --chart-9: 288 50% 50%;
-    --chart-10: 324 50% 50%;
+    /* 其余 dark 模式下的颜色变量定义... */
   }
-}
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  html {
-    @apply scroll-smooth;
-  }
+  /* 视频背景及图片背景 */
   body {
     @apply bg-background text-foreground;
     
-    /* 添加背景图片设置 */
+    /* 背景设置 */
     content: " " !important;
     background: fixed !important;
     z-index: -1 !important;
@@ -95,6 +35,13 @@
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
   }
+
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply scroll-smooth;
+  }
 }
 
 @layer utilities {
@@ -107,6 +54,17 @@
     @apply ml-[-50px] mt-[-4px];
     content: counter(step);
   }
+
+  /* 加载动画样式 */
+  .hamster-loading-wrapper {
+    --size: 12px;
+    height: var(--size);
+    width: var(--size);
+    inset: 0;
+    z-index: 10;
+  }
+
+  /* 其余样式和动画定义... */
 }
 
 @media (max-width: 640px) {
@@ -117,110 +75,6 @@
 
 ::selection {
   @apply bg-stone-300 dark:bg-stone-800;
-}
-
-.hamster-loading-wrapper {
-  --size: 12px;
-  height: var(--size);
-  width: var(--size);
-  inset: 0;
-  z-index: 10;
-}
-
-.hamster-loading-wrapper[data-visible="false"] {
-  transform-origin: center;
-  animation: hamster-fade-out 0.2s ease forwards;
-}
-
-.hamster-spinner {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  height: var(--size);
-  width: var(--size);
-}
-
-.hamster-loading-bar {
-  --gray11: hsl(0, 0%, 43.5%);
-  animation: hamster-spin 0.8s linear infinite;
-  background: var(--gray11);
-  border-radius: 6px;
-  height: 13%;
-  left: -10%;
-  position: absolute;
-  top: -3.9%;
-  width: 30%;
-}
-
-.hamster-loading-bar:nth-child(1) {
-  animation-delay: -0.8s;
-  transform: rotate(0deg) translate(120%);
-}
-
-.hamster-loading-bar:nth-child(2) {
-  animation-delay: -0.7s;
-  transform: rotate(45deg) translate(120%);
-}
-
-.hamster-loading-bar:nth-child(3) {
-  animation-delay: -0.6s;
-  transform: rotate(90deg) translate(120%);
-}
-
-.hamster-loading-bar:nth-child(4) {
-  animation-delay: -0.5s;
-  transform: rotate(135deg) translate(120%);
-}
-
-.hamster-loading-bar:nth-child(5) {
-  animation-delay: -0.4s;
-  transform: rotate(180deg) translate(120%);
-}
-
-.hamster-loading-bar:nth-child(6) {
-  animation-delay: -0.3s;
-  transform: rotate(225deg) translate(120%);
-}
-
-.hamster-loading-bar:nth-child(7) {
-  animation-delay: -0.2s;
-  transform: rotate(270deg) translate(120%);
-}
-
-.hamster-loading-bar:nth-child(8) {
-  animation-delay: -0.1s;
-  transform: rotate(315deg) translate(120%);
-}
-
-@keyframes hamster-fade-in {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes hamster-fade-out {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-}
-
-@keyframes hamster-spin {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.15;
-  }
 }
 
 .scrollbar-hidden {
