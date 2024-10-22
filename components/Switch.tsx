@@ -2,32 +2,35 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function Switch({
   allTag,
   nowTag,
-  setTag,
+  onTagChange,
 }: {
   allTag: string[];
   nowTag: string;
-  setTag: (tag: string) => void;
+  onTagChange: (tag: string) => void;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const savedTag = sessionStorage.getItem("selectedTag");
+    if (savedTag && allTag.includes(savedTag)) {
+      onTagChange(savedTag);
+    }
+  }, [allTag]);
 
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
 
     const isOverflowing = container.scrollWidth > container.clientWidth;
-
-    if (!isOverflowing) {
-      return;
-    }
+    if (!isOverflowing) return;
 
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      e.stopPropagation();
       container.scrollLeft += e.deltaY;
     };
 
@@ -47,7 +50,7 @@ export default function Switch({
         {allTag.map((tag) => (
           <div
             key={tag}
-            onClick={() => setTag(tag)}
+            onClick={() => onTagChange(tag)}
             className={cn(
               "relative cursor-pointer rounded-3xl px-2.5 py-[8px] text-[13px] font-[600] transition-all duration-500",
               nowTag === tag
