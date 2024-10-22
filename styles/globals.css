@@ -1,126 +1,206 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geolocation and Weather Info</title>
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-    <!-- 引入 Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+@layer base {
+  :root {
+    /* 全局颜色变量 */
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 24 9.8% 10%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 60 4.8% 95.9%;
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 20 14.3% 4.1%;
+    --radius: 1rem;
 
-    <style>
-        @tailwind base;
-        @tailwind components;
-        @tailwind utilities;
+    /* 图表颜色 */
+    --chart-1: 220 70% 50%;
+    --chart-2: 340 75% 55%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 160 60% 45%;
+    --chart-6: 180 50% 50%;
+    --chart-7: 216 50% 50%;
+    --chart-8: 252 50% 50%;
+    --chart-9: 288 50% 50%;
+    --chart-10: 324 50% 50%;
+    
+    /* 背景图片 */
+    --background-image: url('https://t.mwm.moe/ys/');
+  }
 
-        @layer base {
-            /* 自定义变量和样式 */
-            :root {
-                --background: 0 0% 100%;
-                --foreground: 20 14.3% 4.1%;
-                --card: 0 0% 100%;
-                --card-foreground: 20 14.3% 4.1%;
-                --popover: 0 0% 100%;
-                --popover-foreground: 20 14.3% 4.1%;
-                --primary: 24 9.8% 10%;
-                --primary-foreground: 60 9.1% 97.8%;
-                --secondary: 60 4.8% 95.9%;
-                --secondary-foreground: 24 9.8% 10%;
-                --muted: 60 4.8% 95.9%;
-                --muted-foreground: 25 5.3% 44.7%;
-                --accent: 60 4.8% 95.9%;
-                --accent-foreground: 24 9.8% 10%;
-                --destructive: 0 84.2% 60.2%;
-                --destructive-foreground: 60 9.1% 97.8%;
-                --border: 20 5.9% 90%;
-                --input: 20 5.9% 90%;
-                --ring: 20 14.3% 4.1%;
-                --radius: 1rem;
-                --chart-1: 220 70% 50%;
-                --chart-2: 340 75% 55%;
-                --chart-3: 30 80% 55%;
-                --chart-4: 280 65% 60%;
-                --chart-5: 160 60% 45%;
-                --chart-6: 180 50% 50%;
-                --chart-7: 216 50% 50%;
-                --chart-8: 252 50% 50%;
-                --chart-9: 288 50% 50%;
-                --chart-10: 324 50% 50%;
-            }
+  /* 黑暗模式变量 */
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 60 9.1% 97.8%;
+    --primary-foreground: 24 9.8% 10%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 24 5.7% 82.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 340 75% 55%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 160 60% 45%;
+    --chart-6: 180 50% 50%;
+    --chart-7: 216 50% 50%;
+    --chart-8: 252 50% 50%;
+    --chart-9: 288 50% 50%;
+    --chart-10: 324 50% 50%;
+  }
 
-            body {
-                @apply bg-background text-foreground;
-                font-family: Arial, sans-serif;
-            }
+  /* 全局样式 */
+  * {
+    @apply border-border;
+  }
 
-            /* 加入背景图片 */
-            body::before {
-                content: "";
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                z-index: -1;
-                background: rgba(255, 255, 255, 0.5) url(https://t.mwm.moe/ys/) no-repeat center center fixed;
-                background-size: cover;
-            }
+  html {
+    @apply scroll-smooth;
+  }
 
-            /* 字体样式 */
-            .glowing-text {
-                font-size: 50px; /* 调整字体大小 */
-                font-weight: bold;
-                color: white; /* 设置文字颜色 */
-                text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* 增加发光效果 */
-                padding: 15px;
-                border-radius: 10px;
-                background-color: rgba(0, 0, 0, 0.6); /* 背景半透明黑色 */
-                display: inline-block; /* 保证文字背景大小合适 */
-            }
+  body {
+    @apply bg-background text-foreground;
+    background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+}
 
-            .weather-detail {
-                font-size: 24px; /* 调整天气详情字体大小 */
-                color: white;
-                background-color: rgba(0, 0, 0, 0.6); /* 背景半透明黑色 */
-                padding: 15px;
-                border-radius: 10px;
-                margin: 10px 0;
-            }
+@layer utilities {
+  /* 数字步骤样式 */
+  .step {
+    counter-increment: step;
+  }
 
-            #mapContainer {
-                width: 100%;
-                height: 500px; /* 调整地图大小 */
-                margin-top: 20px;
-                border: 2px solid rgba(255, 255, 255, 0.8); /* 边框颜色 */
-                border-radius: 10px;
-            }
+  .step:before {
+    @apply absolute inline-flex h-9 w-9 items-center justify-center rounded-full border-4 border-background bg-muted text-center -indent-px font-mono text-base font-medium;
+    @apply ml-[-50px] mt-[-4px];
+    content: counter(step);
+  }
+}
 
-            .flag-img {
-                width: 100px; /* 设置国旗大小 */
-                height: auto;
-                margin: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container mx-auto text-center">
-        <!-- 发光文字标题 -->
-        <h1 class="glowing-text">Geolocation and Weather Info</h1>
+@media (max-width: 640px) {
+  /* 移动端容器样式 */
+  .container {
+    @apply px-4;
+  }
+}
 
-        <!-- 天气详情 -->
-        <p class="weather-detail">当前温度：25°C，天气：晴</p>
+/* 选中文本样式 */
+::selection {
+  @apply bg-stone-300 dark:bg-stone-800;
+}
 
-        <!-- 地图容器 -->
-        <div id="mapContainer"></div>
+/* Hamster 加载动画 */
+.hamster-loading-wrapper {
+  --size: 12px;
+  height: var(--size);
+  width: var(--size);
+  inset: 0;
+  z-index: 10;
+}
 
-        <!-- 国旗图片 -->
-        <img class="flag-img" src="https://flagcdn.com/w320/cn.png" alt="国旗">
-    </div>
+.hamster-loading-wrapper[data-visible="false"] {
+  transform-origin: center;
+  animation: hamster-fade-out 0.2s ease forwards;
+}
 
-    <!-- 引入地图API的JS代码和天气数据获取 -->
-    <script>
-        // 这里可以加入获取地理位置信息和天气信息的JavaScript代码
-    </script>
-</body>
-</html>
+.hamster-spinner {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  height: var(--size);
+  width: var(--size);
+}
+
+.hamster-loading-bar {
+  --gray11: hsl(0, 0%, 43.5%);
+  animation: hamster-spin 0.8s linear infinite;
+  background: var(--gray11);
+  border-radius: 6px;
+  height: 13%;
+  left: -10%;
+  position: absolute;
+  top: -3.9%;
+  width: 30%;
+}
+
+.hamster-loading-bar:nth-child(n) {
+  animation-delay: calc((n - 1) * -0.1s);
+  transform: rotate(calc((n - 1) * 45deg)) translate(120%);
+}
+
+/* 动画 */
+@keyframes hamster-fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes hamster-fade-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes hamster-spin {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.15;
+  }
+}
+
+/* 隐藏滚动条 */
+.scrollbar-hidden {
+  @apply scrollbar-none;
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none; /* Chrome, Safari 和 Opera */
+  }
+}
