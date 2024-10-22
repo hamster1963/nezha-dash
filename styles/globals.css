@@ -1,86 +1,240 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation and Weather Info</title>
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 20 14.3% 4.1%;
-    /* 其余颜色变量定义... */
-  }
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  .dark {
-    --background: 20 14.3% 4.1%;
-    --foreground: 60 9.1% 97.8%;
-    /* 其余 dark 模式下的颜色变量定义... */
-  }
+    <style>
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
 
-  /* 视频背景及图片背景 */
-  body {
-    @apply bg-background text-foreground;
-    
-    /* 背景设置 */
-    content: " " !important;
-    background: fixed !important;
-    z-index: -1 !important;
-    top: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    background-position: top !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    background-image: url(https://t.mwm.moe/ys/) !important;
-    font-family: Arial, Helvetica, sans-serif !important;
-    font-synthesis-weight: none;
-    text-rendering: optimizeLegibility;
-  }
+        @layer base {
+            /* 自定义变量和样式 */
+            :root {
+                --background: 0 0% 100%;
+                --foreground: 20 14.3% 4.1%;
+                --card: 0 0% 100%;
+                --card-foreground: 20 14.3% 4.1%;
+                --popover: 0 0% 100%;
+                --popover-foreground: 20 14.3% 4.1%;
+                --primary: 24 9.8% 10%;
+                --primary-foreground: 60 9.1% 97.8%;
+                --secondary: 60 4.8% 95.9%;
+                --secondary-foreground: 24 9.8% 10%;
+                --muted: 60 4.8% 95.9%;
+                --muted-foreground: 25 5.3% 44.7%;
+                --accent: 60 4.8% 95.9%;
+                --accent-foreground: 24 9.8% 10%;
+                --destructive: 0 84.2% 60.2%;
+                --destructive-foreground: 60 9.1% 97.8%;
+                --border: 20 5.9% 90%;
+                --input: 20 5.9% 90%;
+                --ring: 20 14.3% 4.1%;
+                --radius: 1rem;
+                --chart-1: 220 70% 50%;
+                --chart-2: 340 75% 55%;
+                --chart-3: 30 80% 55%;
+                --chart-4: 280 65% 60%;
+                --chart-5: 160 60% 45%;
+                --chart-6: 180 50% 50%;
+                --chart-7: 216 50% 50%;
+                --chart-8: 252 50% 50%;
+                --chart-9: 288 50% 50%;
+                --chart-10: 324 50% 50%;
+            }
 
-  * {
-    @apply border-border;
-  }
-  html {
-    @apply scroll-smooth;
-  }
-}
+            body {
+                @apply bg-background text-foreground;
+                font-family: Arial, sans-serif;
+            }
 
-@layer utilities {
-  .step {
-    counter-increment: step;
-  }
+            /* 加入背景图片 */
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: -1;
+                background: url(https://t.mwm.moe/ys/) no-repeat center center fixed;
+                background-size: cover;
+            }
 
-  .step:before {
-    @apply absolute inline-flex h-9 w-9 items-center justify-center rounded-full border-4 border-background bg-muted text-center -indent-px font-mono text-base font-medium;
-    @apply ml-[-50px] mt-[-4px];
-    content: counter(step);
-  }
+            /* 字体样式 */
+            .glowing-text {
+                font-size: 40px;
+                font-weight: bold;
+            }
 
-  /* 加载动画样式 */
-  .hamster-loading-wrapper {
-    --size: 12px;
-    height: var(--size);
-    width: var(--size);
-    inset: 0;
-    z-index: 10;
-  }
+            .weather-detail {
+                font-size: 20px;
+            }
 
-  /* 其余样式和动画定义... */
-}
+            #mapContainer {
+                width: 100%;
+                height: 400px;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="glowing-text">您的IPv4地址是：</h1>
+    <p id="ipAddress" class="glowing-text"></p>
+    <h1 class="glowing-text">详细地址（IPv4）：</h1>
+    <p id="fullAddressIPv4" class="glowing-text"></p>
 
-@media (max-width: 640px) {
-  .container {
-    @apply px-4;
-  }
-}
+    <h1 class="glowing-text">您的IPv6地址是：</h1>
+    <p id="ipv6Address" class="glowing-text"></p>
+    <h1 class="glowing-text">详细地址（IPv6）：</h1>
+    <p id="fullAddressIPv6" class="glowing-text"></p>
 
-::selection {
-  @apply bg-stone-300 dark:bg-stone-800;
-}
+    <h1 class="glowing-text">邮政编码：</h1>
+    <p id="postalCode" class="glowing-text"></p>
 
-.scrollbar-hidden {
-  scrollbar-width: none; /* Firefox */
-}
+    <h1 class="glowing-text">距离广州的距离：</h1>
+    <p id="distanceToChina" class="glowing-text"></p>
 
-.scrollbar-hidden::-webkit-scrollbar {
-  display: none; /* Chrome, Safari 和 Opera */
-}
+    <h1 class="glowing-text">天气情况：</h1>
+    <p id="weatherInfo" class="glowing-text"></p>
+
+    <h1 class="glowing-text">当前日期时间：</h1>
+    <p id="dateTime" class="glowing-text"></p>
+
+    <h1 class="glowing-text">2025新年倒计时：</h1>
+    <p id="year2025CountdownInfo" class="glowing-text"></p>
+
+    <h1 class="glowing-text">地图位置：</h1>
+    <div id="mapContainer"></div>
+
+    <!-- 引入高德地图API -->
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=8798d9a73e1ca7c4daba1842d5124171"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+            document.querySelectorAll('.glowing-text').forEach(element => {
+                element.style.color = randomColor;
+            });
+
+            function getWeatherDescription(description) {
+                const weatherTranslations = {
+                    "clear sky": "晴天",
+                    "few clouds": "少云",
+                    "scattered clouds": "分散的云",
+                    "broken clouds": "破云",
+                    "shower rain": "阵雨",
+                    "rain": "雨",
+                    "thunderstorm": "雷暴",
+                    "snow": "雪",
+                    "mist": "雾",
+                    "overcast clouds": "阴云"
+                };
+                return weatherTranslations[description] || description;
+            }
+
+            function fetchData(url, callback) {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(callback)
+                    .catch(console.error);
+            }
+
+            function getGeoLocation(ip, addressElement) {
+                fetchData(`https://ipapi.co/${ip}/json`, data => {
+                    const lat = data.latitude;
+                    const lon = data.longitude;
+                    const fullAddress = `${data.city}, ${data.region}, ${data.country_name} 纬度：${lat} 经度：${lon}`;
+                    const postalCode = data.postal || '未知';
+                    const distanceToChina = calculateDistanceToChina(lat, lon);
+
+                    document.querySelector(addressElement).textContent = fullAddress;
+                    document.querySelector("#postalCode").textContent = postalCode;
+                    document.querySelector("#distanceToChina").textContent = distanceToChina;
+                    showMap(lat, lon);
+                    getWeather(lat, lon);
+                });
+            }
+
+            function calculateDistanceToChina(lat1, lon1) {
+                const lat2 = 23.1291;
+                const lon2 = 113.2644;
+                const R = 6371; 
+                const dLat = deg2rad(lat2 - lat1);
+                const dLon = deg2rad(lon2 - lon1); 
+                const a = Math.sin(dLat / 2) ** 2 + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) ** 2; 
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
+                return `${(R * c).toFixed(2)} 公里`;
+            }
+
+            function deg2rad(deg) {
+                return deg * (Math.PI / 180);
+            }
+
+            function showMap(lat, lon) {
+                var map = new AMap.Map('mapContainer', {
+                    resizeEnable: true,
+                    center: [lon, lat],
+                    zoom: 10
+                });
+
+                var marker = new AMap.Marker({
+                    position: [lon, lat]
+                });
+                map.add(marker);
+            }
+
+            function getWeather(lat, lon) {
+                fetchData(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=f40b0eb2575a890220ff2ef7c899590c&units=metric`, data => {
+                    const weatherDescription = `<div>
+                        <span class="weather-detail">城市: ${data.name}, 天气: ${getWeatherDescription(data.weather[0].description)}, 温度: ${data.main.temp}°C</span>
+                    </div>`;
+                    document.querySelector("#weatherInfo").innerHTML = weatherDescription;
+                });
+            }
+
+            function updateDateTime() {
+                document.querySelector("#dateTime").textContent = new Date().toLocaleString();
+            }
+
+            function countdownToNewYear() {
+                const now = new Date();
+                const nextYear = now.getFullYear() + 1;
+                const newYear = new Date(`January 1, ${nextYear} 00:00:00`);
+                const timeDifference = newYear - now;
+
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                document.querySelector("#year2025CountdownInfo").textContent = `${days}天 ${hours}小时 ${minutes}分钟 ${seconds}秒`;
+            }
+
+            fetch('https://api64.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector("#ipAddress").textContent = data.ip;
+                    getGeoLocation(data.ip, "#fullAddressIPv4");
+                });
+
+            fetch('https://api64.ipify.org?format=json&ipv6=1')
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector("#ipv6Address").textContent = data.ip;
+                    getGeoLocation(data.ip, "#fullAddressIPv6");
+                });
+
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            setInterval(countdownToNewYear, 1000);
+        });
+    </script>
+</body>
+</html>
