@@ -58,6 +58,7 @@
     "Arch": "架構",
     "Mem": "記憶體",
     "Disk": "磁碟",
+    "Region": "地區",
     "System": "系統",
     "CPU": "CPU"
   },
