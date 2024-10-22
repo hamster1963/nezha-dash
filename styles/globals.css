@@ -62,7 +62,7 @@
                 right: 0;
                 bottom: 0;
                 z-index: -1;
-                background: url(https://t.mwm.moe/ys/) no-repeat center center fixed;
+                background: rgba(255, 255, 255, 0.5) url(https://t.mwm.moe/ys/) no-repeat center center fixed;
                 background-size: cover;
             }
 
@@ -70,16 +70,29 @@
             .glowing-text {
                 font-size: 50px; /* 调整字体大小 */
                 font-weight: bold;
+                color: white; /* 设置文字颜色 */
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* 增加发光效果 */
+                padding: 15px;
+                border-radius: 10px;
+                background-color: rgba(0, 0, 0, 0.6); /* 背景半透明黑色 */
+                display: inline-block; /* 保证文字背景大小合适 */
             }
 
             .weather-detail {
                 font-size: 24px; /* 调整天气详情字体大小 */
+                color: white;
+                background-color: rgba(0, 0, 0, 0.6); /* 背景半透明黑色 */
+                padding: 15px;
+                border-radius: 10px;
+                margin: 10px 0;
             }
 
             #mapContainer {
                 width: 100%;
                 height: 500px; /* 调整地图大小 */
                 margin-top: 20px;
+                border: 2px solid rgba(255, 255, 255, 0.8); /* 边框颜色 */
+                border-radius: 10px;
             }
 
             .flag-img {
@@ -91,161 +104,23 @@
     </style>
 </head>
 <body>
-    <!-- 添加国旗图标 -->
-    <div class="flex justify-center">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_the_People%27s_Republic_of_China.svg" class="flag-img" alt="国旗">
+    <div class="container mx-auto text-center">
+        <!-- 发光文字标题 -->
+        <h1 class="glowing-text">Geolocation and Weather Info</h1>
+
+        <!-- 天气详情 -->
+        <p class="weather-detail">当前温度：25°C，天气：晴</p>
+
+        <!-- 地图容器 -->
+        <div id="mapContainer"></div>
+
+        <!-- 国旗图片 -->
+        <img class="flag-img" src="https://flagcdn.com/w320/cn.png" alt="国旗">
     </div>
 
-    <h1 class="glowing-text">您的IPv4地址是：</h1>
-    <p id="ipAddress" class="glowing-text"></p>
-    <h1 class="glowing-text">详细地址（IPv4）：</h1>
-    <p id="fullAddressIPv4" class="glowing-text"></p>
-
-    <h1 class="glowing-text">您的IPv6地址是：</h1>
-    <p id="ipv6Address" class="glowing-text"></p>
-    <h1 class="glowing-text">详细地址（IPv6）：</h1>
-    <p id="fullAddressIPv6" class="glowing-text"></p>
-
-    <h1 class="glowing-text">邮政编码：</h1>
-    <p id="postalCode" class="glowing-text"></p>
-
-    <h1 class="glowing-text">距离广州的距离：</h1>
-    <p id="distanceToChina" class="glowing-text"></p>
-
-    <h1 class="glowing-text">天气情况：</h1>
-    <p id="weatherInfo" class="glowing-text"></p>
-
-    <h1 class="glowing-text">当前日期时间：</h1>
-    <p id="dateTime" class="glowing-text"></p>
-
-    <h1 class="glowing-text">2025新年倒计时：</h1>
-    <p id="year2025CountdownInfo" class="glowing-text"></p>
-
-    <h1 class="glowing-text">地图位置：</h1>
-    <div id="mapContainer"></div>
-
-    <!-- 引入高德地图API -->
-    <script src="https://webapi.amap.com/maps?v=1.4.15&key=8798d9a73e1ca7c4daba1842d5124171"></script>
-
+    <!-- 引入地图API的JS代码和天气数据获取 -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-            document.querySelectorAll('.glowing-text').forEach(element => {
-                element.style.color = randomColor;
-            });
-
-            function getWeatherDescription(description) {
-                const weatherTranslations = {
-                    "clear sky": "晴天",
-                    "few clouds": "少云",
-                    "scattered clouds": "分散的云",
-                    "broken clouds": "破云",
-                    "shower rain": "阵雨",
-                    "rain": "雨",
-                    "thunderstorm": "雷暴",
-                    "snow": "雪",
-                    "mist": "雾",
-                    "overcast clouds": "阴云"
-                };
-                return weatherTranslations[description] || description;
-            }
-
-            function fetchData(url, callback) {
-                fetch(url)
-                    .then(response => response.json())
-                    .then(callback)
-                    .catch(console.error);
-            }
-
-            function getGeoLocation(ip, addressElement) {
-                fetchData(`https://ipapi.co/${ip}/json`, data => {
-                    const lat = data.latitude;
-                    const lon = data.longitude;
-                    const fullAddress = `${data.city}, ${data.region}, ${data.country_name} 纬度：${lat} 经度：${lon}`;
-                    const postalCode = data.postal || '未知';
-                    const distanceToChina = calculateDistanceToChina(lat, lon);
-
-                    document.querySelector(addressElement).textContent = fullAddress;
-                    document.querySelector("#postalCode").textContent = postalCode;
-                    document.querySelector("#distanceToChina").textContent = distanceToChina;
-                    showMap(lat, lon);
-                    getWeather(lat, lon);
-                });
-            }
-
-            function calculateDistanceToChina(lat1, lon1) {
-                const lat2 = 23.1291;
-                const lon2 = 113.2644;
-                const R = 6371; 
-                const dLat = deg2rad(lat2 - lat1);
-                const dLon = deg2rad(lon2 - lon1); 
-                const a = Math.sin(dLat / 2) ** 2 + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) ** 2; 
-                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
-                return `${(R * c).toFixed(2)} 公里`;
-            }
-
-            function deg2rad(deg) {
-                return deg * (Math.PI / 180);
-            }
-
-            function showMap(lat, lon) {
-                var map = new AMap.Map('mapContainer', {
-                    resizeEnable: true,
-                    center: [lon, lat],
-                    zoom: 10
-                });
-
-                var marker = new AMap.Marker({
-                    position: [lon, lat]
-                });
-                map.add(marker);
-            }
-
-            function getWeather(lat, lon) {
-                fetchData(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=f40b0eb2575a890220ff2ef7c899590c&units=metric`, data => {
-                    const weatherDescription = `<div>
-                        <span class="weather-detail">城市: ${data.name}, 天气: ${getWeatherDescription(data.weather[0].description)}, 温度: ${data.main.temp}°C</span>
-                    </div>`;
-                    document.querySelector("#weatherInfo").innerHTML = weatherDescription;
-                });
-            }
-
-            function updateDateTime() {
-                document.querySelector("#dateTime").textContent = new Date().toLocaleString();
-            }
-
-            function countdownToNewYear() {
-                const now = new Date();
-                const nextYear = now.getFullYear() + 1;
-                const newYear = new Date(`January 1, ${nextYear} 00:00:00`);
-                const timeDifference = newYear - now;
-
-                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-                document.querySelector("#year2025CountdownInfo").textContent = `${days}天 ${hours}小时 ${minutes}分钟 ${seconds}秒`;
-            }
-
-            fetch('https://api64.ipify.org?format=json')
-                .then(response => response.json())
-                .then(data => {
-                    document.querySelector("#ipAddress").textContent = data.ip;
-                    getGeoLocation(data.ip, "#fullAddressIPv4");
-                });
-
-            fetch('https://api64.ipify.org?format=json&ipv6=1')
-                .then(response => response.json())
-                .then(data => {
-                    document.querySelector("#ipv6Address").textContent = data.ip;
-                    getGeoLocation(data.ip, "#fullAddressIPv6");
-                });
-
-            updateDateTime();
-            setInterval(updateDateTime, 1000);
-            setInterval(countdownToNewYear, 1000);
-        });
+        // 这里可以加入获取地理位置信息和天气信息的JavaScript代码
     </script>
 </body>
 </html>
