@@ -1,5 +1,4 @@
 // @auto-i18n-check. Please do not delete the line.
-import { auth } from "@/auth";
 import { locales } from "@/i18n-metadata";
 import getEnv from "@/lib/env-entry";
 import { cn } from "@/lib/utils";
@@ -12,8 +11,6 @@ import { PublicEnvScript } from "next-runtime-env";
 import { ThemeProvider } from "next-themes";
 import { Inter as FontSans } from "next/font/google";
 import React from "react";
-
-import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -60,6 +57,10 @@ export default function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <PublicEnvScript />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"
+        />
       </head>
       <body
         className={cn(
