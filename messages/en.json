@@ -58,6 +58,7 @@
     "Arch": "Arch",
     "Mem": "Mem",
     "Disk": "Disk",
+    "Region": "Region",
     "System": "System",
     "CPU": "CPU"
   },

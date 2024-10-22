@@ -1,8 +1,15 @@
 import getEnv from "@/lib/env-entry";
+import { cn } from "@/lib/utils";
 import getUnicodeFlagIcon from "country-flag-icons/unicode";
 import { useEffect, useState } from "react";
 
-export default function ServerFlag({ country_code }: { country_code: string }) {
+export default function ServerFlag({
+  country_code,
+  className,
+}: {
+  country_code: string;
+  className?: string;
+}) {
   const [supportsEmojiFlags, setSupportsEmojiFlags] = useState(false);
 
   const useSvgFlag = getEnv("NEXT_PUBLIC_ForceUseSvgFlag") === "true";
@@ -38,9 +45,9 @@ export default function ServerFlag({ country_code }: { country_code: string }) {
   }
 
   return (
-    <span className="text-[12px] text-muted-foreground">
+    <span className={cn("text-[12px] text-muted-foreground", className)}>
       {useSvgFlag || !supportsEmojiFlags ? (
-        <span className={`fi fi-${country_code}`}></span>
+        <span className={`fi fi-${country_code}`} />
       ) : (
         getUnicodeFlagIcon(country_code)
       )}
