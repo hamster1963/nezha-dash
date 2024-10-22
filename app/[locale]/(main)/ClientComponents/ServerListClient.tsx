@@ -12,11 +12,18 @@ import useSWR from "swr";
 export default function ServerListClient() {
   const t = useTranslations("ServerListClient");
   const containerRef = useRef<HTMLDivElement>(null);
-
   const defaultTag = t("defaultTag");
-  const [tag, setTag] = useState<string>(
-    sessionStorage.getItem("selectedTag") || defaultTag,
-  );
+
+  const [tag, setTag] = useState<string>(defaultTag);
+
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    const savedTag = sessionStorage.getItem("selectedTag") || defaultTag;
+    setTag(savedTag);
+
+    restoreScrollPosition();
+    setIsMounted(true);
+  }, []);
 
   const handleTagChange = (newTag: string) => {
     setTag(newTag);
@@ -33,10 +40,6 @@ export default function ServerListClient() {
       containerRef.current.scrollTop = Number(savedPosition);
     }
   };
-
-  useEffect(() => {
-    restoreScrollPosition();
-  }, [tag]);
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -61,7 +64,7 @@ export default function ServerListClient() {
       </div>
     );
 
-  if (!data?.result) return null;
+  if (!data?.result || !isMounted) return null;
 
   const { result } = data;
   const sortedServers = result.sort((a, b) => {
