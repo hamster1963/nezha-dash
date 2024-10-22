@@ -10,6 +10,7 @@ import getEnv from "@/lib/env-entry";
 import { cn, formatBytes, nezhaFetcher } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 export default function ServerDetailClient({
@@ -20,6 +21,32 @@ export default function ServerDetailClient({
   const t = useTranslations("ServerDetailClient");
   const router = useRouter();
   const locale = useLocale();
+
+  const [hasHistory, setHasHistory] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const previousPath = sessionStorage.getItem("lastPath");
+    const currentPath = window.location.pathname;
+
+    if (previousPath && previousPath !== currentPath) {
+      setHasHistory(true);
+    } else {
+      sessionStorage.setItem("lastPath", currentPath);
+    }
+  }, []);
+
+  const linkClick = () => {
+    if (hasHistory) {
+      router.back();
+    } else {
+      router.push(`/${locale}/`);
+    }
+  };
+
   const { data, error } = useSWR<NezhaAPISafe>(
     `/api/detail?server_id=${server_id}`,
     nezhaFetcher,
@@ -46,9 +73,7 @@ export default function ServerDetailClient({
   return (
     <div>
       <div
-        onClick={() => {
-          router.push(`/${locale}/`);
-        }}
+        onClick={linkClick}
         className="flex flex-none cursor-pointer font-semibold leading-none items-center break-all tracking-tight gap-0.5 text-xl"
       >
         <BackIcon />

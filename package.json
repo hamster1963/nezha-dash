@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3020 --turbo",
+    "dev": "next dev -p 3020",
     "start": "node .next/standalone/server.js",
     "lint": "next lint",
     "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
