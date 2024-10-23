@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import React, { useEffect, useRef, useState, createRef } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 
 export default function Switch({
   allTag,
@@ -68,7 +68,7 @@ export default function Switch({
               "relative cursor-pointer rounded-3xl px-2.5 py-[8px] text-[13px] font-[600] transition-all duration-500",
               nowTag === tag
                 ? "text-black dark:text-white"
-                : "text-stone-400 dark:text-stone-500"
+                : "text-stone-400 dark:text-stone-500",
             )}
           >
             {nowTag === tag && (
