@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM oven/bun:1 as base
+FROM --platform=$BUILDPLATFORM oven/bun:1 AS base
 
 # Stage 1: Install dependencies
 FROM base AS deps
@@ -14,7 +14,7 @@ COPY . .
 RUN --mount=type=cache,target=/root/.bun bun run build
 
 # Stage 3: Production image
-FROM --platform=$TARGETPLATFORM oven/bun:1-alpine AS runner
+FROM oven/bun:1-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=builder /app/public ./public
