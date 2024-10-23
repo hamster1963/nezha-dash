@@ -26,6 +26,7 @@ function Header() {
       <section className="flex items-center justify-between">
         <section
           onClick={() => {
+            sessionStorage.removeItem("selectedTag");
             router.push(`/${locale}/`);
           }}
           className="flex cursor-pointer items-center text-base font-medium"
