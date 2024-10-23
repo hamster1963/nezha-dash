@@ -4,14 +4,14 @@ FROM --platform=$BUILDPLATFORM oven/bun:1 AS base
 FROM base AS deps
 WORKDIR /app
 COPY package.json bun.lockb ./
-RUN --mount=type=cache,target=/root/.bun bun install --frozen-lockfile
+RUN bun install --frozen-lockfile
 
 # Stage 2: Build the application
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN --mount=type=cache,target=/root/.bun bun run build
+RUN bun run build
 
 # Stage 3: Production image
 FROM oven/bun:1-alpine AS runner
