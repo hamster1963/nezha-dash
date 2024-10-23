@@ -18,10 +18,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 移除 QEMU 设置步骤，因为我们不再需要模拟
-      # - name: Set up QEMU
-      #   uses: docker/setup-qemu-action@v3
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
@@ -59,8 +55,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ env.REGISTRY_IMAGE }}:cache
-          cache-to: type=inline
 
   changelog:
     name: Generate Changelog
