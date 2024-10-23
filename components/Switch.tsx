@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, createRef } from "react";
 
 export default function Switch({
   allTag,
@@ -14,6 +14,7 @@ export default function Switch({
   onTagChange: (tag: string) => void;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const tagRefs = useRef(allTag.map(() => createRef<HTMLDivElement>()));
 
   useEffect(() => {
     const savedTag = sessionStorage.getItem("selectedTag");
@@ -41,21 +42,33 @@ export default function Switch({
     };
   }, []);
 
+  useEffect(() => {
+    const currentTagRef = tagRefs.current[allTag.indexOf(nowTag)];
+    if (currentTagRef && currentTagRef.current) {
+      currentTagRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [nowTag]);
+
   return (
     <div
       ref={scrollRef}
       className="scrollbar-hidden z-50 flex flex-col items-start overflow-x-scroll rounded-[50px]"
     >
       <div className="flex items-center gap-1 rounded-[50px] bg-stone-100 p-[3px] dark:bg-stone-800">
-        {allTag.map((tag) => (
+        {allTag.map((tag, index) => (
           <div
             key={tag}
+            ref={tagRefs.current[index]}
             onClick={() => onTagChange(tag)}
             className={cn(
               "relative cursor-pointer rounded-3xl px-2.5 py-[8px] text-[13px] font-[600] transition-all duration-500",
               nowTag === tag
                 ? "text-black dark:text-white"
-                : "text-stone-400 dark:text-stone-500",
+                : "text-stone-400 dark:text-stone-500"
             )}
           >
             {nowTag === tag && (
