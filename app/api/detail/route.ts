@@ -7,9 +7,8 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-interface NezhaDataResponse {
+interface NezhaDataResponse extends NezhaAPISafe {
   error?: string;
-  data?: NezhaAPISafe;
   cause?: string;
   code?: string;
 }

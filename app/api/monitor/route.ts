@@ -9,7 +9,6 @@ export const dynamic = "force-dynamic";
 
 interface NezhaDataResponse {
   error?: string;
-  data?: ServerMonitorChart;
   cause?: string;
   code?: string;
 }

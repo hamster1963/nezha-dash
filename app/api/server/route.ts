@@ -7,9 +7,8 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-interface NezhaDataResponse {
+interface NezhaDataResponse extends ServerApi {
   error?: string;
-  data?: ServerApi;
   cause?: string;
   code?: string;
 }
@@ -37,7 +36,7 @@ export const GET = auth(async function GET(req) {
       { status: 400 },
     );
   }
-  if (!response.data) {
+  if (!response.result) {
     return NextResponse.json({ cause: "fetch data empty" }, { status: 400 });
   }
   return NextResponse.json(response, { status: 200 });
