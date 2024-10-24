@@ -2,7 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import { useTranslations } from "next-intl";
+import React from "react";
 
 export default function TabSwitch({
   tabs,
@@ -13,6 +14,7 @@ export default function TabSwitch({
   currentTab: string;
   setCurrentTab: (tab: string) => void;
 }) {
+  const t = useTranslations("TabSwitch");
   return (
     <div className="z-50 flex flex-col items-start rounded-[50px]">
       <div className="flex items-center gap-1 rounded-[50px] bg-stone-100 p-[3px] dark:bg-stone-800">
@@ -38,7 +40,7 @@ export default function TabSwitch({
               />
             )}
             <div className="relative z-20 flex items-center gap-1">
-              <p className="whitespace-nowrap">{tab}</p>
+              <p className="whitespace-nowrap">{t(tab)}</p>
             </div>
           </div>
         ))}

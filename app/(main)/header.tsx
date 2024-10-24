@@ -7,7 +7,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import getEnv from "@/lib/env-entry";
 import { DateTime } from "luxon";
 import { useTranslations } from "next-intl";
-import { useLocale } from "next-intl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
@@ -63,7 +62,7 @@ function Header() {
 
 // https://github.com/streamich/react-use/blob/master/src/useInterval.ts
 const useInterval = (callback: Function, delay?: number | null) => {
-  const savedCallback = useRef<Function>(() => {});
+  const savedCallback = useRef<Function>(() => { });
   useEffect(() => {
     savedCallback.current = callback;
   });
