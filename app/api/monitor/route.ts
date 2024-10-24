@@ -12,6 +12,8 @@ export const dynamic = "force-dynamic";
 interface NezhaDataResponse {
   error?: string;
   data?: ServerMonitorChart;
+  cause?: string;
+  code?: string;
 }
 
 export const GET = auth(async function GET(req) {
@@ -33,6 +35,20 @@ export const GET = auth(async function GET(req) {
   if (response.error) {
     console.log(response.error);
     return NextResponse.json({ error: response.error }, { status: 400 });
+  }
+  if (response.cause) {
+    console.log("GetServerMonitor error(cause):", response);
+    return NextResponse.json(
+      { cause: "server connect error" },
+      { status: 400 },
+    );
+  }
+  if (response.code === "ConnectionRefused") {
+    console.log("GetServerMonitor error(code):", response);
+    return NextResponse.json(
+      { cause: "server connect error" },
+      { status: 400 },
+    );
   }
   return NextResponse.json(response, { status: 200 });
 });

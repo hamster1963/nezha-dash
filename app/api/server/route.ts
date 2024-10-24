@@ -13,6 +13,7 @@ interface NezhaDataResponse {
   error?: string;
   data?: ServerApi;
   cause?: string;
+  code?: string;
 }
 
 export const GET = auth(async function GET(req) {
@@ -25,10 +26,21 @@ export const GET = auth(async function GET(req) {
     return NextResponse.json({ error: response.error }, { status: 400 });
   }
   if (response.cause) {
+    console.log("GetNezhaData error(cause):", response);
     return NextResponse.json(
       { cause: "server connect error" },
       { status: 400 },
     );
+  }
+  if (response.code === "ConnectionRefused") {
+    console.log("GetNezhaData error(code):", response);
+    return NextResponse.json(
+      { cause: "server connect error" },
+      { status: 400 },
+    );
+  }
+  if (!response.data) {
+    return NextResponse.json({ cause: "fetch data empty" }, { status: 400 });
   }
   return NextResponse.json(response, { status: 200 });
 });
