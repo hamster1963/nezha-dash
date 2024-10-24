@@ -1,4 +1,3 @@
-import { ServerApi } from "@/app/[locale]/types/nezha-api";
 import { auth } from "@/auth";
 import getEnv from "@/lib/env-entry";
 import { GetNezhaData } from "@/lib/serverFetch";
@@ -7,37 +6,20 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-interface NezhaDataResponse extends ServerApi {
-  error?: string;
-  cause?: string;
-  code?: string;
-}
-
 export const GET = auth(async function GET(req) {
   if (!req.auth && getEnv("SitePassword")) {
     redirect("/");
   }
 
-  const response = (await GetNezhaData()) as NezhaDataResponse;
-  if (response.error) {
-    return NextResponse.json({ error: response.error }, { status: 400 });
+  try {
+    const data = await GetNezhaData();
+    return NextResponse.json(data, { status: 200 });
+  } catch (error) {
+    console.error("Error in GET handler:", error);
+    // @ts-ignore
+    const statusCode = error.statusCode || 500;
+    // @ts-ignore
+    const message = error.message || "Internal Server Error";
+    return NextResponse.json({ error: message }, { status: statusCode });
   }
-  if (response.cause) {
-    console.log("GetNezhaData error(cause):", response);
-    return NextResponse.json(
-      { cause: "server connect error" },
-      { status: 400 },
-    );
-  }
-  if (response.code === "ConnectionRefused") {
-    console.log("GetNezhaData error(code):", response);
-    return NextResponse.json(
-      { cause: "server connect error" },
-      { status: 400 },
-    );
-  }
-  if (!response.result) {
-    return NextResponse.json({ cause: "fetch data empty" }, { status: 400 });
-  }
-  return NextResponse.json(response, { status: 200 });
 });
