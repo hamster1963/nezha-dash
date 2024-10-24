@@ -23,11 +23,6 @@ const withPWA = withPWAInit({
 const nextConfig = {
   output: "standalone",
   reactStrictMode: true,
-  experimental: {
-    serverActions: {
-      allowedOrigins: ["*"],
-    },
-  },
   logging: {
     fetches: {
       fullUrl: true,

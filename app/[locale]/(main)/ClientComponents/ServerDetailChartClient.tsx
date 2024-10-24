@@ -1,7 +1,7 @@
 "use client";
 
 import { ServerDetailChartLoading } from "@/app/[locale]/(main)/ClientComponents/ServerDetailLoading";
-import { NezhaAPISafe } from "@/app/[locale]/types/nezha-api";
+import { NezhaAPISafe, ServerApi } from "@/app/[locale]/types/nezha-api";
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
@@ -19,6 +19,7 @@ import {
   YAxis,
 } from "recharts";
 import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 
 type cpuChartData = {
   timeStamp: string;
@@ -62,12 +63,23 @@ export default function ServerDetailChartClient({
 }) {
   const t = useTranslations("ServerDetailChartClient");
 
+  const { data: allFallbackData } = useSWRImmutable<ServerApi>(
+    "/api/server",
+    nezhaFetcher,
+  );
+  const fallbackData = allFallbackData?.result?.find(
+    (item) => item.id === server_id,
+  );
+
   const { data, error } = useSWR<NezhaAPISafe>(
     `/api/detail?server_id=${server_id}`,
     nezhaFetcher,
     {
       refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 5000,
-      isPaused: () => !show,
+      isVisible: () => show,
+      fallbackData,
+      revalidateOnMount: false,
+      revalidateIfStale: false,
     },
   );
 
@@ -128,7 +140,7 @@ function CpuChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className=" rounded-sm">
+    <Card>
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
@@ -231,7 +243,7 @@ function ProcessChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className=" rounded-sm">
+    <Card>
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
@@ -324,7 +336,7 @@ function MemChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className=" rounded-sm">
+    <Card>
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center">
@@ -445,7 +457,7 @@ function DiskChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className="rounded-sm">
+    <Card>
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
@@ -557,7 +569,7 @@ function NetworkChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className=" rounded-sm">
+    <Card>
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center">
@@ -677,7 +689,7 @@ function ConnectChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className="rounded-sm">
+    <Card>
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center">

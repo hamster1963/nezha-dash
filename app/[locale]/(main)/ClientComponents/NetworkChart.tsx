@@ -51,7 +51,7 @@ export function NetworkChartClient({
     {
       refreshInterval:
         Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 15000,
-      isPaused: () => !show,
+      isVisible: () => show,
     },
   );
 
@@ -181,13 +181,7 @@ export const NetworkChart = React.memo(function NetworkChart({
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 p-0 sm:flex-row">
         <div className="flex flex-none flex-col justify-center gap-1 border-b px-6 py-4">
-          <CardTitle
-            onClick={() => {
-              router.push(`/${locale}/`);
-            }}
-            className="flex flex-none cursor-pointer items-center gap-0.5 text-xl"
-          >
-            <BackIcon />
+          <CardTitle className="flex flex-none items-center gap-0.5 text-md">
             {serverName}
           </CardTitle>
           <CardDescription className="text-xs">

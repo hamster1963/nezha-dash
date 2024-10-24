@@ -23,6 +23,12 @@
     "Detail": "Detail",
     "Network": "Network"
   },
+  "SignIn": {
+    "SignInMessage": "Please enter the password",
+    "Submit": "Login",
+    "ErrorMessage": "Invalid password",
+    "SuccessMessage": "Login successful"
+  },
   "ServerCardPopover": {
     "System": "System",
     "CPU": "CPU",
@@ -52,6 +58,7 @@
     "Arch": "Arch",
     "Mem": "Mem",
     "Disk": "Disk",
+    "Region": "Region",
     "System": "System",
     "CPU": "CPU"
   },

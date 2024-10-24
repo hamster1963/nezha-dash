@@ -23,6 +23,12 @@
     "Detail": "详情",
     "Network": "网络"
   },
+  "SignIn": {
+    "SignInMessage": "请输入密码",
+    "Submit": "登录",
+    "ErrorMessage": "密码错误",
+    "SuccessMessage": "登录成功"
+  },
   "ServerCardPopover": {
     "System": "系统",
     "CPU": "CPU",
@@ -52,6 +58,7 @@
     "Arch": "架构",
     "Mem": "内存",
     "Disk": "磁盘",
+    "Region": "地区",
     "System": "系统",
     "CPU": "CPU"
   },

@@ -2,24 +2,68 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 
 export default function Switch({
   allTag,
   nowTag,
-  setTag,
+  onTagChange,
 }: {
   allTag: string[];
   nowTag: string;
-  setTag: (tag: string) => void;
+  onTagChange: (tag: string) => void;
 }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const tagRefs = useRef(allTag.map(() => createRef<HTMLDivElement>()));
+
+  useEffect(() => {
+    const savedTag = sessionStorage.getItem("selectedTag");
+    if (savedTag && allTag.includes(savedTag)) {
+      onTagChange(savedTag);
+    }
+  }, [allTag]);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const isOverflowing = container.scrollWidth > container.clientWidth;
+    if (!isOverflowing) return;
+
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      container.scrollLeft += e.deltaY;
+    };
+
+    container.addEventListener("wheel", onWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener("wheel", onWheel);
+    };
+  }, []);
+
+  useEffect(() => {
+    const currentTagRef = tagRefs.current[allTag.indexOf(nowTag)];
+    if (currentTagRef && currentTagRef.current) {
+      currentTagRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [nowTag]);
+
   return (
-    <div className="scrollbar-hidden z-50 flex flex-col items-start overflow-x-scroll rounded-[50px]">
+    <div
+      ref={scrollRef}
+      className="scrollbar-hidden z-50 flex flex-col items-start overflow-x-scroll rounded-[50px]"
+    >
       <div className="flex items-center gap-1 rounded-[50px] bg-stone-100 p-[3px] dark:bg-stone-800">
-        {allTag.map((tag) => (
+        {allTag.map((tag, index) => (
           <div
             key={tag}
-            onClick={() => setTag(tag)}
+            ref={tagRefs.current[index]}
+            onClick={() => onTagChange(tag)}
             className={cn(
               "relative cursor-pointer rounded-3xl px-2.5 py-[8px] text-[13px] font-[600] transition-all duration-500",
               nowTag === tag

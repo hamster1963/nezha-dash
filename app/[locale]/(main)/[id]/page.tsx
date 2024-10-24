@@ -29,12 +29,18 @@ export default function Page({ params }: { params: { id: string } }) {
         </div>
         <Separator className="flex-1" />
       </section>
-      {currentTab === tabs[0] && (
-        <ServerDetailChartClient server_id={Number(params.id)} show={true} />
-      )}
-      {currentTab === tabs[1] && (
-        <NetworkChartClient server_id={Number(params.id)} show={true} />
-      )}
+      <div style={{ display: currentTab === tabs[0] ? "block" : "none" }}>
+        <ServerDetailChartClient
+          server_id={Number(params.id)}
+          show={currentTab === tabs[0]}
+        />
+      </div>
+      <div style={{ display: currentTab === tabs[1] ? "block" : "none" }}>
+        <NetworkChartClient
+          server_id={Number(params.id)}
+          show={currentTab === tabs[1]}
+        />
+      </div>
     </div>
   );
 }

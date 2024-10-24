@@ -23,6 +23,12 @@
     "Detail": "詳細",
     "Network": "ネットワーク"
   },
+  "SignIn": {
+    "SignInMessage": "パスワードを入力してください",
+    "Submit": "ログイン",
+    "ErrorMessage": "パスワードが間違っています",
+    "SuccessMessage": "ログイン成功"
+  },
   "ServerCardPopover": {
     "System": "システム",
     "CPU": "CPU",
@@ -52,6 +58,7 @@
     "Arch": "アーキテクチャ",
     "Mem": "メモリ",
     "Disk": "ディスク",
+    "Region": "地域",
     "System": "システム",
     "CPU": "CPU"
   },

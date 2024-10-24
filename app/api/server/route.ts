@@ -1,83 +1,58 @@
-import { NezhaAPI, ServerApi } from "@/app/[locale]/types/nezha-api";
-import { MakeOptional } from "@/app/[locale]/types/utils";
 import { auth } from "@/auth";
 import getEnv from "@/lib/env-entry";
+import { GetNezhaData } from "@/lib/serverFetch";
+import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
 export const runtime = "edge";
 
-interface NezhaDataResponse {
-  error?: string;
-  data?: ServerApi;
-}
+
 
 export const GET = auth(async function GET(req) {
   if (!req.auth && getEnv("SitePassword")) {
-    return NextResponse.json({ message: "Not authenticated" }, { status: 401 });
+    redirect("/");
   }
 
-  const response = (await GetNezhaData()) as NezhaDataResponse;
-  if (response.error) {
-    console.log(response.error);
-    return NextResponse.json({ error: response.error }, { status: 400 });
-  }
-  return NextResponse.json(response, { status: 200 });
-});
-
-async function GetNezhaData() {
-
-  var nezhaBaseUrl = getEnv("NezhaBaseUrl");
-  if (!nezhaBaseUrl) {
-    console.log("NezhaBaseUrl is not set");
-    return;
-  }
-
-  // Remove trailing slash
-  if (nezhaBaseUrl[nezhaBaseUrl.length - 1] === "/") {
-    nezhaBaseUrl = nezhaBaseUrl.slice(0, -1);
-  }
   try {
-    const response = await fetch(nezhaBaseUrl + "/api/v1/server/details", {
-      headers: {
-        Authorization: getEnv("NezhaAuth") as string,
-      },
-      next: {
-        revalidate: 0,
-      },
-    });
-    const nezhaData = (await response.json()).result as NezhaAPI[];
-    const data: ServerApi = {
-      live_servers: 0,
-      offline_servers: 0,
-      total_in_bandwidth: 0,
-      total_out_bandwidth: 0,
-      result: [],
-    };
-    const timestamp = Date.now() / 1000;
-    data.result = nezhaData.map(
-      (element: MakeOptional<NezhaAPI, "ipv4" | "ipv6" | "valid_ip">) => {
-        if (timestamp - element.last_active > 300) {
-          data.offline_servers += 1;
-          element.online_status = false;
-        } else {
-          data.live_servers += 1;
-          element.online_status = true;
-        }
-        data.total_in_bandwidth += element.status.NetInTransfer;
-        data.total_out_bandwidth += element.status.NetOutTransfer;
-
-        delete element.ipv4;
-        delete element.ipv6;
-        delete element.valid_ip;
-
-        return element;
-      },
-    );
-
-    return data;
+    const data = await GetNezhaData();
+    return NextResponse.json(data, { status: 200 });
   } catch (error) {
-    return error;
+    console.error("Error in GET handler:", error);
+    // @ts-ignore
+    const statusCode = error.statusCode || 500;
+    // @ts-ignore
+    const message = error.message || "Internal Server Error";
+    return NextResponse.json({ error: message }, { status: statusCode });
   }
-}
+});
+import { auth } from "@/auth";
+import getEnv from "@/lib/env-entry";
+import { GetNezhaData } from "@/lib/serverFetch";
+import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
+
+export const dynamic = "force-dynamic";
+
+export const runtime = "edge";
+
+
+
+export const GET = auth(async function GET(req) {
+  if (!req.auth && getEnv("SitePassword")) {
+    redirect("/");
+  }
+
+  try {
+    const data = await GetNezhaData();
+    return NextResponse.json(data, { status: 200 });
+  } catch (error) {
+    console.error("Error in GET handler:", error);
+    // @ts-ignore
+    const statusCode = error.statusCode || 500;
+    // @ts-ignore
+    const message = error.message || "Internal Server Error";
+    return NextResponse.json({ error: message }, { status: statusCode });
+  }
+});

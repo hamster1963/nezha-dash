@@ -23,6 +23,12 @@
     "Detail": "詳細",
     "Network": "網路"
   },
+  "SignIn": {
+    "SignInMessage": "請輸入密碼",
+    "Submit": "登入",
+    "ErrorMessage": "密碼錯誤",
+    "SuccessMessage": "登入成功"
+  },
   "ServerCardPopover": {
     "System": "系統",
     "CPU": "CPU",
@@ -52,6 +58,7 @@
     "Arch": "架構",
     "Mem": "記憶體",
     "Disk": "磁碟",
+    "Region": "地區",
     "System": "系統",
     "CPU": "CPU"
   },
