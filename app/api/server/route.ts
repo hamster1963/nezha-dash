@@ -12,6 +12,7 @@ export const runtime = "edge";
 interface NezhaDataResponse {
   error?: string;
   data?: ServerApi;
+  cause?: string;
 }
 
 export const GET = auth(async function GET(req) {
@@ -21,8 +22,13 @@ export const GET = auth(async function GET(req) {
 
   const response = (await GetNezhaData()) as NezhaDataResponse;
   if (response.error) {
-    console.log(response.error);
     return NextResponse.json({ error: response.error }, { status: 400 });
+  }
+  if (response.cause) {
+    return NextResponse.json(
+      { cause: "server connect error" },
+      { status: 400 },
+    );
   }
   return NextResponse.json(response, { status: 200 });
 });

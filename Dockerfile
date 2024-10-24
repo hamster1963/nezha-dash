@@ -1,4 +1,4 @@
-FROM oven/bun:1 AS base
+FROM --platform=$BUILDPLATFORM oven/bun:1 AS base
 
 # Stage 1: Install dependencies
 FROM base AS deps

@@ -75,6 +75,7 @@ export async function GetNezhaData() {
 
     return data;
   } catch (error) {
+    console.error(error);
     return error;
   }
 }
@@ -111,6 +112,7 @@ export async function GetServerMonitor({ server_id }: { server_id: number }) {
     }
     return monitorData;
   } catch (error) {
+    console.error(error);
     return error;
   }
 }
@@ -163,6 +165,7 @@ export async function GetServerDetail({ server_id }: { server_id: number }) {
 
     return detailData;
   } catch (error) {
+    console.error(error);
     return error;
   }
 }
