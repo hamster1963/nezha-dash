@@ -10,6 +10,8 @@ export const dynamic = "force-dynamic";
 interface NezhaDataResponse {
   error?: string;
   data?: NezhaAPISafe;
+  cause?: string;
+  code?: string;
 }
 
 export const GET = auth(async function GET(req) {
@@ -31,6 +33,20 @@ export const GET = auth(async function GET(req) {
   if (response.error) {
     console.log(response.error);
     return NextResponse.json({ error: response.error }, { status: 400 });
+  }
+  if (response.cause) {
+    console.log("GetServerDetail error(cause):", response);
+    return NextResponse.json(
+      { cause: "server connect error" },
+      { status: 400 },
+    );
+  }
+  if (response.code === "ConnectionRefused") {
+    console.log("GetServerDetail error(code):", response);
+    return NextResponse.json(
+      { cause: "server connect error" },
+      { status: 400 },
+    );
   }
   return NextResponse.json(response, { status: 200 });
 });
