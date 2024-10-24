@@ -1,6 +1,6 @@
 "use client";
 
-import { ServerApi } from "@/app/[locale]/types/nezha-api";
+import { ServerApi } from "@/app/types/nezha-api";
 import ServerCard from "@/components/ServerCard";
 import Switch from "@/components/Switch";
 import getEnv from "@/lib/env-entry";

@@ -1,7 +1,7 @@
 "use client";
 
-import { ServerDetailLoading } from "@/app/[locale]/(main)/ClientComponents/ServerDetailLoading";
-import { NezhaAPISafe, ServerApi } from "@/app/[locale]/types/nezha-api";
+import { ServerDetailLoading } from "@/app/(main)/ClientComponents/ServerDetailLoading";
+import { NezhaAPISafe, ServerApi } from "@/app/types/nezha-api";
 import { BackIcon } from "@/components/Icon";
 import ServerFlag from "@/components/ServerFlag";
 import { Badge } from "@/components/ui/badge";
@@ -21,7 +21,6 @@ export default function ServerDetailClient({
 }) {
   const t = useTranslations("ServerDetailClient");
   const router = useRouter();
-  const locale = useLocale();
 
   const [hasHistory, setHasHistory] = useState(false);
 
@@ -43,7 +42,7 @@ export default function ServerDetailClient({
     if (hasHistory) {
       router.back();
     } else {
-      router.push(`/${locale}/`);
+      router.push(`/`);
     }
   };
 
@@ -52,6 +51,7 @@ export default function ServerDetailClient({
     nezhaFetcher,
   );
   const fallbackData = allFallbackData?.result?.find(
+    // @ts-ignore
     (item) => item.id === server_id,
   );
 

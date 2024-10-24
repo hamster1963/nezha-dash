@@ -1,5 +1,4 @@
-import { NezhaAPISafe } from "@/app/[locale]/types/nezha-api";
-import ServerCardPopover from "@/components/ServerCardPopover";
+import { NezhaAPISafe } from "@/app/types/nezha-api";
 import ServerFlag from "@/components/ServerFlag";
 import ServerUsageBar from "@/components/ServerUsageBar";
 import { Badge } from "@/components/ui/badge";
@@ -29,10 +28,8 @@ export default function ServerCard({
 
   const showNetTransfer = getEnv("NEXT_PUBLIC_ShowNetTransfer") === "true";
 
-  const locale = useLocale();
-
   return online ? (
-    <Link href={`/${locale}/${id}`} prefetch={true}>
+    <Link href={`/${id}`} prefetch={true}>
       <Card
         className={
           "flex flex-col items-center justify-start gap-3 p-3 md:px-5 lg:flex-row cursor-pointer"
@@ -99,7 +96,7 @@ export default function ServerCard({
           {showNetTransfer && (
             <section
               onClick={() => {
-                router.push(`/${locale}/network/${id}`);
+                router.push(`/${id}`);
               }}
               className={"flex items-center justify-between gap-1"}
             >

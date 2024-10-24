@@ -1,10 +1,7 @@
 "use client";
 
-import NetworkChartLoading from "@/app/[locale]/(main)/ClientComponents/NetworkChartLoading";
-import {
-  NezhaAPIMonitor,
-  ServerMonitorChart,
-} from "@/app/[locale]/types/nezha-api";
+import NetworkChartLoading from "@/app/(main)/ClientComponents/NetworkChartLoading";
+import { NezhaAPIMonitor, ServerMonitorChart } from "@/app/types/nezha-api";
 import { BackIcon } from "@/components/Icon";
 import {
   Card,
@@ -108,8 +105,6 @@ export const NetworkChart = React.memo(function NetworkChart({
   formattedData: ResultItem[];
 }) {
   const t = useTranslations("NetworkChart");
-  const router = useRouter();
-  const locale = useLocale();
 
   const defaultChart = "All";
 

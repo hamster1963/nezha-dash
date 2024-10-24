@@ -19,7 +19,6 @@ function Header() {
   const customDescription = getEnv("NEXT_PUBLIC_CustomDescription");
 
   const router = useRouter();
-  const locale = useLocale();
 
   return (
     <div className="mx-auto w-full max-w-5xl">
@@ -27,7 +26,7 @@ function Header() {
         <section
           onClick={() => {
             sessionStorage.removeItem("selectedTag");
-            router.push(`/${locale}/`);
+            router.push(`/`);
           }}
           className="flex cursor-pointer items-center text-base font-medium"
         >

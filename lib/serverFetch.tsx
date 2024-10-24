@@ -1,7 +1,7 @@
 "use server";
 
-import { NezhaAPI, ServerApi } from "@/app/[locale]/types/nezha-api";
-import { MakeOptional } from "@/app/[locale]/types/utils";
+import { NezhaAPI, ServerApi } from "@/app/types/nezha-api";
+import { MakeOptional } from "@/app/types/utils";
 import getEnv from "@/lib/env-entry";
 import { unstable_noStore as noStore } from "next/cache";
 
