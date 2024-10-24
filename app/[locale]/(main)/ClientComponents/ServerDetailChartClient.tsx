@@ -140,7 +140,7 @@ function CpuChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className=" rounded-sm">
+    <Card>
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
@@ -243,7 +243,7 @@ function ProcessChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className=" rounded-sm">
+    <Card>
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
@@ -336,7 +336,7 @@ function MemChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className=" rounded-sm">
+    <Card>
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center">
@@ -457,7 +457,7 @@ function DiskChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className="rounded-sm">
+    <Card>
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
@@ -569,7 +569,7 @@ function NetworkChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className=" rounded-sm">
+    <Card>
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center">
@@ -689,7 +689,7 @@ function ConnectChart({ data }: { data: NezhaAPISafe }) {
   } satisfies ChartConfig;
 
   return (
-    <Card className="rounded-sm">
+    <Card>
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center">
