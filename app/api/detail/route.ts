@@ -9,9 +9,8 @@ export const runtime = 'edge';
 
 export const dynamic = "force-dynamic";
 
-interface NezhaDataResponse {
+interface NezhaDataResponse extends NezhaAPISafe {
   error?: string;
-  data?: NezhaAPISafe;
   cause?: string;
   code?: string;
 }
