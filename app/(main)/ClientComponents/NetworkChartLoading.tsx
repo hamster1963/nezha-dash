@@ -1,13 +1,7 @@
-import { BackIcon } from "@/components/Icon";
 import { Loader } from "@/components/loading/Loader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLocale } from "next-intl";
-import { useRouter } from "next/navigation";
 
 export default function NetworkChartLoading() {
-  const router = useRouter();
-  const locale = useLocale();
-
   return (
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">

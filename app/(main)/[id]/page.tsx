@@ -1,8 +1,8 @@
 "use client";
 
-import { NetworkChartClient } from "@/app/[locale]/(main)/ClientComponents/NetworkChart";
-import ServerDetailChartClient from "@/app/[locale]/(main)/ClientComponents/ServerDetailChartClient";
-import ServerDetailClient from "@/app/[locale]/(main)/ClientComponents/ServerDetailClient";
+import { NetworkChartClient } from "@/app/(main)/ClientComponents/NetworkChart";
+import ServerDetailChartClient from "@/app/(main)/ClientComponents/ServerDetailChartClient";
+import ServerDetailClient from "@/app/(main)/ClientComponents/ServerDetailClient";
 import TabSwitch from "@/components/TabSwitch";
 import { Separator } from "@/components/ui/separator";
 import { useTranslations } from "next-intl";

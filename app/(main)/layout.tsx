@@ -1,5 +1,5 @@
-import Footer from "@/app/[locale]/(main)/footer";
-import Header from "@/app/[locale]/(main)/header";
+import Footer from "@/app/(main)/footer";
+import Header from "@/app/(main)/header";
 import { auth } from "@/auth";
 import { SignIn } from "@/components/SignIn";
 import getEnv from "@/lib/env-entry";

@@ -1,4 +1,3 @@
-import { NezhaAPISafe } from "@/app/[locale]/types/nezha-api";
 import { auth } from "@/auth";
 import getEnv from "@/lib/env-entry";
 import { GetServerDetail } from "@/lib/serverFetch";

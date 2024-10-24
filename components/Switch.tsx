@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import React, { createRef, useEffect, useRef, useState } from "react";
 
 export default function Switch({
@@ -15,6 +16,7 @@ export default function Switch({
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const tagRefs = useRef(allTag.map(() => createRef<HTMLDivElement>()));
+  const t = useTranslations("ServerListClient");
 
   useEffect(() => {
     const savedTag = sessionStorage.getItem("selectedTag");
@@ -82,7 +84,9 @@ export default function Switch({
               />
             )}
             <div className="relative z-20 flex items-center gap-1">
-              <p className="whitespace-nowrap">{tag}</p>
+              <p className="whitespace-nowrap">
+                {tag === "defaultTag" ? t("defaultTag") : tag}
+              </p>
             </div>
           </div>
         ))}
