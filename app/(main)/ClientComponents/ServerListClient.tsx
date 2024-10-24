@@ -12,7 +12,7 @@ import useSWR from "swr";
 export default function ServerListClient() {
   const t = useTranslations("ServerListClient");
   const containerRef = useRef<HTMLDivElement>(null);
-  const defaultTag = t("defaultTag");
+  const defaultTag = "defaultTag";
 
   const [tag, setTag] = useState<string>(defaultTag);
 
