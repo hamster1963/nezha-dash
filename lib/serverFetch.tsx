@@ -8,18 +8,17 @@ import { unstable_noStore as noStore } from "next/cache";
 export async function GetNezhaData() {
   noStore();
 
-  var nezhaBaseUrl = getEnv("NezhaBaseUrl");
+  let nezhaBaseUrl = getEnv("NezhaBaseUrl");
   if (!nezhaBaseUrl) {
-    console.log("NezhaBaseUrl is not set");
-    return { error: "NezhaBaseUrl is not set" };
+    console.error("NezhaBaseUrl is not set");
+    throw new Error("NezhaBaseUrl is not set");
   }
 
   // Remove trailing slash
-  if (nezhaBaseUrl[nezhaBaseUrl.length - 1] === "/") {
-    nezhaBaseUrl = nezhaBaseUrl.slice(0, -1);
-  }
+  nezhaBaseUrl = nezhaBaseUrl.replace(/\/$/, "");
+
   try {
-    const response = await fetch(nezhaBaseUrl + "/api/v1/server/details", {
+    const response = await fetch(`${nezhaBaseUrl}/api/v1/server/details`, {
       headers: {
         Authorization: getEnv("NezhaAuth") as string,
       },
@@ -27,12 +26,19 @@ export async function GetNezhaData() {
         revalidate: 0,
       },
     });
-    const resData = await response.json();
-    const nezhaData = resData.result as NezhaAPI[];
-    if (!nezhaData) {
-      console.log(resData);
-      return { error: "NezhaData fetch failed" };
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to fetch data: ${response.status} ${errorText}`);
     }
+
+    const resData = await response.json();
+
+    if (!resData.result) {
+      throw new Error("NezhaData fetch failed: 'result' field is missing");
+    }
+
+    const nezhaData = resData.result as NezhaAPI[];
     const data: ServerApi = {
       live_servers: 0,
       offline_servers: 0,
@@ -41,30 +47,27 @@ export async function GetNezhaData() {
       result: [],
     };
 
-    var forceShowAllServers = getEnv("ForceShowAllServers");
-    let nezhaDataFiltered: NezhaAPI[];
-    if (forceShowAllServers === "true") {
-      nezhaDataFiltered = nezhaData;
-    } else {
-      // remove hidden servers
-      nezhaDataFiltered = nezhaData.filter(
-        (element) => !element.hide_for_guest,
-      );
-    }
+    const forceShowAllServers = getEnv("ForceShowAllServers") === "true";
+    const nezhaDataFiltered = forceShowAllServers
+      ? nezhaData
+      : nezhaData.filter((element) => !element.hide_for_guest);
 
     const timestamp = Date.now() / 1000;
     data.result = nezhaDataFiltered.map(
       (element: MakeOptional<NezhaAPI, "ipv4" | "ipv6" | "valid_ip">) => {
-        if (timestamp - element.last_active > 300) {
-          data.offline_servers += 1;
-          element.online_status = false;
-        } else {
+        const isOnline = timestamp - element.last_active <= 300;
+        element.online_status = isOnline;
+
+        if (isOnline) {
           data.live_servers += 1;
-          element.online_status = true;
+        } else {
+          data.offline_servers += 1;
         }
+
         data.total_out_bandwidth += element.status.NetOutTransfer;
         data.total_in_bandwidth += element.status.NetInTransfer;
 
+        // Remove unwanted properties
         delete element.ipv4;
         delete element.ipv6;
         delete element.valid_ip;
@@ -75,26 +78,24 @@ export async function GetNezhaData() {
 
     return data;
   } catch (error) {
-    console.log("GetServerDetail error:", error);
-    return error;
+    console.error("GetNezhaData error:", error);
+    throw error; // Rethrow the error to be caught by the caller
   }
 }
 
 export async function GetServerMonitor({ server_id }: { server_id: number }) {
-  var nezhaBaseUrl = getEnv("NezhaBaseUrl");
+  let nezhaBaseUrl = getEnv("NezhaBaseUrl");
   if (!nezhaBaseUrl) {
-    console.log("NezhaBaseUrl is not set");
-    return { error: "NezhaBaseUrl is not set" };
+    console.error("NezhaBaseUrl is not set");
+    throw new Error("NezhaBaseUrl is not set");
   }
 
   // Remove trailing slash
-  if (nezhaBaseUrl[nezhaBaseUrl.length - 1] === "/") {
-    nezhaBaseUrl = nezhaBaseUrl.slice(0, -1);
-  }
+  nezhaBaseUrl = nezhaBaseUrl.replace(/\/$/, "");
 
   try {
     const response = await fetch(
-      nezhaBaseUrl + `/api/v1/monitor/${server_id}`,
+      `${nezhaBaseUrl}/api/v1/monitor/${server_id}`,
       {
         headers: {
           Authorization: getEnv("NezhaAuth") as string,
@@ -104,34 +105,40 @@ export async function GetServerMonitor({ server_id }: { server_id: number }) {
         },
       },
     );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to fetch data: ${response.status} ${errorText}`);
+    }
+
     const resData = await response.json();
     const monitorData = resData.result;
+
     if (!monitorData) {
-      console.log(resData);
-      return { error: "MonitorData fetch failed" };
+      console.error("MonitorData fetch failed:", resData);
+      throw new Error("MonitorData fetch failed: 'result' field is missing");
     }
+
     return monitorData;
   } catch (error) {
-    console.error(error);
-    return error;
+    console.error("GetServerMonitor error:", error);
+    throw error;
   }
 }
 
 export async function GetServerDetail({ server_id }: { server_id: number }) {
-  var nezhaBaseUrl = getEnv("NezhaBaseUrl");
+  let nezhaBaseUrl = getEnv("NezhaBaseUrl");
   if (!nezhaBaseUrl) {
-    console.log("NezhaBaseUrl is not set");
-    return { error: "NezhaBaseUrl is not set" };
+    console.error("NezhaBaseUrl is not set");
+    throw new Error("NezhaBaseUrl is not set");
   }
 
   // Remove trailing slash
-  if (nezhaBaseUrl[nezhaBaseUrl.length - 1] === "/") {
-    nezhaBaseUrl = nezhaBaseUrl.slice(0, -1);
-  }
+  nezhaBaseUrl = nezhaBaseUrl.replace(/\/$/, "");
 
   try {
     const response = await fetch(
-      nezhaBaseUrl + `/api/v1/server/details?id=${server_id}`,
+      `${nezhaBaseUrl}/api/v1/server/details?id=${server_id}`,
       {
         headers: {
           Authorization: getEnv("NezhaAuth") as string,
@@ -141,31 +148,38 @@ export async function GetServerDetail({ server_id }: { server_id: number }) {
         },
       },
     );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to fetch data: ${response.status} ${errorText}`);
+    }
+
     const resData = await response.json();
     const detailDataList = resData.result;
-    if (!detailDataList) {
-      console.log(resData);
-      return { error: "MonitorData fetch failed" };
+
+    if (
+      !detailDataList ||
+      !Array.isArray(detailDataList) ||
+      detailDataList.length === 0
+    ) {
+      console.error("MonitorData fetch failed:", resData);
+      throw new Error(
+        "MonitorData fetch failed: 'result' field is missing or empty",
+      );
     }
 
     const timestamp = Date.now() / 1000;
-    const detailData = detailDataList.map(
-      (element: MakeOptional<NezhaAPI, "ipv4" | "ipv6" | "valid_ip">) => {
-        if (timestamp - element.last_active > 300) {
-          element.online_status = false;
-        } else {
-          element.online_status = true;
-        }
-        delete element.ipv4;
-        delete element.ipv6;
-        delete element.valid_ip;
-        return element;
-      },
-    )[0];
+    const detailData = detailDataList.map((element) => {
+      element.online_status = timestamp - element.last_active <= 300;
+      delete element.ipv4;
+      delete element.ipv6;
+      delete element.valid_ip;
+      return element;
+    })[0];
 
     return detailData;
   } catch (error) {
-    console.error(error);
-    return error;
+    console.error("GetServerDetail error:", error);
+    throw error; // Rethrow the error to be handled by the caller
   }
 }

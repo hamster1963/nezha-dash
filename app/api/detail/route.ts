@@ -9,12 +9,6 @@ export const runtime = 'edge';
 
 export const dynamic = "force-dynamic";
 
-interface NezhaDataResponse extends NezhaAPISafe {
-  error?: string;
-  cause?: string;
-  code?: string;
-}
-
 export const GET = auth(async function GET(req) {
   if (!req.auth && getEnv("SitePassword")) {
     redirect("/");
@@ -22,32 +16,31 @@ export const GET = auth(async function GET(req) {
 
   const { searchParams } = new URL(req.url);
   const server_id = searchParams.get("server_id");
+
   if (!server_id) {
     return NextResponse.json(
       { error: "server_id is required" },
       { status: 400 },
     );
   }
-  const response = (await GetServerDetail({
-    server_id: parseInt(server_id),
-  })) as NezhaDataResponse;
-  if (response.error) {
-    console.log(response.error);
-    return NextResponse.json({ error: response.error }, { status: 400 });
+
+  try {
+    const serverIdNum = parseInt(server_id, 10);
+    if (isNaN(serverIdNum)) {
+      return NextResponse.json(
+        { error: "server_id must be a valid number" },
+        { status: 400 },
+      );
+    }
+
+    const detailData = await GetServerDetail({ server_id: serverIdNum });
+    return NextResponse.json(detailData, { status: 200 });
+  } catch (error) {
+    console.error("Error in GET handler:", error);
+    // @ts-ignore
+    const statusCode = error.statusCode || 500;
+    // @ts-ignore
+    const message = error.message || "Internal Server Error";
+    return NextResponse.json({ error: message }, { status: statusCode });
   }
-  if (response.cause) {
-    console.log("GetServerDetail error(cause):", response);
-    return NextResponse.json(
-      { cause: "server connect error" },
-      { status: 400 },
-    );
-  }
-  if (response.code === "ConnectionRefused") {
-    console.log("GetServerDetail error(code):", response);
-    return NextResponse.json(
-      { cause: "server connect error" },
-      { status: 400 },
-    );
-  }
-  return NextResponse.json(response, { status: 200 });
 });
