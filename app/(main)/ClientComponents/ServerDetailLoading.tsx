@@ -20,13 +20,12 @@ export function ServerDetailChartLoading() {
 
 export function ServerDetailLoading() {
   const router = useRouter();
-  const locale = useLocale();
 
   return (
     <>
       <div
         onClick={() => {
-          router.push(`/${locale}/`);
+          router.push(`/`);
         }}
         className="flex flex-none cursor-pointer font-semibold leading-none items-center break-all tracking-tight gap-0.5 text-xl"
       >

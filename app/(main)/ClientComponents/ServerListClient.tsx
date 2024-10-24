@@ -1,6 +1,6 @@
 "use client";
 
-import { ServerApi } from "@/app/[locale]/types/nezha-api";
+import { ServerApi } from "@/app/types/nezha-api";
 import ServerCard from "@/components/ServerCard";
 import Switch from "@/components/Switch";
 import getEnv from "@/lib/env-entry";
@@ -12,7 +12,7 @@ import useSWR from "swr";
 export default function ServerListClient() {
   const t = useTranslations("ServerListClient");
   const containerRef = useRef<HTMLDivElement>(null);
-  const defaultTag = t("defaultTag");
+  const defaultTag = "defaultTag";
 
   const [tag, setTag] = useState<string>(defaultTag);
 
