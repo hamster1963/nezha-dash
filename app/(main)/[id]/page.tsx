@@ -5,13 +5,10 @@ import ServerDetailChartClient from "@/app/(main)/ClientComponents/ServerDetailC
 import ServerDetailClient from "@/app/(main)/ClientComponents/ServerDetailClient";
 import TabSwitch from "@/components/TabSwitch";
 import { Separator } from "@/components/ui/separator";
-import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export default function Page({ params }: { params: { id: string } }) {
-  const t = useTranslations("TabSwitch");
-
-  const tabs = [t("Detail"), t("Network")];
+  const tabs = ["Detail", "Network"];
   const [currentTab, setCurrentTab] = useState(tabs[0]);
   return (
     <div className="mx-auto grid w-full max-w-5xl gap-2">
