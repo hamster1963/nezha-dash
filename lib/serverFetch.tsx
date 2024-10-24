@@ -75,7 +75,7 @@ export async function GetNezhaData() {
 
     return data;
   } catch (error) {
-    console.error(error);
+    console.log("GetServerDetail error:", error);
     return error;
   }
 }
