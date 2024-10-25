@@ -83,13 +83,17 @@ export default function ServerCard({
             <div className={"flex w-14 flex-col"}>
               <p className="text-xs text-muted-foreground">{t("Upload")}</p>
               <div className="flex items-center text-xs font-semibold">
-                {up.toFixed(2)}M/s
+                {up >= 1024
+                  ? `${(up / 1024).toFixed(2)}G/s`
+                  : `${up.toFixed(2)}M/s`}
               </div>
             </div>
             <div className={"flex w-14 flex-col"}>
               <p className="text-xs text-muted-foreground">{t("Download")}</p>
               <div className="flex items-center text-xs font-semibold">
-                {down.toFixed(2)}M/s
+                {down >= 1024
+                  ? `${(down / 1024).toFixed(2)}G/s`
+                  : `${down.toFixed(2)}M/s`}
               </div>
             </div>
           </section>
