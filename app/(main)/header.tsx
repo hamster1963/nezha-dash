@@ -62,7 +62,7 @@ function Header() {
 
 // https://github.com/streamich/react-use/blob/master/src/useInterval.ts
 const useInterval = (callback: Function, delay?: number | null) => {
-  const savedCallback = useRef<Function>(() => { });
+  const savedCallback = useRef<Function>(() => {});
   useEffect(() => {
     savedCallback.current = callback;
   });
