@@ -28,6 +28,7 @@
 | NEXT_PUBLIC_CustomLogo         | 自定义Logo               | **示例**：https://nezha-cf.buycoffee.top/apple-touch-icon.png |
 | NEXT_PUBLIC_CustomTitle        | 自定义标题               |                                                               |
 | NEXT_PUBLIC_CustomDescription  | 自定义描述(无多语言支持) |                                                               |
+| NEXT_PUBLIC_Links              | 超级链接|     [{"link":"https://baidu.com","name":"Baidu"},{"link":"https://google.com","name":"Google"}] |
 
 ![screen](/.github/shot-1.png)
 ![screen](/.github/shot-2.png)
@@ -35,3 +36,4 @@
 ![screen](/.github/shot-1-dark.png)
 ![screen](/.github/shot-2-dark.png)
 ![screen](/.github/shot-3-dark.png)
+![image](https://github.com/user-attachments/assets/cf1a3e74-36fd-4266-94c7-705a74630ed4)
