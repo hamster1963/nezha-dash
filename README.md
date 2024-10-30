@@ -10,6 +10,12 @@
 | [部署简易教程](https://buycoffee.top/blog/tech/nezha) | [Docker 部署教程](https://buycoffee.top/blog/tech/nezha-docker) | [Cloudflare 部署教程](https://buycoffee.top/blog/tech/nezha-cloudflare)      | [更新教程](https://buycoffee.top/blog/tech/nezha-upgrade) |
 | [Vercel-demo](https://nezha-vercel.buycoffee.top)     | [Docker-demo](https://nezha-docker.buycoffee.tech)              | [Cloudflare-demo](https://nezha-cloudflare.buycoffee.tech) [密码: nezhadash] |
 
+#### Cloudflare 部署所需环境变量
+
+NODE_VERSION 22.9.0
+<br>
+BUN_VERSION 1.1.29
+
 #### 环境变量
 
 | 变量名                         | 含义                     | 示例                                                          |

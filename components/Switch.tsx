@@ -53,7 +53,7 @@ export default function Switch({
         inline: "center",
       });
     }
-  }, [nowTag, allTag]);
+  }, [nowTag]);
 
   return (
     <div
