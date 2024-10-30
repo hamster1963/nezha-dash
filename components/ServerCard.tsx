@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/popover";
 import getEnv from "@/lib/env-entry";
 import { cn, formatBytes, formatNezhaInfo } from "@/lib/utils";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -21,7 +21,7 @@ export default function ServerCard({
 }) {
   const t = useTranslations("ServerCard");
   const router = useRouter();
-  const { id, name, country_code, online, cpu, up, down, mem, stg, ...props } =
+  const { id, name, country_code, online, cpu, up, down, mem, stg } =
     formatNezhaInfo(serverInfo);
 
   const showFlag = getEnv("NEXT_PUBLIC_ShowFlag") === "true";

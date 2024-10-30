@@ -76,9 +76,9 @@ export const nezhaFetcher = async (url: string) => {
 
   if (!res.ok) {
     const error = new Error("An error occurred while fetching the data.");
-    // @ts-ignore
+    // @ts-expect-error - res.json() returns a Promise<any>
     error.info = await res.json();
-    // @ts-ignore
+    // @ts-expect-error - res.status is a number
     error.status = res.status;
     throw error;
   }

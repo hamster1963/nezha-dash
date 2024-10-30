@@ -2,12 +2,19 @@ import { auth } from "@/auth";
 import getEnv from "@/lib/env-entry";
 import { GetServerDetail } from "@/lib/serverFetch";
 import { redirect } from "next/navigation";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-export const GET = auth(async function GET(req) {
-  if (!req.auth && getEnv("SitePassword")) {
+interface ResError extends Error {
+  statusCode: number;
+  message: string;
+}
+
+export async function GET(req: NextRequest) {
+  const session = await auth();
+
+  if (!session && getEnv("SitePassword")) {
     redirect("/");
   }
 
@@ -33,11 +40,10 @@ export const GET = auth(async function GET(req) {
     const detailData = await GetServerDetail({ server_id: serverIdNum });
     return NextResponse.json(detailData, { status: 200 });
   } catch (error) {
-    console.error("Error in GET handler:", error);
-    // @ts-ignore
-    const statusCode = error.statusCode || 500;
-    // @ts-ignore
-    const message = error.message || "Internal Server Error";
+    const err = error as ResError;
+    console.error("Error in GET handler:", err);
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
     return NextResponse.json({ error: message }, { status: statusCode });
   }
-});
+}
