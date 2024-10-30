@@ -1,6 +1,5 @@
 import { BackIcon } from "@/components/Icon";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
 
 export function ServerDetailChartLoading() {

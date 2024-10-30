@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import getEnv from "@/lib/env-entry";
 import { cn, formatBytes, nezhaFetcher } from "@/lib/utils";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
@@ -51,7 +51,6 @@ export default function ServerDetailClient({
     nezhaFetcher,
   );
   const fallbackData = allFallbackData?.result?.find(
-    // @ts-ignore
     (item) => item.id === server_id,
   );
 

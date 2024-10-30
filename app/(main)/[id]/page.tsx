@@ -5,12 +5,12 @@ import ServerDetailChartClient from "@/app/(main)/ClientComponents/ServerDetailC
 import ServerDetailClient from "@/app/(main)/ClientComponents/ServerDetailClient";
 import TabSwitch from "@/components/TabSwitch";
 import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
+import { use, useState } from "react";
 
 export const runtime = 'edge';
 
-export default function Page({ params }: { params: { id: string } }) {
-
+export default function Page(props: { params: Promise<{ id: string }> }) {
+  const params = use(props.params);
   const tabs = ["Detail", "Network"];
   const [currentTab, setCurrentTab] = useState(tabs[0]);
   return (

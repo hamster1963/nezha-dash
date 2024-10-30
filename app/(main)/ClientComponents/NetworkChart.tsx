@@ -2,7 +2,6 @@
 
 import NetworkChartLoading from "@/app/(main)/ClientComponents/NetworkChartLoading";
 import { NezhaAPIMonitor, ServerMonitorChart } from "@/app/types/nezha-api";
-import { BackIcon } from "@/components/Icon";
 import {
   Card,
   CardContent,
@@ -21,9 +20,7 @@ import {
 import getEnv from "@/lib/env-entry";
 import { formatTime, nezhaFetcher } from "@/lib/utils";
 import { formatRelativeTime } from "@/lib/utils";
-import { useLocale } from "next-intl";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useCallback, useMemo } from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
