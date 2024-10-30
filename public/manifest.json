@@ -1,6 +1,6 @@
 {
-  "name": "HomeDash",
-  "short_name": "HomeDash PWA App",
+  "name": "NezhaDash PWA App",
+  "short_name": "NezhaDash",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
