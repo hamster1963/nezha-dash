@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import React, { createRef, useEffect, useRef, useState } from "react";
+import React, { createRef, useEffect, useRef } from "react";
 
 export default function Switch({
   allTag,
@@ -23,7 +23,7 @@ export default function Switch({
     if (savedTag && allTag.includes(savedTag)) {
       onTagChange(savedTag);
     }
-  }, [allTag]);
+  }, [allTag, onTagChange]);
 
   useEffect(() => {
     const container = scrollRef.current;
@@ -53,7 +53,7 @@ export default function Switch({
         inline: "center",
       });
     }
-  }, [nowTag]);
+  }, [nowTag, allTag]);
 
   return (
     <div
