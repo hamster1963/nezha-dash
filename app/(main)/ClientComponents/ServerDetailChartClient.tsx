@@ -131,7 +131,7 @@ function CpuChart({ data }: { data: NezhaAPISafe }) {
       }
       setCpuChartData(newData);
     }
-  }, [data]);
+  }, [data, cpu, cpuChartData]);
 
   const chartConfig = {
     cpu: {
@@ -234,7 +234,7 @@ function ProcessChart({ data }: { data: NezhaAPISafe }) {
       }
       setProcessChartData(newData);
     }
-  }, [data]);
+  }, [data, process, processChartData]);
 
   const chartConfig = {
     process: {
@@ -324,7 +324,7 @@ function MemChart({ data }: { data: NezhaAPISafe }) {
       }
       setMemChartData(newData);
     }
-  }, [data]);
+  }, [data, mem, memChartData, swap]);
 
   const chartConfig = {
     mem: {
@@ -448,7 +448,7 @@ function DiskChart({ data }: { data: NezhaAPISafe }) {
       }
       setDiskChartData(newData);
     }
-  }, [data]);
+  }, [data, disk, diskChartData]);
 
   const chartConfig = {
     disk: {
@@ -551,7 +551,7 @@ function NetworkChart({ data }: { data: NezhaAPISafe }) {
       }
       setNetworkChartData(newData);
     }
-  }, [data]);
+  }, [data, up, down, networkChartData]);
 
   let maxDownload = Math.max(...networkChartData.map((item) => item.download));
   maxDownload = Math.ceil(maxDownload);
@@ -677,7 +677,7 @@ function ConnectChart({ data }: { data: NezhaAPISafe }) {
       }
       setConnectChartData(newData);
     }
-  }, [data]);
+  }, [data, tcp, udp, connectChartData]);
 
   const chartConfig = {
     tcp: {
