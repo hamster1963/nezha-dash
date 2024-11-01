@@ -7,7 +7,7 @@ import TabSwitch from "@/components/TabSwitch";
 import { Separator } from "@/components/ui/separator";
 import { use, useState } from "react";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 export default function Page(props: { params: Promise<{ id: string }> }) {
   const params = use(props.params);

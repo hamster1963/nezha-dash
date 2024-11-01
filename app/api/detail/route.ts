@@ -4,7 +4,7 @@ import { GetServerDetail } from "@/lib/serverFetch";
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 export const dynamic = "force-dynamic";
 
