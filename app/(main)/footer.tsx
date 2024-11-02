@@ -1,7 +1,7 @@
 import pack from "@/package.json";
 import { useTranslations } from "next-intl";
 
-export const experimental_ppr = true
+export const experimental_ppr = true;
 
 export default function Footer() {
   const t = useTranslations("Footer");

@@ -23,7 +23,7 @@ const withPWA = withPWAInit({
 const nextConfig = {
   output: "standalone",
   experimental: {
-    ppr: 'incremental',
+    ppr: "incremental",
   },
   reactStrictMode: true,
   logging: {
