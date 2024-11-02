@@ -4,10 +4,11 @@ import ServerUsageBar from "@/components/ServerUsageBar";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import getEnv from "@/lib/env-entry";
 import { cn, formatBytes, formatNezhaInfo } from "@/lib/utils";
 import { useTranslations } from "next-intl";
@@ -36,7 +37,7 @@ export default function ServerCard({
         }
       >
         <section
-          className="grid items-center gap-2 lg:w-28 "
+          className="grid items-center gap-2 lg:w-28"
           style={{ gridTemplateColumns: "auto auto 1fr" }}
         >
           <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
@@ -48,17 +49,30 @@ export default function ServerCard({
           >
             {showFlag ? <ServerFlag country_code={country_code} /> : null}
           </div>
-          <p
-            className={cn(
-              "break-all font-bold tracking-tight",
-              showFlag ? "text-xs" : "text-sm",
-            )}
-          >
-            {name}
-          </p>
+
+          <TooltipProvider delayDuration={50}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="relative">
+                  <p
+                    className={cn(
+                      "break-all font-bold tracking-tight text-nowrap lg:max-w-[80px] overflow-x-scroll scrollbar-hidden pr-4",
+                      showFlag ? "text-[11px]" : "text-sm",
+                    )}
+                  >
+                    {name}
+                  </p>
+                  <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-xs text-muted-foreground">{name}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </section>
         <div className="flex flex-col gap-2">
-          <section className={"grid  grid-cols-5 items-center gap-3"}>
+          <section className={"grid grid-cols-5 items-center gap-3"}>
             <div className={"flex w-14 flex-col"}>
               <p className="text-xs text-muted-foreground">{t("CPU")}</p>
               <div className="flex items-center text-xs font-semibold">
@@ -130,35 +144,40 @@ export default function ServerCard({
           : "lg:min-h-[61px] min-h-[93px]",
       )}
     >
-      <Popover>
-        <PopoverTrigger asChild>
-          <section
-            className="grid items-center gap-2 lg:w-28"
-            style={{ gridTemplateColumns: "auto auto 1fr" }}
-          >
-            <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center"></span>
-            <div
-              className={cn(
-                "flex items-center justify-center",
-                showFlag ? "min-w-[17px]" : "min-w-0",
-              )}
-            >
-              {showFlag ? <ServerFlag country_code={country_code} /> : null}
-            </div>
-            <p
-              className={cn(
-                "break-all font-bold tracking-tight",
-                showFlag ? "text-xs" : "text-sm",
-              )}
-            >
-              {name}
-            </p>
-          </section>
-        </PopoverTrigger>
-        <PopoverContent className="w-fit p-2" side="top">
-          <p className="text-sm text-muted-foreground">{t("Offline")}</p>
-        </PopoverContent>
-      </Popover>
+      <section
+        className="grid items-center gap-2 lg:w-28"
+        style={{ gridTemplateColumns: "auto auto 1fr" }}
+      >
+        <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center"></span>
+        <div
+          className={cn(
+            "flex items-center justify-center",
+            showFlag ? "min-w-[17px]" : "min-w-0",
+          )}
+        >
+          {showFlag ? <ServerFlag country_code={country_code} /> : null}
+        </div>
+        <TooltipProvider delayDuration={50}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="relative">
+                <p
+                  className={cn(
+                    "break-all font-bold tracking-tight text-nowrap overflow-x-scroll scrollbar-hidden pr-4",
+                    showFlag ? "text-xs max-w-[80px]" : "text-sm",
+                  )}
+                >
+                  {name}
+                </p>
+                <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className="text-xs text-muted-foreground">{name}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </section>
     </Card>
   );
 }
