@@ -23,7 +23,11 @@ export function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="rounded-full px-[9px]">
+        <Button
+          variant="outline"
+          size="sm"
+          className="rounded-full px-[9px] bg-white dark:bg-black"
+        >
           {localeItems.find((item) => item.code === locale)?.name}
           <span className="sr-only">Change language</span>
         </Button>

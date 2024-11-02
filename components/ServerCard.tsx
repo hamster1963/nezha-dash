@@ -14,6 +14,7 @@ import { cn, formatBytes, formatNezhaInfo } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 export default function ServerCard({
   serverInfo,
@@ -26,8 +27,18 @@ export default function ServerCard({
     formatNezhaInfo(serverInfo);
 
   const showFlag = getEnv("NEXT_PUBLIC_ShowFlag") === "true";
-
   const showNetTransfer = getEnv("NEXT_PUBLIC_ShowNetTransfer") === "true";
+
+  const nameRef = useRef<HTMLParagraphElement | null>(null);
+  const [isNameOverflow, setIsNameOverflow] = useState(false);
+
+  useEffect(() => {
+    if (nameRef.current) {
+      setIsNameOverflow(
+        nameRef.current.scrollWidth > nameRef.current.clientWidth,
+      );
+    }
+  }, [name]);
 
   return online ? (
     <Link href={`/${id}`} prefetch={true}>
@@ -55,6 +66,7 @@ export default function ServerCard({
               <TooltipTrigger asChild>
                 <div className="relative">
                   <p
+                    ref={nameRef}
                     className={cn(
                       "break-all font-bold tracking-tight text-nowrap lg:max-w-[80px] overflow-x-scroll scrollbar-hidden pr-4",
                       showFlag ? "text-[11px]" : "text-sm",
@@ -62,7 +74,9 @@ export default function ServerCard({
                   >
                     {name}
                   </p>
-                  <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+                  {isNameOverflow && (
+                    <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+                  )}
                 </div>
               </TooltipTrigger>
               <TooltipContent>
@@ -169,7 +183,9 @@ export default function ServerCard({
                 >
                   {name}
                 </p>
-                <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+                {isNameOverflow && (
+                  <div className="absolute inset-y-0 right-0 w-4 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+                )}
               </div>
             </TooltipTrigger>
             <TooltipContent>
