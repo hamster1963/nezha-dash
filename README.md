@@ -5,9 +5,9 @@
 
 </div>
 
-| 一键部署到 Vercel-推荐                                | Docker部署                                                      | Cloudflare部署                                                               | 如何更新？                                                |
-| ----------------------------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------------------- | --------------------------------------------------------- |
-| [部署简易教程](https://buycoffee.top/blog/tech/nezha) | [Docker 部署教程](https://buycoffee.top/blog/tech/nezha-docker) | [Cloudflare 部署教程](https://buycoffee.top/blog/tech/nezha-cloudflare)      | [更新教程](https://buycoffee.top/blog/tech/nezha-upgrade) |
+| 一键部署到 Vercel-推荐                                | Docker部署                                                      | Cloudflare部署                                                          | 如何更新？                                                |
+| ----------------------------------------------------- | --------------------------------------------------------------- | ----------------------------------------------------------------------- | --------------------------------------------------------- |
+| [部署简易教程](https://buycoffee.top/blog/tech/nezha) | [Docker 部署教程](https://buycoffee.top/blog/tech/nezha-docker) | [Cloudflare 部署教程](https://buycoffee.top/blog/tech/nezha-cloudflare) | [更新教程](https://buycoffee.top/blog/tech/nezha-upgrade) |
 
 #### Cloudflare 部署所需环境变量
 
