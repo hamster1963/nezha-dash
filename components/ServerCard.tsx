@@ -16,7 +16,7 @@ export default function ServerCard({
 }) {
   const t = useTranslations("ServerCard");
   const router = useRouter();
-  const { id, name, country_code, online, cpu, up, down, mem, stg } =
+  const { id, name, country_code, online, cpu, up, down, mem, stg, tcp, udp } =
     formatNezhaInfo(serverInfo);
 
   const showFlag = getEnv("NEXT_PUBLIC_ShowFlag") === "true";
@@ -62,7 +62,11 @@ export default function ServerCard({
           </div>
         </section>
         <div className="flex flex-col gap-2">
-          <section className={"grid grid-cols-5 items-center gap-3"}>
+          <section
+            className={cn("grid grid-cols-5 items-center gap-3", {
+              "lg:grid-cols-7": fixedTopServerName,
+            })}
+          >
             <div className={"flex w-14 flex-col"}>
               <p className="text-xs text-muted-foreground">{t("CPU")}</p>
               <div className="flex items-center text-xs font-semibold">
@@ -100,6 +104,28 @@ export default function ServerCard({
                   : `${down.toFixed(2)}M/s`}
               </div>
             </div>
+            {fixedTopServerName && (
+              <div className={" w-14 flex-col hidden lg:flex"}>
+                <p className="text-xs text-muted-foreground">TCP</p>
+                <div className="flex items-center text-xs font-semibold gap-1">
+                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-1))]"></span>
+                  <div className="flex items-center text-xs font-semibold">
+                    {tcp}
+                  </div>
+                </div>
+              </div>
+            )}
+            {fixedTopServerName && (
+              <div className={"w-14 flex-col hidden lg:flex"}>
+                <p className="text-xs text-muted-foreground">UDP</p>
+                <div className="flex items-center text-xs font-semibold gap-1">
+                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-4))]"></span>
+                  <div className="flex items-center text-xs font-semibold">
+                    {udp}
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
           {showNetTransfer && (
             <section
