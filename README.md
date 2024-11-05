@@ -6,15 +6,17 @@
 </div>
 
 ### 部署
+
 支持部署环境：
+
 - Vercel
 - Cloudflare
 - Docker
 
 [说明文档](https://nezhadash-docs.vercel.app)
-                                             
 
 ### 如何更新
+
 [更新教程](https://buycoffee.top/blog/tech/nezha-upgrade)
 
 ### 环境变量
