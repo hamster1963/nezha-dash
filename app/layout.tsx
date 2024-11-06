@@ -48,7 +48,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <PublicEnvScript />
+        {!process.env.VERCEL && !process.env.CF_PAGES && <PublicEnvScript />}
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"
