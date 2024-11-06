@@ -8,16 +8,24 @@ import React from "react";
 type DashboardProps = {
   children: React.ReactNode;
 };
-export default async function MainLayout({ children }: DashboardProps) {
-  const session = await auth();
-
+export default function MainLayout({ children }: DashboardProps) {
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-background p-4 md:p-10 md:pt-8">
         <Header />
-        {!session && getEnv("SitePassword") ? <SignIn /> : children}
+        <AuthProtected>{children}</AuthProtected>
         <Footer />
       </main>
     </div>
   );
+}
+
+async function AuthProtected({ children }: DashboardProps) {
+  if (getEnv("SitePassword")) {
+    const session = await auth();
+    if (!session) {
+      return <SignIn />;
+    }
+  }
+  return children;
 }

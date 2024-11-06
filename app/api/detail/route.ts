@@ -12,10 +12,11 @@ interface ResError extends Error {
 }
 
 export async function GET(req: NextRequest) {
-  const session = await auth();
-
-  if (!session && getEnv("SitePassword")) {
-    redirect("/");
+  if (getEnv("SitePassword")) {
+    const session = await auth();
+    if (!session) {
+      redirect("/");
+    }
   }
 
   const { searchParams } = new URL(req.url);
