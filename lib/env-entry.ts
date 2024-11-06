@@ -1,7 +1,7 @@
 import { env } from "next-runtime-env";
 
 export default function getEnv(key: string) {
-  if (process.env.VERCEL || process.env.CF_PAGES) {
+  if (process.env.VERCEL) {
     return process.env[key];
   } else {
     if (key.startsWith("NEXT_PUBLIC_")) {
