@@ -1,5 +1,3 @@
-"use client";
-
 import Footer from "@/app/(main)/footer";
 import Header from "@/app/(main)/header";
 import { auth } from "@/auth";
