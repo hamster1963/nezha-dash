@@ -12,6 +12,7 @@
     "defaultTag": "すべて"
   },
   "ServerCard": {
+    "System": "システム",
     "CPU": "CPU",
     "Mem": "Mem",
     "STG": "STG",

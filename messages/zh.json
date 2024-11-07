@@ -12,6 +12,7 @@
     "defaultTag": "全部"
   },
   "ServerCard": {
+    "System": "系统",
     "CPU": "CPU",
     "Mem": "内存",
     "STG": "存储",

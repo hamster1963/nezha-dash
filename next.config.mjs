@@ -22,10 +22,6 @@ const withPWA = withPWAInit({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "standalone",
-  experimental: {
-    ppr: "incremental",
-  },
-  reactStrictMode: true,
   logging: {
     fetches: {
       fullUrl: true,
