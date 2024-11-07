@@ -4,6 +4,11 @@ import ServerUsageBar from "@/components/ServerUsageBar";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import getEnv from "@/lib/env-entry";
+import {
+  GetFontLogoClass,
+  GetOsName,
+  MageMicrosoftWindows,
+} from "@/lib/logo-class";
 import { cn, formatBytes, formatNezhaInfo } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -16,7 +21,7 @@ export default function ServerCard({
 }) {
   const t = useTranslations("ServerCard");
   const router = useRouter();
-  const { id, name, country_code, online, cpu, up, down, mem, stg, tcp, udp } =
+  const { id, name, country_code, online, cpu, up, down, mem, stg, host } =
     formatNezhaInfo(serverInfo);
 
   const showFlag = getEnv("NEXT_PUBLIC_ShowFlag") === "true";
@@ -64,9 +69,32 @@ export default function ServerCard({
         <div className="flex flex-col gap-2">
           <section
             className={cn("grid grid-cols-5 items-center gap-3", {
-              "lg:grid-cols-7": fixedTopServerName,
+              "lg:grid-cols-6 lg:gap-4": fixedTopServerName,
             })}
           >
+            {fixedTopServerName && (
+              <div
+                className={
+                  "hidden col-span-1 items-center lg:flex lg:flex-row gap-2"
+                }
+              >
+                <div className="text-xs font-semibold">
+                  {host.Platform.includes("Windows") ? (
+                    <MageMicrosoftWindows className="size-[10px]" />
+                  ) : (
+                    <p className={`fl-${GetFontLogoClass(host.Platform)}`} />
+                  )}
+                </div>
+                <div className={"flex w-14 flex-col"}>
+                  <p className="text-xs text-muted-foreground">{t("System")}</p>
+                  <div className="flex items-center text-[10.5px] font-semibold">
+                    {host.Platform.includes("Windows")
+                      ? "Windows"
+                      : GetOsName(host.Platform)}
+                  </div>
+                </div>
+              </div>
+            )}
             <div className={"flex w-14 flex-col"}>
               <p className="text-xs text-muted-foreground">{t("CPU")}</p>
               <div className="flex items-center text-xs font-semibold">
@@ -104,28 +132,6 @@ export default function ServerCard({
                   : `${down.toFixed(2)}M/s`}
               </div>
             </div>
-            {fixedTopServerName && (
-              <div className={" w-14 flex-col hidden lg:flex"}>
-                <p className="text-xs text-muted-foreground">TCP</p>
-                <div className="flex items-center text-xs font-semibold gap-1">
-                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-1))]"></span>
-                  <div className="flex items-center text-xs font-semibold">
-                    {tcp}
-                  </div>
-                </div>
-              </div>
-            )}
-            {fixedTopServerName && (
-              <div className={"w-14 flex-col hidden lg:flex"}>
-                <p className="text-xs text-muted-foreground">UDP</p>
-                <div className="flex items-center text-xs font-semibold gap-1">
-                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-4))]"></span>
-                  <div className="flex items-center text-xs font-semibold">
-                    {udp}
-                  </div>
-                </div>
-              </div>
-            )}
           </section>
           {showNetTransfer && (
             <section

@@ -11,8 +11,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 
-export const experimental_ppr = true;
-
 function Header() {
   const t = useTranslations("Header");
   const customLogo = getEnv("NEXT_PUBLIC_CustomLogo");
