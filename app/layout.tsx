@@ -1,4 +1,5 @@
 // @auto-i18n-check. Please do not delete the line.
+import { MotionProvider } from "@/components/motion/motion-provider";
 import getEnv from "@/lib/env-entry";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
@@ -64,16 +65,18 @@ export default async function LocaleLayout({
           fontSans.variable,
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextIntlClientProvider messages={messages}>
-            {children}
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <MotionProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextIntlClientProvider messages={messages}>
+              {children}
+            </NextIntlClientProvider>
+          </ThemeProvider>
+        </MotionProvider>
       </body>
     </html>
   );

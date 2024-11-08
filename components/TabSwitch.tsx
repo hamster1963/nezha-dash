@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useTranslations } from "next-intl";
 import React from "react";
 
@@ -30,7 +30,7 @@ export default function TabSwitch({
             )}
           >
             {currentTab === tab && (
-              <motion.div
+              <m.div
                 layoutId="tab-switch"
                 className="absolute inset-0 z-10 h-full w-full content-center bg-white shadow-lg shadow-black/5 dark:bg-stone-700 dark:shadow-white/5"
                 style={{
