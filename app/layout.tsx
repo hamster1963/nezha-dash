@@ -19,6 +19,7 @@ const fontSans = FontSans({
 
 const customTitle = getEnv("NEXT_PUBLIC_CustomTitle");
 const customDescription = getEnv("NEXT_PUBLIC_CustomDescription");
+const disableIndex = getEnv("NEXT_PUBLIC_DisableIndex");
 
 export const metadata: Metadata = {
   manifest: "/manifest.json",
@@ -28,6 +29,10 @@ export const metadata: Metadata = {
     capable: true,
     title: customTitle || "NezhaDash",
     statusBarStyle: "black-translucent",
+  },
+  robots: {
+    index: disableIndex ? false : true,
+    follow: disableIndex ? false : true,
   },
 };
 
