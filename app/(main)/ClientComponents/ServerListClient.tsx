@@ -82,12 +82,20 @@ export default function ServerListClient() {
       ? sortedServers
       : sortedServers.filter((server) => server.tag === tag);
 
+  const tagCountMap: Record<string, number> = {};
+  sortedServers.forEach((server) => {
+    if (server.tag) {
+      tagCountMap[server.tag] = (tagCountMap[server.tag] || 0) + 1;
+    }
+  });
+
   return (
     <>
       {getEnv("NEXT_PUBLIC_ShowTag") === "true" && uniqueTags.length > 1 && (
         <Switch
           allTag={uniqueTags}
           nowTag={tag}
+          tagCountMap={tagCountMap}
           onTagChange={handleTagChange}
         />
       )}
