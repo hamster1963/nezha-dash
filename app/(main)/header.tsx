@@ -69,9 +69,7 @@ type links = {
 function Links() {
   const linksEnv = getEnv("NEXT_PUBLIC_Links");
 
-  const links: links[] | null = linksEnv
-    ? JSON.parse(linksEnv)
-    : null;
+  const links: links[] | null = linksEnv ? JSON.parse(linksEnv) : null;
 
   console.log(links);
 
@@ -90,16 +88,11 @@ function Links() {
           >
             {link.name}
           </a>
-        )
+        );
       })}
     </div>
-  )
-
-
-
+  );
 }
-
-
 
 // https://github.com/streamich/react-use/blob/master/src/useInterval.ts
 const useInterval = (callback: () => void, delay: number | null) => {
