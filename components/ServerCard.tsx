@@ -29,8 +29,12 @@ export default function ServerCard({
   const fixedTopServerName =
     getEnv("NEXT_PUBLIC_FixedTopServerName") === "true";
 
+  const saveSession = () => {
+    sessionStorage.setItem("fromMainPage", "true");
+  };
+
   return online ? (
-    <Link href={`/${id}`} prefetch={true}>
+    <Link onClick={saveSession} href={`/${id}`} prefetch={true}>
       <Card
         className={cn(
           "flex flex-col items-center justify-start gap-3 p-3 md:px-5 cursor-pointer",

@@ -29,12 +29,9 @@ export default function ServerDetailClient({
   }, []);
 
   useEffect(() => {
-    const previousPath = sessionStorage.getItem("lastPath");
+    const previousPath = sessionStorage.getItem("fromMainPage");
     if (previousPath) {
       setHasHistory(true);
-    } else {
-      const currentPath = window.location.pathname;
-      sessionStorage.setItem("lastPath", currentPath);
     }
   }, []);
 

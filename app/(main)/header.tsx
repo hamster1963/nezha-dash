@@ -51,11 +51,45 @@ function Header() {
           </p>
         </section>
         <section className="flex items-center gap-2">
+          <Links />
           <LanguageSwitcher />
           <ModeToggle />
         </section>
       </section>
       <Overview />
+    </div>
+  );
+}
+
+type links = {
+  link: string;
+  name: string;
+};
+
+function Links() {
+  const linksEnv = getEnv("NEXT_PUBLIC_Links");
+
+  const links: links[] | null = linksEnv ? JSON.parse(linksEnv) : null;
+
+  console.log(links);
+
+  if (!links) return null;
+
+  return (
+    <div className="flex items-center gap-2">
+      {links.map((link, index) => {
+        return (
+          <a
+            key={index}
+            href={link.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-sm font-medium opacity-50 transition-opacity hover:opacity-100"
+          >
+            {link.name}
+          </a>
+        );
+      })}
     </div>
   );
 }
