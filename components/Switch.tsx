@@ -1,5 +1,6 @@
 "use client";
 
+import getEnv from "@/lib/env-entry";
 import { cn } from "@/lib/utils";
 import { m } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -88,11 +89,12 @@ export default function Switch({
             <div className="relative z-20 flex items-center gap-1">
               <div className="whitespace-nowrap flex items-center gap-2">
                 {tag === "defaultTag" ? t("defaultTag") : tag}{" "}
-                {tag !== "defaultTag" && (
-                  <div className="w-fit px-1.5 rounded-full bg-muted">
-                    {tagCountMap[tag]}
-                  </div>
-                )}
+                {getEnv("NEXT_PUBLIC_ShowTagCount") === "true" &&
+                  tag !== "defaultTag" && (
+                    <div className="w-fit px-1.5 rounded-full bg-muted">
+                      {tagCountMap[tag]}
+                    </div>
+                  )}
               </div>
             </div>
           </div>
