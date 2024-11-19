@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.9",
-    "@heroicons/react": "^2.1.5",
+    "@heroicons/react": "^2.2.0",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
     "@radix-ui/react-navigation-menu": "^1.2.1",
@@ -23,7 +23,7 @@
     "@radix-ui/react-tooltip": "^1.1.4",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/luxon": "^3.4.2",
-    "@typescript-eslint/eslint-plugin": "^8.14.0",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
     "caniuse-lite": "^1.0.30001680",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -48,7 +48,7 @@
     "swr": "^2.2.6-beta.4",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
-    "typescript-eslint": "^8.14.0"
+    "typescript-eslint": "^8.15.0"
   },
   "devDependencies": {
     "eslint-plugin-turbo": "^2.3.0",

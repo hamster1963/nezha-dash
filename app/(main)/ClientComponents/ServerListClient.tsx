@@ -4,12 +4,14 @@ import { ServerApi } from "@/app/types/nezha-api";
 import ServerCard from "@/components/ServerCard";
 import Switch from "@/components/Switch";
 import getEnv from "@/lib/env-entry";
+import { useStatus } from "@/lib/status-context";
 import { nezhaFetcher } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 
 export default function ServerListClient() {
+  const { status } = useStatus();
   const t = useTranslations("ServerListClient");
   const containerRef = useRef<HTMLDivElement>(null);
   const defaultTag = "defaultTag";
@@ -73,17 +75,26 @@ export default function ServerListClient() {
     return a.id - b.id;
   });
 
-  const allTag = sortedServers.map((server) => server.tag).filter(Boolean);
+  const filteredServersByStatus =
+    status === "all"
+      ? sortedServers
+      : sortedServers.filter((server) =>
+          [status].includes(server.online_status ? "online" : "offline"),
+        );
+
+  const allTag = filteredServersByStatus
+    .map((server) => server.tag)
+    .filter(Boolean);
   const uniqueTags = [...new Set(allTag)];
   uniqueTags.unshift(defaultTag);
 
   const filteredServers =
     tag === defaultTag
-      ? sortedServers
-      : sortedServers.filter((server) => server.tag === tag);
+      ? filteredServersByStatus
+      : filteredServersByStatus.filter((server) => server.tag === tag);
 
   const tagCountMap: Record<string, number> = {};
-  sortedServers.forEach((server) => {
+  filteredServersByStatus.forEach((server) => {
     if (server.tag) {
       tagCountMap[server.tag] = (tagCountMap[server.tag] || 0) + 1;
     }
@@ -91,7 +102,7 @@ export default function ServerListClient() {
 
   return (
     <>
-      {getEnv("NEXT_PUBLIC_ShowTag") === "true" && uniqueTags.length > 1 && (
+      {getEnv("NEXT_PUBLIC_ShowTag") === "true" && (
         <Switch
           allTag={uniqueTags}
           nowTag={tag}
