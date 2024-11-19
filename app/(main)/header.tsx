@@ -71,8 +71,6 @@ function Links() {
 
   const links: links[] | null = linksEnv ? JSON.parse(linksEnv) : null;
 
-  console.log(links);
-
   if (!links) return null;
 
   return (
@@ -96,7 +94,7 @@ function Links() {
 
 // https://github.com/streamich/react-use/blob/master/src/useInterval.ts
 const useInterval = (callback: () => void, delay: number | null) => {
-  const savedCallback = useRef<() => void>(() => {});
+  const savedCallback = useRef<() => void>(() => { });
   useEffect(() => {
     savedCallback.current = callback;
   });

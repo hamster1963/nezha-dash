@@ -1,6 +1,7 @@
 // @auto-i18n-check. Please do not delete the line.
 import { MotionProvider } from "@/components/motion/motion-provider";
 import getEnv from "@/lib/env-entry";
+import { StatusProvider } from "@/lib/status-context";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
@@ -78,7 +79,7 @@ export default async function LocaleLayout({
             disableTransitionOnChange
           >
             <NextIntlClientProvider messages={messages}>
-              {children}
+              <StatusProvider>{children}</StatusProvider>
             </NextIntlClientProvider>
           </ThemeProvider>
         </MotionProvider>
