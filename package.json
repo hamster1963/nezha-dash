@@ -3,7 +3,7 @@
   "version": "1.3.2",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3020",
+    "dev": "next dev -p 3040",
     "start": "node .next/standalone/server.js",
     "lint": "next lint",
     "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
@@ -28,6 +28,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "country-flag-icons": "^1.5.13",
+    "dotted-map": "^2.2.3",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "flag-icons": "^7.2.3",
     "framer-motion": "^12.0.0-alpha.1",
