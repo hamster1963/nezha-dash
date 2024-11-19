@@ -9,6 +9,7 @@ import { cn, formatBytes, nezhaFetcher } from "@/lib/utils";
 import blogMan from "@/public/blog-man.webp";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 
 export default function ServerOverviewClient() {
@@ -19,6 +20,10 @@ export default function ServerOverviewClient() {
     nezhaFetcher,
   );
   const disableCartoon = getEnv("NEXT_PUBLIC_DisableCartoon") === "true";
+
+  const searchParams = useSearchParams();
+
+  const global = searchParams.get("global");
 
   if (error) {
     return (
@@ -35,7 +40,7 @@ export default function ServerOverviewClient() {
     <>
       <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Card
-          onClick={() => setStatus("all")}
+          onClick={() => (global ? null : setStatus("all"))}
           className="cursor-pointer hover:border-blue-500 transition-all"
         >
           <CardContent className="px-6 py-3">
@@ -61,7 +66,7 @@ export default function ServerOverviewClient() {
           </CardContent>
         </Card>
         <Card
-          onClick={() => setStatus("online")}
+          onClick={() => (global ? null : setStatus("online"))}
           className={cn(
             "cursor-pointer hover:ring-green-500 ring-1 ring-transparent transition-all",
             {
@@ -93,7 +98,7 @@ export default function ServerOverviewClient() {
           </CardContent>
         </Card>
         <Card
-          onClick={() => setStatus("offline")}
+          onClick={() => (global ? null : setStatus("offline"))}
           className={cn(
             "cursor-pointer hover:ring-red-500 ring-1 ring-transparent transition-all",
             {

@@ -6,15 +6,18 @@ import Switch from "@/components/Switch";
 import getEnv from "@/lib/env-entry";
 import { useStatus } from "@/lib/status-context";
 import { nezhaFetcher } from "@/lib/utils";
+import { GlobeAsiaAustraliaIcon } from "@heroicons/react/20/solid";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 
 export default function ServerListClient() {
-  const { status } = useStatus();
+  const { status, setStatus } = useStatus();
   const t = useTranslations("ServerListClient");
   const containerRef = useRef<HTMLDivElement>(null);
   const defaultTag = "defaultTag";
+  const router = useRouter();
 
   const [tag, setTag] = useState<string>(defaultTag);
 
@@ -102,14 +105,25 @@ export default function ServerListClient() {
 
   return (
     <>
-      {getEnv("NEXT_PUBLIC_ShowTag") === "true" && (
-        <Switch
-          allTag={uniqueTags}
-          nowTag={tag}
-          tagCountMap={tagCountMap}
-          onTagChange={handleTagChange}
-        />
-      )}
+      <section className="flex items-center gap-2">
+        <button
+          onClick={() => {
+            setStatus("all");
+            router.push(`/?global=true`);
+          }}
+          className="rounded-[50px] bg-stone-100 p-[10px] transition-all hover:bg-stone-200 dark:hover:bg-stone-700 dark:bg-stone-800"
+        >
+          <GlobeAsiaAustraliaIcon className="size-4" />
+        </button>
+        {getEnv("NEXT_PUBLIC_ShowTag") === "true" && (
+          <Switch
+            allTag={uniqueTags}
+            nowTag={tag}
+            tagCountMap={tagCountMap}
+            onTagChange={handleTagChange}
+          />
+        )}
+      </section>
       <section
         ref={containerRef}
         className="grid grid-cols-1 gap-2 md:grid-cols-2"
