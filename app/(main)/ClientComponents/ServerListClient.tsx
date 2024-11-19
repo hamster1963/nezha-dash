@@ -105,7 +105,7 @@ export default function ServerListClient() {
 
   return (
     <>
-      <section className="flex items-center gap-2">
+      <section className="flex items-center gap-2 w-full overflow-hidden">
         <button
           onClick={() => {
             setStatus("all");
