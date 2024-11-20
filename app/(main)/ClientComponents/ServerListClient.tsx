@@ -4,6 +4,7 @@ import { ServerApi } from "@/app/types/nezha-api";
 import ServerCard from "@/components/ServerCard";
 import Switch from "@/components/Switch";
 import getEnv from "@/lib/env-entry";
+import { useFilter } from "@/lib/network-filter-context";
 import { useStatus } from "@/lib/status-context";
 import { nezhaFetcher } from "@/lib/utils";
 import { GlobeAsiaAustraliaIcon } from "@heroicons/react/20/solid";
@@ -14,6 +15,7 @@ import useSWR from "swr";
 
 export default function ServerListClient() {
   const { status, setStatus } = useStatus();
+  const { filter, setFilter } = useFilter();
   const t = useTranslations("ServerListClient");
   const containerRef = useRef<HTMLDivElement>(null);
   const defaultTag = "defaultTag";
@@ -96,6 +98,17 @@ export default function ServerListClient() {
       ? filteredServersByStatus
       : filteredServersByStatus.filter((server) => server.tag === tag);
 
+  if (filter) {
+    // 根据使用流量进行从高到低排序
+    filteredServers.sort((a, b) => {
+      return (
+        b.status.NetInTransfer +
+        b.status.NetOutTransfer -
+        (a.status.NetInTransfer + b.status.NetOutTransfer)
+      );
+    });
+  }
+
   const tagCountMap: Record<string, number> = {};
   filteredServersByStatus.forEach((server) => {
     if (server.tag) {
@@ -109,6 +122,7 @@ export default function ServerListClient() {
         <button
           onClick={() => {
             setStatus("all");
+            setFilter(false);
             router.push(`/?global=true`);
           }}
           className="rounded-[50px] bg-stone-100 p-[10px] transition-all hover:bg-stone-200 dark:hover:bg-stone-700 dark:bg-stone-800"
