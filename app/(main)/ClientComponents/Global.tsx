@@ -57,7 +57,6 @@ export async function Global({ countries = [] }: GlobalProps) {
       if (pointsWithin.features.length === 0) {
         const centroid = turf.centroid(feature);
         const [lng, lat] = centroid.geometry.coordinates;
-        console.log(countryCode, lng, lat);
         map.addPin({
           lat,
           lng,
