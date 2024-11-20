@@ -57,7 +57,7 @@ export async function Global({ countries = [] }: GlobalProps) {
         map.addPin({
           lat,
           lng,
-          svgOptions: { color: "#FF4500", radius: 0.5 },
+          svgOptions: { color: "#FF4500", radius: 0.3 },
         });
       });
     }
