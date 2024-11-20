@@ -207,6 +207,16 @@ export const countryCodeMapping: { [key: string]: string } = {
   ZW: "ZWE", // 津巴布韦
 };
 
+// 创建从 3 位到 2 位的反向映射
+export const reverseCountryCodeMapping: { [key: string]: string } =
+  Object.entries(countryCodeMapping).reduce(
+    (acc, [alpha2, alpha3]) => {
+      acc[alpha3] = alpha2;
+      return acc;
+    },
+    {} as { [key: string]: string },
+  );
+
 /**
  * 将 ISO 3166-1 alpha-2 (2位) 国家代码转换为 ISO 3166-1 alpha-3 (3位) 代码
  * @param alpha2 2位国家代码

@@ -1,4 +1,5 @@
-import { countryCodeMapping } from "@/lib/geo";
+import { countryCodeMapping, reverseCountryCodeMapping } from "@/lib/geo";
+import { countryCoordinates } from "@/lib/geo-limit";
 import { GetNezhaData } from "@/lib/serverFetch";
 import { ServerStackIcon } from "@heroicons/react/20/solid";
 import * as turf from "@turf/turf";
@@ -44,7 +45,7 @@ export async function Global({ countries = [] }: GlobalProps) {
       // 获取国家的边界框
       const bbox = turf.bbox(feature);
 
-      const spacing = 100; // 单位为千米，值越小点越密集
+      const spacing = 50; // 单位为千米，值越小点越密集
       const options = { units: "kilometers" };
       // @ts-expect-error ignore
       const pointGrid = turf.pointGrid(bbox, spacing, options);
@@ -52,14 +53,37 @@ export async function Global({ countries = [] }: GlobalProps) {
       // 过滤出位于国家多边形内部的点
       const pointsWithin = turf.pointsWithinPolygon(pointGrid, feature);
 
-      pointsWithin.features.forEach((point: any) => {
-        const [lng, lat] = point.geometry.coordinates;
+      // 如果没有点在多边形内部，则使用国家的中心点
+      if (pointsWithin.features.length === 0) {
+        const centroid = turf.centroid(feature);
+        const [lng, lat] = centroid.geometry.coordinates;
+        console.log(countryCode, lng, lat);
         map.addPin({
           lat,
           lng,
           svgOptions: { color: "#FF4500", radius: 0.3 },
         });
-      });
+      } else {
+        pointsWithin.features.forEach((point: any) => {
+          const [lng, lat] = point.geometry.coordinates;
+          map.addPin({
+            lat,
+            lng,
+            svgOptions: { color: "#FF4500", radius: 0.3 },
+          });
+        });
+      }
+    } else {
+      // 如果找不到feature，使用countryCoordinates中的坐标
+      const alpha2Code = reverseCountryCodeMapping[countryCode];
+      if (alpha2Code && countryCoordinates[alpha2Code]) {
+        const coordinates = countryCoordinates[alpha2Code];
+        map.addPin({
+          lat: coordinates.lat,
+          lng: coordinates.lng,
+          svgOptions: { color: "#FF4500", radius: 0.3 },
+        });
+      }
     }
   });
 
