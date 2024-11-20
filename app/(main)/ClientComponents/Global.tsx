@@ -39,7 +39,9 @@ export async function Global({ countries = [] }: GlobalProps) {
   const geoJson = JSON.parse(geoJsonString);
 
   countries_alpha3.forEach((countryCode) => {
-    const feature = geoJson.features.find((f: any) => f.id === countryCode);
+    const feature = geoJson.features.find(
+      (f: any) => f.properties.iso_a3 === countryCode,
+    );
 
     if (feature) {
       // 获取国家的边界框
