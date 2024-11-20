@@ -63,7 +63,7 @@ export default function ServerCard({
             <p
               className={cn(
                 "break-all font-bold tracking-tight",
-                showFlag ? "text-xs" : "text-sm",
+                showFlag ? "text-xs " : "text-sm",
               )}
             >
               {name}
@@ -193,7 +193,7 @@ export default function ServerCard({
           <p
             className={cn(
               "break-all font-bold tracking-tight",
-              showFlag ? "text-xs max-w-[80px]" : "text-sm",
+              showFlag ? "text-xs" : "text-sm",
             )}
           >
             {name}
