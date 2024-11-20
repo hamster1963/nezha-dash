@@ -24,9 +24,11 @@
 
 [环境变量介绍](https://nezhadash-docs.vercel.app/environment)
 
-![screen](/.github/shot-1.png)
-![screen](/.github/shot-2.png)
-![screen](/.github/shot-3.png)
-![screen](/.github/shot-1-dark.png)
-![screen](/.github/shot-2-dark.png)
-![screen](/.github/shot-3-dark.png)
+![screen](/.github/1.webp)
+![screen](/.github/2.webp)
+![screen](/.github/3.webp)
+![screen](/.github/4.webp)
+![screen](/.github/1-dark.webp)
+![screen](/.github/2-dark.webp)
+![screen](/.github/3-dark.webp)
+![screen](/.github/4-dark.webp)
