@@ -4,6 +4,7 @@ import { ServerApi } from "@/app/types/nezha-api";
 import { Loader } from "@/components/loading/Loader";
 import { Card, CardContent } from "@/components/ui/card";
 import getEnv from "@/lib/env-entry";
+import { useFilter } from "@/lib/network-filter-context";
 import { useStatus } from "@/lib/status-context";
 import { cn, formatBytes, nezhaFetcher } from "@/lib/utils";
 import blogMan from "@/public/blog-man.webp";
@@ -14,6 +15,7 @@ import useSWR from "swr";
 
 export default function ServerOverviewClient() {
   const { status, setStatus } = useStatus();
+  const { filter, setFilter } = useFilter();
   const t = useTranslations("ServerOverviewClient");
   const { data, error, isLoading } = useSWR<ServerApi>(
     "/api/server",
@@ -40,7 +42,12 @@ export default function ServerOverviewClient() {
     <>
       <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Card
-          onClick={() => (global ? null : setStatus("all"))}
+          onClick={() => {
+            setFilter(false);
+            if (!global) {
+              setStatus("all");
+            }
+          }}
           className="cursor-pointer hover:border-blue-500 transition-all"
         >
           <CardContent className="px-6 py-3">
@@ -66,7 +73,12 @@ export default function ServerOverviewClient() {
           </CardContent>
         </Card>
         <Card
-          onClick={() => (global ? null : setStatus("online"))}
+          onClick={() => {
+            setFilter(false);
+            if (!global) {
+              setStatus("online");
+            }
+          }}
           className={cn(
             "cursor-pointer hover:ring-green-500 ring-1 ring-transparent transition-all",
             {
@@ -98,7 +110,12 @@ export default function ServerOverviewClient() {
           </CardContent>
         </Card>
         <Card
-          onClick={() => (global ? null : setStatus("offline"))}
+          onClick={() => {
+            setFilter(false);
+            if (!global) {
+              setStatus("offline");
+            }
+          }}
           className={cn(
             "cursor-pointer hover:ring-red-500 ring-1 ring-transparent transition-all",
             {
@@ -129,7 +146,20 @@ export default function ServerOverviewClient() {
             </section>
           </CardContent>
         </Card>
-        <Card>
+        <Card
+          onClick={() => {
+            setStatus("all");
+            if (!global) {
+              setFilter(true);
+            }
+          }}
+          className={cn(
+            "cursor-pointer hover:ring-purple-500 ring-1 ring-transparent transition-all",
+            {
+              "ring-purple-500 ring-2 border-transparent": filter === true,
+            },
+          )}
+        >
           <CardContent className="relative px-6 py-3">
             <section className="flex flex-col gap-1">
               <p className="text-sm font-medium md:text-base">
