@@ -1,6 +1,6 @@
 {
   "name": "nezha-dash",
-  "version": "1.4.2",
+  "version": "1.4.2-fix",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3040",
