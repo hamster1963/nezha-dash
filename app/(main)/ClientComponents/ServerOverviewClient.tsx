@@ -43,12 +43,14 @@ export default function ServerOverviewClient() {
       <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Card
           onClick={() => {
-            setFilter(false);
             if (!global) {
+              setFilter(false);
               setStatus("all");
             }
           }}
-          className="cursor-pointer hover:border-blue-500 transition-all"
+          className={cn("cursor-pointer hover:border-blue-500 transition-all", {
+            "pointer-events-none": global,
+          })}
         >
           <CardContent className="px-6 py-3">
             <section className="flex flex-col gap-1">
@@ -74,8 +76,8 @@ export default function ServerOverviewClient() {
         </Card>
         <Card
           onClick={() => {
-            setFilter(false);
             if (!global) {
+              setFilter(false);
               setStatus("online");
             }
           }}
@@ -83,6 +85,9 @@ export default function ServerOverviewClient() {
             "cursor-pointer hover:ring-green-500 ring-1 ring-transparent transition-all",
             {
               "ring-green-500 ring-2 border-transparent": status === "online",
+            },
+            {
+              "pointer-events-none": global,
             },
           )}
         >
@@ -111,8 +116,8 @@ export default function ServerOverviewClient() {
         </Card>
         <Card
           onClick={() => {
-            setFilter(false);
             if (!global) {
+              setFilter(false);
               setStatus("offline");
             }
           }}
@@ -120,6 +125,9 @@ export default function ServerOverviewClient() {
             "cursor-pointer hover:ring-red-500 ring-1 ring-transparent transition-all",
             {
               "ring-red-500 ring-2 border-transparent": status === "offline",
+            },
+            {
+              "pointer-events-none": global,
             },
           )}
         >
@@ -148,8 +156,8 @@ export default function ServerOverviewClient() {
         </Card>
         <Card
           onClick={() => {
-            setStatus("all");
             if (!global) {
+              setStatus("all");
               setFilter(true);
             }
           }}
@@ -157,6 +165,9 @@ export default function ServerOverviewClient() {
             "cursor-pointer hover:ring-purple-500 ring-1 ring-transparent transition-all",
             {
               "ring-purple-500 ring-2 border-transparent": filter === true,
+            },
+            {
+              "pointer-events-none": global,
             },
           )}
         >

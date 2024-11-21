@@ -90,6 +90,11 @@
     "p_2277-2331_Overview": "👋 概览",
     "p_2390-2457_wherethetimeis": "当前时间"
   },
+  "Global": {
+    "Loading": "加载中...",
+    "Distributions": "服务器分布在",
+    "Regions": "个地区"
+  },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "404 未找到",
     "p_601-665_TARDISERROR": "TARDIS 错误！",
