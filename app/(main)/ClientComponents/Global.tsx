@@ -29,7 +29,6 @@ export default async function ServerGlobal() {
 }
 
 export async function Global({ countries = [] }: GlobalProps) {
-  // const t = useTranslations("Global");
   const map = new DottedMap({ map: JSON.parse(mapJsonString) });
 
   const countries_alpha3 = countries
@@ -44,6 +43,42 @@ export async function Global({ countries = [] }: GlobalProps) {
     );
 
     if (feature) {
+      if (countryCode === "RUS") {
+        // 获取俄罗斯的多个边界
+        const bboxList = feature.geometry.coordinates.map((polygon: any) =>
+          turf.bbox({ type: "Polygon", coordinates: polygon }),
+        );
+
+        const spacing = 20; // 单位为千米
+        const options = { units: "kilometers" };
+
+        bboxList.forEach((bbox: any) => {
+          // @ts-expect-error ignore
+          const pointGrid = turf.pointGrid(bbox, spacing, options);
+
+          // 过滤出位于当前多边形内部的点
+          const pointsWithin = turf.pointsWithinPolygon(pointGrid, feature);
+
+          if (pointsWithin.features.length === 0) {
+            const centroid = turf.centroid(feature);
+            const [lng, lat] = centroid.geometry.coordinates;
+            map.addPin({
+              lat,
+              lng,
+              svgOptions: { color: "#FF4500", radius: 0.3 },
+            });
+          } else {
+            pointsWithin.features.forEach((point: any) => {
+              const [lng, lat] = point.geometry.coordinates;
+              map.addPin({
+                lat,
+                lng,
+                svgOptions: { color: "#FF4500", radius: 0.3 },
+              });
+            });
+          }
+        });
+      }
       // 获取国家的边界框
       const bbox = turf.bbox(feature);
 
