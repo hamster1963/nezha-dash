@@ -1,13 +1,12 @@
 import { countryCodeMapping, reverseCountryCodeMapping } from "@/lib/geo";
 import { countryCoordinates } from "@/lib/geo-limit";
 import { GetNezhaData } from "@/lib/serverFetch";
-import { ServerStackIcon } from "@heroicons/react/20/solid";
 import * as turf from "@turf/turf";
 import DottedMap from "dotted-map/without-countries";
-import Link from "next/link";
 
 import { geoJsonString } from "../../../lib/geo-json-string";
 import { mapJsonString } from "../../../lib/map-string";
+import GlobalInfo from "./GlobalInfo";
 
 interface GlobalProps {
   countries?: string[];
@@ -30,6 +29,7 @@ export default async function ServerGlobal() {
 }
 
 export async function Global({ countries = [] }: GlobalProps) {
+  // const t = useTranslations("Global");
   const map = new DottedMap({ map: JSON.parse(mapJsonString) });
 
   const countries_alpha3 = countries
@@ -96,12 +96,7 @@ export async function Global({ countries = [] }: GlobalProps) {
 
   return (
     <section className="flex flex-col gap-4 mt-[3.2px]">
-      <Link
-        href={`/`}
-        className="rounded-[50px] w-fit bg-stone-100 p-[10px] transition-all hover:bg-stone-200 dark:hover:bg-stone-700 dark:bg-stone-800"
-      >
-        <ServerStackIcon className="size-4" />
-      </Link>
+      <GlobalInfo countries={countries} />
       <img
         src={`data:image/svg+xml;utf8,${encodeURIComponent(finalMap)}`}
         alt="World Map with Highlighted Countries"

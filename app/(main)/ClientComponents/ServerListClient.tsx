@@ -23,13 +23,11 @@ export default function ServerListClient() {
 
   const [tag, setTag] = useState<string>(defaultTag);
 
-  const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     const savedTag = sessionStorage.getItem("selectedTag") || defaultTag;
     setTag(savedTag);
 
     restoreScrollPosition();
-    setIsMounted(true);
   }, []);
 
   const handleTagChange = (newTag: string) => {
@@ -71,7 +69,7 @@ export default function ServerListClient() {
       </div>
     );
 
-  if (!data?.result || !isMounted) return null;
+  if (!data?.result) return null;
 
   const { result } = data;
   const sortedServers = result.sort((a, b) => {
@@ -123,6 +121,7 @@ export default function ServerListClient() {
           onClick={() => {
             setStatus("all");
             setFilter(false);
+            sessionStorage.removeItem("selectedTag");
             router.push(`/?global=true`);
           }}
           className="rounded-[50px] bg-stone-100 p-[10px] transition-all hover:bg-stone-200 dark:hover:bg-stone-700 dark:bg-stone-800"

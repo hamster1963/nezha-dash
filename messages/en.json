@@ -90,6 +90,11 @@
     "p_2277-2331_Overview": "👋 Overview",
     "p_2390-2457_wherethetimeis": "where the time is"
   },
+  "Global": {
+    "Loading": "Loading...",
+    "Distributions": "Servers are distributed in",
+    "Regions": "Regions"
+  },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "404 Not Found",
     "p_601-665_TARDISERROR": "TARDIS ERROR!",
