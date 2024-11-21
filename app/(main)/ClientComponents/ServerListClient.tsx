@@ -119,9 +119,6 @@ export default function ServerListClient() {
       <section className="flex items-center gap-2 w-full overflow-hidden">
         <button
           onClick={() => {
-            setStatus("all");
-            setFilter(false);
-            sessionStorage.removeItem("selectedTag");
             router.push(`/?global=true`);
           }}
           className="rounded-[50px] bg-stone-100 p-[10px] transition-all hover:bg-stone-200 dark:hover:bg-stone-700 dark:bg-stone-800"
