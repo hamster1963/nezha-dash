@@ -29,7 +29,6 @@ export default async function ServerGlobal() {
 }
 
 export async function Global({ countries = [] }: GlobalProps) {
-  // const t = useTranslations("Global");
   const map = new DottedMap({ map: JSON.parse(mapJsonString) });
 
   const countries_alpha3 = countries
