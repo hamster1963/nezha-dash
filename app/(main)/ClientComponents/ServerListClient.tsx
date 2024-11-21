@@ -14,8 +14,8 @@ import { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 
 export default function ServerListClient() {
-  const { status, setStatus } = useStatus();
-  const { filter, setFilter } = useFilter();
+  const { status } = useStatus();
+  const { filter } = useFilter();
   const t = useTranslations("ServerListClient");
   const containerRef = useRef<HTMLDivElement>(null);
   const defaultTag = "defaultTag";
