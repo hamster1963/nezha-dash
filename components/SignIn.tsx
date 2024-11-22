@@ -67,13 +67,13 @@ export function SignIn() {
           )}
           <p className="text-base font-semibold">{t("SignInMessage")}</p>
           <input
-            className="px-1 border-[1px] rounded-[5px]"
+            className="px-1 border-[1px] rounded-[5px] border-stone-300 dark:border-stone-800"
             name="password"
             type="password"
           />
         </label>
         <button
-          className="px-1.5 py-0.5 w-fit flex items-center gap-1 text-sm font-semibold rounded-[8px] border bg-card hover:brightness-95 transition-all text-card-foreground shadow-lg shadow-neutral-200/40 dark:shadow-none"
+          className="px-1.5 py-0.5 w-fit flex items-center gap-1 text-sm font-semibold border-stone-300 dark:border-stone-800 rounded-[8px] border bg-card hover:brightness-95 transition-all text-card-foreground shadow-lg shadow-neutral-200/40 dark:shadow-none"
           disabled={loading}
         >
           {t("Submit")}

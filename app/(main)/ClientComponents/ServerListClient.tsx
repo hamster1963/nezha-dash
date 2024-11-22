@@ -121,7 +121,7 @@ export default function ServerListClient() {
           onClick={() => {
             router.push(`/?global=true`);
           }}
-          className="rounded-[50px] bg-stone-100 p-[10px] transition-all hover:bg-stone-200 dark:hover:bg-stone-700 dark:bg-stone-800"
+          className="rounded-[50px] cursor-pointer bg-stone-100 p-[10px] transition-all hover:bg-stone-200 dark:hover:bg-stone-700 dark:bg-stone-800"
         >
           <GlobeAsiaAustraliaIcon className="size-4" />
         </button>

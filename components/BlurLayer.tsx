@@ -9,8 +9,8 @@ const BlurLayers = () => {
       maskEnd = 100;
     }
     return {
-      backdropFilter: `blur(${blurAmount}px)`,
-      WebkitBackdropFilter: `blur(${blurAmount}px)`,
+      backdropFilter: `blur-sm(${blurAmount}px)`,
+      WebkitBackdropFilter: `blur-sm(${blurAmount}px)`,
       zIndex: index + 1,
       maskImage: `linear-gradient(rgba(0, 0, 0, 0) ${maskStart}%, rgb(0, 0, 0) ${maskEnd}%)`,
     };

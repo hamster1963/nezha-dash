@@ -36,7 +36,7 @@ function Header() {
               unoptimized
               alt="apple-touch-icon"
               src={customLogo ? customLogo : "/apple-touch-icon.png"}
-              className="relative !m-0 border-2 border-transparent h-6 w-6 object-cover object-top !p-0"
+              className="relative m-0! border-2 border-transparent h-6 w-6 object-cover object-top p-0!"
             />
           </div>
           {customTitle ? customTitle : "NezhaDash"}
