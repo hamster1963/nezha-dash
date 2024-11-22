@@ -49,7 +49,7 @@ export async function Global({ countries = [] }: GlobalProps) {
           turf.bbox({ type: "Polygon", coordinates: polygon }),
         );
 
-        const spacing = 10; // 单位为千米
+        const spacing = 20; // 单位为千米
         const options = { units: "kilometers" };
 
         bboxList.forEach((bbox: any) => {
@@ -82,7 +82,7 @@ export async function Global({ countries = [] }: GlobalProps) {
       // 获取国家的边界框
       const bbox = turf.bbox(feature);
 
-      const spacing = 10; // 单位为千米，值越小点越密集
+      const spacing = 20; // 单位为千米，值越小点越密集
       const options = { units: "kilometers" };
       // @ts-expect-error ignore
       const pointGrid = turf.pointGrid(bbox, spacing, options);
