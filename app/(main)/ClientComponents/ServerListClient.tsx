@@ -121,9 +121,9 @@ export default function ServerListClient() {
           onClick={() => {
             router.push(`/?global=true`);
           }}
-          className="rounded-[50px] cursor-pointer bg-stone-100 p-[10px] transition-all hover:bg-stone-200 dark:hover:bg-stone-700 dark:bg-stone-800"
+          className="rounded-[50px] text-white cursor-pointer [text-shadow:_0_1px_0_rgb(0_0_0_/_20%)] bg-blue-600 hover:bg-blue-500 p-[10px] transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[inset_0_1px_0_rgba(0,0,0,0.2)] "
         >
-          <GlobeAsiaAustraliaIcon className="size-4" />
+          <GlobeAsiaAustraliaIcon className="size-[13px]" />
         </button>
         {getEnv("NEXT_PUBLIC_ShowTag") === "true" && (
           <Switch
