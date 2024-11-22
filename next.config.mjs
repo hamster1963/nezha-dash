@@ -23,7 +23,6 @@ const withPWA = withPWAInit({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "standalone",
-  basePath: env("NEXT_PUBLIC_BASE_PATH") || "",
   logging: {
     fetches: {
       fullUrl: true,
