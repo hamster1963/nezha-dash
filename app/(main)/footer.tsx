@@ -12,14 +12,14 @@ export default function Footer() {
           <a
             href="https://github.com/hamster1963/nezha-dash"
             target="_blank"
-            className="cursor-pointer font-normal underline decoration-yellow-500 decoration-2 underline-offset-2 dark:decoration-yellow-500/50"
+            className="cursor-pointer font-normal underline decoration-yellow-500 hover:decoration-yellow-300 transition-colors decoration-2 underline-offset-2 dark:decoration-yellow-900 dark:hover:decoration-yellow-600"
           >
             {t("a_303-585_GitHub")}
           </a>
           <a
             href={`https://github.com/hamster1963/nezha-dash/releases/tag/v${version}`}
             target="_blank"
-            className="cursor-pointer font-normal underline decoration-yellow-500 decoration-2 underline-offset-2 dark:decoration-yellow-500/50"
+            className="cursor-pointer font-normal underline decoration-yellow-500 hover:decoration-yellow-300 transition-colors decoration-2 underline-offset-2 dark:decoration-yellow-900 dark:hover:decoration-yellow-600"
           >
             v{version}
           </a>
