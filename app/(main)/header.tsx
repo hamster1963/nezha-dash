@@ -128,7 +128,7 @@ function Overview() {
           {t("p_2390-2457_wherethetimeis")}
         </p>
         {mouted ? (
-          <p className="opacity-1 text-sm font-medium">{timeString}</p>
+          <p className="text-sm font-medium">{timeString}</p>
         ) : (
           <Skeleton className="h-[20px] w-[50px] rounded-[5px] bg-muted-foreground/10 animate-none"></Skeleton>
         )}
