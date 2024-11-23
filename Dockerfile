@@ -15,6 +15,7 @@ RUN bun run build
 
 # Stage 3: Production image
 FROM node:23-alpine AS runner
+FROM node:23-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=builder /app/public ./public
@@ -22,4 +23,4 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
-CMD ["node", "run", "server.js"]
+CMD ["node", "server.js"]
