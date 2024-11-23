@@ -15,7 +15,6 @@ RUN bun run build
 
 # Stage 3: Production image
 FROM node:23-alpine AS runner
-FROM node:23-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=builder /app/public ./public
