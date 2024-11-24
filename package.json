@@ -25,7 +25,7 @@
     "@turf/turf": "^7.1.0",
     "@types/luxon": "^3.4.2",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
-    "caniuse-lite": "^1.0.30001683",
+    "caniuse-lite": "^1.0.30001684",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "country-flag-icons": "^1.5.13",
