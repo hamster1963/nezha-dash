@@ -27,7 +27,7 @@ export function LanguageSwitcher() {
         <Button
           variant="outline"
           size="sm"
-          className="rounded-full px-[9px] bg-white dark:bg-black"
+          className="rounded-full px-[9px] bg-white dark:bg-black cursor-pointer hover:bg-accent/50"
         >
           {localeItems.find((item) => item.code === locale)?.name}
           <span className="sr-only">Change language</span>
