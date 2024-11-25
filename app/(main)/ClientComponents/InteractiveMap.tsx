@@ -72,7 +72,7 @@ export function InteractiveMap({
                 d={path(feature) || ""}
                 className={
                   isHighlighted
-                    ? "fill-orange-500 hover:fill-orange-400 stroke-orange-500 dark:stroke-amber-900  dark:fill-amber-900 dark:hover:fill-amber-800 transition-all cursor-pointer"
+                    ? "fill-orange-500 hover:fill-orange-300 stroke-orange-500 dark:stroke-amber-900  dark:fill-amber-900 dark:hover:fill-amber-700 transition-all cursor-pointer"
                     : "fill-neutral-200/50 dark:fill-neutral-800 stroke-neutral-300/40 dark:stroke-neutral-700 stroke-[0.5]"
                 }
                 onMouseEnter={() => {
