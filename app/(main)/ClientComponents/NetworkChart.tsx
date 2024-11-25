@@ -182,7 +182,7 @@ export const NetworkChart = React.memo(function NetworkChart({
         </div>
         <div className="flex flex-wrap">{chartButtons}</div>
       </CardHeader>
-      <CardContent className="px-2 sm:p-6">
+      <CardContent className="pr-2 pl-0 py-4 sm:pt-6 sm:pb-6 sm:pr-6 sm:pl-2">
         <ChartContainer
           config={chartConfig}
           className="aspect-auto h-[250px] w-full"
@@ -209,8 +209,7 @@ export const NetworkChart = React.memo(function NetworkChart({
             <YAxis
               tickLine={false}
               axisLine={false}
-              mirror={true}
-              tickMargin={-15}
+              tickMargin={15}
               minTickGap={20}
               tickFormatter={(value) => `${value}ms`}
             />

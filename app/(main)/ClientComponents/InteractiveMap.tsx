@@ -1,7 +1,7 @@
 "use client";
 
 import { countryCodeMapping } from "@/lib/geo";
-import { geoEqualEarth, geoPath } from "d3-geo";
+import { geoEquirectangular, geoPath } from "d3-geo";
 import { AnimatePresence, m } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -33,9 +33,10 @@ export function InteractiveMap({
     .map((code) => countryCodeMapping[code])
     .filter((code) => code !== undefined);
 
-  const projection = geoEqualEarth()
-    .scale(180)
-    .translate([width / 2, height / 2]);
+  const projection = geoEquirectangular()
+    .scale(140)
+    .translate([width / 2, height / 2])
+    .rotate([-12, 0, 0]);
 
   const path = geoPath().projection(projection);
 
@@ -59,7 +60,7 @@ export function InteractiveMap({
               feature.properties.iso_a3,
             );
             const countryCode = Object.entries(countryCodeMapping).find(
-              ([,alpha3]) => alpha3 === feature.properties.iso_a3,
+              ([, alpha3]) => alpha3 === feature.properties.iso_a3,
             )?.[0];
             const serverCount = countryCode
               ? serverCounts[countryCode] || 0
@@ -71,7 +72,7 @@ export function InteractiveMap({
                 d={path(feature) || ""}
                 className={
                   isHighlighted
-                    ? "fill-orange-500 hover:fill-orange-400 stroke-orange-500 dark:stroke-amber-900  dark:fill-amber-900 dark:hover:fill-amber-800 transition-all cursor-pointer"
+                    ? "fill-orange-500 hover:fill-orange-300 stroke-orange-500 dark:stroke-amber-900  dark:fill-amber-900 dark:hover:fill-amber-700 transition-all cursor-pointer"
                     : "fill-neutral-200/50 dark:fill-neutral-800 stroke-neutral-300/40 dark:stroke-neutral-700 stroke-[0.5]"
                 }
                 onMouseEnter={() => {
@@ -92,9 +93,9 @@ export function InteractiveMap({
       <AnimatePresence mode="wait">
         {tooltipData && (
           <m.div
-            initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
-            animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
-            className="absolute pointer-events-none bg-white dark:bg-neutral-800 px-2 py-1 rounded shadow-lg text-sm dark:border dark:border-neutral-700"
+            initial={{ opacity: 0, filter: "blur(10px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            className="absolute hidden lg:block pointer-events-none bg-white dark:bg-neutral-800 px-2 py-1 rounded shadow-lg text-sm dark:border dark:border-neutral-700"
             key={tooltipData.country}
             style={{
               left: tooltipData.centroid[0],
