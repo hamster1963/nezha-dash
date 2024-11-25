@@ -2,6 +2,7 @@
 
 import { countryCodeMapping } from "@/lib/geo";
 import { geoEqualEarth, geoPath } from "d3-geo";
+import { AnimatePresence, m } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
@@ -88,21 +89,26 @@ export function InteractiveMap({
           })}
         </g>
       </svg>
-      {tooltipData && (
-        <div
-          className="absolute pointer-events-none bg-white dark:bg-neutral-800 px-2 py-1 rounded shadow-lg text-sm"
-          style={{
-            left: tooltipData.centroid[0],
-            top: tooltipData.centroid[1],
-            transform: "translate(-50%, -50%)",
-          }}
-        >
-          <p className="font-medium">{tooltipData.country}</p>
-          <p className="text-neutral-600 dark:text-neutral-400">
-            {tooltipData.count} {t("Servers")}
-          </p>
-        </div>
-      )}
+      <AnimatePresence mode="wait">
+        {tooltipData && (
+          <m.div
+            initial={{ opacity: 0, filter: "blur(10px)", scale: 0.8 }}
+            animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+            className="absolute pointer-events-none bg-white dark:bg-neutral-800 px-2 py-1 rounded shadow-lg text-sm dark:border dark:border-neutral-700"
+            key={tooltipData.country}
+            style={{
+              left: tooltipData.centroid[0],
+              top: tooltipData.centroid[1],
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <p className="font-medium">{tooltipData.country}</p>
+            <p className="text-neutral-600 dark:text-neutral-400">
+              {tooltipData.count} {t("Servers")}
+            </p>
+          </m.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
