@@ -20,10 +20,6 @@ export default async function ServerGlobal() {
     }
   });
 
-  countrytList.push("TW");
-  countrytList.push("SG");
-  countrytList.push("RU");
-
   const width = 900;
   const height = 500;
 
