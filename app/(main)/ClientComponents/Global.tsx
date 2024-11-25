@@ -1,11 +1,8 @@
-import { countryCodeMapping, reverseCountryCodeMapping } from "@/lib/geo";
-import { countryCoordinates } from "@/lib/geo-limit";
+import { countryCodeMapping } from "@/lib/geo";
 import { GetNezhaData } from "@/lib/serverFetch";
-import * as turf from "@turf/turf";
-import DottedMap from "dotted-map/without-countries";
+import { geoEqualEarth, geoPath } from "d3-geo";
 
 import { geoJsonString } from "../../../lib/geo-json-string";
-import { mapJsonString } from "../../../lib/map-string";
 import GlobalInfo from "./GlobalInfo";
 
 interface GlobalProps {
@@ -29,113 +26,67 @@ export default async function ServerGlobal() {
 }
 
 export async function Global({ countries = [] }: GlobalProps) {
-  const map = new DottedMap({ map: JSON.parse(mapJsonString) });
+  const width = 900;
+  const height = 500;
 
+  const projection = geoEqualEarth()
+    .scale(180)
+    .translate([width / 2, height / 2])
+    .rotate([0, 0]); // 调整旋转以优化显示效果
+
+  const path = geoPath().projection(projection);
+
+  const geoJson = JSON.parse(geoJsonString);
   const countries_alpha3 = countries
     .map((code) => countryCodeMapping[code])
     .filter((code) => code !== undefined);
 
-  const geoJson = JSON.parse(geoJsonString);
-
-  countries_alpha3.forEach((countryCode) => {
-    const feature = geoJson.features.find(
-      (f: any) => f.properties.iso_a3 === countryCode,
-    );
-
-    if (feature) {
-      if (countryCode === "RUS") {
-        // 获取俄罗斯的多个边界
-        const bboxList = feature.geometry.coordinates.map((polygon: any) =>
-          turf.bbox({ type: "Polygon", coordinates: polygon }),
-        );
-
-        const spacing = 20; // 单位为千米
-        const options = { units: "kilometers" };
-
-        bboxList.forEach((bbox: any) => {
-          // @ts-expect-error ignore
-          const pointGrid = turf.pointGrid(bbox, spacing, options);
-
-          // 过滤出位于当前多边形内部的点
-          const pointsWithin = turf.pointsWithinPolygon(pointGrid, feature);
-
-          if (pointsWithin.features.length === 0) {
-            const centroid = turf.centroid(feature);
-            const [lng, lat] = centroid.geometry.coordinates;
-            map.addPin({
-              lat,
-              lng,
-              svgOptions: { color: "#FF4500", radius: 0.3 },
-            });
-          } else {
-            pointsWithin.features.forEach((point: any) => {
-              const [lng, lat] = point.geometry.coordinates;
-              map.addPin({
-                lat,
-                lng,
-                svgOptions: { color: "#FF4500", radius: 0.3 },
-              });
-            });
-          }
-        });
-      }
-      // 获取国家的边界框
-      const bbox = turf.bbox(feature);
-
-      const spacing = 40; // 单位为千米，值越小点越密集
-      const options = { units: "kilometers" };
-      // @ts-expect-error ignore
-      const pointGrid = turf.pointGrid(bbox, spacing, options);
-
-      // 过滤出位于国家多边形内部的点
-      const pointsWithin = turf.pointsWithinPolygon(pointGrid, feature);
-
-      // 如果没有点在多边形内部，则使用国家的中心点
-      if (pointsWithin.features.length === 0) {
-        const centroid = turf.centroid(feature);
-        const [lng, lat] = centroid.geometry.coordinates;
-        map.addPin({
-          lat,
-          lng,
-          svgOptions: { color: "#FF4500", radius: 0.3 },
-        });
-      } else {
-        pointsWithin.features.forEach((point: any) => {
-          const [lng, lat] = point.geometry.coordinates;
-          map.addPin({
-            lat,
-            lng,
-            svgOptions: { color: "#FF4500", radius: 0.3 },
-          });
-        });
-      }
-    } else {
-      // 如果找不到feature，使用countryCoordinates中的坐标
-      const alpha2Code = reverseCountryCodeMapping[countryCode];
-      if (alpha2Code && countryCoordinates[alpha2Code]) {
-        const coordinates = countryCoordinates[alpha2Code];
-        map.addPin({
-          lat: coordinates.lat,
-          lng: coordinates.lng,
-          svgOptions: { color: "#FF4500", radius: 0.3 },
-        });
-      }
-    }
-  });
-
-  const finalMap = map.getSVG({
-    radius: 0.35,
-    color: "#D1D5DA",
-    shape: "circle",
-  });
+  const filteredFeatures = geoJson.features.filter(
+    (feature: any) => feature.properties.iso_a3 !== "",
+  );
 
   return (
     <section className="flex flex-col gap-4 mt-[3.2px]">
       <GlobalInfo countries={countries} />
-      <img
-        src={`data:image/svg+xml;utf8,${encodeURIComponent(finalMap)}`}
-        alt="World Map with Highlighted Countries"
-      />
+      <div className="w-full overflow-x-auto">
+        <svg
+          width={width}
+          height={height}
+          viewBox={`0 0 ${width} ${height}`}
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-auto"
+        >
+          <defs>
+            <pattern
+              id="dots"
+              width="2"
+              height="2"
+              patternUnits="userSpaceOnUse"
+            >
+              <circle cx="1" cy="1" r="0.5" fill="currentColor" />
+            </pattern>
+          </defs>
+          <g>
+            {/* @ts-ignore */}
+            {filteredFeatures.map((feature, index) => {
+              const isHighlighted = countries_alpha3.includes(
+                feature.properties.iso_a3,
+              );
+              return (
+                <path
+                  key={index}
+                  d={path(feature) || ""}
+                  className={
+                    isHighlighted
+                      ? "fill-orange-500 stroke-orange-500 dark:stroke-amber-900  dark:fill-amber-900"
+                      : " fill-neutral-200/50 dark:fill-neutral-800 stroke-neutral-300/40 dark:stroke-neutral-700 stroke-[0.5]"
+                  }
+                />
+              );
+            })}
+          </g>
+        </svg>
+      </div>
     </section>
   );
 }
