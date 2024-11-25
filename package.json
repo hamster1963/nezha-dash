@@ -48,7 +48,7 @@
     "recharts": "^2.13.3",
     "sharp": "^0.33.5",
     "swr": "^2.2.6-beta.4",
-    "tailwind-merge": "^2.5.4",
+    "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "typescript-eslint": "^8.15.0"
   },
