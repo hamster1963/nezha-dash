@@ -59,7 +59,7 @@ export function InteractiveMap({
               feature.properties.iso_a3,
             );
             const countryCode = Object.entries(countryCodeMapping).find(
-              ([_, alpha3]) => alpha3 === feature.properties.iso_a3,
+              ([,alpha3]) => alpha3 === feature.properties.iso_a3,
             )?.[0];
             const serverCount = countryCode
               ? serverCounts[countryCode] || 0
