@@ -1,6 +1,6 @@
 {
   "name": "nezha-dash",
-  "version": "1.4.10",
+  "version": "1.5.0",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3040",
@@ -23,13 +23,15 @@
     "@radix-ui/react-tooltip": "^1.1.4",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@turf/turf": "^7.1.0",
+    "@types/d3-geo": "^3.1.0",
     "@types/luxon": "^3.4.2",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
     "caniuse-lite": "^1.0.30001684",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "country-flag-icons": "^1.5.13",
-    "dotted-map": "^2.2.3",
+    "d3-geo": "^3.1.1",
+    "d3-selection": "^3.0.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "flag-icons": "^7.2.3",
     "framer-motion": "^12.0.0-alpha.2",
@@ -48,7 +50,7 @@
     "recharts": "^2.13.3",
     "sharp": "^0.33.5",
     "swr": "^2.2.6-beta.4",
-    "tailwind-merge": "^2.5.4",
+    "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "typescript-eslint": "^8.15.0"
   },

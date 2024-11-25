@@ -93,7 +93,8 @@
   "Global": {
     "Loading": "Loading...",
     "Distributions": "Servers are distributed in",
-    "Regions": "Regions"
+    "Regions": "Regions",
+    "Servers": "servers"
   },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "404 Not Found",
