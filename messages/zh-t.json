@@ -93,7 +93,8 @@
   "Global": {
     "Loading": "載入中...",
     "Distributions": "伺服器分佈在",
-    "Regions": "個地區"
+    "Regions": "個地區",
+    "Servers": "個伺服器"
   },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "404 未找到",

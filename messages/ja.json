@@ -93,7 +93,8 @@
   "Global": {
     "Loading": "Loading...",
     "Distributions": "サーバーは",
-    "Regions": "つの地域に分散されています"
+    "Regions": "つの地域に分散されています",
+    "Servers": "サーバー"
   },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "404 見つかりませんでした",
