@@ -1,6 +1,5 @@
 "use client";
 
-import { countryCodeMapping } from "@/lib/geo";
 import { geoEquirectangular, geoPath } from "d3-geo";
 import { AnimatePresence, m } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -29,10 +28,6 @@ export function InteractiveMap({
     count: number;
   } | null>(null);
 
-  const countries_alpha3 = countries
-    .map((code) => countryCodeMapping[code])
-    .filter((code) => code !== undefined);
-
   const projection = geoEquirectangular()
     .scale(140)
     .translate([width / 2, height / 2])
@@ -56,17 +51,15 @@ export function InteractiveMap({
         </defs>
         <g>
           {filteredFeatures.map((feature, index) => {
-            const isHighlighted = countries_alpha3.includes(
-              feature.properties.iso_a3_eh,
+            const isHighlighted = countries.includes(
+              feature.properties.iso_a2_eh,
             );
 
-            const countryCode = Object.entries(countryCodeMapping).find(
-              ([, alpha3]) => alpha3 === feature.properties.iso_a3_eh,
-            )?.[0];
+            if (isHighlighted) {
+              console.log(feature.properties.iso_a2_eh);
+            }
 
-            const serverCount = countryCode
-              ? serverCounts[countryCode] || 0
-              : 0;
+            const serverCount = serverCounts[feature.properties.iso_a2_eh] || 0;
 
             return (
               <path
