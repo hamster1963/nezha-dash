@@ -57,11 +57,13 @@ export function InteractiveMap({
         <g>
           {filteredFeatures.map((feature, index) => {
             const isHighlighted = countries_alpha3.includes(
-              feature.properties.iso_a3,
+              feature.properties.iso_a3_eh,
             );
+
             const countryCode = Object.entries(countryCodeMapping).find(
-              ([, alpha3]) => alpha3 === feature.properties.iso_a3,
+              ([, alpha3]) => alpha3 === feature.properties.iso_a3_eh,
             )?.[0];
+
             const serverCount = countryCode
               ? serverCounts[countryCode] || 0
               : 0;
