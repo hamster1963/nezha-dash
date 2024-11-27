@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import getEnv from "@/lib/env-entry";
 import { cn, formatBytes, nezhaFetcher } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
@@ -50,6 +50,10 @@ export default function ServerDetailClient({
   const fallbackData = allFallbackData?.result?.find(
     (item) => item.id === server_id,
   );
+
+  if (!fallbackData) {
+    notFound();
+  }
 
   const { data, error } = useSWR<NezhaAPISafe>(
     `/api/detail?server_id=${server_id}`,

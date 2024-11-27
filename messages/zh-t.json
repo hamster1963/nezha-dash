@@ -98,7 +98,6 @@
   },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "404 未找到",
-    "p_601-665_TARDISERROR": "TARDIS 錯誤！",
-    "Link_676-775_Doctor": "Doctor？"
+    "h1_490-590_404NotFoundBack": "返回"
   }
 }

@@ -98,7 +98,6 @@
   },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "404 見つかりませんでした",
-    "p_601-665_TARDISERROR": "ターディスエラー!",
-    "Link_676-775_Doctor": "Doctor?"
+    "h1_490-590_404NotFoundBack": "戻る"
   }
 }
