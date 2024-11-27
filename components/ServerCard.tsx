@@ -12,7 +12,6 @@ import {
 import { cn, formatBytes, formatNezhaInfo } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export default function ServerCard({
   serverInfo,
@@ -20,7 +19,6 @@ export default function ServerCard({
   serverInfo: NezhaAPISafe;
 }) {
   const t = useTranslations("ServerCard");
-  const router = useRouter();
   const { id, name, country_code, online, cpu, up, down, mem, stg, host } =
     formatNezhaInfo(serverInfo);
 
