@@ -43,7 +43,7 @@ export default function ServerDetailClient({
     }
   };
 
-  const { data: allFallbackData } = useSWRImmutable<ServerApi>(
+  const { data: allFallbackData, isLoading } = useSWRImmutable<ServerApi>(
     "/api/server",
     nezhaFetcher,
   );
@@ -51,7 +51,7 @@ export default function ServerDetailClient({
     (item) => item.id === server_id,
   );
 
-  if (!fallbackData) {
+  if (!fallbackData && !isLoading) {
     notFound();
   }
 
