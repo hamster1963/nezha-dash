@@ -9,7 +9,7 @@
 支持部署环境：
 
 > [!CAUTION]
-> Cloudflare 部署方式暂不可用，等待官方修复。
+> Cloudflare 部署方式暂不可用，等待 Cloudflare 官方修复。
 
 - Vercel
 - Cloudflare
