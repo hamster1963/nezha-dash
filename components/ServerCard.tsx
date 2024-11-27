@@ -34,7 +34,7 @@ export default function ServerCard({
   };
 
   return online ? (
-    <Link onClick={saveSession} href={`/${id}`} prefetch={true}>
+    <Link onClick={saveSession} href={`/server/${id}`} prefetch={true}>
       <Card
         className={cn(
           "flex flex-col items-center justify-start gap-3 p-3 md:px-5 cursor-pointer hover:bg-accent/50 transition-colors",
@@ -138,12 +138,7 @@ export default function ServerCard({
             </div>
           </section>
           {showNetTransfer && (
-            <section
-              onClick={() => {
-                router.push(`/${id}`);
-              }}
-              className={"flex items-center justify-between gap-1"}
-            >
+            <section className={"flex items-center justify-between gap-1"}>
               <Badge
                 variant="secondary"
                 className="items-center flex-1 justify-center rounded-[8px] text-nowrap text-[11px] border-muted-50 shadow-md shadow-neutral-200/30 dark:shadow-none"

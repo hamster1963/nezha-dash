@@ -98,7 +98,6 @@
   },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "404 Not Found",
-    "p_601-665_TARDISERROR": "TARDIS ERROR!",
-    "Link_676-775_Doctor": "Doctor?"
+    "h1_490-590_404NotFoundBack": " Press here to go back"
   }
 }
