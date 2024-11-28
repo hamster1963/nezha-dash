@@ -97,7 +97,8 @@
     "Servers": "servers"
   },
   "NotFoundPage": {
-    "h1_490-590_404NotFound": "404 Not Found",
-    "h1_490-590_404NotFoundBack": " Press here to go back"
+    "h1_490-590_404NotFound": "Server Not Found",
+    "h1_490-590_404NotFoundBack": " Press here to go back",
+    "h1_490-590_Error": "Something went wrong"
   }
 }
