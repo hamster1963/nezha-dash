@@ -1,5 +1,6 @@
 "use client";
 
+import { countryCoordinates } from "@/lib/geo-limit";
 import { geoEquirectangular, geoPath } from "d3-geo";
 import { AnimatePresence, m } from "framer-motion";
 import { useTranslations } from "next-intl";
@@ -83,6 +84,47 @@ export function InteractiveMap({
               />
             );
           })}
+
+          {/* 渲染不在 filteredFeatures 中的国家标记点 */}
+          {countries.map((countryCode) => {
+            // 检查该国家是否已经在 filteredFeatures 中
+            const isInFilteredFeatures = filteredFeatures.some(
+              (feature) => feature.properties.iso_a2_eh === countryCode,
+            );
+
+            // 如果已经在 filteredFeatures 中，跳过
+            if (isInFilteredFeatures) return null;
+
+            // 获取国家的经纬度
+            const coords = countryCoordinates[countryCode];
+            if (!coords) return null;
+
+            // 使用投影函数将经纬度转换为 SVG 坐标
+            const [x, y] = projection([coords.lng, coords.lat]) || [0, 0];
+            const serverCount = serverCounts[countryCode] || 0;
+
+            return (
+              <g
+                key={countryCode}
+                onMouseEnter={() => {
+                  setTooltipData({
+                    centroid: [x, y],
+                    country: coords.name,
+                    count: serverCount,
+                  });
+                }}
+                onMouseLeave={() => setTooltipData(null)}
+                className="cursor-pointer"
+              >
+                <circle
+                  cx={x}
+                  cy={y}
+                  r={4}
+                  className="fill-orange-500 hover:fill-orange-300 stroke-orange-500 dark:stroke-amber-900 dark:fill-amber-900 dark:hover:fill-amber-700 transition-all"
+                />
+              </g>
+            );
+          })}
         </g>
       </svg>
       <AnimatePresence mode="wait">
@@ -98,7 +140,11 @@ export function InteractiveMap({
               transform: "translate(-50%, -50%)",
             }}
           >
-            <p className="font-medium">{tooltipData.country}</p>
+            <p className="font-medium">
+              {tooltipData.country === "China"
+                ? "Mainland China"
+                : tooltipData.country}
+            </p>
             <p className="text-neutral-600 dark:text-neutral-400">
               {tooltipData.count} {t("Servers")}
             </p>
