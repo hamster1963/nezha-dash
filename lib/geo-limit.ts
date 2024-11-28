@@ -12,6 +12,7 @@ export const countryCoordinates: Record<
   BN: { lat: 4.5, lng: 114.6667, name: "Brunei" }, // 文莱
   KH: { lat: 13.0, lng: 105.0, name: "Cambodia" }, // 柬埔寨
   CN: { lat: 35.0, lng: 105.0, name: "China" }, // 中国
+  HK: { lat: 22.0, lng: 114.0, name: "Hong Kong" }, // 香港
   CY: { lat: 35.0, lng: 33.0, name: "Cyprus" }, // 塞浦路斯
   GE: { lat: 42.0, lng: 43.5, name: "Georgia" }, // 格鲁吉亚
   IN: { lat: 20.0, lng: 77.0, name: "India" }, // 印度
