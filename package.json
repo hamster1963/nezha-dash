@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^15.0.3",
-    "@tailwindcss/postcss": "^4.0.0-beta.2",
+    "@tailwindcss/postcss": "^4.0.0-beta.3",
     "@types/node": "^22.10.0",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
@@ -67,7 +67,7 @@
     "postcss": "^8.4.49",
     "prettier": "^3.4.1",
     "prettier-plugin-tailwindcss": "^0.6.9",
-    "tailwindcss": "^4.0.0-beta.2",
+    "tailwindcss": "^4.0.0-beta.3",
     "typescript": "^5.7.2",
     "vercel": "39.1.1"
   },
