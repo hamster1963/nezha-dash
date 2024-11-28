@@ -97,7 +97,8 @@
     "Servers": "个服务器"
   },
   "NotFoundPage": {
-    "h1_490-590_404NotFound": "404 未找到",
-    "h1_490-590_404NotFoundBack": "返回"
+    "h1_490-590_404NotFound": "服务器不存在",
+    "h1_490-590_404NotFoundBack": "返回",
+    "h1_490-590_Error": "发生错误"
   }
 }
