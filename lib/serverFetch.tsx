@@ -101,7 +101,7 @@ export async function GetServerMonitor({ server_id }: { server_id: number }) {
           Authorization: getEnv("NezhaAuth") as string,
         },
         next: {
-          revalidate: 30,
+          revalidate: 0,
         },
       },
     );
