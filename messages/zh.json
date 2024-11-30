@@ -61,7 +61,9 @@
     "Disk": "磁盘",
     "Region": "地区",
     "System": "系统",
-    "CPU": "CPU"
+    "CPU": "CPU",
+    "Upload": "上传",
+    "Download": "下载"
   },
   "ServerDetailChartClient": {
     "chart_fetch_error_message": "获取服务器详情失败,请检查您的环境变量并检查服务器控制台",

@@ -61,7 +61,9 @@
     "Disk": "ディスク",
     "Region": "地域",
     "System": "システム",
-    "CPU": "CPU"
+    "CPU": "CPU",
+    "Upload": "Upload",
+    "Download": "Download"
   },
   "ServerDetailChartClient": {
     "chart_fetch_error_message": "環境変数を確認し、サーバーコンソールを確認してください",
