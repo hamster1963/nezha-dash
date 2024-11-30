@@ -199,6 +199,34 @@ export default function ServerDetailClient({
           </CardContent>
         </Card>
       </section>
+      <section className="flex flex-wrap gap-2 mt-1">
+        <Card className="rounded-[10px] bg-transparent border-none shadow-none">
+          <CardContent className="px-1.5 py-1">
+            <section className="flex flex-col items-start gap-0.5">
+              <p className="text-xs text-muted-foreground">{t("Upload")}</p>
+              {data.status.NetOutTransfer ? (
+                <div className="text-xs">
+                  {" "}
+                  {formatBytes(data.status.NetOutTransfer)}{" "}
+                </div>
+              ) : null}
+            </section>
+          </CardContent>
+        </Card>
+        <Card className="rounded-[10px] bg-transparent border-none shadow-none">
+          <CardContent className="px-1.5 py-1">
+            <section className="flex flex-col items-start gap-0.5">
+              <p className="text-xs text-muted-foreground">{t("Download")}</p>
+              {data.status.NetInTransfer ? (
+                <div className="text-xs">
+                  {" "}
+                  {formatBytes(data.status.NetInTransfer)}{" "}
+                </div>
+              ) : null}
+            </section>
+          </CardContent>
+        </Card>
+      </section>
     </div>
   );
 }

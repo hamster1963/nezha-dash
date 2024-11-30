@@ -61,7 +61,9 @@
     "Disk": "Disk",
     "Region": "Region",
     "System": "System",
-    "CPU": "CPU"
+    "CPU": "CPU",
+    "Upload": "Upload",
+    "Download": "Download"
   },
   "ServerDetailChartClient": {
     "chart_fetch_error_message": "Please check your environment variables and review the server console",

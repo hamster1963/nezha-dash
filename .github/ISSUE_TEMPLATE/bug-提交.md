@@ -2,9 +2,8 @@
 name: Bug 提交
 about: 提交 bug，让面板变得更好。
 title: "[BUG]"
-labels: ''
-assignees: ''
-
+labels: ""
+assignees: ""
 ---
 
 **面板版本（二选一）**
@@ -15,7 +14,6 @@ V0 | V1
 
 **屏幕截图**
 有屏幕截图可以帮助更快定位到问题
-
 
 **额外信息**
 可附上其他需要的额外信息
