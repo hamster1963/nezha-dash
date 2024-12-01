@@ -26,7 +26,7 @@ export default function ServerListClient() {
   const [inline, setInline] = useState<string>("0");
 
   useEffect(() => {
-    const inlineState = sessionStorage.getItem("inline");
+    const inlineState = localStorage.getItem("inline");
     if (inlineState !== null) {
       console.log("inlineState", inlineState);
       setInline(inlineState);
@@ -138,7 +138,7 @@ export default function ServerListClient() {
         <button
           onClick={() => {
             setInline(inline === "0" ? "1" : "0");
-            sessionStorage.setItem("inline", inline === "0" ? "1" : "0");
+            localStorage.setItem("inline", inline === "0" ? "1" : "0");
           }}
           className={cn(
             "rounded-[50px] text-white cursor-pointer [text-shadow:_0_1px_0_rgb(0_0_0_/_20%)] bg-blue-600  p-[10px] transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]  ",
