@@ -71,7 +71,8 @@
     "System": "系統",
     "CPU": "CPU",
     "Upload": "上傳",
-    "Download": "下載"
+    "Download": "下載",
+    "Load": "負載"
   },
   "ServerDetailChartClient": {
     "chart_fetch_error_message": "獲取伺服器詳情失敗,請檢查您的環境變數並檢查伺服器控制台",

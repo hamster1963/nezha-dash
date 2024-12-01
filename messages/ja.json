@@ -70,6 +70,7 @@
     "Region": "地域",
     "System": "システム",
     "CPU": "CPU",
+    "Load": "負荷",
     "Upload": "Upload",
     "Download": "Download"
   },
