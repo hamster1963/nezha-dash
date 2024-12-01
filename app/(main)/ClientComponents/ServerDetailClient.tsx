@@ -206,8 +206,9 @@ export default function ServerDetailClient({
               <p className="text-xs text-muted-foreground">{t("Load")}</p>
               {data.status.NetInTransfer ? (
                 <div className="text-xs">
-                  {data.status.Load1} / {data.status.Load5} /{" "}
-                  {data.status.Load15}
+                  {data.status.Load1.toFixed(2)} /{" "}
+                  {data.status.Load5.toFixed(2)} /{" "}
+                  {data.status.Load15.toFixed(2)}
                 </div>
               ) : (
                 <div className="text-xs">Unknown</div>
