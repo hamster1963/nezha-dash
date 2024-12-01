@@ -162,7 +162,7 @@ export default function ServerListClient() {
       {inline === "1" && (
         <section
           ref={containerRef}
-          className="flex flex-col gap-2 overflow-x-scroll"
+          className="flex flex-col gap-2 overflow-x-scroll scrollbar-hidden"
         >
           {filteredServers.map((serverInfo) => (
             <ServerCardInline key={serverInfo.id} serverInfo={serverInfo} />
