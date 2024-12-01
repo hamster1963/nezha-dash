@@ -209,7 +209,7 @@ export default function ServerDetailClient({
                   {data.status.Load1} / {data.status.Load5} /{" "}
                   {data.status.Load15}
                 </div>
-              ) : null}
+              ) : <div className="text-xs">Unknown</div>}
             </section>
           </CardContent>
         </Card>
@@ -222,7 +222,7 @@ export default function ServerDetailClient({
                   {" "}
                   {formatBytes(data.status.NetOutTransfer)}{" "}
                 </div>
-              ) : null}
+              ) : <div className="text-xs">Unknown</div>}
             </section>
           </CardContent>
         </Card>
@@ -235,7 +235,7 @@ export default function ServerDetailClient({
                   {" "}
                   {formatBytes(data.status.NetInTransfer)}{" "}
                 </div>
-              ) : null}
+              ) : <div className="text-xs">Unknown</div>}
             </section>
           </CardContent>
         </Card>
