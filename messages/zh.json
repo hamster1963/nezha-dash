@@ -18,7 +18,11 @@
     "STG": "存储",
     "Upload": "上传",
     "Download": "下载",
-    "Offline": "离线"
+    "Offline": "离线",
+    "Uptime": "运行时间",
+    "TotalUpload": "总上传",
+    "TotalDownload": "总下载",
+    "Region": "地区"
   },
   "TabSwitch": {
     "Detail": "详情",
@@ -39,7 +43,11 @@
     "Network": "网络",
     "Load": "负载",
     "Online": "在线时间",
-    "Offline": "离线"
+    "Offline": "离线",
+    "Uptime": "运行时间",
+    "Upload": "上传",
+    "Download": "下载",
+    "Region": "地区"
   },
   "NetworkChartClient": {
     "avg_delay": "延迟",

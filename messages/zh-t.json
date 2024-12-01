@@ -18,7 +18,11 @@
     "STG": "儲存",
     "Upload": "上傳",
     "Download": "下載",
-    "Offline": "離線"
+    "Offline": "離線",
+    "Uptime": "稼働時間",
+    "TotalUpload": "总上傳",
+    "TotalDownload": "总下載",
+    "Region": "地區"
   },
   "TabSwitch": {
     "Detail": "詳細",
@@ -39,7 +43,11 @@
     "Network": "網路",
     "Load": "負載",
     "Online": "在線時間",
-    "Offline": "離線"
+    "Offline": "離線",
+    "Uptime": "稼働時間",
+    "Upload": "上傳",
+    "Download": "下載",
+    "Region": "地域"
   },
   "NetworkChartClient": {
     "avg_delay": "延遲",

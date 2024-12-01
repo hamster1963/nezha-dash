@@ -18,7 +18,11 @@
     "STG": "STG",
     "Upload": "Upload",
     "Download": "Download",
-    "Offline": "Offline"
+    "Offline": "Offline",
+    "Uptime": "Uptime",
+    "TotalUpload": "Upload",
+    "TotalDownload": "Download",
+    "Region": "Region"
   },
   "TabSwitch": {
     "Detail": "Detail",
@@ -39,7 +43,11 @@
     "Network": "Network",
     "Load": "Load",
     "Online": "Online",
-    "Offline": "Offline"
+    "Offline": "Offline",
+    "Uptime": "Uptime",
+    "Upload": "Upload",
+    "Download": "Download",
+    "Region": "Region"
   },
   "NetworkChartClient": {
     "avg_delay": "Latency",
