@@ -71,7 +71,8 @@
     "System": "System",
     "CPU": "CPU",
     "Upload": "Upload",
-    "Download": "Download"
+    "Download": "Download",
+    "Load": "Load"
   },
   "ServerDetailChartClient": {
     "chart_fetch_error_message": "Please check your environment variables and review the server console",
