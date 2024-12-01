@@ -79,7 +79,7 @@ export default function ServerCardInline({
                 </div>
               </div>
             </div>
-            <div className={"flex w-14 flex-col"}>
+            <div className={"flex w-20 flex-col"}>
               <p className="text-xs text-muted-foreground">{t("Uptime")}</p>
               <div className="flex items-center text-xs font-semibold">
                 {(serverInfo?.status.Uptime / 86400).toFixed(0)} {"Days"}
@@ -106,7 +106,7 @@ export default function ServerCardInline({
               </div>
               <ServerUsageBar value={stg} />
             </div>
-            <div className={"flex w-14 flex-col"}>
+            <div className={"flex w-16 flex-col"}>
               <p className="text-xs text-muted-foreground">{t("Upload")}</p>
               <div className="flex items-center text-xs font-semibold">
                 {up >= 1024
@@ -114,7 +114,7 @@ export default function ServerCardInline({
                   : `${up.toFixed(2)}M/s`}
               </div>
             </div>
-            <div className={"flex w-14 flex-col"}>
+            <div className={"flex w-16 flex-col"}>
               <p className="text-xs text-muted-foreground">{t("Download")}</p>
               <div className="flex items-center text-xs font-semibold">
                 {down >= 1024
@@ -122,7 +122,7 @@ export default function ServerCardInline({
                   : `${down.toFixed(2)}M/s`}
               </div>
             </div>
-            <div className={"flex flex-col"}>
+            <div className={"flex w-20 flex-col"}>
               <p className="text-xs text-muted-foreground">
                 {t("TotalUpload")}
               </p>
@@ -130,7 +130,7 @@ export default function ServerCardInline({
                 {formatBytes(serverInfo.status.NetOutTransfer)}
               </div>
             </div>
-            <div className={"flex flex-col"}>
+            <div className={"flex w-20 flex-col"}>
               <p className="text-xs text-muted-foreground">
                 {t("TotalDownload")}
               </p>
