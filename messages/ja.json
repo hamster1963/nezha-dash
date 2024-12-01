@@ -18,7 +18,11 @@
     "STG": "STG",
     "Upload": "Upload",
     "Download": "Download",
-    "Offline": "Offline"
+    "Offline": "Offline",
+    "Uptime": "Uptime",
+    "TotalUpload": "Upload",
+    "TotalDownload": "Download",
+    "Region": "Region"
   },
   "TabSwitch": {
     "Detail": "詳細",
@@ -39,7 +43,11 @@
     "Network": "ネットワーク",
     "Load": "負荷",
     "Online": "オンライン時間",
-    "Offline": "オフライン"
+    "Offline": "オフライン",
+    "Uptime": "アップタイム",
+    "Upload": "アップロード",
+    "Download": "ダウンロード",
+    "Region": "地域"
   },
   "NetworkChartClient": {
     "avg_delay": "遅延",
