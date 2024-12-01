@@ -1,7 +1,6 @@
 import { NezhaAPISafe } from "@/app/types/nezha-api";
 import ServerFlag from "@/components/ServerFlag";
 import ServerUsageBar from "@/components/ServerUsageBar";
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import getEnv from "@/lib/env-entry";
 import {
