@@ -1,10 +1,10 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
-export const runtime = "edge";
-
 import Footer from "./(main)/footer";
 import Header from "./(main)/header";
+
+export const runtime = "edge";
 
 export default function NotFoundPage() {
   const t = useTranslations("NotFoundPage");
