@@ -6,7 +6,7 @@
 
 > [!CAUTION]
 > 此为 V0 兼容版本，V1 版本 issue 也可提出
-> 
+>
 > 有关 V1 版本 pr 可移步 https://github.com/hamster1963/nezha-dash-react
 
 ### 部署
