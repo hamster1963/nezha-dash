@@ -35,7 +35,7 @@ export interface NezhaAPIHost {
   BootTime: number;
   CountryCode: string;
   Version: string;
-  GPU: null;
+  GPU: string[];
 }
 
 export interface NezhaAPIStatus {
