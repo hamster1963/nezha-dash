@@ -191,7 +191,19 @@ export default function ServerDetailClient({
             <section className="flex flex-col items-start gap-0.5">
               <p className="text-xs text-muted-foreground">{t("CPU")}</p>
               {data?.host.CPU ? (
-                <div className="text-xs"> {data?.host.CPU}</div>
+                <div className="text-xs"> {data?.host.CPU.join(", ")}</div>
+              ) : (
+                <div className="text-xs">Unknown</div>
+              )}
+            </section>
+          </CardContent>
+        </Card>
+        <Card className="rounded-[10px] bg-transparent border-none shadow-none">
+          <CardContent className="px-1.5 py-1">
+            <section className="flex flex-col items-start gap-0.5">
+              <p className="text-xs text-muted-foreground">{"GPU"}</p>
+              {data?.host.GPU ? (
+                <div className="text-xs"> {data?.host.GPU.join(", ")}</div>
               ) : (
                 <div className="text-xs">Unknown</div>
               )}

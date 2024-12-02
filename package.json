@@ -1,6 +1,6 @@
 {
   "name": "nezha-dash",
-  "version": "1.6.2-fix",
+  "version": "1.6.3",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3040",
@@ -26,7 +26,7 @@
     "@types/d3-geo": "^3.1.0",
     "@types/luxon": "^3.4.2",
     "@typescript-eslint/eslint-plugin": "^8.16.0",
-    "caniuse-lite": "^1.0.30001684",
+    "caniuse-lite": "^1.0.30001685",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "country-flag-icons": "^1.5.13",

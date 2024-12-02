@@ -5,7 +5,9 @@
 </div>
 
 > [!CAUTION]
-> 与哪吒监控 V1 暂不兼容，请保持在 V0 版本。
+> 此为 V0 兼容版本，V1 版本 issue 也可提出
+> 
+> 有关 V1 版本 pr 可移步 https://github.com/hamster1963/nezha-dash-react
 
 ### 部署
 
