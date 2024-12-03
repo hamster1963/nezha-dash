@@ -128,7 +128,7 @@ export const NetworkChart = React.memo(function NetworkChart({
         <button
           key={key}
           data-active={activeChart === key}
-          className={`relative z-30 flex cursor-pointer grow basis-0 min-w-[100px] flex-col justify-center gap-1 border-b border-neutral-200 dark:border-neutral-800 px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-6`}
+          className={`relative z-30 flex cursor-pointer grow basis-0 flex-col justify-center gap-1 border-b border-neutral-200 dark:border-neutral-800 px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-6`}
           onClick={() => handleButtonClick(key)}
         >
           <span className="whitespace-nowrap text-xs text-muted-foreground">
