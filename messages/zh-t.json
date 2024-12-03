@@ -5,6 +5,7 @@
     "p_2532-2599_Offlineservers": "離線伺服器",
     "p_3463-3530_Totalbandwidth": "總流量",
     "speed": "速率",
+    "network": "網路",
     "error_message": "請檢查您的環境變數並檢查伺服器控制台",
     "no_data_message": "無資料"
   },

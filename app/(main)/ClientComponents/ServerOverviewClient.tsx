@@ -3,12 +3,15 @@
 import { ServerApi } from "@/app/types/nezha-api";
 import { Loader } from "@/components/loading/Loader";
 import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import getEnv from "@/lib/env-entry";
 import { useFilter } from "@/lib/network-filter-context";
 import { useStatus } from "@/lib/status-context";
 import { cn, formatBytes, nezhaFetcher } from "@/lib/utils";
 import blogMan from "@/public/blog-man.webp";
+import {
+  ArrowDownCircleIcon,
+  ArrowUpCircleIcon,
+} from "@heroicons/react/20/solid";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -49,12 +52,9 @@ export default function ServerOverviewClient() {
               setStatus("all");
             }
           }}
-          className={cn(
-            "cursor-pointer hover:border-blue-500 transition-all min-h-[94px]",
-            {
-              "pointer-events-none": global,
-            },
-          )}
+          className={cn("cursor-pointer hover:border-blue-500 transition-all", {
+            "pointer-events-none": global,
+          })}
         >
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
@@ -86,7 +86,7 @@ export default function ServerOverviewClient() {
             }
           }}
           className={cn(
-            "cursor-pointer hover:ring-green-500 ring-1 ring-transparent transition-all min-h-[94px]",
+            "cursor-pointer hover:ring-green-500 ring-1 ring-transparent transition-all",
             {
               "ring-green-500 ring-2 border-transparent": status === "online",
             },
@@ -126,7 +126,7 @@ export default function ServerOverviewClient() {
             }
           }}
           className={cn(
-            "cursor-pointer hover:ring-red-500 ring-1 ring-transparent transition-all min-h-[94px]",
+            "cursor-pointer hover:ring-red-500 ring-1 ring-transparent transition-all",
             {
               "ring-red-500 ring-2 border-transparent": status === "offline",
             },
@@ -166,7 +166,7 @@ export default function ServerOverviewClient() {
             }
           }}
           className={cn(
-            "cursor-pointer hover:ring-purple-500 ring-1 ring-transparent transition-all min-h-[94px]",
+            "cursor-pointer hover:ring-purple-500 ring-1 ring-transparent transition-all",
             {
               "ring-purple-500 ring-2 border-transparent": filter === true,
             },
@@ -176,35 +176,37 @@ export default function ServerOverviewClient() {
           )}
         >
           <CardContent className="flex h-full items-center relative px-3 py-1 pr-0 sm:px-6 sm:py-3">
-            <section className="flex flex-col gap-1">
-              <div className="flex items-center gap-1">
+            <section className="flex flex-col gap-1 w-full">
+              <div className="flex items-center w-full justify-between">
                 <p className="text-sm font-medium md:text-base">
-                  {t("p_3463-3530_Totalbandwidth")}
+                  {t("network")}
                 </p>
-                <Separator orientation="vertical" className="h-4 w-[1px]" />
-                <p className="text-sm font-medium md:text-base">{t("speed")}</p>
+                <section className="flex flex-row z-[999] bg-white/80 dark:bg-black/80 backdrop-blur-sm sm:items-center items-start pr-2 sm:pr-0 gap-1 ml-auto">
+                  <p className="sm:text-[12px] text-[10px]   text-nowrap font-medium">
+                    ↑{formatBytes(data?.total_out_bandwidth || 0)}
+                  </p>
+                  <p className="sm:text-[12px] text-[10px]  text-nowrap font-medium">
+                    ↓{formatBytes(data?.total_in_bandwidth || 0)}
+                  </p>
+                </section>
               </div>
               {data?.result ? (
                 <>
-                  <section className="flex flex-row sm:items-center items-start gap-1">
-                    <p className="sm:text-[12px] text-[10px] text-stone-400  text-nowrap font-medium">
-                      ↑{formatBytes(data?.total_out_bandwidth)}
+                  <section className="flex flex-row mt-1.5 -mr-1 sm:items-center items-start gap-1">
+                    <p className="sm:text-[12px] flex items-center text-[10px] text-nowrap font-semibold">
+                      <ArrowUpCircleIcon className="size-3 mr-0.5 sm:mb-[1.1px]" />
+                      {formatBytes(data?.total_out_speed)}/s
                     </p>
-                    <p className="sm:text-[12px] text-[10px] text-stone-400  text-nowrap font-medium">
-                      ↓{formatBytes(data?.total_in_bandwidth)}
-                    </p>
-                  </section>
-                  <section className="flex flex-row -mt-1 -mr-1 sm:items-center items-start gap-1">
-                    <p className="sm:text-[12px]  text-[10px] text-nowrap font-semibold">
-                      ↑{formatBytes(data?.total_out_speed)}/s
-                    </p>
-                    <p className="sm:text-[12px] text-[10px] text-nowrap font-semibold">
-                      ↓{formatBytes(data?.total_in_speed)}/s
+                    <p className="sm:text-[12px] flex items-center text-[10px] text-nowrap font-semibold">
+                      <ArrowDownCircleIcon className="size-3 mr-0.5" />
+                      {formatBytes(
+                        data?.total_in_speed,
+                      )}/s
                     </p>
                   </section>
                 </>
               ) : (
-                <div className="flex h-7 items-center">
+                <div className="flex h-6 items-center">
                   <Loader visible={true} />
                 </div>
               )}
