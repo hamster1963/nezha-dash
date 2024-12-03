@@ -1,6 +1,6 @@
 {
   "name": "nezha-dash",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3040",
@@ -25,7 +25,7 @@
     "@turf/turf": "^7.1.0",
     "@types/d3-geo": "^3.1.0",
     "@types/luxon": "^3.4.2",
-    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
     "caniuse-lite": "^1.0.30001685",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -47,12 +47,12 @@
     "react-dom": "19.0.0-rc-02c0e824-20241028",
     "react-intersection-observer": "^9.13.1",
     "react-wrap-balancer": "^1.1.1",
-    "recharts": "^2.13.3",
+    "recharts": "^2.14.0",
     "sharp": "^0.33.5",
     "swr": "^2.2.6-beta.4",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
-    "typescript-eslint": "^8.16.0"
+    "typescript-eslint": "^8.17.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^15.0.3",
