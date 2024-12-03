@@ -1,6 +1,6 @@
 // @auto-i18n-check. Please do not delete the line.
-import { MotionProvider } from "@/components/motion/motion-provider";
 import { ThemeColorManager } from "@/components/ThemeColorManager";
+import { MotionProvider } from "@/components/motion/motion-provider";
 import getEnv from "@/lib/env-entry";
 import { FilterProvider } from "@/lib/network-filter-context";
 import { StatusProvider } from "@/lib/status-context";

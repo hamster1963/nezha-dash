@@ -62,7 +62,7 @@ jobs:
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: "latest"
-      
+
       - name: Changelog
         run: bun x changelogithub
         env:

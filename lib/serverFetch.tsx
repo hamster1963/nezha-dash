@@ -44,6 +44,8 @@ export async function GetNezhaData() {
       offline_servers: 0,
       total_out_bandwidth: 0,
       total_in_bandwidth: 0,
+      total_in_speed: 0,
+      total_out_speed: 0,
       result: [],
     };
 
@@ -66,6 +68,8 @@ export async function GetNezhaData() {
 
         data.total_out_bandwidth += element.status.NetOutTransfer;
         data.total_in_bandwidth += element.status.NetInTransfer;
+        data.total_in_speed += element.status.NetInSpeed;
+        data.total_out_speed += element.status.NetOutSpeed;
 
         // Remove unwanted properties
         delete element.ipv4;

@@ -4,6 +4,7 @@
     "p_1610-1676_Onlineservers": "Online servers",
     "p_2532-2599_Offlineservers": "Offline servers",
     "p_3463-3530_Totalbandwidth": "Total bandwidth",
+    "speed": "speed",
     "error_message": "Please check your environment variables and review the server console",
     "no_data_message": "No data"
   },

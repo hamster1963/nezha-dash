@@ -4,6 +4,7 @@
     "p_1610-1676_Onlineservers": "オンラインサーバー",
     "p_2532-2599_Offlineservers": "オフラインサーバー",
     "p_3463-3530_Totalbandwidth": "総流量",
+    "speed": "速度",
     "error_message": "環境変数を確認し、サーバーコンソールを確認してください",
     "no_data_message": "データなし"
   },
