@@ -5,8 +5,6 @@ import { Suspense } from "react";
 import ServerGlobal from "./ClientComponents/Global";
 import GlobalLoading from "./ClientComponents/GlobalLoading";
 
-export const runtime = "edge";
-
 export default async function Home({
   searchParams,
 }: {
