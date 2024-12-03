@@ -49,9 +49,12 @@ export default function ServerOverviewClient() {
               setStatus("all");
             }
           }}
-          className={cn("cursor-pointer hover:border-blue-500 transition-all", {
-            "pointer-events-none": global,
-          })}
+          className={cn(
+            "cursor-pointer hover:border-blue-500 transition-all min-h-[94px]",
+            {
+              "pointer-events-none": global,
+            },
+          )}
         >
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
@@ -83,7 +86,7 @@ export default function ServerOverviewClient() {
             }
           }}
           className={cn(
-            "cursor-pointer hover:ring-green-500 ring-1 ring-transparent transition-all",
+            "cursor-pointer hover:ring-green-500 ring-1 ring-transparent transition-all min-h-[94px]",
             {
               "ring-green-500 ring-2 border-transparent": status === "online",
             },
@@ -123,7 +126,7 @@ export default function ServerOverviewClient() {
             }
           }}
           className={cn(
-            "cursor-pointer hover:ring-red-500 ring-1 ring-transparent transition-all",
+            "cursor-pointer hover:ring-red-500 ring-1 ring-transparent transition-all min-h-[94px]",
             {
               "ring-red-500 ring-2 border-transparent": status === "offline",
             },
@@ -163,7 +166,7 @@ export default function ServerOverviewClient() {
             }
           }}
           className={cn(
-            "cursor-pointer hover:ring-purple-500 ring-1 ring-transparent transition-all",
+            "cursor-pointer hover:ring-purple-500 ring-1 ring-transparent transition-all min-h-[94px]",
             {
               "ring-purple-500 ring-2 border-transparent": filter === true,
             },
