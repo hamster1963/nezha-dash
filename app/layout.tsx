@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: customTitle || "NezhaDash",
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
   },
   robots: {
     index: disableIndex ? false : true,
