@@ -175,7 +175,7 @@ export default function ServerOverviewClient() {
             },
           )}
         >
-          <CardContent className="flex h-full items-center relative px-6 py-3">
+          <CardContent className="flex h-full items-center relative px-3 py-1 pr-0 sm:px-6 sm:py-3">
             <section className="flex flex-col gap-1">
               <div className="flex items-center gap-1">
                 <p className="text-sm font-medium md:text-base">
@@ -187,14 +187,14 @@ export default function ServerOverviewClient() {
               {data?.result ? (
                 <>
                   <section className="flex flex-row sm:items-center items-start gap-1">
-                    <p className="sm:text-[12px] text-[10px]  text-nowrap font-semibold">
+                    <p className="sm:text-[12px] text-[10px] text-stone-400  text-nowrap font-medium">
                       ↑{formatBytes(data?.total_out_bandwidth)}
                     </p>
-                    <p className="sm:text-[12px] text-[10px]  text-nowrap font-semibold">
+                    <p className="sm:text-[12px] text-[10px] text-stone-400  text-nowrap font-medium">
                       ↓{formatBytes(data?.total_in_bandwidth)}
                     </p>
                   </section>
-                  <section className="flex flex-row  sm:items-center items-start gap-1">
+                  <section className="flex flex-row -mt-1 -mr-1 sm:items-center items-start gap-1">
                     <p className="sm:text-[12px]  text-[10px] text-nowrap font-semibold">
                       ↑{formatBytes(data?.total_out_speed)}/s
                     </p>
