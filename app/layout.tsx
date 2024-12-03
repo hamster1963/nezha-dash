@@ -1,5 +1,6 @@
 // @auto-i18n-check. Please do not delete the line.
 import { MotionProvider } from "@/components/motion/motion-provider";
+import { ThemeColorManager } from "@/components/ThemeColorManager";
 import getEnv from "@/lib/env-entry";
 import { FilterProvider } from "@/lib/network-filter-context";
 import { StatusProvider } from "@/lib/status-context";
@@ -81,7 +82,10 @@ export default async function LocaleLayout({
           >
             <NextIntlClientProvider messages={messages}>
               <FilterProvider>
-                <StatusProvider>{children}</StatusProvider>
+                <StatusProvider>
+                  <ThemeColorManager />
+                  {children}
+                </StatusProvider>
               </FilterProvider>
             </NextIntlClientProvider>
           </ThemeProvider>
