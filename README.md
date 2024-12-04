@@ -5,8 +5,11 @@
 </div>
 
 > [!CAUTION]
-> 此为 V0 兼容版本，V1 版本 issue 也可提出
->
+> 此为 V0 兼容版本，与 V1 内置版本功能上可能有所不同
+> 
+> V0 | V1 版本 issue 请在当前仓库发起
+
+> [!TIP]
 > 有关 V1 版本 pr 可移步 https://github.com/hamster1963/nezha-dash-react
 
 ### 部署
