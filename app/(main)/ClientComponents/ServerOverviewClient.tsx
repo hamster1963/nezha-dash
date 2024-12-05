@@ -24,6 +24,9 @@ export default function ServerOverviewClient() {
   const { data, error, isLoading } = useSWR<ServerApi>(
     "/api/server",
     nezhaFetcher,
+    {
+      refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 2000,
+    },
   );
   const disableCartoon = getEnv("NEXT_PUBLIC_DisableCartoon") === "true";
 
