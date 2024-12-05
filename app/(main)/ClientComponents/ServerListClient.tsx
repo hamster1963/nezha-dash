@@ -10,9 +10,15 @@ import { useStatus } from "@/lib/status-context";
 import { cn, nezhaFetcher } from "@/lib/utils";
 import { MapIcon, ViewColumnsIcon } from "@heroicons/react/20/solid";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
+
+import GlobalLoading from "./GlobalLoading";
+
+const ServerGlobal = dynamic(() => import("./Global"), {
+  loading: () => <GlobalLoading />,
+});
 
 export default function ServerListClient() {
   const { status } = useStatus();
@@ -20,9 +26,9 @@ export default function ServerListClient() {
   const t = useTranslations("ServerListClient");
   const containerRef = useRef<HTMLDivElement>(null);
   const defaultTag = "defaultTag";
-  const router = useRouter();
 
   const [tag, setTag] = useState<string>(defaultTag);
+  const [showMap, setShowMap] = useState<boolean>(false);
   const [inline, setInline] = useState<string>("0");
 
   useEffect(() => {
@@ -131,9 +137,14 @@ export default function ServerListClient() {
       <section className="flex items-center gap-2 w-full overflow-hidden">
         <button
           onClick={() => {
-            router.push(`/?global=true`);
+            setShowMap(!showMap);
           }}
-          className="rounded-[50px] text-white cursor-pointer [text-shadow:_0_1px_0_rgb(0_0_0_/_20%)] bg-blue-600 hover:bg-blue-500 p-[10px] transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[inset_0_1px_0_rgba(0,0,0,0.2)] "
+          className={cn(
+            "rounded-[50px] text-white cursor-pointer [text-shadow:_0_1px_0_rgb(0_0_0_/_20%)] bg-blue-600 p-[10px] transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]",
+            {
+              "shadow-[inset_0_1px_0_rgba(0,0,0,0.2)] bg-blue-500": showMap,
+            },
+          )}
         >
           <MapIcon className="size-[13px]" />
         </button>
@@ -161,6 +172,7 @@ export default function ServerListClient() {
           />
         )}
       </section>
+      {showMap && <ServerGlobal />}
       {inline === "1" && (
         <section
           ref={containerRef}

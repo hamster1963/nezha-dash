@@ -10,7 +10,7 @@
 > V0 | V1 版本 issue 请在当前仓库发起
 
 > [!TIP]
-> 有关 V1 版本 pr 可移步 https://github.com/hamster1963/nezha-dash-react
+> 有关 V1 版本 pr 可移步 https://github.com/hamster1963/nezha-dash-v1
 
 ### 部署
 
