@@ -14,7 +14,6 @@ import {
 } from "@heroicons/react/20/solid";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 
 export default function ServerOverviewClient() {
@@ -29,10 +28,6 @@ export default function ServerOverviewClient() {
     },
   );
   const disableCartoon = getEnv("NEXT_PUBLIC_DisableCartoon") === "true";
-
-  const searchParams = useSearchParams();
-
-  const global = searchParams.get("global");
 
   if (error) {
     return (
@@ -50,14 +45,10 @@ export default function ServerOverviewClient() {
       <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Card
           onClick={() => {
-            if (!global) {
-              setFilter(false);
-              setStatus("all");
-            }
+            setFilter(false);
+            setStatus("all");
           }}
-          className={cn("cursor-pointer hover:border-blue-500 transition-all", {
-            "pointer-events-none": global,
-          })}
+          className={cn("cursor-pointer hover:border-blue-500 transition-all")}
         >
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
@@ -83,18 +74,13 @@ export default function ServerOverviewClient() {
         </Card>
         <Card
           onClick={() => {
-            if (!global) {
-              setFilter(false);
-              setStatus("online");
-            }
+            setFilter(false);
+            setStatus("online");
           }}
           className={cn(
             "cursor-pointer hover:ring-green-500 ring-1 ring-transparent transition-all",
             {
               "ring-green-500 ring-2 border-transparent": status === "online",
-            },
-            {
-              "pointer-events-none": global,
             },
           )}
         >
@@ -123,18 +109,13 @@ export default function ServerOverviewClient() {
         </Card>
         <Card
           onClick={() => {
-            if (!global) {
-              setFilter(false);
-              setStatus("offline");
-            }
+            setFilter(false);
+            setStatus("offline");
           }}
           className={cn(
             "cursor-pointer hover:ring-red-500 ring-1 ring-transparent transition-all",
             {
               "ring-red-500 ring-2 border-transparent": status === "offline",
-            },
-            {
-              "pointer-events-none": global,
             },
           )}
         >
@@ -163,18 +144,13 @@ export default function ServerOverviewClient() {
         </Card>
         <Card
           onClick={() => {
-            if (!global) {
-              setStatus("all");
-              setFilter(true);
-            }
+            setStatus("all");
+            setFilter(true);
           }}
           className={cn(
             "cursor-pointer hover:ring-purple-500 ring-1 ring-transparent transition-all",
             {
               "ring-purple-500 ring-2 border-transparent": filter === true,
-            },
-            {
-              "pointer-events-none": global,
             },
           )}
         >
