@@ -202,9 +202,7 @@ export default function ServerOverviewClient() {
                     </p>
                     <p className="text-[11px] flex items-center  text-nowrap font-semibold">
                       <ArrowDownCircleIcon className="size-3 mr-0.5" />
-                      {formatBytes(
-                        data?.total_in_speed,
-                      )}/s
+                      {formatBytes(data?.total_in_speed)}/s
                     </p>
                   </section>
                 </>

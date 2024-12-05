@@ -1,11 +1,30 @@
-import { GetNezhaData } from "@/lib/serverFetch";
+"use client";
+
+import { ServerApi } from "@/app/types/nezha-api";
+import { nezhaFetcher } from "@/lib/utils";
+import useSWR from "swr";
 
 import { geoJsonString } from "../../../lib/geo-json-string";
 import GlobalInfo from "./GlobalInfo";
+import GlobalLoading from "./GlobalLoading";
 import { InteractiveMap } from "./InteractiveMap";
 
-export default async function ServerGlobal() {
-  const nezhaServerList = await GetNezhaData();
+export default function ServerGlobal() {
+  const { data: nezhaServerList, error } = useSWR<ServerApi>(
+    "/api/server",
+    nezhaFetcher,
+  );
+
+  if (error)
+    return (
+      <div className="flex flex-col items-center justify-center">
+        <p className="text-sm font-medium opacity-40">{error.message}</p>
+      </div>
+    );
+
+  if (!nezhaServerList) {
+    return <GlobalLoading />;
+  }
 
   const countryList: string[] = [];
   const serverCounts: { [key: string]: number } = {};
