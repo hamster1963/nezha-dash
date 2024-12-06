@@ -12,6 +12,8 @@ import { cn, formatBytes, formatNezhaInfo } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
+import { Separator } from "./ui/separator";
+
 export default function ServerCardInline({
   serverInfo,
 }: {
@@ -35,7 +37,7 @@ export default function ServerCardInline({
         )}
       >
         <section
-          className={cn("grid items-center gap-2 w-40")}
+          className={cn("grid items-center gap-2 lg:w-36")}
           style={{ gridTemplateColumns: "auto auto 1fr" }}
         >
           <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
@@ -47,7 +49,7 @@ export default function ServerCardInline({
           >
             {showFlag ? <ServerFlag country_code={country_code} /> : null}
           </div>
-          <div className="relative">
+          <div className="relative w-28">
             <p
               className={cn(
                 "break-all font-bold tracking-tight",
@@ -58,6 +60,7 @@ export default function ServerCardInline({
             </p>
           </div>
         </section>
+        <Separator orientation="vertical" className="h-8 mx-0 ml-2" />
         <div className="flex flex-col gap-2">
           <section className={cn("grid grid-cols-9 items-center gap-3 flex-1")}>
             <div
@@ -161,7 +164,7 @@ export default function ServerCardInline({
         >
           {showFlag ? <ServerFlag country_code={country_code} /> : null}
         </div>
-        <div className="relative">
+        <div className="relative w-28">
           <p
             className={cn(
               "break-all font-bold tracking-tight",
