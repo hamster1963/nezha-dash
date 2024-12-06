@@ -17,6 +17,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import getEnv from "@/lib/env-entry";
 import { formatTime, nezhaFetcher } from "@/lib/utils";
 import { formatRelativeTime } from "@/lib/utils";
@@ -28,7 +30,7 @@ import useSWR from "swr";
 
 interface ResultItem {
   created_at: number;
-  [key: string]: number | null;
+  [key: string]: number;
 }
 
 export function NetworkChartClient({
@@ -106,6 +108,7 @@ export const NetworkChart = React.memo(function NetworkChart({
   const defaultChart = "All";
 
   const [activeChart, setActiveChart] = React.useState(defaultChart);
+  const [isPeakEnabled, setIsPeakEnabled] = React.useState(false);
 
   const handleButtonClick = useCallback(
     (chart: string) => {
@@ -169,6 +172,63 @@ export const NetworkChart = React.memo(function NetworkChart({
     ));
   }, [activeChart, defaultChart, chartDataKey, getColorByIndex]);
 
+  const processedData = useMemo(() => {
+    if (!isPeakEnabled) {
+      return activeChart === defaultChart
+        ? formattedData
+        : chartData[activeChart];
+    }
+
+    // 如果开启了削峰，对数据进行处理
+    const data = (
+      activeChart === defaultChart ? formattedData : chartData[activeChart]
+    ) as ResultItem[];
+    const windowSize = 7; // 增加到7个点的移动平均
+    const weights = [0.1, 0.1, 0.15, 0.3, 0.15, 0.1, 0.1]; // 加权平均的权重
+
+    return data.map((point, index) => {
+      if (index < windowSize - 1) return point;
+
+      const window = data.slice(index - windowSize + 1, index + 1);
+      const smoothed = { ...point } as ResultItem;
+
+      if (activeChart === defaultChart) {
+        // 处理所有线路的数据
+        chartDataKey.forEach((key) => {
+          const values = window
+            .map((w) => w[key])
+            .filter((v) => v !== undefined && v !== null) as number[];
+          if (values.length === windowSize) {
+            smoothed[key] = values.reduce(
+              (acc, val, idx) => acc + val * weights[idx],
+              0,
+            );
+          }
+        });
+      } else {
+        // 处理单条线路的数据
+        const values = window
+          .map((w) => w.avg_delay)
+          .filter((v) => v !== undefined && v !== null) as number[];
+        if (values.length === windowSize) {
+          smoothed.avg_delay = values.reduce(
+            (acc, val, idx) => acc + val * weights[idx],
+            0,
+          );
+        }
+      }
+
+      return smoothed;
+    });
+  }, [
+    isPeakEnabled,
+    activeChart,
+    formattedData,
+    chartData,
+    chartDataKey,
+    defaultChart,
+  ]);
+
   return (
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 p-0 sm:flex-row">
@@ -179,6 +239,16 @@ export const NetworkChart = React.memo(function NetworkChart({
           <CardDescription className="text-xs">
             {chartDataKey.length} {t("ServerMonitorCount")}
           </CardDescription>
+          <div className="flex items-center mt-0.5 space-x-2">
+            <Switch
+              id="Peak"
+              checked={isPeakEnabled}
+              onCheckedChange={setIsPeakEnabled}
+            />
+            <Label className="text-xs" htmlFor="Peak">
+              Peak cut
+            </Label>
+          </div>
         </div>
         <div className="flex flex-wrap w-full">{chartButtons}</div>
       </CardHeader>
@@ -189,11 +259,7 @@ export const NetworkChart = React.memo(function NetworkChart({
         >
           <LineChart
             accessibilityLayer
-            data={
-              activeChart === defaultChart
-                ? formattedData
-                : chartData[activeChart]
-            }
+            data={processedData}
             margin={{ left: 12, right: 12 }}
           >
             <CartesianGrid vertical={false} />
@@ -276,6 +342,7 @@ const formatData = (rawData: NezhaAPIMonitor[]) => {
       }
 
       const timeIndex = created_at.indexOf(time);
+      // @ts-expect-error - avg_delay is an array
       result[time][monitor_name] =
         timeIndex !== -1 ? avg_delay[timeIndex] : null;
     });
