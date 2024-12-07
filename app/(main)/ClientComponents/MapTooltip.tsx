@@ -23,7 +23,7 @@ const MapTooltip = memo(function MapTooltip() {
         style={{
           left: tooltipData.centroid[0],
           top: tooltipData.centroid[1],
-          transform: "translate(-50%, -50%)",
+          transform: "translate(10%, -50%)",
         }}
         onMouseEnter={(e) => {
           e.stopPropagation();
