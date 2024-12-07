@@ -8,6 +8,7 @@ import { geoJsonString } from "../../../lib/geo-json-string";
 import GlobalInfo from "./GlobalInfo";
 import GlobalLoading from "./GlobalLoading";
 import { InteractiveMap } from "./InteractiveMap";
+import { TooltipProvider } from "./TooltipContext";
 
 export default function ServerGlobal() {
   const { data: nezhaServerList, error } = useSWR<ServerApi>(
@@ -51,13 +52,16 @@ export default function ServerGlobal() {
     <section className="flex flex-col gap-4 mt-[3.2px]">
       <GlobalInfo countries={countryList} />
       <div className="w-full overflow-x-auto">
-        <InteractiveMap
-          countries={countryList}
-          serverCounts={serverCounts}
-          width={width}
-          height={height}
-          filteredFeatures={filteredFeatures}
-        />
+        <TooltipProvider>
+          <InteractiveMap
+            countries={countryList}
+            serverCounts={serverCounts}
+            width={width}
+            height={height}
+            filteredFeatures={filteredFeatures}
+            nezhaServerList={nezhaServerList}
+          />
+        </TooltipProvider>
       </div>
     </section>
   );

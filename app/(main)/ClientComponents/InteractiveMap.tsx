@@ -2,9 +2,10 @@
 
 import { countryCoordinates } from "@/lib/geo-limit";
 import { geoEquirectangular, geoPath } from "d3-geo";
-import { AnimatePresence, m } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+
+import MapTooltip from "./MapTooltip";
+import { useTooltip } from "./TooltipContext";
 
 interface InteractiveMapProps {
   countries: string[];
@@ -12,6 +13,7 @@ interface InteractiveMapProps {
   width: number;
   height: number;
   filteredFeatures: any[];
+  nezhaServerList: any;
 }
 
 export function InteractiveMap({
@@ -20,14 +22,10 @@ export function InteractiveMap({
   width,
   height,
   filteredFeatures,
+  nezhaServerList,
 }: InteractiveMapProps) {
   const t = useTranslations("Global");
-
-  const [tooltipData, setTooltipData] = useState<{
-    centroid: [number, number];
-    country: string;
-    count: number;
-  } | null>(null);
+  const { setTooltipData } = useTooltip();
 
   const projection = geoEquirectangular()
     .scale(140)
@@ -37,7 +35,10 @@ export function InteractiveMap({
   const path = geoPath().projection(projection);
 
   return (
-    <div className="relative w-full aspect-[2/1]">
+    <div
+      className="relative w-full aspect-[2/1]"
+      onMouseLeave={() => setTooltipData(null)}
+    >
       <svg
         width={width}
         height={height}
@@ -51,6 +52,15 @@ export function InteractiveMap({
           </pattern>
         </defs>
         <g>
+          {/* Background rect to handle mouse events in empty areas */}
+          <rect
+            x="0"
+            y="0"
+            width={width}
+            height={height}
+            fill="transparent"
+            onMouseEnter={() => setTooltipData(null)}
+          />
           {filteredFeatures.map((feature, index) => {
             const isHighlighted = countries.includes(
               feature.properties.iso_a2_eh,
@@ -72,15 +82,30 @@ export function InteractiveMap({
                     : "fill-neutral-200/50 dark:fill-neutral-800 stroke-neutral-300/40 dark:stroke-neutral-700 stroke-[0.5]"
                 }
                 onMouseEnter={() => {
-                  if (isHighlighted && path.centroid(feature)) {
+                  if (!isHighlighted) {
+                    setTooltipData(null);
+                    return;
+                  }
+                  if (path.centroid(feature)) {
+                    const countryCode = feature.properties.iso_a2_eh;
+                    const countryServers = nezhaServerList.result
+                      .filter(
+                        (server: any) =>
+                          server.host.CountryCode?.toUpperCase() ===
+                          countryCode,
+                      )
+                      .map((server: any) => ({
+                        name: server.name,
+                        status: server.online_status,
+                      }));
                     setTooltipData({
                       centroid: path.centroid(feature),
                       country: feature.properties.name,
                       count: serverCount,
+                      servers: countryServers,
                     });
                   }
                 }}
-                onMouseLeave={() => setTooltipData(null)}
               />
             );
           })}
@@ -107,13 +132,22 @@ export function InteractiveMap({
               <g
                 key={countryCode}
                 onMouseEnter={() => {
+                  const countryServers = nezhaServerList.result
+                    .filter(
+                      (server: any) =>
+                        server.host.CountryCode?.toUpperCase() === countryCode,
+                    )
+                    .map((server: any) => ({
+                      name: server.name,
+                      status: server.online_status,
+                    }));
                   setTooltipData({
                     centroid: [x, y],
                     country: coords.name,
                     count: serverCount,
+                    servers: countryServers,
                   });
                 }}
-                onMouseLeave={() => setTooltipData(null)}
                 className="cursor-pointer"
               >
                 <circle
@@ -127,30 +161,7 @@ export function InteractiveMap({
           })}
         </g>
       </svg>
-      <AnimatePresence mode="wait">
-        {tooltipData && (
-          <m.div
-            initial={{ opacity: 0, filter: "blur(10px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            className="absolute hidden lg:block pointer-events-none bg-white dark:bg-neutral-800 px-2 py-1 rounded shadow-lg text-sm dark:border dark:border-neutral-700"
-            key={tooltipData.country}
-            style={{
-              left: tooltipData.centroid[0],
-              top: tooltipData.centroid[1],
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            <p className="font-medium">
-              {tooltipData.country === "China"
-                ? "Mainland China"
-                : tooltipData.country}
-            </p>
-            <p className="text-neutral-600 dark:text-neutral-400">
-              {tooltipData.count} {t("Servers")}
-            </p>
-          </m.div>
-        )}
-      </AnimatePresence>
+      <MapTooltip />
     </div>
   );
 }
