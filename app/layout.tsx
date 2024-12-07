@@ -60,11 +60,11 @@ export default async function LocaleLayout({
         <PublicEnvScript />
         <link
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"
+          href="https://fastly.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"
         />
         <link
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/font-logos@1/assets/font-logos.css"
+          href="https://fastly.jsdelivr.net/npm/font-logos@1/assets/font-logos.css"
         />
       </head>
       <body
