@@ -2,7 +2,6 @@
 
 import { countryCoordinates } from "@/lib/geo-limit";
 import { geoEquirectangular, geoPath } from "d3-geo";
-import { useTranslations } from "next-intl";
 
 import MapTooltip from "./MapTooltip";
 import { useTooltip } from "./TooltipContext";
@@ -24,7 +23,6 @@ export function InteractiveMap({
   filteredFeatures,
   nezhaServerList,
 }: InteractiveMapProps) {
-  const t = useTranslations("Global");
   const { setTooltipData } = useTooltip();
 
   const projection = geoEquirectangular()
