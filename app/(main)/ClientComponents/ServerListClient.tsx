@@ -34,7 +34,6 @@ export default function ServerListClient() {
   useEffect(() => {
     const inlineState = localStorage.getItem("inline");
     if (inlineState !== null) {
-      console.log("inlineState", inlineState);
       setInline(inlineState);
     }
   }, []);
