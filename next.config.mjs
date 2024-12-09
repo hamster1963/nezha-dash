@@ -22,6 +22,9 @@ const withPWA = withPWAInit({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    inlineCss: true,
+  },
   output: "standalone",
   logging: {
     fetches: {
