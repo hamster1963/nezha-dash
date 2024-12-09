@@ -12,6 +12,10 @@ const MapTooltip = memo(function MapTooltip() {
 
   if (!tooltipData) return null;
 
+  const sortedServers = tooltipData.servers.sort((a, b) => {
+    return a.status === b.status ? 0 : a.status ? 1 : -1;
+  });
+
   return (
     <AnimatePresence mode="wait">
       <m.div
@@ -46,7 +50,7 @@ const MapTooltip = memo(function MapTooltip() {
             overflowY: "auto",
           }}
         >
-          {tooltipData.servers.map((server, index) => (
+          {sortedServers.map((server, index) => (
             <div key={index} className="flex items-center gap-1.5 py-0.5">
               <span
                 className={`w-1.5 h-1.5 shrink-0 rounded-full ${

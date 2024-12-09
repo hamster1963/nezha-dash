@@ -64,10 +64,6 @@ export function InteractiveMap({
               feature.properties.iso_a2_eh,
             );
 
-            if (isHighlighted) {
-              console.log(feature.properties.iso_a2_eh);
-            }
-
             const serverCount = serverCounts[feature.properties.iso_a2_eh] || 0;
 
             return (
