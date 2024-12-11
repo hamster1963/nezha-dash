@@ -17,10 +17,9 @@ export default function Page(props: { params: Promise<{ id: string }> }) {
     const updateViews = async () => {
       const ipInfo = await GetIPInfo({ server_id: params.id });
       console.log(ipInfo);
-    }
-    updateViews()
-  }, [])
-
+    };
+    updateViews();
+  }, []);
 
   return (
     <div className="mx-auto grid w-full max-w-5xl gap-2">

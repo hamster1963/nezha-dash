@@ -130,8 +130,11 @@ export async function GetServerMonitor({ server_id }: { server_id: number }) {
   }
 }
 
-
-export async function GetServerIP({ server_id }: { server_id: number }): Promise<string> {
+export async function GetServerIP({
+  server_id,
+}: {
+  server_id: number;
+}): Promise<string> {
   let nezhaBaseUrl = getEnv("NezhaBaseUrl");
   if (!nezhaBaseUrl) {
     console.error("NezhaBaseUrl is not set");
@@ -176,10 +179,7 @@ export async function GetServerIP({ server_id }: { server_id: number }): Promise
     console.error("GetNezhaData error:", error);
     throw error; // Rethrow the error to be caught by the caller
   }
-
 }
-
-
 
 export async function GetServerDetail({ server_id }: { server_id: number }) {
   let nezhaBaseUrl = getEnv("NezhaBaseUrl");
