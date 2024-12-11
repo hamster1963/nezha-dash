@@ -14,18 +14,16 @@ import {
 } from "@heroicons/react/20/solid";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 
 export default function ServerOverviewClient() {
   const { status, setStatus } = useStatus();
   const { filter, setFilter } = useFilter();
   const t = useTranslations("ServerOverviewClient");
-  const { data, error, isLoading } = useSWR<ServerApi>(
+
+  const { data, error, isLoading } = useSWRImmutable<ServerApi>(
     "/api/server",
     nezhaFetcher,
-    {
-      refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 2000,
-    },
   );
   const disableCartoon = getEnv("NEXT_PUBLIC_DisableCartoon") === "true";
 

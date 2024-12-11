@@ -2,7 +2,7 @@
 
 import { ServerApi } from "@/app/types/nezha-api";
 import { nezhaFetcher } from "@/lib/utils";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 
 import { geoJsonString } from "../../../lib/geo-json-string";
 import GlobalInfo from "./GlobalInfo";
@@ -11,7 +11,7 @@ import { InteractiveMap } from "./InteractiveMap";
 import { TooltipProvider } from "./TooltipContext";
 
 export default function ServerGlobal() {
-  const { data: nezhaServerList, error } = useSWR<ServerApi>(
+  const { data: nezhaServerList, error } = useSWRImmutable<ServerApi>(
     "/api/server",
     nezhaFetcher,
   );
