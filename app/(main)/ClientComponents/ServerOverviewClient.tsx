@@ -48,7 +48,9 @@ export default function ServerOverviewClient() {
             setFilter(false);
             setStatus("all");
           }}
-          className={cn("cursor-pointer hover:border-blue-500 transition-all")}
+          className={cn(
+            "cursor-pointer hover:border-blue-500 transition-all group",
+          )}
         >
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
@@ -148,7 +150,7 @@ export default function ServerOverviewClient() {
             setFilter(true);
           }}
           className={cn(
-            "cursor-pointer hover:ring-purple-500 ring-1 ring-transparent transition-all",
+            "cursor-pointer hover:ring-purple-500 ring-1 ring-transparent transition-all group",
             {
               "ring-purple-500 ring-2 border-transparent": filter === true,
             },
@@ -190,7 +192,7 @@ export default function ServerOverviewClient() {
             </section>
             {!disableCartoon && (
               <Image
-                className="pointer-events-none absolute right-3 top-[-85px] z-10 w-20 scale-90 md:scale-100"
+                className="absolute right-3 top-[-85px] z-10 w-20 scale-90 group-hover:opacity-50 md:scale-100 transition-all"
                 alt={"Hamster1963"}
                 src={blogMan}
                 priority
