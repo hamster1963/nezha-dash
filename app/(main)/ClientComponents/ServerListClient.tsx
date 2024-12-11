@@ -17,6 +17,7 @@ import useSWR from "swr";
 import GlobalLoading from "./GlobalLoading";
 
 const ServerGlobal = dynamic(() => import("./Global"), {
+  ssr: false,
   loading: () => <GlobalLoading />,
 });
 
