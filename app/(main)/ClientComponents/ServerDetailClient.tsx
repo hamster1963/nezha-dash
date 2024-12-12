@@ -60,6 +60,7 @@ export default function ServerDetailClient({
     nezhaFetcher,
     {
       refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 5000,
+      dedupingInterval: 1000,
       fallbackData,
       revalidateOnMount: false,
       revalidateIfStale: false,

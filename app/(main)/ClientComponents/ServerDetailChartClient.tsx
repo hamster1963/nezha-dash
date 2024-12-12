@@ -5,7 +5,6 @@ import { NezhaAPISafe, ServerApi } from "@/app/types/nezha-api";
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-import getEnv from "@/lib/env-entry";
 import {
   formatBytes,
   formatNezhaInfo,
@@ -23,7 +22,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
 
 type cpuChartData = {
@@ -61,7 +59,6 @@ type connectChartData = {
 
 export default function ServerDetailChartClient({
   server_id,
-  show,
 }: {
   server_id: number;
   show: boolean;
@@ -76,15 +73,11 @@ export default function ServerDetailChartClient({
     (item) => item.id === server_id,
   );
 
-  const { data, error } = useSWR<NezhaAPISafe>(
+  const { data, error } = useSWRImmutable<NezhaAPISafe>(
     `/api/detail?server_id=${server_id}`,
     nezhaFetcher,
     {
-      refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 5000,
-      isVisible: () => show,
       fallbackData,
-      revalidateOnMount: false,
-      revalidateIfStale: false,
     },
   );
 
