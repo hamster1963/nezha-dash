@@ -5,7 +5,7 @@ import ServerDetailChartClient from "@/app/(main)/ClientComponents/ServerDetailC
 import ServerDetailClient from "@/app/(main)/ClientComponents/ServerDetailClient";
 import TabSwitch from "@/components/TabSwitch";
 import { Separator } from "@/components/ui/separator";
-import { use, useEffect, useState } from "react";
+import { use, useState } from "react";
 
 import ServerIPInfo from "../../ClientComponents/ServerIPInfo";
 
