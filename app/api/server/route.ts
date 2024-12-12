@@ -6,6 +6,8 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
+export const runtime = 'edge';
+
 interface ResError extends Error {
   statusCode: number;
   message: string;

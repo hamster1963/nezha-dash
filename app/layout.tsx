@@ -15,6 +15,8 @@ import { ThemeProvider } from "next-themes";
 import { Inter as FontSans } from "next/font/google";
 import React from "react";
 
+export const runtime = 'edge';
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",

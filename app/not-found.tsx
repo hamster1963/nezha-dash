@@ -4,6 +4,8 @@ import Link from "next/link";
 import Footer from "./(main)/footer";
 import Header from "./(main)/header";
 
+export const runtime = 'edge';
+
 export default function NotFoundPage() {
   const t = useTranslations("NotFoundPage");
   return (
