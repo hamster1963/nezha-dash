@@ -16,13 +16,11 @@ export default function Footer() {
           >
             {t("a_303-585_GitHub")}
           </a>
-          <a
-            href={`https://github.com/hamster1963/nezha-dash/releases/tag/v${version}`}
-            target="_blank"
-            className="cursor-pointer font-normal underline decoration-yellow-500 hover:decoration-yellow-600 transition-colors decoration-2 underline-offset-2 dark:decoration-yellow-500/60 dark:hover:decoration-yellow-500/80"
+          <p
+            className="font-normal"
           >
-            v{version}
-          </a>
+            {version}
+          </p>
         </p>
         <section className="mt-1 flex items-center gap-2 text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50">
           {t("section_607-869_2020")}
