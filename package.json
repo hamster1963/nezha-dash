@@ -1,6 +1,6 @@
 {
   "name": "nezha-dash",
-  "version": "1.7.6",
+  "version": "1.8.0",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3040",
@@ -42,7 +42,7 @@
     "maxmind": "^4.3.23",
     "next": "^15.1.0",
     "next-auth": "^5.0.0-beta.25",
-    "next-intl": "^3.26.0",
+    "next-intl": "^3.26.1",
     "next-runtime-env": "^3.2.2",
     "next-themes": "^0.4.4",
     "react": "^19.0.0",
@@ -60,7 +60,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^15.1.0",
     "@tailwindcss/postcss": "^4.0.0-beta.6",
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.10.2",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "eslint": "^9.16.0",
