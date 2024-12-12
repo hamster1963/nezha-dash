@@ -5,7 +5,10 @@ import ServerDetailChartClient from "@/app/(main)/ClientComponents/ServerDetailC
 import ServerDetailClient from "@/app/(main)/ClientComponents/ServerDetailClient";
 import TabSwitch from "@/components/TabSwitch";
 import { Separator } from "@/components/ui/separator";
+import getEnv from "@/lib/env-entry";
 import { use, useState } from "react";
+
+import ServerIPInfo from "../../ClientComponents/ServerIPInfo";
 
 export default function Page(props: { params: Promise<{ id: string }> }) {
   const params = use(props.params);
@@ -32,6 +35,9 @@ export default function Page(props: { params: Promise<{ id: string }> }) {
         />
       </div>
       <div style={{ display: currentTab === tabs[1] ? "block" : "none" }}>
+        {getEnv("NEXT_PUBLIC_ShowIpInfo") && (
+          <ServerIPInfo server_id={Number(params.id)} />
+        )}
         <NetworkChartClient
           server_id={Number(params.id)}
           show={currentTab === tabs[1]}
