@@ -5,25 +5,18 @@ import ServerDetailChartClient from "@/app/(main)/ClientComponents/ServerDetailC
 import ServerDetailClient from "@/app/(main)/ClientComponents/ServerDetailClient";
 import TabSwitch from "@/components/TabSwitch";
 import { Separator } from "@/components/ui/separator";
-import GetIPInfo from "@/lib/GetIPInfo";
 import { use, useEffect, useState } from "react";
+
+import ServerIPInfo from "../../ClientComponents/ServerIPInfo";
 
 export default function Page(props: { params: Promise<{ id: string }> }) {
   const params = use(props.params);
   const tabs = ["Detail", "Network"];
   const [currentTab, setCurrentTab] = useState(tabs[0]);
-
-  useEffect(() => {
-    const updateViews = async () => {
-      const ipInfo = await GetIPInfo({ server_id: params.id });
-      console.log(ipInfo);
-    };
-    updateViews();
-  }, []);
-
   return (
     <div className="mx-auto grid w-full max-w-5xl gap-2">
       <ServerDetailClient server_id={Number(params.id)} />
+      <ServerIPInfo server_id={Number(params.id)} />
       <section className="flex items-center my-2 w-full">
         <Separator className="flex-1" />
         <div className="flex justify-center w-full max-w-[200px]">
