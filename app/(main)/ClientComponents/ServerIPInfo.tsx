@@ -4,9 +4,12 @@ import { IPInfo } from "@/app/api/server-ip/route";
 import { Loader } from "@/components/loading/Loader";
 import { Card, CardContent } from "@/components/ui/card";
 import { nezhaFetcher } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import useSWRImmutable from "swr/immutable";
 
 export default function ServerIPInfo({ server_id }: { server_id: number }) {
+  const t = useTranslations("IPInfo");
+
   const { data } = useSWRImmutable<IPInfo>(
     `/api/server-ip?server_id=${server_id}`,
     nezhaFetcher,
@@ -36,7 +39,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
         <Card className="rounded-[10px] bg-transparent border-none shadow-none">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
-              <p className="text-xs text-muted-foreground">{"Origin ASN"}</p>
+              <p className="text-xs text-muted-foreground">{t("asn_number")}</p>
               <div className="text-xs">
                 AS{data.asn.autonomous_system_number}
               </div>
@@ -47,7 +50,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
               <p className="text-xs text-muted-foreground">
-                {"Registered Country"}
+                {t("registered_country")}
               </p>
               <div className="text-xs">
                 {data.city.registered_country?.names.en}
@@ -55,24 +58,6 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
             </section>
           </CardContent>
         </Card>
-        <Card className="rounded-[10px] bg-transparent border-none shadow-none">
-          <CardContent className="px-1.5 py-1">
-            <section className="flex flex-col items-start gap-0.5">
-              <p className="text-xs text-muted-foreground">{"Time Zone"}</p>
-              <div className="text-xs">{data.city.location?.time_zone}</div>
-            </section>
-          </CardContent>
-        </Card>
-        {data.city.postal && (
-          <Card className="rounded-[10px] bg-transparent border-none shadow-none">
-            <CardContent className="px-1.5 py-1">
-              <section className="flex flex-col items-start gap-0.5">
-                <p className="text-xs text-muted-foreground">{"Postal"}</p>
-                <div className="text-xs">{data.city.postal?.code}</div>
-              </section>
-            </CardContent>
-          </Card>
-        )}
         <Card className="rounded-[10px] bg-transparent border-none shadow-none">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
@@ -84,7 +69,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
         <Card className="rounded-[10px] bg-transparent border-none shadow-none">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
-              <p className="text-xs text-muted-foreground">{"City"}</p>
+              <p className="text-xs text-muted-foreground">{t("city")}</p>
               <div className="text-xs">{data.city.city?.names.en}</div>
             </section>
           </CardContent>
@@ -92,7 +77,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
         <Card className="rounded-[10px] bg-transparent border-none shadow-none">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
-              <p className="text-xs text-muted-foreground">{"Longitude"}</p>
+              <p className="text-xs text-muted-foreground">{t("longitude")}</p>
               <div className="text-xs">{data.city.location?.longitude}</div>
             </section>
           </CardContent>
@@ -100,11 +85,31 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
         <Card className="rounded-[10px] bg-transparent border-none shadow-none">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
-              <p className="text-xs text-muted-foreground">{"Latitude"}</p>
+              <p className="text-xs text-muted-foreground">{t("latitude")}</p>
               <div className="text-xs">{data.city.location?.latitude}</div>
             </section>
           </CardContent>
         </Card>
+        <Card className="rounded-[10px] bg-transparent border-none shadow-none">
+          <CardContent className="px-1.5 py-1">
+            <section className="flex flex-col items-start gap-0.5">
+              <p className="text-xs text-muted-foreground">{t("time_zone")}</p>
+              <div className="text-xs">{data.city.location?.time_zone}</div>
+            </section>
+          </CardContent>
+        </Card>
+        {data.city.postal && (
+          <Card className="rounded-[10px] bg-transparent border-none shadow-none">
+            <CardContent className="px-1.5 py-1">
+              <section className="flex flex-col items-start gap-0.5">
+                <p className="text-xs text-muted-foreground">
+                  {t("postal_code")}
+                </p>
+                <div className="text-xs">{data.city.postal?.code}</div>
+              </section>
+            </CardContent>
+          </Card>
+        )}
       </section>
     </>
   );

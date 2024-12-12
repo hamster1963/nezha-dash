@@ -55,6 +55,15 @@
     "avg_delay": "遅延",
     "chart_fetch_error_message": "ネットワークデータの取得に失敗しました。サーバーの監視が有効になっているかどうかを確認してください"
   },
+  "IPInfo": {
+    "asn_number": "ASN",
+    "registered_country": "Registered Country",
+    "time_zone": "時刻",
+    "postal_code": "郵便番号",
+    "city": "都市",
+    "longitude": "経度",
+    "latitude": "緯度"
+  },
   "NetworkChart": {
     "ServerMonitorCount": "サービス"
   },

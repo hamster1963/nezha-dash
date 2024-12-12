@@ -55,6 +55,15 @@
     "avg_delay": "延遲",
     "chart_fetch_error_message": "獲取網絡數據失敗，請檢查是否開啟服務端監控"
   },
+  "IPInfo": {
+    "asn_number": "ASN Number",
+    "registered_country": "注册地區",
+    "time_zone": "時區",
+    "postal_code": "郵遞區號",
+    "city": "城市",
+    "longitude": "經度",
+    "latitude": "緯度"
+  },
   "NetworkChart": {
     "ServerMonitorCount": "個監測服務"
   },

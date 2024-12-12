@@ -58,6 +58,15 @@
   "NetworkChart": {
     "ServerMonitorCount": "个监控服务"
   },
+  "IPInfo": {
+    "asn_number": "ASN 编号",
+    "registered_country": "注册地",
+    "time_zone": "时区",
+    "postal_code": "邮政编码",
+    "city": "城市",
+    "longitude": "经度",
+    "latitude": "纬度"
+  },
   "ServerDetailClient": {
     "detail_fetch_error_message": "获取服务器详情失败,请检查您的环境变量并检查服务器控制台",
     "status": "状态",

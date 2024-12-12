@@ -55,6 +55,15 @@
     "avg_delay": "Latency",
     "chart_fetch_error_message": "Failed to fetch network data, please check if the server monitoring is enabled"
   },
+  "IPInfo": {
+    "asn_number": "Origin ASN",
+    "registered_country": "Registered Country",
+    "time_zone": "Time Zone",
+    "postal_code": "Postal Code",
+    "city": "City",
+    "longitude": "Longitude",
+    "latitude": "Latitude"
+  },
   "NetworkChart": {
     "ServerMonitorCount": "Services"
   },
