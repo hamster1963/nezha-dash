@@ -27,6 +27,13 @@ export async function GET(req: NextRequest) {
     }
   }
 
+  if (!getEnv("NEXT_PUBLIC_ShowIpInfo")) {
+    return NextResponse.json(
+      { error: "NEXT_PUBLIC_ShowIpInfo is disable" },
+      { status: 400 },
+    );
+  }
+
   const { searchParams } = new URL(req.url);
   const server_id = searchParams.get("server_id");
 
