@@ -2,7 +2,6 @@
   "name": "nezha-dash",
   "version": "1.8.1",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev -p 3040",
     "start": "node .next/standalone/server.js",
