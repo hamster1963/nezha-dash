@@ -5,7 +5,7 @@ import tseslint from "typescript-eslint"
 export default tseslint.config(
   { ignores: [".next"] },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended,"next/core-web-vitals", "next/typescript"],
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2020,
