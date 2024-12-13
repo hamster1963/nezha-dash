@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="mx-auto w-full max-w-5xl">
       <section className="flex flex-col">
-        <p className="mt-3 flex gap-1 text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50">
+        <div className="mt-3 flex gap-1 text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50">
           {t("p_146-598_Findthecodeon")}{" "}
           <a
             href="https://github.com/hamster1963/nezha-dash"
@@ -21,7 +21,7 @@ export default function Footer() {
           >
             {version}
           </p>
-        </p>
+        </div>
         <section className="mt-1 flex items-center gap-2 text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50">
           {t("section_607-869_2020")}
           {new Date().getFullYear()}{" "}
