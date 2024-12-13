@@ -24,6 +24,9 @@ const withPWA = withPWAInit({
 const nextConfig = {
   experimental: {
     inlineCss: true,
+    serverActions: {
+      allowedOrigins: ["*"],
+    },
   },
   output: "standalone",
   logging: {
