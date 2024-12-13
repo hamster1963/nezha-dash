@@ -22,7 +22,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     async signIn({ user }) {
-      // @ts-ignore
+      // @ts-expect-error user is not null
       if (user.error) {
         return false
       }
