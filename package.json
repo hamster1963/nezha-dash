@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev -p 3040",
     "start": "node .next/standalone/server.js",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "format": "prettier --write .",
     "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
     "build-dev": "next build",
