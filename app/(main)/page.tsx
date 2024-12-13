@@ -7,5 +7,5 @@ export default async function Home() {
       <ServerOverview />
       <ServerList />
     </div>
-  );
+  )
 }
