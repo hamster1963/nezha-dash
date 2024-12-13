@@ -1,20 +1,20 @@
-"use client";
+"use client"
 
-import { AnimatePresence, m } from "framer-motion";
-import { useTranslations } from "next-intl";
-import { memo } from "react";
+import { AnimatePresence, m } from "framer-motion"
+import { useTranslations } from "next-intl"
+import { memo } from "react"
 
-import { useTooltip } from "./TooltipContext";
+import { useTooltip } from "./TooltipContext"
 
 const MapTooltip = memo(function MapTooltip() {
-  const { tooltipData } = useTooltip();
-  const t = useTranslations("Global");
+  const { tooltipData } = useTooltip()
+  const t = useTranslations("Global")
 
-  if (!tooltipData) return null;
+  if (!tooltipData) return null
 
   const sortedServers = tooltipData.servers.sort((a, b) => {
-    return a.status === b.status ? 0 : a.status ? 1 : -1;
-  });
+    return a.status === b.status ? 0 : a.status ? 1 : -1
+  })
 
   return (
     <AnimatePresence mode="wait">
@@ -30,14 +30,12 @@ const MapTooltip = memo(function MapTooltip() {
           transform: "translate(10%, -50%)",
         }}
         onMouseEnter={(e) => {
-          e.stopPropagation();
+          e.stopPropagation()
         }}
       >
         <div>
           <p className="font-medium">
-            {tooltipData.country === "China"
-              ? "Mainland China"
-              : tooltipData.country}
+            {tooltipData.country === "China" ? "Mainland China" : tooltipData.country}
           </p>
           <p className="text-neutral-600 dark:text-neutral-400 mb-1">
             {tooltipData.count} {t("Servers")}
@@ -63,7 +61,7 @@ const MapTooltip = memo(function MapTooltip() {
         </div>
       </m.div>
     </AnimatePresence>
-  );
-});
+  )
+})
 
-export default MapTooltip;
+export default MapTooltip

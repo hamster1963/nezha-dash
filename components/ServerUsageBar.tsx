@@ -1,9 +1,9 @@
-import { Progress } from "@/components/ui/progress";
-import React from "react";
+import { Progress } from "@/components/ui/progress"
+import React from "react"
 
 type ServerUsageBarProps = {
-  value: number;
-};
+  value: number
+}
 
 export default function ServerUsageBar({ value }: ServerUsageBarProps) {
   return (
@@ -11,14 +11,8 @@ export default function ServerUsageBar({ value }: ServerUsageBarProps) {
       aria-label={"Server Usage Bar"}
       aria-labelledby={"Server Usage Bar"}
       value={value}
-      indicatorClassName={
-        value > 90
-          ? "bg-red-500"
-          : value > 70
-            ? "bg-orange-400"
-            : "bg-green-500"
-      }
+      indicatorClassName={value > 90 ? "bg-red-500" : value > 70 ? "bg-orange-400" : "bg-green-500"}
       className={"h-[3px] rounded-sm"}
     />
-  );
+  )
 }

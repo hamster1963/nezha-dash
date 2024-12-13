@@ -1,16 +1,16 @@
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import Image from "next/image"
+import Link from "next/link"
+import React from "react"
 
 export const AnimatedTooltip = ({
   items,
 }: {
   items: {
-    id: number;
-    name: string;
-    designation: string;
-    image: string;
-  }[];
+    id: number
+    name: string
+    designation: string
+    image: string
+  }[]
 }) => {
   return (
     <>
@@ -29,5 +29,5 @@ export const AnimatedTooltip = ({
         </div>
       ))}
     </>
-  );
-};
+  )
+}

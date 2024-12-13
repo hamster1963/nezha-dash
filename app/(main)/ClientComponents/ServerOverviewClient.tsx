@@ -1,31 +1,25 @@
-"use client";
+"use client"
 
-import { ServerApi } from "@/app/types/nezha-api";
-import { Loader } from "@/components/loading/Loader";
-import { Card, CardContent } from "@/components/ui/card";
-import getEnv from "@/lib/env-entry";
-import { useFilter } from "@/lib/network-filter-context";
-import { useStatus } from "@/lib/status-context";
-import { cn, formatBytes, nezhaFetcher } from "@/lib/utils";
-import blogMan from "@/public/blog-man.webp";
-import {
-  ArrowDownCircleIcon,
-  ArrowUpCircleIcon,
-} from "@heroicons/react/20/solid";
-import { useTranslations } from "next-intl";
-import Image from "next/image";
-import useSWRImmutable from "swr/immutable";
+import { ServerApi } from "@/app/types/nezha-api"
+import { Loader } from "@/components/loading/Loader"
+import { Card, CardContent } from "@/components/ui/card"
+import getEnv from "@/lib/env-entry"
+import { useFilter } from "@/lib/network-filter-context"
+import { useStatus } from "@/lib/status-context"
+import { cn, formatBytes, nezhaFetcher } from "@/lib/utils"
+import blogMan from "@/public/blog-man.webp"
+import { ArrowDownCircleIcon, ArrowUpCircleIcon } from "@heroicons/react/20/solid"
+import { useTranslations } from "next-intl"
+import Image from "next/image"
+import useSWRImmutable from "swr/immutable"
 
 export default function ServerOverviewClient() {
-  const { status, setStatus } = useStatus();
-  const { filter, setFilter } = useFilter();
-  const t = useTranslations("ServerOverviewClient");
+  const { status, setStatus } = useStatus()
+  const { filter, setFilter } = useFilter()
+  const t = useTranslations("ServerOverviewClient")
 
-  const { data, error, isLoading } = useSWRImmutable<ServerApi>(
-    "/api/server",
-    nezhaFetcher,
-  );
-  const disableCartoon = getEnv("NEXT_PUBLIC_DisableCartoon") === "true";
+  const { data, error, isLoading } = useSWRImmutable<ServerApi>("/api/server", nezhaFetcher)
+  const disableCartoon = getEnv("NEXT_PUBLIC_DisableCartoon") === "true"
 
   if (error) {
     return (
@@ -35,7 +29,7 @@ export default function ServerOverviewClient() {
         </p>
         <p className="text-sm font-medium opacity-40">{t("error_message")}</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -43,26 +37,20 @@ export default function ServerOverviewClient() {
       <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Card
           onClick={() => {
-            setFilter(false);
-            setStatus("all");
+            setFilter(false)
+            setStatus("all")
           }}
-          className={cn(
-            "cursor-pointer hover:border-blue-500 transition-all group",
-          )}
+          className={cn("cursor-pointer hover:border-blue-500 transition-all group")}
         >
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
-              <p className="text-sm font-medium md:text-base">
-                {t("p_816-881_Totalservers")}
-              </p>
+              <p className="text-sm font-medium md:text-base">{t("p_816-881_Totalservers")}</p>
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
                 </span>
                 {data?.result ? (
-                  <div className="text-lg font-semibold">
-                    {data?.result.length}
-                  </div>
+                  <div className="text-lg font-semibold">{data?.result.length}</div>
                 ) : (
                   <div className="flex h-7 items-center">
                     <Loader visible={true} />
@@ -74,8 +62,8 @@ export default function ServerOverviewClient() {
         </Card>
         <Card
           onClick={() => {
-            setFilter(false);
-            setStatus("online");
+            setFilter(false)
+            setStatus("online")
           }}
           className={cn(
             "cursor-pointer hover:ring-green-500 ring-1 ring-transparent transition-all",
@@ -86,18 +74,14 @@ export default function ServerOverviewClient() {
         >
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
-              <p className="text-sm font-medium md:text-base">
-                {t("p_1610-1676_Onlineservers")}
-              </p>
+              <p className="text-sm font-medium md:text-base">{t("p_1610-1676_Onlineservers")}</p>
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
                 </span>
                 {data?.result ? (
-                  <div className="text-lg font-semibold">
-                    {data?.live_servers}
-                  </div>
+                  <div className="text-lg font-semibold">{data?.live_servers}</div>
                 ) : (
                   <div className="flex h-7 items-center">
                     <Loader visible={true} />
@@ -109,8 +93,8 @@ export default function ServerOverviewClient() {
         </Card>
         <Card
           onClick={() => {
-            setFilter(false);
-            setStatus("offline");
+            setFilter(false)
+            setStatus("offline")
           }}
           className={cn(
             "cursor-pointer hover:ring-red-500 ring-1 ring-transparent transition-all",
@@ -121,18 +105,14 @@ export default function ServerOverviewClient() {
         >
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
-              <p className="text-sm font-medium md:text-base">
-                {t("p_2532-2599_Offlineservers")}
-              </p>
+              <p className="text-sm font-medium md:text-base">{t("p_2532-2599_Offlineservers")}</p>
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75"></span>
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
                 </span>
                 {data?.result ? (
-                  <div className="text-lg font-semibold">
-                    {data?.offline_servers}
-                  </div>
+                  <div className="text-lg font-semibold">{data?.offline_servers}</div>
                 ) : (
                   <div className="flex h-7 items-center">
                     <Loader visible={true} />
@@ -144,8 +124,8 @@ export default function ServerOverviewClient() {
         </Card>
         <Card
           onClick={() => {
-            setStatus("all");
-            setFilter(true);
+            setStatus("all")
+            setFilter(true)
           }}
           className={cn(
             "cursor-pointer hover:ring-purple-500 ring-1 ring-transparent transition-all group",
@@ -157,9 +137,7 @@ export default function ServerOverviewClient() {
           <CardContent className="flex h-full items-center relative px-6 py-3">
             <section className="flex flex-col gap-1 w-full">
               <div className="flex items-center w-full justify-between">
-                <p className="text-sm font-medium md:text-base">
-                  {t("network")}
-                </p>
+                <p className="text-sm font-medium md:text-base">{t("network")}</p>
               </div>
               {data?.result ? (
                 <>
@@ -206,5 +184,5 @@ export default function ServerOverviewClient() {
         </div>
       )}
     </>
-  );
+  )
 }

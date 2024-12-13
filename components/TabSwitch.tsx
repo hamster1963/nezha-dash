@@ -1,20 +1,20 @@
-"use client";
+"use client"
 
-import { cn } from "@/lib/utils";
-import { m } from "framer-motion";
-import { useTranslations } from "next-intl";
-import React from "react";
+import { cn } from "@/lib/utils"
+import { m } from "framer-motion"
+import { useTranslations } from "next-intl"
+import React from "react"
 
 export default function TabSwitch({
   tabs,
   currentTab,
   setCurrentTab,
 }: {
-  tabs: string[];
-  currentTab: string;
-  setCurrentTab: (tab: string) => void;
+  tabs: string[]
+  currentTab: string
+  setCurrentTab: (tab: string) => void
 }) {
-  const t = useTranslations("TabSwitch");
+  const t = useTranslations("TabSwitch")
   return (
     <div className="z-50 flex flex-col items-start rounded-[50px]">
       <div className="flex items-center gap-1 rounded-[50px] bg-stone-100 p-[3px] dark:bg-stone-800">
@@ -46,5 +46,5 @@ export default function TabSwitch({
         ))}
       </div>
     </div>
-  );
+  )
 }

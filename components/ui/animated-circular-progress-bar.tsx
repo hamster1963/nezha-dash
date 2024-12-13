@@ -1,11 +1,11 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
 interface Props {
-  max: number;
-  value: number;
-  min: number;
-  className?: string;
-  primaryColor?: string;
+  max: number
+  value: number
+  min: number
+  className?: string
+  primaryColor?: string
 }
 
 export default function AnimatedCircularProgressBar({
@@ -15,9 +15,9 @@ export default function AnimatedCircularProgressBar({
   primaryColor,
   className,
 }: Props) {
-  const circumference = 2 * Math.PI * 45;
-  const percentPx = circumference / 100;
-  const currentPercent = ((value - min) / (max - min)) * 100;
+  const circumference = 2 * Math.PI * 45
+  const percentPx = circumference / 100
+  const currentPercent = ((value - min) / (max - min)) * 100
 
   return (
     <div
@@ -37,12 +37,7 @@ export default function AnimatedCircularProgressBar({
         } as React.CSSProperties
       }
     >
-      <svg
-        fill="none"
-        className="size-full"
-        strokeWidth="2"
-        viewBox="0 0 100 100"
-      >
+      <svg fill="none" className="size-full" strokeWidth="2" viewBox="0 0 100 100">
         {currentPercent <= 90 && currentPercent >= 0 && (
           <circle
             cx="50"
@@ -62,8 +57,7 @@ export default function AnimatedCircularProgressBar({
                 transform:
                   "rotate(calc(1turn - 90deg - (var(--gap-percent) * var(--percent-to-deg) * var(--offset-factor-secondary)))) scaleY(-1)",
                 transition: "all var(--transition-length) ease var(--delay)",
-                transformOrigin:
-                  "calc(var(--circle-size) / 2) calc(var(--circle-size) / 2)",
+                transformOrigin: "calc(var(--circle-size) / 2) calc(var(--circle-size) / 2)",
               } as React.CSSProperties
             }
           />
@@ -90,8 +84,7 @@ export default function AnimatedCircularProgressBar({
               transitionProperty: "stroke-dasharray,transform",
               transform:
                 "rotate(calc(-90deg + var(--gap-percent) * var(--offset-factor) * var(--percent-to-deg)))",
-              transformOrigin:
-                "calc(var(--circle-size) / 2) calc(var(--circle-size) / 2)",
+              transformOrigin: "calc(var(--circle-size) / 2) calc(var(--circle-size) / 2)",
             } as React.CSSProperties
           }
         />
@@ -103,5 +96,5 @@ export default function AnimatedCircularProgressBar({
         {currentPercent}
       </span>
     </div>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import ServerList from "@/components/ServerList";
-import ServerOverview from "@/components/ServerOverview";
+import ServerList from "@/components/ServerList"
+import ServerOverview from "@/components/ServerOverview"
 
 export default async function Home() {
   return (
@@ -7,5 +7,5 @@ export default async function Home() {
       <ServerOverview />
       <ServerList />
     </div>
-  );
+  )
 }

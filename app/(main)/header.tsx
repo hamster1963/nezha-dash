@@ -1,30 +1,30 @@
-"use client";
+"use client"
 
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { ModeToggle } from "@/components/ThemeSwitcher";
-import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
-import getEnv from "@/lib/env-entry";
-import { DateTime } from "luxon";
-import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher"
+import { ModeToggle } from "@/components/ThemeSwitcher"
+import { Separator } from "@/components/ui/separator"
+import { Skeleton } from "@/components/ui/skeleton"
+import getEnv from "@/lib/env-entry"
+import { DateTime } from "luxon"
+import { useTranslations } from "next-intl"
+import { useRouter } from "next/navigation"
+import React, { useEffect, useRef, useState } from "react"
 
 function Header() {
-  const t = useTranslations("Header");
-  const customLogo = getEnv("NEXT_PUBLIC_CustomLogo");
-  const customTitle = getEnv("NEXT_PUBLIC_CustomTitle");
-  const customDescription = getEnv("NEXT_PUBLIC_CustomDescription");
+  const t = useTranslations("Header")
+  const customLogo = getEnv("NEXT_PUBLIC_CustomLogo")
+  const customTitle = getEnv("NEXT_PUBLIC_CustomTitle")
+  const customDescription = getEnv("NEXT_PUBLIC_CustomDescription")
 
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <div className="mx-auto w-full max-w-5xl">
       <section className="flex items-center justify-between">
         <section
           onClick={() => {
-            sessionStorage.removeItem("selectedTag");
-            router.push(`/`);
+            sessionStorage.removeItem("selectedTag")
+            router.push(`/`)
           }}
           className="flex cursor-pointer items-center text-base font-medium"
         >
@@ -45,14 +45,9 @@ function Header() {
             />
           </div>
           {customTitle ? customTitle : "NezhaDash"}
-          <Separator
-            orientation="vertical"
-            className="mx-2 hidden h-4 w-[1px] md:block"
-          />
+          <Separator orientation="vertical" className="mx-2 hidden h-4 w-[1px] md:block" />
           <p className="hidden text-sm font-medium opacity-40 md:block">
-            {customDescription
-              ? customDescription
-              : t("p_1079-1199_Simpleandbeautifuldashbo")}
+            {customDescription ? customDescription : t("p_1079-1199_Simpleandbeautifuldashbo")}
           </p>
         </section>
         <section className="flex items-center gap-2">
@@ -63,20 +58,20 @@ function Header() {
       </section>
       <Overview />
     </div>
-  );
+  )
 }
 
 type links = {
-  link: string;
-  name: string;
-};
+  link: string
+  name: string
+}
 
 function Links() {
-  const linksEnv = getEnv("NEXT_PUBLIC_Links");
+  const linksEnv = getEnv("NEXT_PUBLIC_Links")
 
-  const links: links[] | null = linksEnv ? JSON.parse(linksEnv) : null;
+  const links: links[] | null = linksEnv ? JSON.parse(linksEnv) : null
 
-  if (!links) return null;
+  if (!links) return null
 
   return (
     <div className="flex items-center gap-2">
@@ -91,47 +86,45 @@ function Links() {
           >
             {link.name}
           </a>
-        );
+        )
       })}
     </div>
-  );
+  )
 }
 
 // https://github.com/streamich/react-use/blob/master/src/useInterval.ts
 const useInterval = (callback: () => void, delay: number | null) => {
-  const savedCallback = useRef<() => void>(() => {});
+  const savedCallback = useRef<() => void>(() => {})
   useEffect(() => {
-    savedCallback.current = callback;
-  });
+    savedCallback.current = callback
+  })
   useEffect(() => {
     if (delay !== null) {
-      const interval = setInterval(() => savedCallback.current(), delay || 0);
-      return () => clearInterval(interval);
+      const interval = setInterval(() => savedCallback.current(), delay || 0)
+      return () => clearInterval(interval)
     }
-    return undefined;
-  }, [delay]);
-};
+    return undefined
+  }, [delay])
+}
 function Overview() {
-  const t = useTranslations("Overview");
-  const [mouted, setMounted] = useState(false);
+  const t = useTranslations("Overview")
+  const [mouted, setMounted] = useState(false)
   useEffect(() => {
-    setMounted(true);
-  }, []);
-  const timeOption = DateTime.TIME_SIMPLE;
-  timeOption.hour12 = true;
+    setMounted(true)
+  }, [])
+  const timeOption = DateTime.TIME_SIMPLE
+  timeOption.hour12 = true
   const [timeString, setTimeString] = useState(
     DateTime.now().setLocale("en-US").toLocaleString(timeOption),
-  );
+  )
   useInterval(() => {
-    setTimeString(DateTime.now().setLocale("en-US").toLocaleString(timeOption));
-  }, 1000);
+    setTimeString(DateTime.now().setLocale("en-US").toLocaleString(timeOption))
+  }, 1000)
   return (
     <section className={"mt-10 flex flex-col md:mt-16"}>
       <p className="text-base font-semibold">{t("p_2277-2331_Overview")}</p>
       <div className="flex items-center gap-1.5">
-        <p className="text-sm font-medium opacity-50">
-          {t("p_2390-2457_wherethetimeis")}
-        </p>
+        <p className="text-sm font-medium opacity-50">{t("p_2390-2457_wherethetimeis")}</p>
         {mouted ? (
           <p className="text-sm font-medium">{timeString}</p>
         ) : (
@@ -139,6 +132,6 @@ function Overview() {
         )}
       </div>
     </section>
-  );
+  )
 }
-export default Header;
+export default Header

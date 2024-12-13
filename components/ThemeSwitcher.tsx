@@ -1,26 +1,26 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
-import { CheckCircleIcon } from "@heroicons/react/20/solid";
-import { Moon, Sun } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useTheme } from "next-themes";
+} from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
+import { CheckCircleIcon } from "@heroicons/react/20/solid"
+import { Moon, Sun } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { useTheme } from "next-themes"
 
 export function ModeToggle() {
-  const { setTheme, theme } = useTheme();
-  const t = useTranslations("ThemeSwitcher");
+  const { setTheme, theme } = useTheme()
+  const t = useTranslations("ThemeSwitcher")
 
   const handleSelect = (e: Event, newTheme: string) => {
-    e.preventDefault();
-    setTheme(newTheme);
-  };
+    e.preventDefault()
+    setTheme(newTheme)
+  }
 
   return (
     <DropdownMenu>
@@ -40,24 +40,21 @@ export function ModeToggle() {
           className={cn({ "gap-3 bg-muted": theme === "light" })}
           onSelect={(e) => handleSelect(e, "light")}
         >
-          {t("Light")}{" "}
-          {theme === "light" && <CheckCircleIcon className="size-4" />}
+          {t("Light")} {theme === "light" && <CheckCircleIcon className="size-4" />}
         </DropdownMenuItem>
         <DropdownMenuItem
           className={cn({ "gap-3 bg-muted": theme === "dark" })}
           onSelect={(e) => handleSelect(e, "dark")}
         >
-          {t("Dark")}{" "}
-          {theme === "dark" && <CheckCircleIcon className="size-4" />}
+          {t("Dark")} {theme === "dark" && <CheckCircleIcon className="size-4" />}
         </DropdownMenuItem>
         <DropdownMenuItem
           className={cn({ "gap-3 bg-muted": theme === "system" })}
           onSelect={(e) => handleSelect(e, "system")}
         >
-          {t("System")}{" "}
-          {theme === "system" && <CheckCircleIcon className="size-4" />}
+          {t("System")} {theme === "system" && <CheckCircleIcon className="size-4" />}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  )
 }

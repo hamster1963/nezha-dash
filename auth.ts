@@ -1,7 +1,7 @@
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+import NextAuth from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
 
-import getEnv from "./lib/env-entry";
+import getEnv from "./lib/env-entry"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.AUTH_SECRET ?? "this_is_nezha_dash_web_secret",
@@ -12,11 +12,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       credentials: { password: { label: "Password", type: "password" } },
       // authorization function
       async authorize(credentials) {
-        const { password } = credentials;
+        const { password } = credentials
         if (password === getEnv("SitePassword")) {
-          return { id: "nezha-dash-auth" };
+          return { id: "nezha-dash-auth" }
         }
-        return { error: "Invalid password" };
+        return { error: "Invalid password" }
       },
     }),
   ],
@@ -24,9 +24,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async signIn({ user }) {
       // @ts-ignore
       if (user.error) {
-        return false;
+        return false
       }
-      return true;
+      return true
     },
   },
-});
+})

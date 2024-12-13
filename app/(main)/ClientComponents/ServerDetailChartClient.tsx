@@ -1,77 +1,59 @@
-"use client";
+"use client"
 
-import { ServerDetailChartLoading } from "@/app/(main)/ClientComponents/ServerDetailLoading";
-import { NezhaAPISafe, ServerApi } from "@/app/types/nezha-api";
-import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar";
-import { Card, CardContent } from "@/components/ui/card";
-import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-import {
-  formatBytes,
-  formatNezhaInfo,
-  formatRelativeTime,
-  nezhaFetcher,
-} from "@/lib/utils";
-import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  Line,
-  LineChart,
-  XAxis,
-  YAxis,
-} from "recharts";
-import useSWRImmutable from "swr/immutable";
+import { ServerDetailChartLoading } from "@/app/(main)/ClientComponents/ServerDetailLoading"
+import { NezhaAPISafe, ServerApi } from "@/app/types/nezha-api"
+import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar"
+import { Card, CardContent } from "@/components/ui/card"
+import { ChartConfig, ChartContainer } from "@/components/ui/chart"
+import { formatBytes, formatNezhaInfo, formatRelativeTime, nezhaFetcher } from "@/lib/utils"
+import { useTranslations } from "next-intl"
+import { useEffect, useState } from "react"
+import { Area, AreaChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
+import useSWRImmutable from "swr/immutable"
 
 type cpuChartData = {
-  timeStamp: string;
-  cpu: number;
-};
+  timeStamp: string
+  cpu: number
+}
 
 type processChartData = {
-  timeStamp: string;
-  process: number;
-};
+  timeStamp: string
+  process: number
+}
 
 type diskChartData = {
-  timeStamp: string;
-  disk: number;
-};
+  timeStamp: string
+  disk: number
+}
 
 type memChartData = {
-  timeStamp: string;
-  mem: number;
-  swap: number;
-};
+  timeStamp: string
+  mem: number
+  swap: number
+}
 
 type networkChartData = {
-  timeStamp: string;
-  upload: number;
-  download: number;
-};
+  timeStamp: string
+  upload: number
+  download: number
+}
 
 type connectChartData = {
-  timeStamp: string;
-  tcp: number;
-  udp: number;
-};
+  timeStamp: string
+  tcp: number
+  udp: number
+}
 
 export default function ServerDetailChartClient({
   server_id,
 }: {
-  server_id: number;
-  show: boolean;
+  server_id: number
+  show: boolean
 }) {
-  const t = useTranslations("ServerDetailChartClient");
+  const t = useTranslations("ServerDetailChartClient")
 
-  const { data: allFallbackData } = useSWRImmutable<ServerApi>(
-    "/api/server",
-    nezhaFetcher,
-  );
-  const fallbackData = allFallbackData?.result?.find(
-    (item) => item.id === server_id,
-  );
+  const { data: allFallbackData } = useSWRImmutable<ServerApi>("/api/server", nezhaFetcher)
+  const fallbackData = allFallbackData?.result?.find((item) => item.id === server_id)
 
   const { data, error } = useSWRImmutable<NezhaAPISafe>(
     `/api/detail?server_id=${server_id}`,
@@ -79,21 +61,19 @@ export default function ServerDetailChartClient({
     {
       fallbackData,
     },
-  );
+  )
 
   if (error) {
     return (
       <>
         <div className="flex flex-col items-center justify-center">
           <p className="text-sm font-medium opacity-40">{error.message}</p>
-          <p className="text-sm font-medium opacity-40">
-            {t("chart_fetch_error_message")}
-          </p>
+          <p className="text-sm font-medium opacity-40">{t("chart_fetch_error_message")}</p>
         </div>
       </>
-    );
+    )
   }
-  if (!data) return <ServerDetailChartLoading />;
+  if (!data) return <ServerDetailChartLoading />
 
   return (
     <section className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-3">
@@ -104,38 +84,38 @@ export default function ServerDetailChartClient({
       <NetworkChart data={data} />
       <ConnectChart data={data} />
     </section>
-  );
+  )
 }
 
 function CpuChart({ data }: { data: NezhaAPISafe }) {
-  const [cpuChartData, setCpuChartData] = useState([] as cpuChartData[]);
+  const [cpuChartData, setCpuChartData] = useState([] as cpuChartData[])
 
-  const { cpu } = formatNezhaInfo(data);
+  const { cpu } = formatNezhaInfo(data)
 
   useEffect(() => {
     if (data) {
-      const timestamp = Date.now().toString();
-      let newData = [] as cpuChartData[];
+      const timestamp = Date.now().toString()
+      let newData = [] as cpuChartData[]
       if (cpuChartData.length === 0) {
         newData = [
           { timeStamp: timestamp, cpu: cpu },
           { timeStamp: timestamp, cpu: cpu },
-        ];
+        ]
       } else {
-        newData = [...cpuChartData, { timeStamp: timestamp, cpu: cpu }];
+        newData = [...cpuChartData, { timeStamp: timestamp, cpu: cpu }]
       }
       if (newData.length > 30) {
-        newData.shift();
+        newData.shift()
       }
-      setCpuChartData(newData);
+      setCpuChartData(newData)
     }
-  }, [data]);
+  }, [data])
 
   const chartConfig = {
     cpu: {
       label: "CPU",
     },
-  } satisfies ChartConfig;
+  } satisfies ChartConfig
 
   return (
     <Card>
@@ -144,9 +124,7 @@ function CpuChart({ data }: { data: NezhaAPISafe }) {
           <div className="flex items-center justify-between">
             <p className="text-md font-medium">CPU</p>
             <section className="flex items-center gap-2">
-              <p className="text-xs text-end w-10 font-medium">
-                {cpu.toFixed(0)}%
-              </p>
+              <p className="text-xs text-end w-10 font-medium">{cpu.toFixed(0)}%</p>
               <AnimatedCircularProgressBar
                 className="size-3 text-[0px]"
                 max={100}
@@ -156,10 +134,7 @@ function CpuChart({ data }: { data: NezhaAPISafe }) {
               />
             </section>
           </div>
-          <ChartContainer
-            config={chartConfig}
-            className="aspect-auto h-[130px] w-full"
-          >
+          <ChartContainer config={chartConfig} className="aspect-auto h-[130px] w-full">
             <AreaChart
               accessibilityLayer
               data={cpuChartData}
@@ -200,45 +175,40 @@ function CpuChart({ data }: { data: NezhaAPISafe }) {
         </section>
       </CardContent>
     </Card>
-  );
+  )
 }
 
 function ProcessChart({ data }: { data: NezhaAPISafe }) {
-  const t = useTranslations("ServerDetailChartClient");
+  const t = useTranslations("ServerDetailChartClient")
 
-  const [processChartData, setProcessChartData] = useState(
-    [] as processChartData[],
-  );
+  const [processChartData, setProcessChartData] = useState([] as processChartData[])
 
-  const { process } = formatNezhaInfo(data);
+  const { process } = formatNezhaInfo(data)
 
   useEffect(() => {
     if (data) {
-      const timestamp = Date.now().toString();
-      let newData = [] as processChartData[];
+      const timestamp = Date.now().toString()
+      let newData = [] as processChartData[]
       if (processChartData.length === 0) {
         newData = [
           { timeStamp: timestamp, process: process },
           { timeStamp: timestamp, process: process },
-        ];
+        ]
       } else {
-        newData = [
-          ...processChartData,
-          { timeStamp: timestamp, process: process },
-        ];
+        newData = [...processChartData, { timeStamp: timestamp, process: process }]
       }
       if (newData.length > 30) {
-        newData.shift();
+        newData.shift()
       }
-      setProcessChartData(newData);
+      setProcessChartData(newData)
     }
-  }, [data]);
+  }, [data])
 
   const chartConfig = {
     process: {
       label: "Process",
     },
-  } satisfies ChartConfig;
+  } satisfies ChartConfig
 
   return (
     <Card>
@@ -250,10 +220,7 @@ function ProcessChart({ data }: { data: NezhaAPISafe }) {
               <p className="text-xs text-end w-10 font-medium">{process}</p>
             </section>
           </div>
-          <ChartContainer
-            config={chartConfig}
-            className="aspect-auto h-[130px] w-full"
-          >
+          <ChartContainer config={chartConfig} className="aspect-auto h-[130px] w-full">
             <AreaChart
               accessibilityLayer
               data={processChartData}
@@ -273,12 +240,7 @@ function ProcessChart({ data }: { data: NezhaAPISafe }) {
                 interval="preserveStartEnd"
                 tickFormatter={(value) => formatRelativeTime(value)}
               />
-              <YAxis
-                tickLine={false}
-                axisLine={false}
-                mirror={true}
-                tickMargin={-15}
-              />
+              <YAxis tickLine={false} axisLine={false} mirror={true} tickMargin={-15} />
               <Area
                 isAnimationActive={false}
                 dataKey="process"
@@ -292,37 +254,34 @@ function ProcessChart({ data }: { data: NezhaAPISafe }) {
         </section>
       </CardContent>
     </Card>
-  );
+  )
 }
 
 function MemChart({ data }: { data: NezhaAPISafe }) {
-  const t = useTranslations("ServerDetailChartClient");
+  const t = useTranslations("ServerDetailChartClient")
 
-  const [memChartData, setMemChartData] = useState([] as memChartData[]);
+  const [memChartData, setMemChartData] = useState([] as memChartData[])
 
-  const { mem, swap } = formatNezhaInfo(data);
+  const { mem, swap } = formatNezhaInfo(data)
 
   useEffect(() => {
     if (data) {
-      const timestamp = Date.now().toString();
-      let newData = [] as memChartData[];
+      const timestamp = Date.now().toString()
+      let newData = [] as memChartData[]
       if (memChartData.length === 0) {
         newData = [
           { timeStamp: timestamp, mem: mem, swap: swap },
           { timeStamp: timestamp, mem: mem, swap: swap },
-        ];
+        ]
       } else {
-        newData = [
-          ...memChartData,
-          { timeStamp: timestamp, mem: mem, swap: swap },
-        ];
+        newData = [...memChartData, { timeStamp: timestamp, mem: mem, swap: swap }]
       }
       if (newData.length > 30) {
-        newData.shift();
+        newData.shift()
       }
-      setMemChartData(newData);
+      setMemChartData(newData)
     }
-  }, [data]);
+  }, [data])
 
   const chartConfig = {
     mem: {
@@ -331,7 +290,7 @@ function MemChart({ data }: { data: NezhaAPISafe }) {
     swap: {
       label: "Swap",
     },
-  } satisfies ChartConfig;
+  } satisfies ChartConfig
 
   return (
     <Card>
@@ -368,18 +327,14 @@ function MemChart({ data }: { data: NezhaAPISafe }) {
             </section>
             <section className="flex flex-col items-end gap-0.5">
               <div className="flex text-[11px] font-medium items-center gap-2">
-                {formatBytes(data.status.MemUsed)} /{" "}
-                {formatBytes(data.host.MemTotal)}
+                {formatBytes(data.status.MemUsed)} / {formatBytes(data.host.MemTotal)}
               </div>
               <div className="flex text-[11px] font-medium items-center gap-2">
                 swap: {formatBytes(data.status.SwapUsed)}
               </div>
             </section>
           </div>
-          <ChartContainer
-            config={chartConfig}
-            className="aspect-auto h-[130px] w-full"
-          >
+          <ChartContainer config={chartConfig} className="aspect-auto h-[130px] w-full">
             <AreaChart
               accessibilityLayer
               data={memChartData}
@@ -428,40 +383,40 @@ function MemChart({ data }: { data: NezhaAPISafe }) {
         </section>
       </CardContent>
     </Card>
-  );
+  )
 }
 
 function DiskChart({ data }: { data: NezhaAPISafe }) {
-  const t = useTranslations("ServerDetailChartClient");
+  const t = useTranslations("ServerDetailChartClient")
 
-  const [diskChartData, setDiskChartData] = useState([] as diskChartData[]);
+  const [diskChartData, setDiskChartData] = useState([] as diskChartData[])
 
-  const { disk } = formatNezhaInfo(data);
+  const { disk } = formatNezhaInfo(data)
 
   useEffect(() => {
     if (data) {
-      const timestamp = Date.now().toString();
-      let newData = [] as diskChartData[];
+      const timestamp = Date.now().toString()
+      let newData = [] as diskChartData[]
       if (diskChartData.length === 0) {
         newData = [
           { timeStamp: timestamp, disk: disk },
           { timeStamp: timestamp, disk: disk },
-        ];
+        ]
       } else {
-        newData = [...diskChartData, { timeStamp: timestamp, disk: disk }];
+        newData = [...diskChartData, { timeStamp: timestamp, disk: disk }]
       }
       if (newData.length > 30) {
-        newData.shift();
+        newData.shift()
       }
-      setDiskChartData(newData);
+      setDiskChartData(newData)
     }
-  }, [data]);
+  }, [data])
 
   const chartConfig = {
     disk: {
       label: "Disk",
     },
-  } satisfies ChartConfig;
+  } satisfies ChartConfig
 
   return (
     <Card>
@@ -471,9 +426,7 @@ function DiskChart({ data }: { data: NezhaAPISafe }) {
             <p className="text-md font-medium">{t("Disk")}</p>
             <section className="flex flex-col items-end gap-0.5">
               <section className="flex items-center gap-2">
-                <p className="text-xs text-end w-10 font-medium">
-                  {disk.toFixed(0)}%
-                </p>
+                <p className="text-xs text-end w-10 font-medium">{disk.toFixed(0)}%</p>
                 <AnimatedCircularProgressBar
                   className="size-3 text-[0px]"
                   max={100}
@@ -483,15 +436,11 @@ function DiskChart({ data }: { data: NezhaAPISafe }) {
                 />
               </section>
               <div className="flex text-[11px] font-medium items-center gap-2">
-                {formatBytes(data.status.DiskUsed)} /{" "}
-                {formatBytes(data.host.DiskTotal)}
+                {formatBytes(data.status.DiskUsed)} / {formatBytes(data.host.DiskTotal)}
               </div>
             </section>
           </div>
-          <ChartContainer
-            config={chartConfig}
-            className="aspect-auto h-[130px] w-full"
-          >
+          <ChartContainer config={chartConfig} className="aspect-auto h-[130px] w-full">
             <AreaChart
               accessibilityLayer
               data={diskChartData}
@@ -532,44 +481,39 @@ function DiskChart({ data }: { data: NezhaAPISafe }) {
         </section>
       </CardContent>
     </Card>
-  );
+  )
 }
 
 function NetworkChart({ data }: { data: NezhaAPISafe }) {
-  const t = useTranslations("ServerDetailChartClient");
+  const t = useTranslations("ServerDetailChartClient")
 
-  const [networkChartData, setNetworkChartData] = useState(
-    [] as networkChartData[],
-  );
+  const [networkChartData, setNetworkChartData] = useState([] as networkChartData[])
 
-  const { up, down } = formatNezhaInfo(data);
+  const { up, down } = formatNezhaInfo(data)
 
   useEffect(() => {
     if (data) {
-      const timestamp = Date.now().toString();
-      let newData = [] as networkChartData[];
+      const timestamp = Date.now().toString()
+      let newData = [] as networkChartData[]
       if (networkChartData.length === 0) {
         newData = [
           { timeStamp: timestamp, upload: up, download: down },
           { timeStamp: timestamp, upload: up, download: down },
-        ];
+        ]
       } else {
-        newData = [
-          ...networkChartData,
-          { timeStamp: timestamp, upload: up, download: down },
-        ];
+        newData = [...networkChartData, { timeStamp: timestamp, upload: up, download: down }]
       }
       if (newData.length > 30) {
-        newData.shift();
+        newData.shift()
       }
-      setNetworkChartData(newData);
+      setNetworkChartData(newData)
     }
-  }, [data]);
+  }, [data])
 
-  let maxDownload = Math.max(...networkChartData.map((item) => item.download));
-  maxDownload = Math.ceil(maxDownload);
+  let maxDownload = Math.max(...networkChartData.map((item) => item.download))
+  maxDownload = Math.ceil(maxDownload)
   if (maxDownload < 1) {
-    maxDownload = 1;
+    maxDownload = 1
   }
 
   const chartConfig = {
@@ -579,7 +523,7 @@ function NetworkChart({ data }: { data: NezhaAPISafe }) {
     download: {
       label: "Download",
     },
-  } satisfies ChartConfig;
+  } satisfies ChartConfig
 
   return (
     <Card>
@@ -595,9 +539,7 @@ function NetworkChart({ data }: { data: NezhaAPISafe }) {
                 </div>
               </div>
               <div className="flex flex-col w-20">
-                <p className=" text-xs text-muted-foreground">
-                  {t("Download")}
-                </p>
+                <p className=" text-xs text-muted-foreground">{t("Download")}</p>
                 <div className="flex items-center gap-1">
                   <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-4))]"></span>
                   <p className="text-xs font-medium">{down.toFixed(2)} M/s</p>
@@ -605,10 +547,7 @@ function NetworkChart({ data }: { data: NezhaAPISafe }) {
               </div>
             </section>
           </div>
-          <ChartContainer
-            config={chartConfig}
-            className="aspect-auto h-[130px] w-full"
-          >
+          <ChartContainer config={chartConfig} className="aspect-auto h-[130px] w-full">
             <LineChart
               accessibilityLayer
               data={networkChartData}
@@ -660,37 +599,32 @@ function NetworkChart({ data }: { data: NezhaAPISafe }) {
         </section>
       </CardContent>
     </Card>
-  );
+  )
 }
 
 function ConnectChart({ data }: { data: NezhaAPISafe }) {
-  const [connectChartData, setConnectChartData] = useState(
-    [] as connectChartData[],
-  );
+  const [connectChartData, setConnectChartData] = useState([] as connectChartData[])
 
-  const { tcp, udp } = formatNezhaInfo(data);
+  const { tcp, udp } = formatNezhaInfo(data)
 
   useEffect(() => {
     if (data) {
-      const timestamp = Date.now().toString();
-      let newData = [] as connectChartData[];
+      const timestamp = Date.now().toString()
+      let newData = [] as connectChartData[]
       if (connectChartData.length === 0) {
         newData = [
           { timeStamp: timestamp, tcp: tcp, udp: udp },
           { timeStamp: timestamp, tcp: tcp, udp: udp },
-        ];
+        ]
       } else {
-        newData = [
-          ...connectChartData,
-          { timeStamp: timestamp, tcp: tcp, udp: udp },
-        ];
+        newData = [...connectChartData, { timeStamp: timestamp, tcp: tcp, udp: udp }]
       }
       if (newData.length > 30) {
-        newData.shift();
+        newData.shift()
       }
-      setConnectChartData(newData);
+      setConnectChartData(newData)
     }
-  }, [data]);
+  }, [data])
 
   const chartConfig = {
     tcp: {
@@ -699,7 +633,7 @@ function ConnectChart({ data }: { data: NezhaAPISafe }) {
     udp: {
       label: "UDP",
     },
-  } satisfies ChartConfig;
+  } satisfies ChartConfig
 
   return (
     <Card>
@@ -723,10 +657,7 @@ function ConnectChart({ data }: { data: NezhaAPISafe }) {
               </div>
             </section>
           </div>
-          <ChartContainer
-            config={chartConfig}
-            className="aspect-auto h-[130px] w-full"
-          >
+          <ChartContainer config={chartConfig} className="aspect-auto h-[130px] w-full">
             <LineChart
               accessibilityLayer
               data={connectChartData}
@@ -775,5 +706,5 @@ function ConnectChart({ data }: { data: NezhaAPISafe }) {
         </section>
       </CardContent>
     </Card>
-  );
+  )
 }

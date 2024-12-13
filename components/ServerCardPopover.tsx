@@ -1,6 +1,6 @@
-import { NezhaAPISafe } from "@/app/types/nezha-api";
-import { cn, formatBytes } from "@/lib/utils";
-import { useTranslations } from "next-intl";
+import { NezhaAPISafe } from "@/app/types/nezha-api"
+import { cn, formatBytes } from "@/lib/utils"
+import { useTranslations } from "next-intl"
 
 export function ServerCardPopoverCard({
   className,
@@ -8,31 +8,27 @@ export function ServerCardPopoverCard({
   content,
   children,
 }: {
-  className?: string;
-  title: string;
-  content?: string;
-  children?: React.ReactNode;
+  className?: string
+  title: string
+  content?: string
+  children?: React.ReactNode
 }) {
   return (
     <div className={cn("mb-[6px] flex w-full flex-col", className)}>
       <div className="text-sm font-semibold">{title}</div>
-      {children ? (
-        children
-      ) : (
-        <div className="break-all text-xs font-medium">{content}</div>
-      )}
+      {children ? children : <div className="break-all text-xs font-medium">{content}</div>}
     </div>
-  );
+  )
 }
 
 export default function ServerCardPopover({
   host,
   status,
 }: {
-  host: NezhaAPISafe["host"];
-  status: NezhaAPISafe["status"];
+  host: NezhaAPISafe["host"]
+  status: NezhaAPISafe["status"]
 }) {
-  const t = useTranslations("ServerCardPopover");
+  const t = useTranslations("ServerCardPopover")
   return (
     <section className="max-w-[300px]">
       <ServerCardPopoverCard
@@ -69,5 +65,5 @@ export default function ServerCardPopover({
         content={`${(status.Uptime / 86400).toFixed(0)} Days`}
       />
     </section>
-  );
+  )
 }

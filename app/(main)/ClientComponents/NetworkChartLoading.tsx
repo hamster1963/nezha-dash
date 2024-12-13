@@ -1,5 +1,5 @@
-import { Loader } from "@/components/loading/Loader";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Loader } from "@/components/loading/Loader"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function NetworkChartLoading() {
   return (
@@ -19,5 +19,5 @@ export default function NetworkChartLoading() {
         <div className="aspect-auto h-[250px] w-full"></div>
       </CardContent>
     </Card>
-  );
+  )
 }

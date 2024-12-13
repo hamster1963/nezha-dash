@@ -1,7 +1,4 @@
-export const countryCoordinates: Record<
-  string,
-  { lat: number; lng: number; name: string }
-> = {
+export const countryCoordinates: Record<string, { lat: number; lng: number; name: string }> = {
   // 亚洲
   AF: { lat: 33.0, lng: 65.0, name: "Afghanistan" }, // 阿富汗
   AM: { lat: 40.0, lng: 45.0, name: "Armenia" }, // 亚美尼亚
@@ -208,4 +205,4 @@ export const countryCoordinates: Record<
   EH: { lat: 24.5, lng: -13.0, name: "Western Sahara" }, // 西撒哈拉
   ZM: { lat: -15.0, lng: 30.0, name: "Zambia" }, // 赞比亚
   ZW: { lat: -20.0, lng: 30.0, name: "Zimbabwe" }, // 津巴布韦
-};
+}

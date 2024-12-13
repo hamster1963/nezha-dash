@@ -1,6 +1,6 @@
-import { BackIcon } from "@/components/Icon";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useRouter } from "next/navigation";
+import { BackIcon } from "@/components/Icon"
+import { Skeleton } from "@/components/ui/skeleton"
+import { useRouter } from "next/navigation"
 
 export function ServerDetailChartLoading() {
   return (
@@ -14,17 +14,17 @@ export function ServerDetailChartLoading() {
         <Skeleton className="h-[182px] w-full rounded-[5px] bg-muted-foreground/10 animate-none"></Skeleton>
       </section>
     </div>
-  );
+  )
 }
 
 export function ServerDetailLoading() {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <>
       <div
         onClick={() => {
-          router.push(`/`);
+          router.push(`/`)
         }}
         className="flex flex-none cursor-pointer font-semibold leading-none items-center break-all tracking-tight gap-0.5 text-xl"
       >
@@ -33,5 +33,5 @@ export function ServerDetailLoading() {
       </div>
       <Skeleton className="flex flex-wrap gap-2 h-[81px] w-1/2 mt-3 rounded-[5px] bg-muted-foreground/10 animate-none"></Skeleton>
     </>
-  );
+  )
 }

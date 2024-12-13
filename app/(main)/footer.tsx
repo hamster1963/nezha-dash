@@ -1,9 +1,9 @@
-import pack from "@/package.json";
-import { useTranslations } from "next-intl";
+import pack from "@/package.json"
+import { useTranslations } from "next-intl"
 
 export default function Footer() {
-  const t = useTranslations("Footer");
-  const version = pack.version;
+  const t = useTranslations("Footer")
+  const version = pack.version
   return (
     <footer className="mx-auto w-full max-w-5xl">
       <section className="flex flex-col">
@@ -31,5 +31,5 @@ export default function Footer() {
         </section>
       </section>
     </footer>
-  );
+  )
 }

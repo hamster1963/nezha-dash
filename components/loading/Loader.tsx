@@ -1,4 +1,4 @@
-const bars = Array(8).fill(0);
+const bars = Array(8).fill(0)
 
 export const Loader = ({ visible }: { visible: boolean }) => {
   return (
@@ -9,5 +9,5 @@ export const Loader = ({ visible }: { visible: boolean }) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
