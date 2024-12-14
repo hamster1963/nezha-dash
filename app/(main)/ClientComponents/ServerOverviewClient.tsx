@@ -141,7 +141,7 @@ export default function ServerOverviewClient() {
               </div>
               {data?.result ? (
                 <>
-                  <section className="flex items-start flex-row z-[999] pr-2 sm:pr-0 gap-1">
+                  <section className="flex items-start flex-row z-[999] pr-0 gap-1">
                     <p className="sm:text-[12px] text-[10px] text-blue-800 dark:text-blue-400   text-nowrap font-medium">
                       ↑{formatBytes(data?.total_out_bandwidth)}
                     </p>
