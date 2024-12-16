@@ -141,7 +141,7 @@ export default function ServerOverviewClient() {
               </div>
               {data?.result ? (
                 <>
-                  <section className="flex items-start flex-row z-[999] pr-0 gap-1">
+                  <section className="flex items-start flex-row pr-0 gap-1">
                     <p className="sm:text-[12px] text-[10px] text-blue-800 dark:text-blue-400   text-nowrap font-medium">
                       ↑{formatBytes(data?.total_out_bandwidth)}
                     </p>
@@ -168,7 +168,7 @@ export default function ServerOverviewClient() {
             </section>
             {!disableCartoon && (
               <Image
-                className="absolute right-3 top-[-85px] z-10 w-20 scale-90 group-hover:opacity-50 md:scale-100 transition-all"
+                className="absolute right-3 top-[-85px] z-50 w-20 scale-90 group-hover:opacity-50 md:scale-100 transition-all"
                 alt={"Hamster1963"}
                 src={blogMan}
                 priority
