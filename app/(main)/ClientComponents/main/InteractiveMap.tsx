@@ -3,8 +3,8 @@
 import { countryCoordinates } from "@/lib/geo-limit"
 import { geoEquirectangular, geoPath } from "d3-geo"
 
+import { useTooltip } from "../detail/TooltipContext"
 import MapTooltip from "./MapTooltip"
-import { useTooltip } from "./TooltipContext"
 
 interface InteractiveMapProps {
   countries: string[]

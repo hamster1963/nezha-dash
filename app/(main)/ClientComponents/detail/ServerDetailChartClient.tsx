@@ -1,7 +1,7 @@
 "use client"
 
-import { ServerDetailChartLoading } from "@/app/(main)/ClientComponents/ServerDetailLoading"
 import { NezhaAPISafe, ServerApi } from "@/app/types/nezha-api"
+import { ServerDetailChartLoading } from "@/components/loading/ServerDetailLoading"
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar"
 import { Card, CardContent } from "@/components/ui/card"
 import { ChartConfig, ChartContainer } from "@/components/ui/chart"

@@ -14,7 +14,7 @@ import dynamic from "next/dynamic"
 import { useEffect, useRef, useState } from "react"
 import useSWR from "swr"
 
-import GlobalLoading from "./GlobalLoading"
+import GlobalLoading from "../../../../components/loading/GlobalLoading"
 
 const ServerGlobal = dynamic(() => import("./Global"), {
   ssr: false,

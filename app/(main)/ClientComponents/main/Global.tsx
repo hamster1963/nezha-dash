@@ -4,11 +4,11 @@ import { ServerApi } from "@/app/types/nezha-api"
 import { nezhaFetcher } from "@/lib/utils"
 import useSWRImmutable from "swr/immutable"
 
-import { geoJsonString } from "../../../lib/geo-json-string"
+import GlobalLoading from "../../../../components/loading/GlobalLoading"
+import { geoJsonString } from "../../../../lib/geo-json-string"
+import { TooltipProvider } from "../detail/TooltipContext"
 import GlobalInfo from "./GlobalInfo"
-import GlobalLoading from "./GlobalLoading"
 import { InteractiveMap } from "./InteractiveMap"
-import { TooltipProvider } from "./TooltipContext"
 
 export default function ServerGlobal() {
   const { data: nezhaServerList, error } = useSWRImmutable<ServerApi>("/api/server", nezhaFetcher)

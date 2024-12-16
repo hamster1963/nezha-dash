@@ -1,7 +1,7 @@
 "use client"
 
-import NetworkChartLoading from "@/app/(main)/ClientComponents/NetworkChartLoading"
 import { NezhaAPIMonitor, ServerMonitorChart } from "@/app/types/nezha-api"
+import NetworkChartLoading from "@/components/loading/NetworkChartLoading"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   ChartConfig,

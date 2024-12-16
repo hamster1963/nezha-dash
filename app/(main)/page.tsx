@@ -1,5 +1,5 @@
-import ServerListClient from "./ClientComponents/ServerListClient"
-import ServerOverviewClient from "./ClientComponents/ServerOverviewClient"
+import ServerListClient from "./ClientComponents/main/ServerListClient"
+import ServerOverviewClient from "./ClientComponents/main/ServerOverviewClient"
 
 export default async function Home() {
   return (

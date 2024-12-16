@@ -1,9 +1,9 @@
 "use client"
 
-import { ServerDetailLoading } from "@/app/(main)/ClientComponents/ServerDetailLoading"
 import { NezhaAPISafe, ServerApi } from "@/app/types/nezha-api"
 import { BackIcon } from "@/components/Icon"
 import ServerFlag from "@/components/ServerFlag"
+import { ServerDetailLoading } from "@/components/loading/ServerDetailLoading"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import getEnv from "@/lib/env-entry"
