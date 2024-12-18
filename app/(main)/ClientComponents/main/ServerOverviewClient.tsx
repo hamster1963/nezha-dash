@@ -141,11 +141,11 @@ export default function ServerOverviewClient() {
               </div>
               {data?.result ? (
                 <>
-                  <section className="flex items-start flex-row pr-0 gap-1">
-                    <p className="sm:text-[12px] text-[10px] text-blue-800 dark:text-blue-400   text-nowrap font-medium">
+                  <section className="flex flex-col sm:flex-row items-start pr-0 gap-1">
+                    <p className="text-[12px] text-blue-800 dark:text-blue-400   text-nowrap font-medium">
                       ↑{formatBytes(data?.total_out_bandwidth)}
                     </p>
-                    <p className="sm:text-[12px] text-[10px]  text-purple-800 dark:text-purple-400  text-nowrap font-medium">
+                    <p className="text-[12px]  text-purple-800 dark:text-purple-400  text-nowrap font-medium">
                       ↓{formatBytes(data?.total_in_bandwidth)}
                     </p>
                   </section>
