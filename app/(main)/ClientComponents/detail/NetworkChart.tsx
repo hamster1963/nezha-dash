@@ -160,12 +160,48 @@ export const NetworkChart = React.memo(function NetworkChart({
       return activeChart === defaultChart ? formattedData : chartData[activeChart]
     }
 
-    // 如果开启了削峰，对数据进行处理
     const data = (
       activeChart === defaultChart ? formattedData : chartData[activeChart]
     ) as ResultItem[]
-    const windowSize = 7 // 增加到7个点的移动平均
-    const weights = [0.1, 0.1, 0.15, 0.3, 0.15, 0.1, 0.1] // 加权平均的权重
+
+    const windowSize = 11 // 增加窗口大小以获取更好的统计效果
+    const alpha = 0.3 // EWMA平滑因子
+
+    // 辅助函数：计算中位数
+    const getMedian = (arr: number[]) => {
+      const sorted = [...arr].sort((a, b) => a - b)
+      const mid = Math.floor(sorted.length / 2)
+      return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2
+    }
+
+    // 辅助函数：异常值处理
+    const processValues = (values: number[]) => {
+      if (values.length === 0) return null
+
+      const median = getMedian(values)
+      const deviations = values.map((v) => Math.abs(v - median))
+      const medianDeviation = getMedian(deviations) * 1.4826 // MAD估计器
+
+      // 使用中位数绝对偏差(MAD)进行异常值检测
+      const validValues = values.filter(
+        (v) =>
+          Math.abs(v - median) <= 3 * medianDeviation && // 更严格的异常值判定
+          v <= median * 3, // 限制最大值不超过中位数的3倍
+      )
+
+      if (validValues.length === 0) return median // 如果没有有效值，返回中位数
+
+      // 计算EWMA
+      let ewma = validValues[0]
+      for (let i = 1; i < validValues.length; i++) {
+        ewma = alpha * validValues[i] + (1 - alpha) * ewma
+      }
+
+      return ewma
+    }
+
+    // 初始化EWMA历史值
+    const ewmaHistory: { [key: string]: number } = {}
 
     return data.map((point, index) => {
       if (index < windowSize - 1) return point
@@ -174,22 +210,40 @@ export const NetworkChart = React.memo(function NetworkChart({
       const smoothed = { ...point } as ResultItem
 
       if (activeChart === defaultChart) {
-        // 处理所有线路的数据
         chartDataKey.forEach((key) => {
           const values = window
             .map((w) => w[key])
             .filter((v) => v !== undefined && v !== null) as number[]
-          if (values.length === windowSize) {
-            smoothed[key] = values.reduce((acc, val, idx) => acc + val * weights[idx], 0)
+
+          if (values.length > 0) {
+            const processed = processValues(values)
+            if (processed !== null) {
+              // 应用EWMA平滑
+              if (ewmaHistory[key] === undefined) {
+                ewmaHistory[key] = processed
+              } else {
+                ewmaHistory[key] = alpha * processed + (1 - alpha) * ewmaHistory[key]
+              }
+              smoothed[key] = ewmaHistory[key]
+            }
           }
         })
       } else {
-        // 处理单条线路的数据
         const values = window
           .map((w) => w.avg_delay)
           .filter((v) => v !== undefined && v !== null) as number[]
-        if (values.length === windowSize) {
-          smoothed.avg_delay = values.reduce((acc, val, idx) => acc + val * weights[idx], 0)
+
+        if (values.length > 0) {
+          const processed = processValues(values)
+          if (processed !== null) {
+            // 应用EWMA平滑
+            if (ewmaHistory["current"] === undefined) {
+              ewmaHistory["current"] = processed
+            } else {
+              ewmaHistory["current"] = alpha * processed + (1 - alpha) * ewmaHistory["current"]
+            }
+            smoothed.avg_delay = ewmaHistory["current"]
+          }
         }
       }
 
