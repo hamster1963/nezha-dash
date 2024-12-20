@@ -51,11 +51,16 @@ function Header() {
           </p>
         </section>
         <section className="flex items-center gap-2">
-          <Links />
+          <div className="hidden sm:block">
+            <Links />
+          </div>
           <LanguageSwitcher />
           <ModeToggle />
         </section>
       </section>
+      <div className="w-full flex justify-end sm:hidden mt-1">
+        <Links />
+      </div>
       <Overview />
     </div>
   )
