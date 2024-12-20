@@ -57,7 +57,7 @@ export async function GetNezhaData() {
     const timestamp = Date.now() / 1000
     data.result = nezhaDataFiltered.map(
       (element: MakeOptional<NezhaAPI, "ipv4" | "ipv6" | "valid_ip">) => {
-        const isOnline = timestamp - element.last_active <= 60
+        const isOnline = timestamp - element.last_active <= 180
         element.online_status = isOnline
 
         if (isOnline) {
@@ -208,7 +208,7 @@ export async function GetServerDetail({ server_id }: { server_id: number }) {
 
     const timestamp = Date.now() / 1000
     const detailData = detailDataList.map((element) => {
-      element.online_status = timestamp - element.last_active <= 60
+      element.online_status = timestamp - element.last_active <= 180
       delete element.ipv4
       delete element.ipv6
       delete element.valid_ip
