@@ -57,19 +57,18 @@ export async function GetNezhaData() {
     const timestamp = Date.now() / 1000
     data.result = nezhaDataFiltered.map(
       (element: MakeOptional<NezhaAPI, "ipv4" | "ipv6" | "valid_ip">) => {
-        const isOnline = timestamp - element.last_active <= 300
+        const isOnline = timestamp - element.last_active <= 60
         element.online_status = isOnline
 
         if (isOnline) {
           data.live_servers += 1
+          data.total_out_bandwidth += element.status.NetOutTransfer
+          data.total_in_bandwidth += element.status.NetInTransfer
+          data.total_in_speed += element.status.NetInSpeed
+          data.total_out_speed += element.status.NetOutSpeed
         } else {
           data.offline_servers += 1
         }
-
-        data.total_out_bandwidth += element.status.NetOutTransfer
-        data.total_in_bandwidth += element.status.NetInTransfer
-        data.total_in_speed += element.status.NetInSpeed
-        data.total_out_speed += element.status.NetOutSpeed
 
         // Remove unwanted properties
         delete element.ipv4
@@ -209,7 +208,7 @@ export async function GetServerDetail({ server_id }: { server_id: number }) {
 
     const timestamp = Date.now() / 1000
     const detailData = detailDataList.map((element) => {
-      element.online_status = timestamp - element.last_active <= 300
+      element.online_status = timestamp - element.last_active <= 60
       delete element.ipv4
       delete element.ipv6
       delete element.valid_ip
