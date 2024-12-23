@@ -10,7 +10,7 @@ export default function ServerFlag({
   country_code: string
   className?: string
 }) {
-  const [supportsEmojiFlags, setSupportsEmojiFlags] = useState(false)
+  const [supportsEmojiFlags, setSupportsEmojiFlags] = useState(true)
 
   const useSvgFlag = getEnv("NEXT_PUBLIC_ForceUseSvgFlag") === "true"
 
