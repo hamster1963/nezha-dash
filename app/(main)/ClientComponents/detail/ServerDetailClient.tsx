@@ -104,7 +104,9 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
               <p className="text-xs text-muted-foreground">{t("Uptime")}</p>
               <div className="text-xs">
                 {" "}
-                {(data?.status.Uptime / 86400).toFixed(0)} {t("Days")}{" "}
+                {data?.status.Uptime / 86400 >= 1
+                  ? (data?.status.Uptime / 86400).toFixed(0) + " " + t("Days")
+                  : (data?.status.Uptime / 3600).toFixed(0) + " " + t("Hours")}{" "}
               </div>
             </section>
           </CardContent>
