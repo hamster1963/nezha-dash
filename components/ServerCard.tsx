@@ -130,34 +130,41 @@ export default function ServerCard({ serverInfo }: { serverInfo: NezhaAPISafe })
       </Card>
     </Link>
   ) : (
-    <Card
-      className={cn(
-        "flex flex-col items-center justify-start gap-3 p-3 md:px-5",
-        showNetTransfer ? "lg:min-h-[91px] min-h-[123px]" : "lg:min-h-[61px] min-h-[93px]",
-        {
-          "flex-col": fixedTopServerName,
-          "lg:flex-row": !fixedTopServerName,
-        },
-      )}
-    >
-      <section
-        className={cn("grid items-center gap-2", {
-          "lg:w-40": !fixedTopServerName,
-        })}
-        style={{ gridTemplateColumns: "auto auto 1fr" }}
+    <Link onClick={saveSession} href={`/server/${id}`} prefetch={true}>
+      <Card
+        className={cn(
+          "flex flex-col items-center justify-start gap-3 p-3 md:px-5 cursor-pointer hover:bg-accent/50 transition-colors",
+          showNetTransfer ? "lg:min-h-[91px] min-h-[123px]" : "lg:min-h-[61px] min-h-[93px]",
+          {
+            "flex-col": fixedTopServerName,
+            "lg:flex-row": !fixedTopServerName,
+          },
+        )}
       >
-        <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center"></span>
-        <div
-          className={cn("flex items-center justify-center", showFlag ? "min-w-[17px]" : "min-w-0")}
+        <section
+          className={cn("grid items-center gap-2", {
+            "lg:w-40": !fixedTopServerName,
+          })}
+          style={{ gridTemplateColumns: "auto auto 1fr" }}
         >
-          {showFlag ? <ServerFlag country_code={country_code} /> : null}
-        </div>
-        <div className="relative">
-          <p className={cn("break-all font-bold tracking-tight", showFlag ? "text-xs" : "text-sm")}>
-            {name}
-          </p>
-        </div>
-      </section>
-    </Card>
+          <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center"></span>
+          <div
+            className={cn(
+              "flex items-center justify-center",
+              showFlag ? "min-w-[17px]" : "min-w-0",
+            )}
+          >
+            {showFlag ? <ServerFlag country_code={country_code} /> : null}
+          </div>
+          <div className="relative">
+            <p
+              className={cn("break-all font-bold tracking-tight", showFlag ? "text-xs" : "text-sm")}
+            >
+              {name}
+            </p>
+          </div>
+        </section>
+      </Card>
+    </Link>
   )
 }

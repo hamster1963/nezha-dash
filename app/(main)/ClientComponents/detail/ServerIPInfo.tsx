@@ -23,7 +23,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
   return (
     <>
       <section className="flex flex-wrap gap-2 mb-4">
-        {data.asn.autonomous_system_organization && (
+        {data.asn?.autonomous_system_organization && (
           <Card className="rounded-[10px] bg-transparent border-none shadow-none">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
@@ -33,7 +33,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
             </CardContent>
           </Card>
         )}
-        {data.asn.autonomous_system_number && (
+        {data.asn?.autonomous_system_number && (
           <Card className="rounded-[10px] bg-transparent border-none shadow-none">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
@@ -43,7 +43,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
             </CardContent>
           </Card>
         )}
-        {data.city.registered_country?.names.en && (
+        {data.city?.registered_country?.names.en && (
           <Card className="rounded-[10px] bg-transparent border-none shadow-none">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
@@ -53,7 +53,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
             </CardContent>
           </Card>
         )}
-        {data.city.country?.iso_code && (
+        {data.city?.country?.iso_code && (
           <Card className="rounded-[10px] bg-transparent border-none shadow-none">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
@@ -63,7 +63,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
             </CardContent>
           </Card>
         )}
-        {data.city.city?.names.en && (
+        {data.city?.city?.names.en && (
           <Card className="rounded-[10px] bg-transparent border-none shadow-none">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
@@ -73,7 +73,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
             </CardContent>
           </Card>
         )}
-        {data.city.location?.longitude && (
+        {data.city?.location?.longitude && (
           <Card className="rounded-[10px] bg-transparent border-none shadow-none">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
@@ -83,7 +83,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
             </CardContent>
           </Card>
         )}
-        {data.city.location?.latitude && (
+        {data.city?.location?.latitude && (
           <Card className="rounded-[10px] bg-transparent border-none shadow-none">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
@@ -93,7 +93,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
             </CardContent>
           </Card>
         )}
-        {data.city.location?.time_zone && (
+        {data.city?.location?.time_zone && (
           <Card className="rounded-[10px] bg-transparent border-none shadow-none">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
@@ -103,7 +103,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
             </CardContent>
           </Card>
         )}
-        {data.city.postal && (
+        {data.city?.postal && (
           <Card className="rounded-[10px] bg-transparent border-none shadow-none">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
