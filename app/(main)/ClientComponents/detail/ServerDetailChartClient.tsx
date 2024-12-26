@@ -103,6 +103,8 @@ function CpuChart({ history, data }: { history: ServerDataWithTimestamp[]; data:
       setCpuChartData(historyData)
       hasInitialized.current = true
       setHistoryLoaded(true)
+    } else if (history.length === 0) {
+      setHistoryLoaded(true)
     }
   }, [])
 
@@ -224,6 +226,8 @@ function ProcessChart({
       setProcessChartData(historyData)
       hasInitialized.current = true
       setHistoryLoaded(true)
+    } else if (history.length === 0) {
+      setHistoryLoaded(true)
     }
   }, [])
 
@@ -325,6 +329,8 @@ function MemChart({ data, history }: { data: NezhaAPISafe; history: ServerDataWi
 
       setMemChartData(historyData)
       hasInitialized.current = true
+      setHistoryLoaded(true)
+    } else if (history.length === 0) {
       setHistoryLoaded(true)
     }
   }, [])
@@ -477,6 +483,8 @@ function DiskChart({ data, history }: { data: NezhaAPISafe; history: ServerDataW
       setDiskChartData(historyData)
       hasInitialized.current = true
       setHistoryLoaded(true)
+    } else if (history.length === 0) {
+      setHistoryLoaded(true)
     }
   }, [])
 
@@ -603,6 +611,8 @@ function NetworkChart({
 
       setNetworkChartData(historyData)
       hasInitialized.current = true
+      setHistoryLoaded(true)
+    } else if (history.length === 0) {
       setHistoryLoaded(true)
     }
   }, [])
@@ -749,6 +759,8 @@ function ConnectChart({
 
       setConnectChartData(historyData)
       hasInitialized.current = true
+      setHistoryLoaded(true)
+    } else if (history.length === 0) {
       setHistoryLoaded(true)
     }
   }, [])
