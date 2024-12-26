@@ -27,7 +27,7 @@ export function ServerDataProvider({ children }: { children: ReactNode }) {
 
   const { data, error, isLoading } = useSWR<ServerApi>("/api/server", nezhaFetcher, {
     refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 2000,
-    dedupingInterval: 1000,
+    dedupingInterval: 500,
   })
 
   useEffect(() => {
