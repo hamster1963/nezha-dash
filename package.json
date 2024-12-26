@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "next dev -p 3040",
     "start": "node .next/standalone/server.js",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "format": "prettier --write .",
+    "lint": "biome lint",
+    "lint:fix": "biome lint --fix",
+    "format": "biome format --write .",
+    "check": "biome check",
+    "check:fix": "biome check --fix",
     "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
     "build-dev": "next build",
     "start-dev": "next start"
@@ -60,6 +62,7 @@
     "typescript-eslint": "^8.18.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@next/bundle-analyzer": "^15.1.2",
     "@tailwindcss/postcss": "^4.0.0-beta.8",
     "@types/node": "^22.10.2",
