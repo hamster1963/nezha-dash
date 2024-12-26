@@ -6,7 +6,7 @@ import { nezhaFetcher } from "@/lib/utils"
 import { ReactNode, createContext, useContext, useEffect, useState } from "react"
 import useSWR from "swr"
 
-interface ServerDataWithTimestamp {
+export interface ServerDataWithTimestamp {
   timestamp: number
   data: ServerApi
 }
@@ -27,7 +27,7 @@ export function ServerDataProvider({ children }: { children: ReactNode }) {
 
   const { data, error, isLoading } = useSWR<ServerApi>("/api/server", nezhaFetcher, {
     refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 2000,
-    dedupingInterval: 500,
+    dedupingInterval: 1000,
   })
 
   useEffect(() => {
