@@ -1,15 +1,15 @@
 "use client"
 
-import { NezhaAPISafe, ServerApi } from "@/app/types/nezha-api"
+import { useServerData } from "@/app/lib/server-data-context"
+import { NezhaAPISafe } from "@/app/types/nezha-api"
 import { ServerDetailChartLoading } from "@/components/loading/ServerDetailLoading"
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar"
 import { Card, CardContent } from "@/components/ui/card"
 import { ChartConfig, ChartContainer } from "@/components/ui/chart"
-import { formatBytes, formatNezhaInfo, formatRelativeTime, nezhaFetcher } from "@/lib/utils"
+import { formatBytes, formatNezhaInfo, formatRelativeTime } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 import { Area, AreaChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
-import useSWRImmutable from "swr/immutable"
 
 type cpuChartData = {
   timeStamp: string
@@ -52,16 +52,9 @@ export default function ServerDetailChartClient({
 }) {
   const t = useTranslations("ServerDetailChartClient")
 
-  const { data: allFallbackData } = useSWRImmutable<ServerApi>("/api/server", nezhaFetcher)
-  const fallbackData = allFallbackData?.result?.find((item) => item.id === server_id)
+  const { data: serverList, error } = useServerData()
 
-  const { data, error } = useSWRImmutable<NezhaAPISafe>(
-    `/api/detail?server_id=${server_id}`,
-    nezhaFetcher,
-    {
-      fallbackData,
-    },
-  )
+  const data = serverList?.result?.find((item) => item.id === server_id)
 
   if (error) {
     return (

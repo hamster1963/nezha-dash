@@ -1,18 +1,15 @@
 "use client"
 
-import { NezhaAPISafe, ServerApi } from "@/app/types/nezha-api"
+import { useServerData } from "@/app/lib/server-data-context"
 import { BackIcon } from "@/components/Icon"
 import ServerFlag from "@/components/ServerFlag"
 import { ServerDetailLoading } from "@/components/loading/ServerDetailLoading"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import getEnv from "@/lib/env-entry"
-import { cn, formatBytes, nezhaFetcher } from "@/lib/utils"
+import { cn, formatBytes } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { notFound, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import useSWR from "swr"
-import useSWRImmutable from "swr/immutable"
 
 export default function ServerDetailClient({ server_id }: { server_id: number }) {
   const t = useTranslations("ServerDetailClient")
@@ -39,23 +36,12 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
     }
   }
 
-  const { data: allFallbackData, isLoading } = useSWRImmutable<ServerApi>(
-    "/api/server",
-    nezhaFetcher,
-  )
-  const fallbackData = allFallbackData?.result?.find((item) => item.id === server_id)
+  const { data: serverList, error, isLoading } = useServerData()
+  const data = serverList?.result?.find((item) => item.id === server_id)
 
-  if (!fallbackData && !isLoading) {
+  if (!data && !isLoading) {
     notFound()
   }
-
-  const { data, error } = useSWR<NezhaAPISafe>(`/api/detail?server_id=${server_id}`, nezhaFetcher, {
-    refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 5000,
-    dedupingInterval: 1000,
-    fallbackData,
-    revalidateOnMount: false,
-    revalidateIfStale: false,
-  })
 
   if (error) {
     return (

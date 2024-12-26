@@ -1,31 +1,30 @@
 "use client"
 
-import { ServerApi } from "@/app/types/nezha-api"
+import { useServerData } from "@/app/lib/server-data-context"
 import { Loader } from "@/components/loading/Loader"
 import { Card, CardContent } from "@/components/ui/card"
 import getEnv from "@/lib/env-entry"
 import { useFilter } from "@/lib/network-filter-context"
 import { useStatus } from "@/lib/status-context"
-import { cn, formatBytes, nezhaFetcher } from "@/lib/utils"
+import { cn, formatBytes } from "@/lib/utils"
 import blogMan from "@/public/blog-man.webp"
 import { ArrowDownCircleIcon, ArrowUpCircleIcon } from "@heroicons/react/20/solid"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
-import useSWRImmutable from "swr/immutable"
 
 export default function ServerOverviewClient() {
+  const { data, error, isLoading } = useServerData()
   const { status, setStatus } = useStatus()
   const { filter, setFilter } = useFilter()
   const t = useTranslations("ServerOverviewClient")
-
-  const { data, error, isLoading } = useSWRImmutable<ServerApi>("/api/server", nezhaFetcher)
   const disableCartoon = getEnv("NEXT_PUBLIC_DisableCartoon") === "true"
 
   if (error) {
+    const errorInfo = error as any
     return (
       <div className="flex flex-col items-center justify-center">
         <p className="text-sm font-medium opacity-40">
-          Error status:{error.status} {error.info?.cause ?? error.message}
+          Error status:{errorInfo?.status} {errorInfo.info?.cause ?? errorInfo?.message}
         </p>
         <p className="text-sm font-medium opacity-40">{t("error_message")}</p>
       </div>

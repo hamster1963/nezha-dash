@@ -1,8 +1,6 @@
 "use client"
 
-import { ServerApi } from "@/app/types/nezha-api"
-import { nezhaFetcher } from "@/lib/utils"
-import useSWRImmutable from "swr/immutable"
+import { useServerData } from "@/app/lib/server-data-context"
 
 import GlobalLoading from "../../../../components/loading/GlobalLoading"
 import { geoJsonString } from "../../../../lib/geo-json-string"
@@ -11,7 +9,7 @@ import GlobalInfo from "./GlobalInfo"
 import { InteractiveMap } from "./InteractiveMap"
 
 export default function ServerGlobal() {
-  const { data: nezhaServerList, error } = useSWRImmutable<ServerApi>("/api/server", nezhaFetcher)
+  const { data: nezhaServerList, error } = useServerData()
 
   if (error)
     return (
