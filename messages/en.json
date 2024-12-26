@@ -11,7 +11,8 @@
   },
   "ServerListClient": {
     "error_message": "Please check your environment variables and review the server console",
-    "defaultTag": "All"
+    "defaultTag": "All",
+    "connecting": "Connecting"
   },
   "ServerCard": {
     "System": "System",

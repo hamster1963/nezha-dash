@@ -4,6 +4,7 @@ import { useServerData } from "@/app/lib/server-data-context"
 import ServerCard from "@/components/ServerCard"
 import ServerCardInline from "@/components/ServerCardInline"
 import Switch from "@/components/Switch"
+import { Loader } from "@/components/loading/Loader"
 import getEnv from "@/lib/env-entry"
 import { useFilter } from "@/lib/network-filter-context"
 import { useStatus } from "@/lib/status-context"
@@ -79,7 +80,15 @@ export default function ServerListClient() {
       </div>
     )
 
-  if (!data?.result) return null
+  if (!data?.result)
+    return (
+      <div className="flex flex-col items-center min-h-96 justify-center ">
+        <div className="font-semibold flex items-center gap-2 text-sm">
+          <Loader visible={true} />
+          {t("connecting")}...
+        </div>
+      </div>
+    )
 
   const { result } = data
   const sortedServers = result.sort((a, b) => {

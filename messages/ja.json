@@ -11,7 +11,8 @@
   },
   "ServerListClient": {
     "error_message": "環境変数を確認し、サーバーコンソールを確認してください",
-    "defaultTag": "すべて"
+    "defaultTag": "すべて",
+    "connecting": "接続中"
   },
   "ServerCard": {
     "System": "システム",

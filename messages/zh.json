@@ -11,7 +11,8 @@
   },
   "ServerListClient": {
     "error_message": "请检查您的环境变量并检查服务器控制台",
-    "defaultTag": "全部"
+    "defaultTag": "全部",
+    "connecting": "连接中"
   },
   "ServerCard": {
     "System": "系统",
