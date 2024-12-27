@@ -140,7 +140,7 @@ export default function ServerOverviewClient() {
               </div>
               {data?.result ? (
                 <>
-                  <section className="flex flex-col sm:flex-row items-start pr-0 gap-1">
+                  <section className="flex flex-row flex-wrap items-start pr-0 gap-1">
                     <p className="text-[12px] text-blue-800 dark:text-blue-400   text-nowrap font-medium">
                       ↑{formatBytes(data?.total_out_bandwidth)}
                     </p>
@@ -148,7 +148,7 @@ export default function ServerOverviewClient() {
                       ↓{formatBytes(data?.total_in_bandwidth)}
                     </p>
                   </section>
-                  <section className="flex flex-col sm:flex-row -mr-1 sm:items-center items-start gap-1">
+                  <section className="flex flex-row flex-wrap -mr-1 sm:items-center items-start gap-1">
                     <p className="text-[11px] flex items-center text-nowrap font-semibold">
                       <ArrowUpCircleIcon className="size-3 mr-0.5 sm:mb-[1px]" />
                       {formatBytes(data?.total_out_speed)}/s
