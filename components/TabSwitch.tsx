@@ -20,8 +20,7 @@ export default function TabSwitch({
   useEffect(() => {
     const currentTabElement = tabRefs.current[tabs.indexOf(currentTab)]
     if (currentTabElement) {
-      // 考虑父元素的padding和gap
-      const parentPadding = 1 // p-[3px]
+      const parentPadding = 1
       setIndicator({
         x:
           tabs.indexOf(currentTab) !== 0
