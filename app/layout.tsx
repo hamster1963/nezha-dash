@@ -1,6 +1,5 @@
 // @auto-i18n-check. Please do not delete the line.
 import { ThemeColorManager } from "@/components/ThemeColorManager"
-import { MotionProvider } from "@/components/motion/motion-provider"
 import getEnv from "@/lib/env-entry"
 import { FilterProvider } from "@/lib/network-filter-context"
 import { StatusProvider } from "@/lib/status-context"
@@ -64,23 +63,21 @@ export default async function LocaleLayout({ children }: { children: React.React
         />
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
-        <MotionProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <NextIntlClientProvider messages={messages}>
-              <FilterProvider>
-                <StatusProvider>
-                  <ThemeColorManager />
-                  {children}
-                </StatusProvider>
-              </FilterProvider>
-            </NextIntlClientProvider>
-          </ThemeProvider>
-        </MotionProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextIntlClientProvider messages={messages}>
+            <FilterProvider>
+              <StatusProvider>
+                <ThemeColorManager />
+                {children}
+              </StatusProvider>
+            </FilterProvider>
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

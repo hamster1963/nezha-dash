@@ -1,9 +1,8 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { m } from "framer-motion"
 import { useTranslations } from "next-intl"
-import React from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 export default function TabSwitch({
   tabs,
@@ -15,30 +14,53 @@ export default function TabSwitch({
   setCurrentTab: (tab: string) => void
 }) {
   const t = useTranslations("TabSwitch")
+  const [indicator, setIndicator] = useState<{ x: number; w: number }>({ x: 0, w: 0 })
+  const tabRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  useEffect(() => {
+    const currentTabElement = tabRefs.current[tabs.indexOf(currentTab)]
+    if (currentTabElement) {
+      // 考虑父元素的padding和gap
+      const parentPadding = 1 // p-[3px]
+      setIndicator({
+        x:
+          tabs.indexOf(currentTab) !== 0
+            ? currentTabElement.offsetLeft - parentPadding
+            : currentTabElement.offsetLeft,
+        w: currentTabElement.offsetWidth,
+      })
+    }
+  }, [currentTab, tabs])
+
   return (
     <div className="z-50 flex flex-col items-start rounded-[50px]">
-      <div className="flex items-center gap-1 rounded-[50px] bg-stone-100 p-[3px] dark:bg-stone-800">
-        {tabs.map((tab: string) => (
+      <div className="relative flex items-center gap-1 rounded-[50px] bg-stone-100 p-[3px] dark:bg-stone-800">
+        {indicator.w > 0 && (
+          <div
+            className="absolute top-[3px] left-0 z-10 h-[35px] bg-white shadow-lg shadow-black/5 dark:bg-stone-700 dark:shadow-white/5"
+            style={{
+              borderRadius: 24,
+              width: `${indicator.w}px`,
+              transform: `translateX(${indicator.x}px)`,
+              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
+          />
+        )}
+        {tabs.map((tab: string, index) => (
           <div
             key={tab}
+            ref={(el) => {
+              tabRefs.current[index] = el
+            }}
             onClick={() => setCurrentTab(tab)}
             className={cn(
-              "relative cursor-pointer rounded-3xl px-2.5 py-[8px] text-[13px] font-[600] transition-all duration-500",
-              currentTab === tab
-                ? "text-black dark:text-white"
-                : "text-stone-400 dark:text-stone-500",
+              "relative cursor-pointer rounded-3xl px-2.5 py-[8px] text-[13px] font-[600]",
+              "transition-all duration-500 ease-in-out text-stone-400 dark:text-stone-500",
+              {
+                "text-stone-950 dark:text-stone-50": currentTab === tab,
+              },
             )}
           >
-            {currentTab === tab && (
-              <m.div
-                layoutId="tab-switch"
-                className="absolute inset-0 z-10 h-full w-full content-center bg-white shadow-lg shadow-black/5 dark:bg-stone-700 dark:shadow-white/5"
-                style={{
-                  originY: "0px",
-                  borderRadius: 46,
-                }}
-              />
-            )}
             <div className="relative z-20 flex items-center gap-1">
               <p className="whitespace-nowrap">{t(tab)}</p>
             </div>

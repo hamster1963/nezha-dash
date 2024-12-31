@@ -40,7 +40,6 @@
     "d3-selection": "^3.0.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "flag-icons": "^7.2.3",
-    "framer-motion": "^12.0.0-alpha.2",
     "lucide-react": "^0.454.0",
     "luxon": "^3.5.0",
     "maxmind": "^4.3.23",
