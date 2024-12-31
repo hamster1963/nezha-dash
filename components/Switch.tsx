@@ -59,7 +59,24 @@ export default function Switch({
         w: currentTagElement.offsetWidth,
       })
     }
-  }, [nowTag, allTag])
+  }, [nowTag])
+
+  useEffect(() => {
+    const currentTagElement = tagRefs.current[allTag.indexOf(nowTag)]?.current
+    const container = scrollRef.current
+
+    if (currentTagElement && container) {
+      const containerRect = container.getBoundingClientRect()
+      const tagRect = currentTagElement.getBoundingClientRect()
+
+      const scrollLeft = currentTagElement.offsetLeft - (containerRect.width - tagRect.width) / 2
+
+      container.scrollTo({
+        left: Math.max(0, scrollLeft),
+        behavior: "smooth",
+      })
+    }
+  }, [nowTag])
 
   return (
     <div
@@ -82,7 +99,10 @@ export default function Switch({
           <div
             key={tag}
             ref={tagRefs.current[index]}
-            onClick={() => onTagChange(tag)}
+            onClick={() => {
+              onTagChange(tag)
+              sessionStorage.setItem("selectedTag", tag)
+            }}
             className={cn(
               "relative cursor-pointer rounded-3xl px-2.5 py-[8px] text-[13px] font-[600]",
               "transition-all duration-500 ease-in-out text-stone-400 dark:text-stone-500",
