@@ -41,7 +41,7 @@ export function LanguageSwitcher() {
             onSelect={(e) => handleSelect(e, item.code)}
             className={cn(
               {
-                "bg-muted gap-3": locale === item.code,
+                "bg-muted gap-3 font-semibold": locale === item.code,
               },
               {
                 "rounded-t-[5px]": index === localeItems.length - 1,
