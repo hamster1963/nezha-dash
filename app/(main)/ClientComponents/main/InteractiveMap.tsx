@@ -1,10 +1,9 @@
 "use client"
 
+import { useTooltip } from "@/app/(main)/ClientComponents/detail/TooltipContext"
+import MapTooltip from "@/app/(main)/ClientComponents/main/MapTooltip"
 import { countryCoordinates } from "@/lib/geo-limit"
 import { geoEquirectangular, geoPath } from "d3-geo"
-
-import { useTooltip } from "../detail/TooltipContext"
-import MapTooltip from "./MapTooltip"
 
 interface InteractiveMapProps {
   countries: string[]

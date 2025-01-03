@@ -3,12 +3,11 @@
 import { NetworkChartClient } from "@/app/(main)/ClientComponents/detail/NetworkChart"
 import ServerDetailChartClient from "@/app/(main)/ClientComponents/detail/ServerDetailChartClient"
 import ServerDetailClient from "@/app/(main)/ClientComponents/detail/ServerDetailClient"
+import ServerIPInfo from "@/app/(main)/ClientComponents/detail/ServerIPInfo"
 import TabSwitch from "@/components/TabSwitch"
 import { Separator } from "@/components/ui/separator"
 import getEnv from "@/lib/env-entry"
 import { use, useState } from "react"
-
-import ServerIPInfo from "../../ClientComponents/detail/ServerIPInfo"
 
 export default function Page(props: { params: Promise<{ id: string }> }) {
   const params = use(props.params)

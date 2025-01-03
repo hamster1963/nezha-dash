@@ -1,12 +1,11 @@
 "use client"
 
+import { TooltipProvider } from "@/app/(main)/ClientComponents/detail/TooltipContext"
+import GlobalInfo from "@/app/(main)/ClientComponents/main/GlobalInfo"
+import { InteractiveMap } from "@/app/(main)/ClientComponents/main/InteractiveMap"
 import { useServerData } from "@/app/lib/server-data-context"
-
-import GlobalLoading from "../../../../components/loading/GlobalLoading"
-import { geoJsonString } from "../../../../lib/geo-json-string"
-import { TooltipProvider } from "../detail/TooltipContext"
-import GlobalInfo from "./GlobalInfo"
-import { InteractiveMap } from "./InteractiveMap"
+import GlobalLoading from "@/components/loading/GlobalLoading"
+import { geoJsonString } from "@/lib/geo-json-string"
 
 export default function ServerGlobal() {
   const { data: nezhaServerList, error } = useServerData()

@@ -1,8 +1,7 @@
+import Footer from "@/app/(main)/footer"
+import Header from "@/app/(main)/header"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
-
-import Footer from "./(main)/footer"
-import Header from "./(main)/header"
 
 export default function NotFoundPage() {
   const t = useTranslations("NotFoundPage")

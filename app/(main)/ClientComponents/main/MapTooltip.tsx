@@ -1,9 +1,8 @@
 "use client"
 
+import { useTooltip } from "@/app/(main)/ClientComponents/detail/TooltipContext"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
-
-import { useTooltip } from "../detail/TooltipContext"
 
 const MapTooltip = memo(function MapTooltip() {
   const { tooltipData } = useTooltip()
