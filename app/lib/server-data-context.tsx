@@ -20,7 +20,7 @@ interface ServerDataContextType {
 
 const ServerDataContext = createContext<ServerDataContextType | undefined>(undefined)
 
-const MAX_HISTORY_LENGTH = 30
+export const MAX_HISTORY_LENGTH = 30
 
 export function ServerDataProvider({ children }: { children: ReactNode }) {
   const [history, setHistory] = useState<ServerDataWithTimestamp[]>([])

@@ -1,7 +1,6 @@
+import getEnv from "@/lib/env-entry"
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-
-import getEnv from "./lib/env-entry"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.AUTH_SECRET ?? "this_is_nezha_dash_web_secret",

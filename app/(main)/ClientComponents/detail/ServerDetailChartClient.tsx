@@ -1,6 +1,10 @@
 "use client"
 
-import { ServerDataWithTimestamp, useServerData } from "@/app/lib/server-data-context"
+import {
+  MAX_HISTORY_LENGTH,
+  ServerDataWithTimestamp,
+  useServerData,
+} from "@/app/lib/server-data-context"
 import { NezhaAPISafe } from "@/app/types/nezha-api"
 import { ServerDetailChartLoading } from "@/components/loading/ServerDetailLoading"
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar"
@@ -122,7 +126,7 @@ function CpuChart({ history, data }: { history: ServerDataWithTimestamp[]; data:
       } else {
         newData = [...cpuChartData, { timeStamp: timestamp, cpu: cpu }]
       }
-      if (newData.length > 30) {
+      if (newData.length > MAX_HISTORY_LENGTH) {
         newData.shift()
       }
       setCpuChartData(newData)
@@ -245,7 +249,7 @@ function ProcessChart({
       } else {
         newData = [...processChartData, { timeStamp: timestamp, process: process }]
       }
-      if (newData.length > 30) {
+      if (newData.length > MAX_HISTORY_LENGTH) {
         newData.shift()
       }
       setProcessChartData(newData)
@@ -349,7 +353,7 @@ function MemChart({ data, history }: { data: NezhaAPISafe; history: ServerDataWi
       } else {
         newData = [...memChartData, { timeStamp: timestamp, mem: mem, swap: swap }]
       }
-      if (newData.length > 30) {
+      if (newData.length > MAX_HISTORY_LENGTH) {
         newData.shift()
       }
       setMemChartData(newData)
@@ -502,7 +506,7 @@ function DiskChart({ data, history }: { data: NezhaAPISafe; history: ServerDataW
       } else {
         newData = [...diskChartData, { timeStamp: timestamp, disk: disk }]
       }
-      if (newData.length > 30) {
+      if (newData.length > MAX_HISTORY_LENGTH) {
         newData.shift()
       }
       setDiskChartData(newData)
@@ -631,7 +635,7 @@ function NetworkChart({
       } else {
         newData = [...networkChartData, { timeStamp: timestamp, upload: up, download: down }]
       }
-      if (newData.length > 30) {
+      if (newData.length > MAX_HISTORY_LENGTH) {
         newData.shift()
       }
       setNetworkChartData(newData)
@@ -779,7 +783,7 @@ function ConnectChart({
       } else {
         newData = [...connectChartData, { timeStamp: timestamp, tcp: tcp, udp: udp }]
       }
-      if (newData.length > 30) {
+      if (newData.length > MAX_HISTORY_LENGTH) {
         newData.shift()
       }
       setConnectChartData(newData)
