@@ -26,7 +26,7 @@ function Header() {
             sessionStorage.removeItem("selectedTag")
             router.push(`/`)
           }}
-          className="flex cursor-pointer items-center text-base font-medium"
+          className="flex cursor-pointer items-center text-base font-medium hover:opacity-50 transition-opacity duration-300"
         >
           <div className="mr-1 flex flex-row items-center justify-start">
             <img
