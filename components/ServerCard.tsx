@@ -9,7 +9,11 @@ import { cn, formatBytes, formatNezhaInfo } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
 
-export default function ServerCard({ serverInfo }: { serverInfo: NezhaAPISafe }) {
+export default function ServerCard({
+  serverInfo,
+}: {
+  serverInfo: NezhaAPISafe
+}) {
   const t = useTranslations("ServerCard")
   const { id, name, country_code, online, cpu, up, down, mem, stg, host } =
     formatNezhaInfo(serverInfo)

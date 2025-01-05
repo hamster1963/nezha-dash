@@ -27,7 +27,13 @@ interface ResultItem {
   [key: string]: number
 }
 
-export function NetworkChartClient({ server_id, show }: { server_id: number; show: boolean }) {
+export function NetworkChartClient({
+  server_id,
+  show,
+}: {
+  server_id: number
+  show: boolean
+}) {
   const t = useTranslations("NetworkChartClient")
   const { data, error } = useSWR<NezhaAPIMonitor[]>(
     `/api/monitor?server_id=${server_id}`,

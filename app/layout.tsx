@@ -45,7 +45,11 @@ export const viewport: Viewport = {
   userScalable: false,
 }
 
-export default async function LocaleLayout({ children }: { children: React.ReactNode }) {
+export default async function LocaleLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const locale = await getLocale()
   const messages = await getMessages()
 

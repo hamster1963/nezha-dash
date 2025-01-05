@@ -19,7 +19,10 @@ export default function Switch({
   const scrollRef = useRef<HTMLDivElement>(null)
   const tagRefs = useRef(allTag.map(() => createRef<HTMLDivElement>()))
   const t = useTranslations("ServerListClient")
-  const [indicator, setIndicator] = useState<{ x: number; w: number }>({ x: 0, w: 0 })
+  const [indicator, setIndicator] = useState<{ x: number; w: number }>({
+    x: 0,
+    w: 0,
+  })
 
   useEffect(() => {
     const savedTag = sessionStorage.getItem("selectedTag")

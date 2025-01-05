@@ -10,7 +10,11 @@ import Link from "next/link"
 
 import { Separator } from "./ui/separator"
 
-export default function ServerCardInline({ serverInfo }: { serverInfo: NezhaAPISafe }) {
+export default function ServerCardInline({
+  serverInfo,
+}: {
+  serverInfo: NezhaAPISafe
+}) {
   const t = useTranslations("ServerCard")
   const { id, name, country_code, online, cpu, up, down, mem, stg, host } =
     formatNezhaInfo(serverInfo)

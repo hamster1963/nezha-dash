@@ -84,7 +84,13 @@ export default function ServerDetailChartClient({
   )
 }
 
-function CpuChart({ history, data }: { history: ServerDataWithTimestamp[]; data: NezhaAPISafe }) {
+function CpuChart({
+  history,
+  data,
+}: {
+  history: ServerDataWithTimestamp[]
+  data: NezhaAPISafe
+}) {
   const [cpuChartData, setCpuChartData] = useState([] as cpuChartData[])
   const hasInitialized = useRef(false)
   const [historyLoaded, setHistoryLoaded] = useState(false)
@@ -309,7 +315,13 @@ function ProcessChart({
   )
 }
 
-function MemChart({ data, history }: { data: NezhaAPISafe; history: ServerDataWithTimestamp[] }) {
+function MemChart({
+  data,
+  history,
+}: {
+  data: NezhaAPISafe
+  history: ServerDataWithTimestamp[]
+}) {
   const t = useTranslations("ServerDetailChartClient")
   const [memChartData, setMemChartData] = useState([] as memChartData[])
   const hasInitialized = useRef(false)
@@ -463,7 +475,13 @@ function MemChart({ data, history }: { data: NezhaAPISafe; history: ServerDataWi
   )
 }
 
-function DiskChart({ data, history }: { data: NezhaAPISafe; history: ServerDataWithTimestamp[] }) {
+function DiskChart({
+  data,
+  history,
+}: {
+  data: NezhaAPISafe
+  history: ServerDataWithTimestamp[]
+}) {
   const t = useTranslations("ServerDetailChartClient")
   const [diskChartData, setDiskChartData] = useState([] as diskChartData[])
   const hasInitialized = useRef(false)

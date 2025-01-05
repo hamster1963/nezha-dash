@@ -7,11 +7,16 @@ import { ServerDetailLoading } from "@/components/loading/ServerDetailLoading"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn, formatBytes } from "@/lib/utils"
+import countries from "i18n-iso-countries"
 import { useTranslations } from "next-intl"
 import { notFound, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-export default function ServerDetailClient({ server_id }: { server_id: number }) {
+export default function ServerDetailClient({
+  server_id,
+}: {
+  server_id: number
+}) {
   const t = useTranslations("ServerDetailClient")
   const router = useRouter()
 
@@ -55,6 +60,8 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
   }
 
   if (!data) return <ServerDetailLoading />
+
+  countries.registerLocale(require("i18n-iso-countries/langs/en.json"))
 
   return (
     <div>
@@ -134,20 +141,24 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
             </section>
           </CardContent>
         </Card>
-        <Card className="rounded-[10px] bg-transparent border-none shadow-none">
-          <CardContent className="px-1.5 py-1">
-            <section className="flex flex-col items-start gap-0.5">
-              <p className="text-xs text-muted-foreground">{t("Region")}</p>
-              <section className="flex items-start gap-1">
-                <div className="text-xs text-start">{data?.host.CountryCode.toUpperCase()}</div>
-                <ServerFlag
-                  className="text-[11px] -mt-[1px]"
-                  country_code={data?.host.CountryCode}
-                />
+        {data?.host.CountryCode && (
+          <Card className="rounded-[10px] bg-transparent border-none shadow-none">
+            <CardContent className="px-1.5 py-1">
+              <section className="flex flex-col items-start gap-0.5">
+                <p className="text-xs text-muted-foreground">{t("Region")}</p>
+                <section className="flex items-start gap-1">
+                  <div className="text-xs text-start">
+                    {countries.getName(data?.host.CountryCode, "en")}
+                  </div>
+                  <ServerFlag
+                    className="text-[11px] -mt-[1px]"
+                    country_code={data?.host.CountryCode}
+                  />
+                </section>
               </section>
-            </section>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        )}
       </section>
       <section className="flex flex-wrap gap-2 mt-1">
         {data?.host.Platform && (

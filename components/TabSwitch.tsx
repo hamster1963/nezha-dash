@@ -14,7 +14,10 @@ export default function TabSwitch({
   setCurrentTab: (tab: string) => void
 }) {
   const t = useTranslations("TabSwitch")
-  const [indicator, setIndicator] = useState<{ x: number; w: number }>({ x: 0, w: 0 })
+  const [indicator, setIndicator] = useState<{ x: number; w: number }>({
+    x: 0,
+    w: 0,
+  })
   const tabRefs = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
