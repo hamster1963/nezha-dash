@@ -8,9 +8,12 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn, formatBytes } from "@/lib/utils"
 import countries from "i18n-iso-countries"
+import enLocale from "i18n-iso-countries/langs/en.json"
 import { useTranslations } from "next-intl"
 import { notFound, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+
+countries.registerLocale(enLocale)
 
 export default function ServerDetailClient({
   server_id,
@@ -60,8 +63,6 @@ export default function ServerDetailClient({
   }
 
   if (!data) return <ServerDetailLoading />
-
-  countries.registerLocale(require("i18n-iso-countries/langs/en.json"))
 
   return (
     <div>
