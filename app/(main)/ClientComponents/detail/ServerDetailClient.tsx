@@ -68,7 +68,7 @@ export default function ServerDetailClient({
     <div>
       <div
         onClick={linkClick}
-        className="flex flex-none cursor-pointer font-semibold leading-none items-center break-all tracking-tight gap-0.5 text-xl"
+        className="flex flex-none cursor-pointer font-semibold leading-none items-center break-all tracking-tight gap-0.5 text-xl hover:opacity-50 transition-opacity duration-300"
       >
         <BackIcon />
         {data?.name}
