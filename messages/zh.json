@@ -85,7 +85,8 @@
     "CPU": "CPU",
     "Upload": "上传",
     "Download": "下载",
-    "Load": "负载"
+    "Load": "负载",
+    "LastActive": "最后上报时间"
   },
   "ServerDetailChartClient": {
     "chart_fetch_error_message": "获取服务器详情失败，请检查您的环境变量并检查服务器控制台",

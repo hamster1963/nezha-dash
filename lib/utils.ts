@@ -13,14 +13,32 @@ export function formatNezhaInfo(serverInfo: NezhaAPISafe) {
     process: serverInfo.status.ProcessCount || 0,
     up: serverInfo.status.NetOutSpeed / 1024 / 1024 || 0,
     down: serverInfo.status.NetInSpeed / 1024 / 1024 || 0,
+    last_active_time_string: serverInfo.last_active
+      ? new Date(serverInfo.last_active * 1000).toLocaleString()
+      : "",
     online: serverInfo.online_status,
+    uptime: serverInfo.status.Uptime || 0,
+    version: serverInfo.host.Version || null,
     tcp: serverInfo.status.TcpConnCount || 0,
     udp: serverInfo.status.UdpConnCount || 0,
+    arch: serverInfo.host.Arch || "",
+    mem_total: serverInfo.host.MemTotal || 0,
+    swap_total: serverInfo.host.SwapTotal || 0,
+    disk_total: serverInfo.host.DiskTotal || 0,
+    platform: serverInfo.host.Platform || "",
+    platform_version: serverInfo.host.PlatformVersion || "",
     mem: (serverInfo.status.MemUsed / serverInfo.host.MemTotal) * 100 || 0,
     swap: (serverInfo.status.SwapUsed / serverInfo.host.SwapTotal) * 100 || 0,
     disk: (serverInfo.status.DiskUsed / serverInfo.host.DiskTotal) * 100 || 0,
     stg: (serverInfo.status.DiskUsed / serverInfo.host.DiskTotal) * 100 || 0,
+    net_out_transfer: serverInfo.status.NetOutTransfer || 0,
+    net_in_transfer: serverInfo.status.NetInTransfer || 0,
     country_code: serverInfo.host.CountryCode,
+    cpu_info: serverInfo.host.CPU || [],
+    gpu_info: serverInfo.host.GPU || [],
+    load_1: serverInfo.status.Load1?.toFixed(2) || 0.0,
+    load_5: serverInfo.status.Load5?.toFixed(2) || 0.0,
+    load_15: serverInfo.status.Load15?.toFixed(2) || 0.0,
   }
 }
 
