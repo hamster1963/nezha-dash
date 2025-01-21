@@ -40,6 +40,7 @@ export function InteractiveMap({
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-auto"
       >
+        <title>Interactive Map</title>
         <defs>
           <pattern id="dots" width="2" height="2" patternUnits="userSpaceOnUse">
             <circle cx="1" cy="1" r="0.5" fill="currentColor" />
@@ -55,14 +56,14 @@ export function InteractiveMap({
             fill="transparent"
             onMouseEnter={() => setTooltipData(null)}
           />
-          {filteredFeatures.map((feature, index) => {
+          {filteredFeatures.map((feature) => {
             const isHighlighted = countries.includes(feature.properties.iso_a2_eh)
 
             const serverCount = serverCounts[feature.properties.iso_a2_eh] || 0
 
             return (
               <path
-                key={index}
+                key={feature.properties.iso_a2_eh}
                 d={path(feature) || ""}
                 className={
                   isHighlighted

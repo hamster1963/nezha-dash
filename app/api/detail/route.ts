@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const serverIdNum = Number.parseInt(server_id, 10)
-    if (isNaN(serverIdNum)) {
+    if (Number.isNaN(serverIdNum)) {
       return NextResponse.json({ error: "server_id must be a valid number" }, { status: 400 })
     }
 

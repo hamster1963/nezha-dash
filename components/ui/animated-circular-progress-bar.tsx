@@ -38,6 +38,7 @@ export default function AnimatedCircularProgressBar({
       }
     >
       <svg fill="none" className="size-full" strokeWidth="2" viewBox="0 0 100 100">
+        <title>Circular Progress Bar</title>
         {currentPercent <= 90 && currentPercent >= 0 && (
           <circle
             cx="50"

@@ -46,7 +46,7 @@ export default function ServerOverviewClient() {
               <p className="text-sm font-medium md:text-base">{t("p_816-881_Totalservers")}</p>
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
                 </span>
                 {data?.result ? (
                   <div className="text-lg font-semibold">{data?.result.length}</div>
@@ -76,8 +76,8 @@ export default function ServerOverviewClient() {
               <p className="text-sm font-medium md:text-base">{t("p_1610-1676_Onlineservers")}</p>
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
                 </span>
                 {data?.result ? (
                   <div className="text-lg font-semibold">{data?.live_servers}</div>
@@ -107,8 +107,8 @@ export default function ServerOverviewClient() {
               <p className="text-sm font-medium md:text-base">{t("p_2532-2599_Offlineservers")}</p>
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75"></span>
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
                 </span>
                 {data?.result ? (
                   <div className="text-lg font-semibold">{data?.offline_servers}</div>

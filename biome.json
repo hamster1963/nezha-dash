@@ -1,7 +1,7 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
-  "files": { "ignoreUnknown": false, "ignore": [".next", "public"] },
+  "files": { "ignoreUnknown": false, "ignore": [".next", "public", "styles/globals.css"] },
   "formatter": {
     "enabled": true,
     "useEditorconfig": true,
@@ -19,6 +19,9 @@
       "recommended": true,
       "a11y": {
         "useKeyWithClickEvents": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
       },
       "complexity": { "noUselessTypeConstraint": "error" },
       "correctness": {

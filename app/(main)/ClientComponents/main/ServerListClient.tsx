@@ -124,16 +124,17 @@ export default function ServerListClient() {
   }
 
   const tagCountMap: Record<string, number> = {}
-  filteredServersByStatus.forEach((server) => {
+  for (const server of filteredServersByStatus) {
     if (server.tag) {
       tagCountMap[server.tag] = (tagCountMap[server.tag] || 0) + 1
     }
-  })
+  }
 
   return (
     <>
       <section className="flex items-center gap-2 w-full overflow-hidden">
         <button
+          type="button"
           onClick={() => {
             setShowMap(!showMap)
           }}
@@ -147,6 +148,7 @@ export default function ServerListClient() {
           <MapIcon className="size-[13px]" />
         </button>
         <button
+          type="button"
           onClick={() => {
             setInline(inline === "0" ? "1" : "0")
             localStorage.setItem("inline", inline === "0" ? "1" : "0")
