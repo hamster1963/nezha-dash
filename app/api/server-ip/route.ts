@@ -41,9 +41,9 @@ export async function GET(req: NextRequest) {
   try {
     const ip = await GetServerIP({ server_id: Number(server_id) })
 
-    const cityDbPath = path.join(process.cwd(), "lib", "GeoLite2-City.mmdb")
+    const cityDbPath = path.join(process.cwd(), "lib", "maxmind-db", "GeoLite2-City.mmdb")
 
-    const asnDbPath = path.join(process.cwd(), "lib", "GeoLite2-ASN.mmdb")
+    const asnDbPath = path.join(process.cwd(), "lib", "maxmind-db", "GeoLite2-ASN.mmdb")
 
     const cityDbBuffer = fs.readFileSync(cityDbPath)
     const asnDbBuffer = fs.readFileSync(asnDbPath)

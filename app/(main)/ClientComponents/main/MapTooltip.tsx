@@ -1,6 +1,6 @@
 "use client"
 
-import { useTooltip } from "@/app/(main)/ClientComponents/detail/TooltipContext"
+import { useTooltip } from "@/app/context/tooltip-context"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
 

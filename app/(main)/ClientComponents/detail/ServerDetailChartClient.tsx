@@ -4,7 +4,7 @@ import {
   MAX_HISTORY_LENGTH,
   ServerDataWithTimestamp,
   useServerData,
-} from "@/app/lib/server-data-context"
+} from "@/app/context/server-data-context"
 import { NezhaAPISafe } from "@/app/types/nezha-api"
 import { ServerDetailChartLoading } from "@/components/loading/ServerDetailLoading"
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar"

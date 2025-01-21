@@ -1,6 +1,6 @@
 "use client"
 
-import { useServerData } from "@/app/lib/server-data-context"
+import { useServerData } from "@/app/context/server-data-context"
 import { BackIcon } from "@/components/Icon"
 import ServerFlag from "@/components/ServerFlag"
 import { ServerDetailLoading } from "@/components/loading/ServerDetailLoading"

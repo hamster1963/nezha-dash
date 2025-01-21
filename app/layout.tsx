@@ -1,8 +1,8 @@
+import { FilterProvider } from "@/app/context/network-filter-context"
+import { StatusProvider } from "@/app/context/status-context"
 // @auto-i18n-check. Please do not delete the line.
 import { ThemeColorManager } from "@/components/ThemeColorManager"
 import getEnv from "@/lib/env-entry"
-import { FilterProvider } from "@/lib/network-filter-context"
-import { StatusProvider } from "@/lib/status-context"
 import { cn } from "@/lib/utils"
 import "@/styles/globals.css"
 import type { Metadata } from "next"

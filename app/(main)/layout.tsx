@@ -1,6 +1,6 @@
 import Footer from "@/app/(main)/footer"
 import Header from "@/app/(main)/header"
-import { ServerDataProvider } from "@/app/lib/server-data-context"
+import { ServerDataProvider } from "@/app/context/server-data-context"
 import { auth } from "@/auth"
 import { SignIn } from "@/components/SignIn"
 import getEnv from "@/lib/env-entry"
