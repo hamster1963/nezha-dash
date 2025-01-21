@@ -52,6 +52,7 @@
       "linter": {
         "rules": {
           "correctness": {
+            "noUnusedImports": "error",
             "noConstAssign": "off",
             "noGlobalObjectCalls": "off",
             "noInvalidBuiltinInstantiation": "off",
@@ -73,7 +74,6 @@
             "noDuplicateObjectKeys": "off",
             "noDuplicateParameters": "off",
             "noFunctionAssign": "off",
-            "noImportAssign": "off",
             "noRedeclare": "off",
             "noUnsafeNegation": "off",
             "useGetterReturn": "off"

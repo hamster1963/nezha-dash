@@ -12,7 +12,6 @@ import { setUserLocale } from "@/i18n/locale"
 import { cn } from "@/lib/utils"
 import { CheckCircleIcon } from "@heroicons/react/20/solid"
 import { useLocale } from "next-intl"
-import * as React from "react"
 
 export function LanguageSwitcher() {
   const locale = useLocale()

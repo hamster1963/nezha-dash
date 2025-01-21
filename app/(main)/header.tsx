@@ -8,7 +8,7 @@ import getEnv from "@/lib/env-entry"
 import { DateTime } from "luxon"
 import { useTranslations } from "next-intl"
 import { useRouter } from "next/navigation"
-import React, { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 
 function Header() {
   const t = useTranslations("Header")

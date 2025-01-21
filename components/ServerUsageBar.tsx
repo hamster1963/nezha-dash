@@ -1,5 +1,4 @@
 import { Progress } from "@/components/ui/progress"
-import React from "react"
 
 type ServerUsageBarProps = {
   value: number
