@@ -24,7 +24,7 @@ function Header() {
         <section
           onClick={() => {
             sessionStorage.removeItem("selectedTag")
-            router.push(`/`)
+            router.push("/")
           }}
           className="flex cursor-pointer items-center text-base font-medium hover:opacity-50 transition-opacity duration-300"
         >
@@ -80,10 +80,10 @@ function Links() {
 
   return (
     <div className="flex items-center gap-2">
-      {links.map((link, index) => {
+      {links.map((link) => {
         return (
           <a
-            key={index}
+            key={link.link}
             href={link.link}
             target="_blank"
             rel="noopener noreferrer"
@@ -124,7 +124,7 @@ function Overview() {
         {mouted ? (
           <p className="text-sm font-medium">{timeString}</p>
         ) : (
-          <Skeleton className="h-[20px] w-[50px] rounded-[5px] bg-muted-foreground/10 animate-none"></Skeleton>
+          <Skeleton className="h-[20px] w-[50px] rounded-[5px] bg-muted-foreground/10 animate-none" />
         )}
       </div>
     </section>

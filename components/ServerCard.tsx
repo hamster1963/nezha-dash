@@ -1,4 +1,4 @@
-import { NezhaAPISafe } from "@/app/types/nezha-api"
+import type { NezhaAPISafe } from "@/app/types/nezha-api"
 import ServerFlag from "@/components/ServerFlag"
 import ServerUsageBar from "@/components/ServerUsageBar"
 import { Badge } from "@/components/ui/badge"
@@ -43,7 +43,7 @@ export default function ServerCard({
           })}
           style={{ gridTemplateColumns: "auto auto 1fr" }}
         >
-          <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
+          <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center" />
           <div
             className={cn(
               "flex items-center justify-center",
@@ -151,7 +151,7 @@ export default function ServerCard({
           })}
           style={{ gridTemplateColumns: "auto auto 1fr" }}
         >
-          <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center"></span>
+          <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center" />
           <div
             className={cn(
               "flex items-center justify-center",

@@ -2,14 +2,14 @@
 
 import {
   MAX_HISTORY_LENGTH,
-  ServerDataWithTimestamp,
+  type ServerDataWithTimestamp,
   useServerData,
 } from "@/app/context/server-data-context"
-import { NezhaAPISafe } from "@/app/types/nezha-api"
+import type { NezhaAPISafe } from "@/app/types/nezha-api"
 import { ServerDetailChartLoading } from "@/components/loading/ServerDetailLoading"
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar"
 import { Card, CardContent } from "@/components/ui/card"
-import { ChartConfig, ChartContainer } from "@/components/ui/chart"
+import { type ChartConfig, ChartContainer } from "@/components/ui/chart"
 import { formatBytes, formatNezhaInfo, formatRelativeTime } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { useEffect, useRef, useState } from "react"
@@ -684,14 +684,14 @@ function NetworkChart({
               <div className="flex flex-col w-20">
                 <p className="text-xs text-muted-foreground">{t("Upload")}</p>
                 <div className="flex items-center gap-1">
-                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-1))]"></span>
+                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-1))]" />
                   <p className="text-xs font-medium">{up.toFixed(2)} M/s</p>
                 </div>
               </div>
               <div className="flex flex-col w-20">
                 <p className=" text-xs text-muted-foreground">{t("Download")}</p>
                 <div className="flex items-center gap-1">
-                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-4))]"></span>
+                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-4))]" />
                   <p className="text-xs font-medium">{down.toFixed(2)} M/s</p>
                 </div>
               </div>
@@ -826,14 +826,14 @@ function ConnectChart({
               <div className="flex flex-col w-12">
                 <p className="text-xs text-muted-foreground">TCP</p>
                 <div className="flex items-center gap-1">
-                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-1))]"></span>
+                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-1))]" />
                   <p className="text-xs font-medium">{tcp}</p>
                 </div>
               </div>
               <div className="flex flex-col w-12">
                 <p className=" text-xs text-muted-foreground">UDP</p>
                 <div className="flex items-center gap-1">
-                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-4))]"></span>
+                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-4))]" />
                   <p className="text-xs font-medium">{udp}</p>
                 </div>
               </div>

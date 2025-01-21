@@ -5,7 +5,7 @@ export const Loader = ({ visible }: { visible: boolean }) => {
     <div className="hamster-loading-wrapper" data-visible={visible}>
       <div className="hamster-spinner">
         {bars.map((_, i) => (
-          <div className="hamster-loading-bar" key={`hamster-bar-${i}`} />
+          <div className="hamster-loading-bar" key={`hamster-bar-${i + 1}`} />
         ))}
       </div>
     </div>

@@ -64,6 +64,7 @@ export function SignIn() {
           />
         </label>
         <button
+          type="submit"
           className="px-1.5 py-0.5 w-fit flex items-center gap-1 text-sm font-semibold border-stone-300 dark:border-stone-800 rounded-[8px] border bg-card hover:brightness-95 transition-all text-card-foreground shadow-lg shadow-neutral-200/40 dark:shadow-none"
           disabled={loading}
         >

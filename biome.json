@@ -16,7 +16,10 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": false,
+      "recommended": true,
+      "a11y": {
+        "useKeyWithClickEvents": "off"
+      },
       "complexity": { "noUselessTypeConstraint": "error" },
       "correctness": {
         "noUnusedVariables": "error",
@@ -52,16 +55,7 @@
       "linter": {
         "rules": {
           "correctness": {
-            "noUnusedImports": "error",
-            "noConstAssign": "off",
-            "noGlobalObjectCalls": "off",
-            "noInvalidBuiltinInstantiation": "off",
-            "noInvalidConstructorSuper": "off",
-            "noNewSymbol": "off",
-            "noSetterReturn": "off",
-            "noUndeclaredVariables": "off",
-            "noUnreachable": "off",
-            "noUnreachableSuper": "off"
+            "noUnusedImports": "error"
           },
           "style": {
             "noArguments": "error",

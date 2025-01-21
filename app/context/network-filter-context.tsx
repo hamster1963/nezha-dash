@@ -1,6 +1,6 @@
 "use client"
 
-import { ReactNode, createContext, useContext, useState } from "react"
+import { type ReactNode, createContext, useContext, useState } from "react"
 
 interface FilterContextType {
   filter: boolean

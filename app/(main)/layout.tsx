@@ -4,7 +4,7 @@ import { ServerDataProvider } from "@/app/context/server-data-context"
 import { auth } from "@/auth"
 import { SignIn } from "@/components/SignIn"
 import getEnv from "@/lib/env-entry"
-import React from "react"
+import type React from "react"
 
 type DashboardProps = {
   children: React.ReactNode

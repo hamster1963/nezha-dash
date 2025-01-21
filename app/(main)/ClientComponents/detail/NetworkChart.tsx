@@ -1,10 +1,10 @@
 "use client"
 
-import { NezhaAPIMonitor, ServerMonitorChart } from "@/app/types/nezha-api"
+import type { NezhaAPIMonitor, ServerMonitorChart } from "@/app/types/nezha-api"
 import NetworkChartLoading from "@/components/loading/NetworkChartLoading"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
-  ChartConfig,
+  type ChartConfig,
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
@@ -120,9 +120,12 @@ export const NetworkChart = React.memo(function NetworkChart({
     () =>
       chartDataKey.map((key) => (
         <button
+          type="button"
           key={key}
           data-active={activeChart === key}
-          className={`relative z-30 flex cursor-pointer grow basis-0 flex-col justify-center gap-1 border-b border-neutral-200 dark:border-neutral-800 px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-6`}
+          className={
+            "relative z-30 flex cursor-pointer grow basis-0 flex-col justify-center gap-1 border-b border-neutral-200 dark:border-neutral-800 px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-6"
+          }
           onClick={() => handleButtonClick(key)}
         >
           <span className="whitespace-nowrap text-xs text-muted-foreground">{key}</span>
@@ -216,7 +219,7 @@ export const NetworkChart = React.memo(function NetworkChart({
       const smoothed = { ...point } as ResultItem
 
       if (activeChart === defaultChart) {
-        chartDataKey.forEach((key) => {
+        for (const key of chartDataKey) {
           const values = window
             .map((w) => w[key])
             .filter((v) => v !== undefined && v !== null) as number[]
@@ -233,7 +236,7 @@ export const NetworkChart = React.memo(function NetworkChart({
               smoothed[key] = ewmaHistory[key]
             }
           }
-        })
+        }
       } else {
         const values = window
           .map((w) => w.avg_delay)
@@ -243,12 +246,12 @@ export const NetworkChart = React.memo(function NetworkChart({
           const processed = processValues(values)
           if (processed !== null) {
             // 应用EWMA平滑
-            if (ewmaHistory["current"] === undefined) {
-              ewmaHistory["current"] = processed
+            if (ewmaHistory.current === undefined) {
+              ewmaHistory.current = processed
             } else {
-              ewmaHistory["current"] = alpha * processed + (1 - alpha) * ewmaHistory["current"]
+              ewmaHistory.current = alpha * processed + (1 - alpha) * ewmaHistory.current
             }
-            smoothed.avg_delay = ewmaHistory["current"]
+            smoothed.avg_delay = ewmaHistory.current
           }
         }
       }
@@ -320,7 +323,7 @@ export const NetworkChart = React.memo(function NetworkChart({
 const transformData = (data: NezhaAPIMonitor[]) => {
   const monitorData: ServerMonitorChart = {}
 
-  data.forEach((item) => {
+  for (const item of data) {
     const monitorName = item.monitor_name
 
     if (!monitorData[monitorName]) {
@@ -333,7 +336,7 @@ const transformData = (data: NezhaAPIMonitor[]) => {
         avg_delay: item.avg_delay[i],
       })
     }
-  })
+  }
 
   return monitorData
 }
@@ -342,16 +345,18 @@ const formatData = (rawData: NezhaAPIMonitor[]) => {
   const result: { [time: number]: ResultItem } = {}
 
   const allTimes = new Set<number>()
-  rawData.forEach((item) => {
-    item.created_at.forEach((time) => allTimes.add(time))
-  })
+  for (const item of rawData) {
+    for (const time of item.created_at) {
+      allTimes.add(time)
+    }
+  }
 
   const allTimeArray = Array.from(allTimes).sort((a, b) => a - b)
 
-  rawData.forEach((item) => {
+  for (const item of rawData) {
     const { monitor_name, created_at, avg_delay } = item
 
-    allTimeArray.forEach((time) => {
+    for (const time of allTimeArray) {
       if (!result[time]) {
         result[time] = { created_at: time }
       }
@@ -359,8 +364,8 @@ const formatData = (rawData: NezhaAPIMonitor[]) => {
       const timeIndex = created_at.indexOf(time)
       // @ts-expect-error - avg_delay is an array
       result[time][monitor_name] = timeIndex !== -1 ? avg_delay[timeIndex] : null
-    })
-  })
+    }
+  }
 
   return Object.values(result).sort((a, b) => a.created_at - b.created_at)
 }

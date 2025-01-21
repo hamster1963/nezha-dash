@@ -1,7 +1,7 @@
 "use server"
 
-import { NezhaAPI, ServerApi } from "@/app/types/nezha-api"
-import { MakeOptional } from "@/app/types/utils"
+import type { NezhaAPI, ServerApi } from "@/app/types/nezha-api"
+import type { MakeOptional } from "@/app/types/utils"
 import getEnv from "@/lib/env-entry"
 import { unstable_noStore as noStore } from "next/cache"
 
@@ -71,9 +71,9 @@ export async function GetNezhaData() {
         }
 
         // Remove unwanted properties
-        delete element.ipv4
-        delete element.ipv6
-        delete element.valid_ip
+        element.ipv4 = undefined
+        element.ipv6 = undefined
+        element.valid_ip = undefined
 
         return element
       },
@@ -213,9 +213,9 @@ export async function GetServerDetail({ server_id }: { server_id: number }) {
     const timestamp = Date.now() / 1000
     const detailData = detailDataList.map((element) => {
       element.online_status = timestamp - element.last_active <= 180
-      delete element.ipv4
-      delete element.ipv6
-      delete element.valid_ip
+      element.ipv4 = undefined
+      element.ipv6 = undefined
+      element.valid_ip = undefined
       return element
     })[0]
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { IPInfo } from "@/app/api/server-ip/route"
+import type { IPInfo } from "@/app/api/server-ip/route"
 import { Loader } from "@/components/loading/Loader"
 import { Card, CardContent } from "@/components/ui/card"
 import { nezhaFetcher } from "@/lib/utils"

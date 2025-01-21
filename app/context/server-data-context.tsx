@@ -1,9 +1,9 @@
 "use client"
 
-import { ServerApi } from "@/app/types/nezha-api"
+import type { ServerApi } from "@/app/types/nezha-api"
 import getEnv from "@/lib/env-entry"
 import { nezhaFetcher } from "@/lib/utils"
-import { ReactNode, createContext, useContext, useEffect, useState } from "react"
+import { type ReactNode, createContext, useContext, useEffect, useState } from "react"
 import useSWR from "swr"
 
 export interface ServerDataWithTimestamp {

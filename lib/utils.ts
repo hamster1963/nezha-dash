@@ -1,4 +1,4 @@
-import { NezhaAPISafe } from "@/app/types/nezha-api"
+import type { NezhaAPISafe } from "@/app/types/nezha-api"
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -42,7 +42,7 @@ export function formatNezhaInfo(serverInfo: NezhaAPISafe) {
   }
 }
 
-export function formatBytes(bytes: number, decimals: number = 2) {
+export function formatBytes(bytes: number, decimals = 2) {
   if (!+bytes) return "0 Bytes"
 
   const k = 1024
@@ -51,7 +51,7 @@ export function formatBytes(bytes: number, decimals: number = 2) {
 
   const i = Math.floor(Math.log(bytes) / Math.log(k))
 
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
+  return `${Number.parseFloat((bytes / k ** i).toFixed(dm))} ${sizes[i]}`
 }
 
 export function getDaysBetweenDates(date1: string, date2: string): number {
@@ -102,11 +102,14 @@ export function formatRelativeTime(timestamp: number): string {
   if (hours > 24) {
     const days = Math.floor(hours / 24)
     return `${days}d`
-  } else if (hours > 0) {
+  }
+  if (hours > 0) {
     return `${hours}h`
-  } else if (minutes > 0) {
+  }
+  if (minutes > 0) {
     return `${minutes}m`
-  } else if (seconds >= 0) {
+  }
+  if (seconds >= 0) {
     return `${seconds}s`
   }
   return "0s"
