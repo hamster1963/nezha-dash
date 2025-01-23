@@ -47,7 +47,6 @@ export function DashCommand() {
     return a.id - b.id
   })
 
-  // 添加语言切换快捷方式
   const languageShortcuts = localeItems.map((item) => ({
     keywords: ["language", "locale", item.code.toLowerCase()],
     icon: <Languages />,
@@ -56,7 +55,6 @@ export function DashCommand() {
     value: `language ${item.name.toLowerCase()} ${item.code}`,
   }))
 
-  // 将语言快捷方式添加到现有的shortcuts数组中
   const shortcuts = [
     {
       keywords: ["home", "homepage"],
