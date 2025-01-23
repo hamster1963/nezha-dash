@@ -35,6 +35,7 @@
     "caniuse-lite": "^1.0.30001695",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "1.0.0",
     "country-flag-icons": "^1.5.14",
     "d3-geo": "^3.1.1",
     "d3-selection": "^3.0.0",
@@ -65,11 +66,11 @@
     "@biomejs/biome": "1.9.4",
     "@next/bundle-analyzer": "^15.1.6",
     "@tailwindcss/postcss": "^4.0.0",
-    "@types/node": "^22.10.7",
-    "@types/react": "^19.0.7",
+    "@types/node": "^22.10.9",
+    "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "eslint-config-next": "^15.1.6",
-    "eslint-plugin-turbo": "^2.3.3",
+    "eslint-plugin-turbo": "^2.3.4",
     "eslint-plugin-unused-imports": "^4.1.4",
     "postcss": "^8.5.1",
     "tailwindcss": "^4.0.0",
@@ -78,6 +79,5 @@
   },
   "overrides": {
     "react-is": "^19.0.0-rc-69d4b800-20241021"
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  }
 }

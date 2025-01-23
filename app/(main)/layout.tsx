@@ -2,6 +2,7 @@ import Footer from "@/app/(main)/footer"
 import Header from "@/app/(main)/header"
 import { ServerDataProvider } from "@/app/context/server-data-context"
 import { auth } from "@/auth"
+import { DashCommand } from "@/components/DashCommand"
 import { SignIn } from "@/components/SignIn"
 import getEnv from "@/lib/env-entry"
 import type React from "react"
@@ -15,7 +16,10 @@ export default function MainLayout({ children }: DashboardProps) {
       <main className="flex min-h-[calc(100vh-calc(var(--spacing)*16))] flex-1 flex-col gap-4 bg-background p-4 md:p-10 md:pt-8">
         <Header />
         <AuthProtected>
-          <ServerDataProvider>{children}</ServerDataProvider>
+          <ServerDataProvider>
+            <DashCommand />
+            {children}
+          </ServerDataProvider>
         </AuthProtected>
         <Footer />
       </main>

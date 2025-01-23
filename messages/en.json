@@ -125,5 +125,15 @@
     "h1_490-590_404NotFound": "Server Not Found",
     "h1_490-590_404NotFoundBack": " Press here to go back",
     "h1_490-590_Error": "Something went wrong"
+  },
+  "DashCommand": {
+    "TypeCommand": "Type a command or search...",
+    "NoResults": "No results found.",
+    "Servers": "Servers",
+    "Shortcuts": "Shortcuts",
+    "ToggleLightMode": "Toggle Light Mode",
+    "ToggleDarkMode": "Toggle Dark Mode",
+    "ToggleSystemMode": "Toggle System Mode",
+    "Home": "Home"
   }
 }

@@ -125,5 +125,15 @@
     "h1_490-590_404NotFound": "サーバーは見つかりません",
     "h1_490-590_404NotFoundBack": "戻る",
     "h1_490-590_Error": "何らかの問題が発生しました"
+  },
+  "DashCommand": {
+    "TypeCommand": "コマンドを入力してください",
+    "NoResults": "結果は見つかりませんでした",
+    "Servers": "サーバー",
+    "Shortcuts": "ショートカット",
+    "ToggleLightMode": "ライトモードに切り替え",
+    "ToggleDarkMode": "ダークモードに切り替え",
+    "ToggleSystemMode": "システムモードに切り替え",
+    "Home": "ホーム"
   }
 }
