@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
   }
 
   if (!getEnv("NEXT_PUBLIC_ShowIpInfo")) {
-    return NextResponse.json({ error: "NEXT_PUBLIC_ShowIpInfo is disable" }, { status: 400 })
+    return NextResponse.json({ error: "ip info is disabled" }, { status: 400 })
   }
 
   const { searchParams } = new URL(req.url)

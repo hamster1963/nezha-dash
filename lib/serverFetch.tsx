@@ -3,10 +3,10 @@
 import type { NezhaAPI, ServerApi } from "@/app/types/nezha-api"
 import type { MakeOptional } from "@/app/types/utils"
 import getEnv from "@/lib/env-entry"
-import { unstable_noStore as noStore } from "next/cache"
+import { connection } from 'next/server'
 
 export async function GetNezhaData() {
-  noStore()
+  await connection()
 
   let nezhaBaseUrl = getEnv("NezhaBaseUrl")
   if (!nezhaBaseUrl) {
@@ -87,6 +87,8 @@ export async function GetNezhaData() {
 }
 
 export async function GetServerMonitor({ server_id }: { server_id: number }) {
+  await connection()
+
   let nezhaBaseUrl = getEnv("NezhaBaseUrl")
   if (!nezhaBaseUrl) {
     console.error("NezhaBaseUrl is not set")
@@ -131,6 +133,8 @@ export async function GetServerIP({
 }: {
   server_id: number
 }): Promise<string> {
+  await connection()
+
   let nezhaBaseUrl = getEnv("NezhaBaseUrl")
   if (!nezhaBaseUrl) {
     console.error("NezhaBaseUrl is not set")
@@ -178,6 +182,7 @@ export async function GetServerIP({
 }
 
 export async function GetServerDetail({ server_id }: { server_id: number }) {
+  await connection()
   let nezhaBaseUrl = getEnv("NezhaBaseUrl")
   if (!nezhaBaseUrl) {
     console.error("NezhaBaseUrl is not set")
