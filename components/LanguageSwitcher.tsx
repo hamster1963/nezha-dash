@@ -10,7 +10,7 @@ import {
 import { localeItems } from "@/i18n-metadata"
 import { setUserLocale } from "@/i18n/locale"
 import { cn } from "@/lib/utils"
-import { CheckCircleIcon } from "@heroicons/react/20/solid"
+import { CheckCircleIcon, LanguageIcon } from "@heroicons/react/20/solid"
 import { useLocale } from "next-intl"
 
 export function LanguageSwitcher() {
@@ -29,7 +29,7 @@ export function LanguageSwitcher() {
           size="sm"
           className="rounded-full px-[9px] bg-white dark:bg-black cursor-pointer hover:bg-accent/50 dark:hover:bg-accent/50"
         >
-          {localeItems.find((item) => item.code === locale)?.name}
+          <LanguageIcon className="size-4" />
           <span className="sr-only">Change language</span>
         </Button>
       </DropdownMenuTrigger>
