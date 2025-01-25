@@ -3,7 +3,7 @@
 import type { NezhaAPI, ServerApi } from "@/app/types/nezha-api"
 import type { MakeOptional } from "@/app/types/utils"
 import getEnv from "@/lib/env-entry"
-import { connection } from 'next/server'
+import { connection } from "next/server"
 
 export async function GetNezhaData() {
   await connection()
