@@ -169,7 +169,7 @@ const ChartTooltipContent = React.forwardRef<
         )}
       >
         {!nestLabel && (
-          <p className="px-2.5 pt-1 mx-auto -mb-1">{!nestLabel ? tooltipLabel : null}</p>
+          <div className="px-2.5 pt-1 mx-auto -mb-1">{!nestLabel ? tooltipLabel : null}</div>
         )}
 
         <div
