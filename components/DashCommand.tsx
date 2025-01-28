@@ -90,7 +90,7 @@ export function DashCommand() {
     <>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder={t("TypeCommand")} value={search} onValueChange={setSearch} />
-        <CommandList>
+        <CommandList className="border-t">
           <CommandEmpty>{t("NoResults")}</CommandEmpty>
           <CommandGroup heading={t("Servers")}>
             {sortedServers.map((server) => (
