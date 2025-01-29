@@ -139,4 +139,4 @@ export function getAllEnvConfig(): { server: ServerEnvConfig; client: ClientEnvC
       ShowIpInfo: parseBoolean(getClientEnv("ShowIpInfo")),
     },
   }
-} 
+}

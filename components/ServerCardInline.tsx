@@ -29,7 +29,7 @@ export default function ServerCardInline({
     <Link onClick={saveSession} href={`/server/${id}`} prefetch={true}>
       <Card
         className={cn(
-          "flex items-center lg:flex-row justify-start gap-3 p-3 md:px-5 cursor-pointer hover:bg-accent/50 transition-colors min-w-[900px] w-full",
+          "flex items-center lg:flex-row justify-start gap-3 p-3 md:px-5 cursor-pointer hover:border-stone-300 dark:hover:border-stone-700 hover:shadow-md  min-w-[900px] w-full",
         )}
       >
         <section
@@ -124,27 +124,34 @@ export default function ServerCardInline({
       </Card>
     </Link>
   ) : (
-    <Card
-      className={cn(
-        "flex items-center justify-start gap-3 p-3 md:px-5 min-h-[61px] min-w-[900px] flex-row",
-      )}
-    >
-      <section
-        className={cn("grid items-center gap-2 lg:w-40")}
-        style={{ gridTemplateColumns: "auto auto 1fr" }}
+    <Link onClick={saveSession} href={`/server/${id}`} prefetch={true}>
+      <Card
+        className={cn(
+          "flex items-center justify-start gap-3 p-3 md:px-5 hover:border-stone-300 dark:hover:border-stone-700 hover:shadow-md min-h-[61px] min-w-[900px] flex-row",
+        )}
       >
-        <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center" />
-        <div
-          className={cn("flex items-center justify-center", showFlag ? "min-w-[17px]" : "min-w-0")}
+        <section
+          className={cn("grid items-center gap-2 lg:w-40")}
+          style={{ gridTemplateColumns: "auto auto 1fr" }}
         >
-          {showFlag ? <ServerFlag country_code={country_code} /> : null}
-        </div>
-        <div className="relative w-28">
-          <p className={cn("break-all font-bold tracking-tight", showFlag ? "text-xs" : "text-sm")}>
-            {name}
-          </p>
-        </div>
-      </section>
-    </Card>
+          <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center" />
+          <div
+            className={cn(
+              "flex items-center justify-center",
+              showFlag ? "min-w-[17px]" : "min-w-0",
+            )}
+          >
+            {showFlag ? <ServerFlag country_code={country_code} /> : null}
+          </div>
+          <div className="relative w-28">
+            <p
+              className={cn("break-all font-bold tracking-tight", showFlag ? "text-xs" : "text-sm")}
+            >
+              {name}
+            </p>
+          </div>
+        </section>
+      </Card>
+    </Link>
   )
 }

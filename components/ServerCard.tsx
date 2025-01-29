@@ -30,7 +30,7 @@ export default function ServerCard({
     <Link onClick={saveSession} href={`/server/${id}`} prefetch={true}>
       <Card
         className={cn(
-          "flex flex-col items-center justify-start gap-3 p-3 md:px-5 cursor-pointer hover:bg-accent/50 transition-colors",
+          "flex flex-col items-center justify-start gap-3 p-3 md:px-5 cursor-pointer hover:border-stone-300 dark:hover:border-stone-700 hover:shadow-md",
           {
             "flex-col": fixedTopServerName,
             "lg:flex-row": !fixedTopServerName,
@@ -137,7 +137,7 @@ export default function ServerCard({
     <Link onClick={saveSession} href={`/server/${id}`} prefetch={true}>
       <Card
         className={cn(
-          "flex flex-col items-center justify-start gap-3 p-3 md:px-5 cursor-pointer hover:bg-accent/50 transition-colors",
+          "flex flex-col items-center justify-start gap-3 p-3 md:px-5 cursor-pointer hover:border-stone-300 dark:hover:border-stone-700 hover:shadow-md",
           showNetTransfer ? "lg:min-h-[91px] min-h-[123px]" : "lg:min-h-[61px] min-h-[93px]",
           {
             "flex-col": fixedTopServerName,
