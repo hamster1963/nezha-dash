@@ -70,12 +70,13 @@ export type ClientEnvKey = `NEXT_PUBLIC_${keyof ClientEnvConfig}`
  * @param key - Environment variable key
  * @returns Environment variable value
  */
-export function getServerEnv<K extends keyof ServerEnvConfig>(key: K): string {
+export function getServerEnv<K extends keyof ServerEnvConfig>(key: K): string | undefined {
   const value = process.env[key]
   if (!value) {
     console.warn(`Environment variable ${key} is not set`)
+    return undefined
   }
-  return value || ""
+  return value
 }
 
 /**
@@ -83,13 +84,14 @@ export function getServerEnv<K extends keyof ServerEnvConfig>(key: K): string {
  * @param key - Environment variable key
  * @returns Environment variable value
  */
-export function getClientEnv<K extends keyof ClientEnvConfig>(key: K): string {
+export function getClientEnv<K extends keyof ClientEnvConfig>(key: K): string | undefined {
   const envKey = `NEXT_PUBLIC_${key}`
   const value = env(envKey)
   if (!value) {
     console.warn(`Environment variable ${envKey} is not set`)
+    return undefined
   }
-  return value || ""
+  return value
 }
 
 /**
@@ -119,11 +121,11 @@ export function parseNumber(value: string | undefined, defaultValue: number): nu
 export function getAllEnvConfig(): { server: ServerEnvConfig; client: ClientEnvConfig } {
   return {
     server: {
-      NezhaBaseUrl: getServerEnv("NezhaBaseUrl"),
-      NezhaAuth: getServerEnv("NezhaAuth"),
-      DefaultLocale: getServerEnv("DefaultLocale"),
+      NezhaBaseUrl: getServerEnv("NezhaBaseUrl") || "",
+      NezhaAuth: getServerEnv("NezhaAuth") || "",
+      DefaultLocale: getServerEnv("DefaultLocale") || "",
       ForceShowAllServers: parseBoolean(getServerEnv("ForceShowAllServers")),
-      SitePassword: getServerEnv("SitePassword"),
+      SitePassword: getServerEnv("SitePassword") || "",
     },
     client: {
       NezhaFetchInterval: parseNumber(getClientEnv("NezhaFetchInterval"), 5000),
@@ -133,10 +135,10 @@ export function getAllEnvConfig(): { server: ServerEnvConfig; client: ClientEnvC
       ShowNetTransfer: parseBoolean(getClientEnv("ShowNetTransfer")),
       ForceUseSvgFlag: parseBoolean(getClientEnv("ForceUseSvgFlag")),
       FixedTopServerName: parseBoolean(getClientEnv("FixedTopServerName")),
-      CustomLogo: getClientEnv("CustomLogo"),
-      CustomTitle: getClientEnv("CustomTitle"),
-      CustomDescription: getClientEnv("CustomDescription"),
-      Links: getClientEnv("Links"),
+      CustomLogo: getClientEnv("CustomLogo") || "",
+      CustomTitle: getClientEnv("CustomTitle") || "",
+      CustomDescription: getClientEnv("CustomDescription") || "",
+      Links: getClientEnv("Links") || "",
       DisableIndex: parseBoolean(getClientEnv("DisableIndex")),
       ShowTagCount: parseBoolean(getClientEnv("ShowTagCount")),
       ShowIpInfo: parseBoolean(getClientEnv("ShowIpInfo")),
