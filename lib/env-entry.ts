@@ -1,7 +1,7 @@
 import { getClientEnv, getServerEnv } from "./env"
 import type { EnvKey } from "./env"
 
-export default function getEnv(key: EnvKey): string {
+export default function getEnv(key: EnvKey): string | undefined {
   if (key.startsWith("NEXT_PUBLIC_")) {
     const clientKey = key.replace("NEXT_PUBLIC_", "") as any
     return getClientEnv(clientKey)
