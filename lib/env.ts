@@ -12,6 +12,8 @@ export interface ServerEnvConfig {
   DefaultLocale: string
   /** Force show all servers */
   ForceShowAllServers: boolean
+  /** Site password */
+  SitePassword: string
 }
 
 /**
@@ -121,6 +123,7 @@ export function getAllEnvConfig(): { server: ServerEnvConfig; client: ClientEnvC
       NezhaAuth: getServerEnv("NezhaAuth"),
       DefaultLocale: getServerEnv("DefaultLocale"),
       ForceShowAllServers: parseBoolean(getServerEnv("ForceShowAllServers")),
+      SitePassword: getServerEnv("SitePassword"),
     },
     client: {
       NezhaFetchInterval: parseNumber(getClientEnv("NezhaFetchInterval"), 5000),
