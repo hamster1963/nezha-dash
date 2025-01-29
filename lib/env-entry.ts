@@ -1,8 +1,10 @@
-import { env } from "next-runtime-env"
+import { getClientEnv, getServerEnv } from "./env"
+import type { EnvKey } from "./env"
 
-export default function getEnv(key: string) {
+export default function getEnv(key: EnvKey): string {
   if (key.startsWith("NEXT_PUBLIC_")) {
-    return env(key)
+    const clientKey = key.replace("NEXT_PUBLIC_", "") as any
+    return getClientEnv(clientKey)
   }
-  return process.env[key]
+  return getServerEnv(key as any)
 }
