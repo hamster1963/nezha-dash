@@ -17,8 +17,8 @@ export default function MainLayout({ children }: DashboardProps) {
         <Header />
         <AuthProtected>
           <ServerDataProvider>
-            <DashCommand />
             {children}
+            <DashCommand />
           </ServerDataProvider>
         </AuthProtected>
         <Footer />
