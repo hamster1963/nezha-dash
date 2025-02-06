@@ -48,7 +48,10 @@ export function SignIn() {
     setLoading(false)
   }
   return (
-    <form className="flex flex-col items-center justify-start gap-4 p-4 " onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col flex-1 items-center justify-center gap-4 p-4 "
+      onSubmit={handleSubmit}
+    >
       <input type="hidden" name="csrfToken" value={csrfToken} />
       <section className="flex flex-col items-start gap-2">
         <label className="flex flex-col items-start gap-1 ">
