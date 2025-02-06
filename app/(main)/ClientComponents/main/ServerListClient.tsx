@@ -71,10 +71,17 @@ const ErrorState = ({ error, t }: { error: Error; t: any }) => (
   </div>
 )
 
-const ServerList = ({ servers, inline, containerRef }: { servers: any[]; inline: string; containerRef: any }) => {
+const ServerList = ({
+  servers,
+  inline,
+  containerRef,
+}: { servers: any[]; inline: string; containerRef: any }) => {
   if (inline === "1") {
     return (
-      <section ref={containerRef} className="flex flex-col gap-2 overflow-x-scroll scrollbar-hidden">
+      <section
+        ref={containerRef}
+        className="flex flex-col gap-2 overflow-x-scroll scrollbar-hidden"
+      >
         {servers.map((serverInfo) => (
           <ServerCardInline key={serverInfo.id} serverInfo={serverInfo} />
         ))}

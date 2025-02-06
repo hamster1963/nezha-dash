@@ -20,7 +20,8 @@ const FooterLink = ({ href, children }: LinkProps) => (
   </a>
 )
 
-const baseTextStyles = "text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50"
+const baseTextStyles =
+  "text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50"
 
 export default function Footer() {
   const t = useTranslations("Footer")
@@ -32,19 +33,12 @@ export default function Footer() {
       <section className="flex flex-col">
         <p className={`mt-3 flex gap-1 ${baseTextStyles}`}>
           {t("p_146-598_Findthecodeon")}{" "}
-          <FooterLink href={GITHUB_URL}>
-            {t("a_303-585_GitHub")}
-          </FooterLink>
-          <FooterLink href={`${GITHUB_URL}/releases/tag/v${version}`}>
-            v{version}
-          </FooterLink>
+          <FooterLink href={GITHUB_URL}>{t("a_303-585_GitHub")}</FooterLink>
+          <FooterLink href={`${GITHUB_URL}/releases/tag/v${version}`}>v{version}</FooterLink>
         </p>
         <section className={`mt-1 flex items-center gap-2 ${baseTextStyles}`}>
           {t("section_607-869_2020")}
-          {currentYear}{" "}
-          <FooterLink href={PERSONAL_URL}>
-            {t("a_800-850_Hamster1963")}
-          </FooterLink>
+          {currentYear} <FooterLink href={PERSONAL_URL}>{t("a_800-850_Hamster1963")}</FooterLink>
         </section>
       </section>
       <p className={`mt-1 ${baseTextStyles}`}>
