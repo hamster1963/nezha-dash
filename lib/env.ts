@@ -73,7 +73,6 @@ export type ClientEnvKey = `NEXT_PUBLIC_${keyof ClientEnvConfig}`
 export function getServerEnv<K extends keyof ServerEnvConfig>(key: K): string | undefined {
   const value = process.env[key]
   if (!value) {
-    console.warn(`Environment variable ${key} is not set`)
     return undefined
   }
   return value
@@ -88,7 +87,6 @@ export function getClientEnv<K extends keyof ClientEnvConfig>(key: K): string | 
   const envKey = `NEXT_PUBLIC_${key}`
   const value = env(envKey)
   if (!value) {
-    console.warn(`Environment variable ${envKey} is not set`)
     return undefined
   }
   return value
