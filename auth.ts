@@ -1,10 +1,12 @@
 import getEnv from "@/lib/env-entry"
+import CryptoJS from "crypto-js"
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import CryptoJS from 'crypto-js'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  secret: process.env.AUTH_SECRET ?? CryptoJS.MD5(`this_is_nezha_dash_web_secret_${getEnv("SitePassword")}`).toString(),
+  secret:
+    process.env.AUTH_SECRET ??
+    CryptoJS.MD5(`this_is_nezha_dash_web_secret_${getEnv("SitePassword")}`).toString(),
   trustHost: (process.env.AUTH_TRUST_HOST as boolean | undefined) ?? true,
   providers: [
     CredentialsProvider({
