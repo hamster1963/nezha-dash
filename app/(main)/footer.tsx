@@ -1,6 +1,8 @@
+"use client"
+
 import pack from "@/package.json"
 import { useTranslations } from "next-intl"
-
+import { useEffect, useState } from "react"
 const GITHUB_URL = "https://github.com/hamster1963/nezha-dash"
 const PERSONAL_URL = "https://buycoffee.top"
 
@@ -27,7 +29,11 @@ export default function Footer() {
   const t = useTranslations("Footer")
   const version = pack.version
   const currentYear = new Date().getFullYear()
-  const isMac = /macintosh|mac os x/i.test(navigator.userAgent)
+  const [isMac, setIsMac] = useState(true)
+
+  useEffect(() => {
+    setIsMac(/macintosh|mac os x/i.test(navigator.userAgent))
+  }, [])
 
   return (
     <footer className="mx-auto w-full max-w-5xl flex items-center justify-between">
