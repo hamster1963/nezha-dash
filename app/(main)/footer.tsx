@@ -27,6 +27,7 @@ export default function Footer() {
   const t = useTranslations("Footer")
   const version = pack.version
   const currentYear = new Date().getFullYear()
+  const isMac = /macintosh|mac os x/i.test(navigator.userAgent)
 
   return (
     <footer className="mx-auto w-full max-w-5xl flex items-center justify-between">
@@ -43,7 +44,7 @@ export default function Footer() {
       </section>
       <p className={`mt-1 ${baseTextStyles}`}>
         <kbd className="pointer-events-none mx-1 inline-flex h-4 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-          <span className="text-xs">⌘</span>K
+          {isMac ? <span className="text-xs">⌘</span> : "Ctrl "}K
         </kbd>
       </p>
     </footer>
