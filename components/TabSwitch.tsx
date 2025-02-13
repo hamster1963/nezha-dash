@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { useEffect, useRef, useState } from "react"
 
 export default function TabSwitch({
@@ -19,6 +19,7 @@ export default function TabSwitch({
     w: 0,
   })
   const tabRefs = useRef<(HTMLDivElement | null)[]>([])
+  const locale = useLocale()
 
   useEffect(() => {
     const currentTabElement = tabRefs.current[tabs.indexOf(currentTab)]
@@ -32,7 +33,7 @@ export default function TabSwitch({
         w: currentTabElement.offsetWidth,
       })
     }
-  }, [currentTab, tabs])
+  }, [currentTab, tabs, locale])
 
   return (
     <div className="z-50 flex flex-col items-start rounded-[50px]">

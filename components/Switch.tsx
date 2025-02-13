@@ -2,7 +2,7 @@
 
 import getEnv from "@/lib/env-entry"
 import { cn } from "@/lib/utils"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { createRef, useEffect, useRef, useState } from "react"
 
 export default function Switch({
@@ -19,6 +19,7 @@ export default function Switch({
   const scrollRef = useRef<HTMLDivElement>(null)
   const tagRefs = useRef(allTag.map(() => createRef<HTMLDivElement>()))
   const t = useTranslations("ServerListClient")
+  const locale = useLocale()
   const [indicator, setIndicator] = useState<{ x: number; w: number }>({
     x: 0,
     w: 0,
@@ -58,7 +59,7 @@ export default function Switch({
         w: currentTagElement.offsetWidth,
       })
     }
-  }, [nowTag])
+  }, [nowTag, locale])
 
   useEffect(() => {
     const currentTagElement = tagRefs.current[allTag.indexOf(nowTag)]?.current
@@ -75,7 +76,7 @@ export default function Switch({
         behavior: "smooth",
       })
     }
-  }, [nowTag])
+  }, [nowTag, locale])
 
   return (
     <div
