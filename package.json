@@ -64,7 +64,7 @@
     "@biomejs/biome": "1.9.4",
     "@next/bundle-analyzer": "^15.1.7",
     "@tailwindcss/postcss": "^4.0.6",
-    "@types/node": "^22.13.1",
+    "@types/node": "^22.13.4",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "postcss": "^8.5.2",
