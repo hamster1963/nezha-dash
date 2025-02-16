@@ -15,7 +15,6 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import getEnv from "@/lib/env-entry"
 import { formatTime, nezhaFetcher } from "@/lib/utils"
-import { formatRelativeTime } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import * as React from "react"
 import { useCallback, useMemo } from "react"
@@ -285,12 +284,22 @@ export const NetworkChart = React.memo(function NetworkChart({
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="created_at"
-              tickLine={false}
+              tickLine={true}
+              tickSize={3}
               axisLine={false}
               tickMargin={8}
-              minTickGap={32}
-              interval={"preserveStartEnd"}
-              tickFormatter={(value) => formatRelativeTime(value)}
+              minTickGap={80}
+              interval={0}
+              ticks={processedData
+                .filter((item) => {
+                  const date = new Date(item.created_at)
+                  return date.getMinutes() === 0 && date.getHours() % 3 === 0
+                })
+                .map((item) => item.created_at)}
+              tickFormatter={(value) => {
+                const date = new Date(value)
+                return `${date.getHours()}:00`
+              }}
             />
             <YAxis
               tickLine={false}

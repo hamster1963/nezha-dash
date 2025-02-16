@@ -125,3 +125,13 @@ export function formatTime(timestamp: number): string {
   const seconds = date.getSeconds().toString().padStart(2, "0")
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
 }
+
+export function formatTime12(timestamp: number): string {
+  // example: 3:45 PM
+  const date = new Date(timestamp)
+  const hours = date.getHours()
+  const minutes = date.getMinutes()
+  const ampm = hours >= 12 ? "PM" : "AM"
+  const hours12 = hours % 12 || 12
+  return `${hours12}:${minutes.toString().padStart(2, "0")} ${ampm}`
+}
