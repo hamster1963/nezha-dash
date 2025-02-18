@@ -1,11 +1,11 @@
 "use client"
 
+import AnimateCountClient from "@/components/AnimatedCount"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { ModeToggle } from "@/components/ThemeSwitcher"
 import { Separator } from "@/components/ui/separator"
 
 import getEnv from "@/lib/env-entry"
-import NumberFlow, { NumberFlowGroup } from "@number-flow/react"
 import { DateTime } from "luxon"
 import { useTranslations } from "next-intl"
 import { useRouter } from "next/navigation"
@@ -75,24 +75,15 @@ const Overview = memo(function Overview() {
   return (
     <section className={"mt-10 flex flex-col md:mt-16"}>
       <p className="text-base font-semibold">{t("p_2277-2331_Overview")}</p>
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-1">
         <p className="text-sm font-medium opacity-50">{t("p_2390-2457_wherethetimeis")}</p>
-        <NumberFlowGroup>
-          <div
-            style={{ fontVariantNumeric: "tabular-nums" }}
-            className="flex text-sm font-medium mt-0.5"
-          >
-            <NumberFlow trend={1} value={time.hh} format={{ minimumIntegerDigits: 2 }} />
-            <NumberFlow
-              prefix=":"
-              trend={1}
-              value={time.mm}
-              digits={{ 1: { max: 5 } }}
-              format={{ minimumIntegerDigits: 2 }}
-            />
-            <p className="mt-[0.5px]">:{time.ss.toString().padStart(2, "0")}</p>
-          </div>
-        </NumberFlowGroup>
+        <div className="flex items-center text-sm font-medium">
+          <AnimateCountClient count={time.hh} minDigits={2} />
+          <span className="text-sm mb-[1px] font-medium opacity-50">:</span>
+          <AnimateCountClient count={time.mm} minDigits={2} />
+          <span className="text-sm mb-[1px] font-medium opacity-50">:</span>
+          <span className="text-sm font-medium">{time.ss.toString().padStart(2, "0")}</span>
+        </div>
       </div>
     </section>
   )

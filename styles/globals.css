@@ -146,6 +146,7 @@
     --chart-8: 252 50% 50%;
     --chart-9: 288 50% 50%;
     --chart-10: 324 50% 50%;
+    --timing: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
@@ -332,5 +333,55 @@
   to {
     opacity: 1;
     filter: blur(0px);
+  }
+}
+
+/* Thanks to next.js. */
+[data-issues-count-animation] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-issues-count-animation] > div {
+  text-align: center;
+}
+
+[data-issues-count-exit].animate {
+  animation: fadeOut 300ms var(--timing) forwards;
+}
+
+[data-issues-count-enter].animate {
+  animation: fadeIn 300ms var(--timing) forwards;
+}
+
+[data-issues-count-plural] {
+  display: inline-block;
+  animation: fadeIn 300ms var(--timing) forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-12px);
+    filter: blur(2px);
   }
 }

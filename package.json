@@ -15,7 +15,6 @@
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.9",
     "@heroicons/react": "^2.2.0",
-    "@number-flow/react": "^0.5.5",
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-dropdown-menu": "^2.1.6",
     "@radix-ui/react-label": "^2.1.2",
