@@ -3,6 +3,7 @@
 import { useFilter } from "@/app/context/network-filter-context"
 import { useServerData } from "@/app/context/server-data-context"
 import { useStatus } from "@/app/context/status-context"
+import AnimateCountClient from "@/components/AnimatedCount"
 import { Loader } from "@/components/loading/Loader"
 import { Card, CardContent } from "@/components/ui/card"
 import getEnv from "@/lib/env-entry"
@@ -44,12 +45,14 @@ export default function ServerOverviewClient() {
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
               <p className="text-sm font-medium md:text-base">{t("p_816-881_Totalservers")}</p>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 min-h-[28px]">
                 <span className="relative flex h-2 w-2">
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
                 </span>
                 {data?.result ? (
-                  <div className="text-lg font-semibold">{data?.result.length}</div>
+                  <div className="text-lg font-semibold">
+                    <AnimateCountClient count={data?.result.length} />
+                  </div>
                 ) : (
                   <div className="flex h-7 items-center">
                     <Loader visible={true} />
@@ -74,13 +77,15 @@ export default function ServerOverviewClient() {
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
               <p className="text-sm font-medium md:text-base">{t("p_1610-1676_Onlineservers")}</p>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 min-h-[28px]">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
                 </span>
                 {data?.result ? (
-                  <div className="text-lg font-semibold">{data?.live_servers}</div>
+                  <div className="text-lg font-semibold">
+                    <AnimateCountClient count={data?.live_servers} />
+                  </div>
                 ) : (
                   <div className="flex h-7 items-center">
                     <Loader visible={true} />
@@ -105,13 +110,15 @@ export default function ServerOverviewClient() {
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
               <p className="text-sm font-medium md:text-base">{t("p_2532-2599_Offlineservers")}</p>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 min-h-[28px]">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
                 </span>
                 {data?.result ? (
-                  <div className="text-lg font-semibold">{data?.offline_servers}</div>
+                  <div className="text-lg font-semibold">
+                    <AnimateCountClient count={data?.offline_servers} />
+                  </div>
                 ) : (
                   <div className="flex h-7 items-center">
                     <Loader visible={true} />
