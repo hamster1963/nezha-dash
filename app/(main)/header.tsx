@@ -30,16 +30,32 @@ const useCurrentTime = () => {
   })
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      const now = DateTime.now().setLocale("en-US")
-      setTime({
-        hh: now.hour,
-        mm: now.minute,
-        ss: now.second,
-      })
-    }, 1000)
+    let animationFrameId: number
+    let lastSecond = DateTime.now().setLocale("en-US").second
 
-    return () => clearInterval(timer)
+    const updateTime = () => {
+      const now = DateTime.now().setLocale("en-US")
+      const currentSecond = now.second
+
+      if (currentSecond !== lastSecond) {
+        lastSecond = currentSecond
+        setTime({
+          hh: now.hour,
+          mm: now.minute,
+          ss: currentSecond,
+        })
+      }
+
+      animationFrameId = requestAnimationFrame(updateTime)
+    }
+
+    animationFrameId = requestAnimationFrame(updateTime)
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId)
+      }
+    }
   }, [])
 
   return time
