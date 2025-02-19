@@ -289,16 +289,34 @@ export const NetworkChart = React.memo(function NetworkChart({
               axisLine={false}
               tickMargin={8}
               minTickGap={80}
-              interval={0}
               ticks={processedData
-                .filter((item) => {
+                .filter((item, index, array) => {
+                  if (array.length < 6) {
+                    return index === 0 || index === array.length - 1
+                  }
+
+                  // 计算数据的总时间跨度（毫秒）
+                  const timeSpan = array[array.length - 1].created_at - array[0].created_at
+                  const hours = timeSpan / (1000 * 60 * 60)
+
+                  // 根据时间跨度调整显示间隔
+                  if (hours <= 12) {
+                    // 12小时内，每60分钟显示一个刻度
+                    return (
+                      index === 0 ||
+                      index === array.length - 1 ||
+                      new Date(item.created_at).getMinutes() % 60 === 0
+                    )
+                  }
+                  // 超过12小时，每2小时显示一个刻度
                   const date = new Date(item.created_at)
-                  return date.getMinutes() === 0 && date.getHours() % 3 === 0
+                  return date.getMinutes() === 0 && date.getHours() % 2 === 0
                 })
                 .map((item) => item.created_at)}
               tickFormatter={(value) => {
                 const date = new Date(value)
-                return `${date.getHours()}:00`
+                const minutes = date.getMinutes()
+                return minutes === 0 ? `${date.getHours()}:00` : `${date.getHours()}:${minutes}`
               }}
             />
             <YAxis
