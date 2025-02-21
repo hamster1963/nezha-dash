@@ -2,6 +2,7 @@
 
 import { useTooltip } from "@/app/context/tooltip-context"
 import { useTranslations } from "next-intl"
+import Link from "next/link"
 import { memo } from "react"
 
 const MapTooltip = memo(function MapTooltip() {
@@ -13,6 +14,10 @@ const MapTooltip = memo(function MapTooltip() {
   const sortedServers = tooltipData.servers.sort((a, b) => {
     return a.status === b.status ? 0 : a.status ? 1 : -1
   })
+
+  const saveSession = () => {
+    sessionStorage.setItem("fromMainPage", "true")
+  }
 
   return (
     <div
@@ -31,7 +36,7 @@ const MapTooltip = memo(function MapTooltip() {
         <p className="font-medium">
           {tooltipData.country === "China" ? "Mainland China" : tooltipData.country}
         </p>
-        <p className="text-neutral-600 dark:text-neutral-400 mb-1">
+        <p className="text-neutral-600 dark:text-neutral-400 font-light text-xs mb-1">
           {tooltipData.count} {t("Servers")}
         </p>
       </div>
@@ -43,14 +48,19 @@ const MapTooltip = memo(function MapTooltip() {
         }}
       >
         {sortedServers.map((server) => (
-          <div key={server.name} className="flex items-center gap-1.5 py-0.5">
+          <Link
+            onClick={saveSession}
+            href={`/server/${server.id}`}
+            key={server.name}
+            className="flex items-center gap-1.5 py-0.5 transition-colors text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
+          >
             <span
               className={`w-1.5 h-1.5 shrink-0 rounded-full ${
                 server.status ? "bg-green-500" : "bg-red-500"
               }`}
             />
             <span className="text-xs">{server.name}</span>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

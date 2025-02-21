@@ -115,6 +115,11 @@ export default function ServerListClient() {
       setInline(inlineState)
     }
 
+    const showMapState = localStorage.getItem("showMap")
+    if (showMapState !== null) {
+      setShowMap(showMapState === "true")
+    }
+
     const savedTag = sessionStorage.getItem("selectedTag") || defaultTag
     setTag(savedTag)
     restoreScrollPosition()
@@ -169,7 +174,11 @@ export default function ServerListClient() {
       <section className="flex items-center gap-2 w-full overflow-hidden">
         <button
           type="button"
-          onClick={() => setShowMap(!showMap)}
+          onClick={() => {
+            const newShowMap = !showMap
+            setShowMap(newShowMap)
+            localStorage.setItem("showMap", String(newShowMap))
+          }}
           className={cn(
             "rounded-[50px] flex flex-col items-center gap-0  cursor-pointer  bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-100 p-[10px] transition-all inset-shadow-2xs inset-shadow-white/20 ",
             {

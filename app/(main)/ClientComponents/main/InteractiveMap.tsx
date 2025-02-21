@@ -82,6 +82,7 @@ export function InteractiveMap({
                         (server: any) => server.host.CountryCode?.toUpperCase() === countryCode,
                       )
                       .map((server: any) => ({
+                        id: server.id,
                         name: server.name,
                         status: server.online_status,
                       }))
@@ -122,6 +123,7 @@ export function InteractiveMap({
                   const countryServers = nezhaServerList.result
                     .filter((server: any) => server.host.CountryCode?.toUpperCase() === countryCode)
                     .map((server: any) => ({
+                      id: server.id,
                       name: server.name,
                       status: server.online_status,
                     }))

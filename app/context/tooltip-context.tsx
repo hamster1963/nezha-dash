@@ -7,6 +7,7 @@ export interface TooltipData {
   country: string
   count: number
   servers: Array<{
+    id: string
     name: string
     status: boolean
   }>
