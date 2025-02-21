@@ -171,9 +171,10 @@ export default function ServerListClient() {
           type="button"
           onClick={() => setShowMap(!showMap)}
           className={cn(
-            "rounded-[50px] text-white cursor-pointer [text-shadow:_0_1px_0_rgb(0_0_0_/_20%)] bg-blue-600 p-[10px] transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]",
+            "rounded-[50px] flex flex-col items-center gap-0  cursor-pointer  bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-100 p-[10px] transition-all inset-shadow-2xs inset-shadow-white/20 ",
             {
-              "shadow-[inset_0_1px_0_rgba(0,0,0,0.2)] bg-blue-500": showMap,
+              "inset-shadow-black/20 bg-blue-600 text-white dark:bg-blue-100 dark:text-blue-600":
+                showMap,
             },
           )}
         >
@@ -187,9 +188,10 @@ export default function ServerListClient() {
             localStorage.setItem("inline", newInline)
           }}
           className={cn(
-            "rounded-[50px] text-white cursor-pointer [text-shadow:_0_1px_0_rgb(0_0_0_/_20%)] bg-blue-600  p-[10px] transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]",
+            "rounded-[50px] flex flex-col items-center gap-0  cursor-pointer  bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-100 p-[10px] transition-all inset-shadow-2xs inset-shadow-white/20 ",
             {
-              "shadow-[inset_0_1px_0_rgba(0,0,0,0.2)] bg-blue-500": inline === "1",
+              "inset-shadow-black/20 bg-blue-600 text-white dark:bg-blue-100 dark:text-blue-600":
+                inline === "1",
             },
           )}
         >
