@@ -21,7 +21,7 @@ const MapTooltip = memo(function MapTooltip() {
 
   return (
     <div
-      className="absolute hidden lg:block bg-white dark:bg-neutral-800 px-2 py-1 rounded shadow-lg text-sm dark:border dark:border-neutral-700 z-50 tooltip-animate"
+      className="tooltip-animate absolute z-50 hidden rounded bg-white px-2 py-1 text-sm shadow-lg lg:block dark:border dark:border-neutral-700 dark:bg-neutral-800"
       key={tooltipData.country}
       style={{
         left: tooltipData.centroid[0],
@@ -36,12 +36,12 @@ const MapTooltip = memo(function MapTooltip() {
         <p className="font-medium">
           {tooltipData.country === "China" ? "Mainland China" : tooltipData.country}
         </p>
-        <p className="text-neutral-600 dark:text-neutral-400 font-light text-xs mb-1">
+        <p className="mb-1 font-light text-neutral-600 text-xs dark:text-neutral-400">
           {tooltipData.count} {t("Servers")}
         </p>
       </div>
       <div
-        className="border-t dark:border-neutral-700 pt-1"
+        className="border-t pt-1 dark:border-neutral-700"
         style={{
           maxHeight: "200px",
           overflowY: "auto",
@@ -52,10 +52,10 @@ const MapTooltip = memo(function MapTooltip() {
             onClick={saveSession}
             href={`/server/${server.id}`}
             key={server.name}
-            className="flex items-center gap-1.5 py-0.5 transition-colors text-neutral-500 dark:text-neutral-400 hover:text-black dark:hover:text-white"
+            className="flex items-center gap-1.5 py-0.5 text-neutral-500 transition-colors hover:text-black dark:text-neutral-400 dark:hover:text-white"
           >
             <span
-              className={`w-1.5 h-1.5 shrink-0 rounded-full ${
+              className={`h-1.5 w-1.5 shrink-0 rounded-full ${
                 server.status ? "bg-green-500" : "bg-red-500"
               }`}
             />

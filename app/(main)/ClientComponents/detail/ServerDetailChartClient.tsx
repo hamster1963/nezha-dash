@@ -64,8 +64,8 @@ export default function ServerDetailChartClient({
     return (
       <>
         <div className="flex flex-col items-center justify-center">
-          <p className="text-sm font-medium opacity-40">{error.message}</p>
-          <p className="text-sm font-medium opacity-40">{t("chart_fetch_error_message")}</p>
+          <p className="font-medium text-sm opacity-40">{error.message}</p>
+          <p className="font-medium text-sm opacity-40">{t("chart_fetch_error_message")}</p>
         </div>
       </>
     )
@@ -73,7 +73,7 @@ export default function ServerDetailChartClient({
   if (!data) return <ServerDetailChartLoading />
 
   return (
-    <section className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-3">
+    <section className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
       <CpuChart data={data} history={history} />
       <ProcessChart data={data} history={history} />
       <DiskChart data={data} history={history} />
@@ -150,9 +150,9 @@ function CpuChart({
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
-            <p className="text-md font-medium">CPU</p>
+            <p className="font-medium text-md">CPU</p>
             <section className="flex items-center gap-2">
-              <p className="text-xs text-end w-10 font-medium">{cpu.toFixed(0)}%</p>
+              <p className="w-10 text-end font-medium text-xs">{cpu.toFixed(0)}%</p>
               <AnimatedCircularProgressBar
                 className="size-3 text-[0px]"
                 max={100}
@@ -273,9 +273,9 @@ function ProcessChart({
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
-            <p className="text-md font-medium">{t("Process")}</p>
+            <p className="font-medium text-md">{t("Process")}</p>
             <section className="flex items-center gap-2">
-              <p className="text-xs text-end w-10 font-medium">{process}</p>
+              <p className="w-10 text-end font-medium text-xs">{process}</p>
             </section>
           </div>
           <ChartContainer config={chartConfig} className="aspect-auto h-[130px] w-full">
@@ -388,7 +388,7 @@ function MemChart({
           <div className="flex items-center justify-between">
             <section className="flex items-center gap-4">
               <div className="flex flex-col">
-                <p className=" text-xs text-muted-foreground">{t("Mem")}</p>
+                <p className=" text-muted-foreground text-xs">{t("Mem")}</p>
                 <div className="flex items-center gap-2">
                   <AnimatedCircularProgressBar
                     className="size-3 text-[0px]"
@@ -397,11 +397,11 @@ function MemChart({
                     value={mem}
                     primaryColor="hsl(var(--chart-8))"
                   />
-                  <p className="text-xs font-medium">{mem.toFixed(0)}%</p>
+                  <p className="font-medium text-xs">{mem.toFixed(0)}%</p>
                 </div>
               </div>
               <div className="flex flex-col">
-                <p className=" text-xs text-muted-foreground">{t("Swap")}</p>
+                <p className=" text-muted-foreground text-xs">{t("Swap")}</p>
                 <div className="flex items-center gap-2">
                   <AnimatedCircularProgressBar
                     className="size-3 text-[0px]"
@@ -410,15 +410,15 @@ function MemChart({
                     value={swap}
                     primaryColor="hsl(var(--chart-10))"
                   />
-                  <p className="text-xs font-medium">{swap.toFixed(0)}%</p>
+                  <p className="font-medium text-xs">{swap.toFixed(0)}%</p>
                 </div>
               </div>
             </section>
             <section className="flex flex-col items-end gap-0.5">
-              <div className="flex text-[11px] font-medium items-center gap-2">
+              <div className="flex items-center gap-2 font-medium text-[11px]">
                 {formatBytes(data.status.MemUsed)} / {formatBytes(data.host.MemTotal)}
               </div>
-              <div className="flex text-[11px] font-medium items-center gap-2">
+              <div className="flex items-center gap-2 font-medium text-[11px]">
                 swap: {formatBytes(data.status.SwapUsed)}
               </div>
             </section>
@@ -542,10 +542,10 @@ function DiskChart({
       <CardContent className="px-6 py-3">
         <section className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
-            <p className="text-md font-medium">{t("Disk")}</p>
+            <p className="font-medium text-md">{t("Disk")}</p>
             <section className="flex flex-col items-end gap-0.5">
               <section className="flex items-center gap-2">
-                <p className="text-xs text-end w-10 font-medium">{disk.toFixed(0)}%</p>
+                <p className="w-10 text-end font-medium text-xs">{disk.toFixed(0)}%</p>
                 <AnimatedCircularProgressBar
                   className="size-3 text-[0px]"
                   max={100}
@@ -554,7 +554,7 @@ function DiskChart({
                   primaryColor="hsl(var(--chart-5))"
                 />
               </section>
-              <div className="flex text-[11px] font-medium items-center gap-2">
+              <div className="flex items-center gap-2 font-medium text-[11px]">
                 {formatBytes(data.status.DiskUsed)} / {formatBytes(data.host.DiskTotal)}
               </div>
             </section>
@@ -681,18 +681,18 @@ function NetworkChart({
         <section className="flex flex-col gap-1">
           <div className="flex items-center">
             <section className="flex items-center gap-4">
-              <div className="flex flex-col w-20">
-                <p className="text-xs text-muted-foreground">{t("Upload")}</p>
+              <div className="flex w-20 flex-col">
+                <p className="text-muted-foreground text-xs">{t("Upload")}</p>
                 <div className="flex items-center gap-1">
-                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-1))]" />
-                  <p className="text-xs font-medium">{up.toFixed(2)} M/s</p>
+                  <span className="relative inline-flex size-1.5 rounded-full bg-[hsl(var(--chart-1))]" />
+                  <p className="font-medium text-xs">{up.toFixed(2)} M/s</p>
                 </div>
               </div>
-              <div className="flex flex-col w-20">
-                <p className=" text-xs text-muted-foreground">{t("Download")}</p>
+              <div className="flex w-20 flex-col">
+                <p className=" text-muted-foreground text-xs">{t("Download")}</p>
                 <div className="flex items-center gap-1">
-                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-4))]" />
-                  <p className="text-xs font-medium">{down.toFixed(2)} M/s</p>
+                  <span className="relative inline-flex size-1.5 rounded-full bg-[hsl(var(--chart-4))]" />
+                  <p className="font-medium text-xs">{down.toFixed(2)} M/s</p>
                 </div>
               </div>
             </section>
@@ -823,18 +823,18 @@ function ConnectChart({
         <section className="flex flex-col gap-1">
           <div className="flex items-center">
             <section className="flex items-center gap-4">
-              <div className="flex flex-col w-12">
-                <p className="text-xs text-muted-foreground">TCP</p>
+              <div className="flex w-12 flex-col">
+                <p className="text-muted-foreground text-xs">TCP</p>
                 <div className="flex items-center gap-1">
-                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-1))]" />
-                  <p className="text-xs font-medium">{tcp}</p>
+                  <span className="relative inline-flex size-1.5 rounded-full bg-[hsl(var(--chart-1))]" />
+                  <p className="font-medium text-xs">{tcp}</p>
                 </div>
               </div>
-              <div className="flex flex-col w-12">
-                <p className=" text-xs text-muted-foreground">UDP</p>
+              <div className="flex w-12 flex-col">
+                <p className=" text-muted-foreground text-xs">UDP</p>
                 <div className="flex items-center gap-1">
-                  <span className="relative inline-flex  size-1.5 rounded-full bg-[hsl(var(--chart-4))]" />
-                  <p className="text-xs font-medium">{udp}</p>
+                  <span className="relative inline-flex size-1.5 rounded-full bg-[hsl(var(--chart-4))]" />
+                  <p className="font-medium text-xs">{udp}</p>
                 </div>
               </div>
             </section>

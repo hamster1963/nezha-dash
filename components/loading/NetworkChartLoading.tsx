@@ -11,7 +11,7 @@ export default function NetworkChartLoading() {
           </CardTitle>
           <div className="mt-[2px] aspect-auto h-[14px] w-32 bg-muted" />
         </div>
-        <div className="hidden pr-4 pt-4 sm:block">
+        <div className="hidden pt-4 pr-4 sm:block">
           <Loader visible={true} />
         </div>
       </CardHeader>

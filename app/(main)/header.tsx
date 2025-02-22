@@ -59,7 +59,7 @@ const Links = memo(function Links() {
           href={link.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1 text-sm font-medium opacity-50 transition-opacity hover:opacity-100"
+          className="flex items-center gap-1 font-medium text-sm opacity-50 transition-opacity hover:opacity-100"
         >
           {link.name}
         </a>
@@ -74,15 +74,15 @@ const Overview = memo(function Overview() {
 
   return (
     <section className={"mt-10 flex flex-col md:mt-16"}>
-      <p className="text-base font-semibold">{t("p_2277-2331_Overview")}</p>
+      <p className="font-semibold text-base">{t("p_2277-2331_Overview")}</p>
       <div className="flex items-center gap-1">
-        <p className="text-sm font-medium opacity-50">{t("p_2390-2457_wherethetimeis")}</p>
-        <div className="flex items-center text-sm font-medium">
+        <p className="font-medium text-sm opacity-50">{t("p_2390-2457_wherethetimeis")}</p>
+        <div className="flex items-center font-medium text-sm">
           <AnimateCountClient count={time.hh} minDigits={2} />
-          <span className="text-sm mb-[1px] font-medium opacity-50">:</span>
+          <span className="mb-[1px] font-medium text-sm opacity-50">:</span>
           <AnimateCountClient count={time.mm} minDigits={2} />
-          <span className="text-sm mb-[1px] font-medium opacity-50">:</span>
-          <span className="text-sm font-medium">{time.ss.toString().padStart(2, "0")}</span>
+          <span className="mb-[1px] font-medium text-sm opacity-50">:</span>
+          <span className="font-medium text-sm">{time.ss.toString().padStart(2, "0")}</span>
         </div>
       </div>
     </section>
@@ -107,7 +107,7 @@ function Header() {
       <section className="flex items-center justify-between">
         <section
           onClick={handleLogoClick}
-          className="flex cursor-pointer items-center text-base font-medium hover:opacity-50 transition-opacity duration-300"
+          className="flex cursor-pointer items-center font-medium text-base transition-opacity duration-300 hover:opacity-50"
         >
           <div className="mr-1 flex flex-row items-center justify-start">
             <img
@@ -115,19 +115,19 @@ function Header() {
               height={40}
               alt="apple-touch-icon"
               src={customLogo ? customLogo : "/apple-touch-icon.png"}
-              className="relative m-0! border-2 border-transparent h-6 w-6 object-cover object-top p-0! dark:hidden"
+              className="relative m-0! h-6 w-6 border-2 border-transparent object-cover object-top p-0! dark:hidden"
             />
             <img
               width={40}
               height={40}
               alt="apple-touch-icon"
               src={customLogo ? customLogo : "/apple-touch-icon-dark.png"}
-              className="relative m-0! border-2 border-transparent h-6 w-6 object-cover object-top p-0! hidden dark:block"
+              className="relative m-0! hidden h-6 w-6 border-2 border-transparent object-cover object-top p-0! dark:block"
             />
           </div>
           {customTitle ? customTitle : "NezhaDash"}
           <Separator orientation="vertical" className="mx-2 hidden h-4 w-[1px] md:block" />
-          <p className="hidden text-sm font-medium opacity-40 md:block">
+          <p className="hidden font-medium text-sm opacity-40 md:block">
             {customDescription ? customDescription : t("p_1079-1199_Simpleandbeautifuldashbo")}
           </p>
         </section>
@@ -139,7 +139,7 @@ function Header() {
           <ModeToggle />
         </section>
       </section>
-      <div className="w-full flex justify-end sm:hidden mt-1">
+      <div className="mt-1 flex w-full justify-end sm:hidden">
         <Links />
       </div>
       <Overview />

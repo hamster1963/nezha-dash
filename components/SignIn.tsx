@@ -49,26 +49,26 @@ export function SignIn() {
   }
   return (
     <form
-      className="flex flex-col flex-1 items-center justify-center gap-4 p-4 "
+      className="flex flex-1 flex-col items-center justify-center gap-4 p-4 "
       onSubmit={handleSubmit}
     >
       <input type="hidden" name="csrfToken" value={csrfToken} />
       <section className="flex flex-col items-start gap-2">
         <label className="flex flex-col items-start gap-1 ">
-          {errorState && <p className="text-red-500 text-sm font-semibold">{t("ErrorMessage")}</p>}
+          {errorState && <p className="font-semibold text-red-500 text-sm">{t("ErrorMessage")}</p>}
           {successState && (
-            <p className="text-green-500 text-sm font-semibold">{t("SuccessMessage")}</p>
+            <p className="font-semibold text-green-500 text-sm">{t("SuccessMessage")}</p>
           )}
-          <p className="text-base font-semibold">{t("SignInMessage")}</p>
+          <p className="font-semibold text-base">{t("SignInMessage")}</p>
           <input
-            className="px-1 border-[1px] rounded-[5px] border-stone-300 dark:border-stone-800"
+            className="rounded-[5px] border-[1px] border-stone-300 px-1 dark:border-stone-800"
             name="password"
             type="password"
           />
         </label>
         <button
           type="submit"
-          className="px-1.5 py-0.5 w-fit flex items-center gap-1 text-sm font-semibold border-stone-300 dark:border-stone-800 rounded-[8px] border bg-card hover:brightness-95 transition-all text-card-foreground shadow-lg shadow-neutral-200/40 dark:shadow-none"
+          className="flex w-fit items-center gap-1 rounded-[8px] border border-stone-300 bg-card px-1.5 py-0.5 font-semibold text-card-foreground text-sm shadow-lg shadow-neutral-200/40 transition-all hover:brightness-95 dark:border-stone-800 dark:shadow-none"
           disabled={loading}
         >
           {t("Submit")}

@@ -13,7 +13,7 @@ export default function ServerGlobal() {
   if (error)
     return (
       <div className="flex flex-col items-center justify-center">
-        <p className="text-sm font-medium opacity-40">{error.message}</p>
+        <p className="font-medium text-sm opacity-40">{error.message}</p>
       </div>
     )
 
@@ -43,7 +43,7 @@ export default function ServerGlobal() {
   )
 
   return (
-    <section className="flex flex-col gap-4 mt-[3.2px]">
+    <section className="mt-[3.2px] flex flex-col gap-4">
       <GlobalInfo countries={countryList} />
       <div className="w-full overflow-x-auto">
         <TooltipProvider>

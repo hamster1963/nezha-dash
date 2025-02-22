@@ -29,14 +29,14 @@ export default function ServerCardInline({
     <Link onClick={saveSession} href={`/server/${id}`} prefetch={true}>
       <Card
         className={cn(
-          "flex items-center lg:flex-row justify-start gap-3 p-3 md:px-5 cursor-pointer hover:border-stone-300 dark:hover:border-stone-700 hover:shadow-md  min-w-[900px] w-full",
+          "flex w-full min-w-[900px] cursor-pointer items-center justify-start gap-3 p-3 hover:border-stone-300 hover:shadow-md md:px-5 lg:flex-row dark:hover:border-stone-700",
         )}
       >
         <section
           className={cn("grid items-center gap-2 lg:w-36")}
           style={{ gridTemplateColumns: "auto auto 1fr" }}
         >
-          <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center" />
+          <span className="h-2 w-2 shrink-0 self-center rounded-full bg-green-500" />
           <div
             className={cn(
               "flex items-center justify-center",
@@ -56,11 +56,11 @@ export default function ServerCardInline({
             </p>
           </div>
         </section>
-        <Separator orientation="vertical" className="h-8 mx-0 ml-2" />
+        <Separator orientation="vertical" className="mx-0 ml-2 h-8" />
         <div className="flex flex-col gap-2">
-          <section className={cn("grid grid-cols-9 items-center gap-3 flex-1")}>
-            <div className={"items-center flex flex-row gap-2 whitespace-nowrap"}>
-              <div className="text-xs font-semibold">
+          <section className={cn("grid flex-1 grid-cols-9 items-center gap-3")}>
+            <div className={"flex flex-row items-center gap-2 whitespace-nowrap"}>
+              <div className="font-semibold text-xs">
                 {host.Platform.includes("Windows") ? (
                   <MageMicrosoftWindows className="size-[10px]" />
                 ) : (
@@ -68,54 +68,54 @@ export default function ServerCardInline({
                 )}
               </div>
               <div className={"flex w-14 flex-col"}>
-                <p className="text-xs text-muted-foreground">{t("System")}</p>
-                <div className="flex items-center text-[10.5px] font-semibold">
+                <p className="text-muted-foreground text-xs">{t("System")}</p>
+                <div className="flex items-center font-semibold text-[10.5px]">
                   {host.Platform.includes("Windows") ? "Windows" : GetOsName(host.Platform)}
                 </div>
               </div>
             </div>
             <div className={"flex w-20 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("Uptime")}</p>
-              <div className="flex items-center text-xs font-semibold">
+              <p className="text-muted-foreground text-xs">{t("Uptime")}</p>
+              <div className="flex items-center font-semibold text-xs">
                 {(serverInfo?.status.Uptime / 86400).toFixed(0)} {"Days"}
               </div>
             </div>
             <div className={"flex w-14 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("CPU")}</p>
-              <div className="flex items-center text-xs font-semibold">{cpu.toFixed(2)}%</div>
+              <p className="text-muted-foreground text-xs">{t("CPU")}</p>
+              <div className="flex items-center font-semibold text-xs">{cpu.toFixed(2)}%</div>
               <ServerUsageBar value={cpu} />
             </div>
             <div className={"flex w-14 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("Mem")}</p>
-              <div className="flex items-center text-xs font-semibold">{mem.toFixed(2)}%</div>
+              <p className="text-muted-foreground text-xs">{t("Mem")}</p>
+              <div className="flex items-center font-semibold text-xs">{mem.toFixed(2)}%</div>
               <ServerUsageBar value={mem} />
             </div>
             <div className={"flex w-14 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("STG")}</p>
-              <div className="flex items-center text-xs font-semibold">{stg.toFixed(2)}%</div>
+              <p className="text-muted-foreground text-xs">{t("STG")}</p>
+              <div className="flex items-center font-semibold text-xs">{stg.toFixed(2)}%</div>
               <ServerUsageBar value={stg} />
             </div>
             <div className={"flex w-16 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("Upload")}</p>
-              <div className="flex items-center text-xs font-semibold">
+              <p className="text-muted-foreground text-xs">{t("Upload")}</p>
+              <div className="flex items-center font-semibold text-xs">
                 {up >= 1024 ? `${(up / 1024).toFixed(2)}G/s` : `${up.toFixed(2)}M/s`}
               </div>
             </div>
             <div className={"flex w-16 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("Download")}</p>
-              <div className="flex items-center text-xs font-semibold">
+              <p className="text-muted-foreground text-xs">{t("Download")}</p>
+              <div className="flex items-center font-semibold text-xs">
                 {down >= 1024 ? `${(down / 1024).toFixed(2)}G/s` : `${down.toFixed(2)}M/s`}
               </div>
             </div>
             <div className={"flex w-20 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("TotalUpload")}</p>
-              <div className="flex items-center text-xs font-semibold">
+              <p className="text-muted-foreground text-xs">{t("TotalUpload")}</p>
+              <div className="flex items-center font-semibold text-xs">
                 {formatBytes(serverInfo.status.NetOutTransfer)}
               </div>
             </div>
             <div className={"flex w-20 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("TotalDownload")}</p>
-              <div className="flex items-center text-xs font-semibold">
+              <p className="text-muted-foreground text-xs">{t("TotalDownload")}</p>
+              <div className="flex items-center font-semibold text-xs">
                 {formatBytes(serverInfo.status.NetInTransfer)}
               </div>
             </div>
@@ -127,14 +127,14 @@ export default function ServerCardInline({
     <Link onClick={saveSession} href={`/server/${id}`} prefetch={true}>
       <Card
         className={cn(
-          "flex items-center justify-start gap-3 p-3 md:px-5 hover:border-stone-300 dark:hover:border-stone-700 hover:shadow-md min-h-[61px] min-w-[900px] flex-row",
+          "flex min-h-[61px] min-w-[900px] flex-row items-center justify-start gap-3 p-3 hover:border-stone-300 hover:shadow-md md:px-5 dark:hover:border-stone-700",
         )}
       >
         <section
           className={cn("grid items-center gap-2 lg:w-40")}
           style={{ gridTemplateColumns: "auto auto 1fr" }}
         >
-          <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center" />
+          <span className="h-2 w-2 shrink-0 self-center rounded-full bg-red-500" />
           <div
             className={cn(
               "flex items-center justify-center",

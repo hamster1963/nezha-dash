@@ -30,7 +30,7 @@ export default function ServerCard({
     <Link onClick={saveSession} href={`/server/${id}`} prefetch={true}>
       <Card
         className={cn(
-          "flex flex-col items-center justify-start gap-3 p-3 md:px-5 cursor-pointer hover:border-stone-300 dark:hover:border-stone-700 hover:shadow-md",
+          "flex cursor-pointer flex-col items-center justify-start gap-3 p-3 hover:border-stone-300 hover:shadow-md md:px-5 dark:hover:border-stone-700",
           {
             "flex-col": fixedTopServerName,
             "lg:flex-row": !fixedTopServerName,
@@ -43,7 +43,7 @@ export default function ServerCard({
           })}
           style={{ gridTemplateColumns: "auto auto 1fr" }}
         >
-          <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center" />
+          <span className="h-2 w-2 shrink-0 self-center rounded-full bg-green-500" />
           <div
             className={cn(
               "flex items-center justify-center",
@@ -70,8 +70,8 @@ export default function ServerCard({
             })}
           >
             {fixedTopServerName && (
-              <div className={"hidden col-span-1 items-center lg:flex lg:flex-row gap-2"}>
-                <div className="text-xs font-semibold">
+              <div className={"col-span-1 hidden items-center gap-2 lg:flex lg:flex-row"}>
+                <div className="font-semibold text-xs">
                   {host.Platform.includes("Windows") ? (
                     <MageMicrosoftWindows className="size-[10px]" />
                   ) : (
@@ -79,37 +79,37 @@ export default function ServerCard({
                   )}
                 </div>
                 <div className={"flex w-14 flex-col"}>
-                  <p className="text-xs text-muted-foreground">{t("System")}</p>
-                  <div className="flex items-center text-[10.5px] font-semibold">
+                  <p className="text-muted-foreground text-xs">{t("System")}</p>
+                  <div className="flex items-center font-semibold text-[10.5px]">
                     {host.Platform.includes("Windows") ? "Windows" : GetOsName(host.Platform)}
                   </div>
                 </div>
               </div>
             )}
             <div className={"flex w-14 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("CPU")}</p>
-              <div className="flex items-center text-xs font-semibold">{cpu.toFixed(2)}%</div>
+              <p className="text-muted-foreground text-xs">{t("CPU")}</p>
+              <div className="flex items-center font-semibold text-xs">{cpu.toFixed(2)}%</div>
               <ServerUsageBar value={cpu} />
             </div>
             <div className={"flex w-14 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("Mem")}</p>
-              <div className="flex items-center text-xs font-semibold">{mem.toFixed(2)}%</div>
+              <p className="text-muted-foreground text-xs">{t("Mem")}</p>
+              <div className="flex items-center font-semibold text-xs">{mem.toFixed(2)}%</div>
               <ServerUsageBar value={mem} />
             </div>
             <div className={"flex w-14 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("STG")}</p>
-              <div className="flex items-center text-xs font-semibold">{stg.toFixed(2)}%</div>
+              <p className="text-muted-foreground text-xs">{t("STG")}</p>
+              <div className="flex items-center font-semibold text-xs">{stg.toFixed(2)}%</div>
               <ServerUsageBar value={stg} />
             </div>
             <div className={"flex w-14 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("Upload")}</p>
-              <div className="flex items-center text-xs font-semibold">
+              <p className="text-muted-foreground text-xs">{t("Upload")}</p>
+              <div className="flex items-center font-semibold text-xs">
                 {up >= 1024 ? `${(up / 1024).toFixed(2)}G/s` : `${up.toFixed(2)}M/s`}
               </div>
             </div>
             <div className={"flex w-14 flex-col"}>
-              <p className="text-xs text-muted-foreground">{t("Download")}</p>
-              <div className="flex items-center text-xs font-semibold">
+              <p className="text-muted-foreground text-xs">{t("Download")}</p>
+              <div className="flex items-center font-semibold text-xs">
                 {down >= 1024 ? `${(down / 1024).toFixed(2)}G/s` : `${down.toFixed(2)}M/s`}
               </div>
             </div>
@@ -118,13 +118,13 @@ export default function ServerCard({
             <section className={"flex items-center justify-between gap-1"}>
               <Badge
                 variant="secondary"
-                className="items-center flex-1 justify-center rounded-[8px] text-nowrap text-[11px] border-muted-50 shadow-md shadow-neutral-200/30 dark:shadow-none"
+                className="flex-1 items-center justify-center text-nowrap rounded-[8px] border-muted-50 text-[11px] shadow-md shadow-neutral-200/30 dark:shadow-none"
               >
                 {t("Upload")}:{formatBytes(serverInfo.status.NetOutTransfer)}
               </Badge>
               <Badge
                 variant="outline"
-                className="items-center flex-1 justify-center rounded-[8px] text-nowrap text-[11px] shadow-md shadow-neutral-200/30 dark:shadow-none"
+                className="flex-1 items-center justify-center text-nowrap rounded-[8px] text-[11px] shadow-md shadow-neutral-200/30 dark:shadow-none"
               >
                 {t("Download")}:{formatBytes(serverInfo.status.NetInTransfer)}
               </Badge>
@@ -137,8 +137,8 @@ export default function ServerCard({
     <Link onClick={saveSession} href={`/server/${id}`} prefetch={true}>
       <Card
         className={cn(
-          "flex flex-col items-center justify-start gap-3 p-3 md:px-5 cursor-pointer hover:border-stone-300 dark:hover:border-stone-700 hover:shadow-md",
-          showNetTransfer ? "lg:min-h-[91px] min-h-[123px]" : "lg:min-h-[61px] min-h-[93px]",
+          "flex cursor-pointer flex-col items-center justify-start gap-3 p-3 hover:border-stone-300 hover:shadow-md md:px-5 dark:hover:border-stone-700",
+          showNetTransfer ? "min-h-[123px] lg:min-h-[91px]" : "min-h-[93px] lg:min-h-[61px]",
           {
             "flex-col": fixedTopServerName,
             "lg:flex-row": !fixedTopServerName,
@@ -151,7 +151,7 @@ export default function ServerCard({
           })}
           style={{ gridTemplateColumns: "auto auto 1fr" }}
         >
-          <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center" />
+          <span className="h-2 w-2 shrink-0 self-center rounded-full bg-red-500" />
           <div
             className={cn(
               "flex items-center justify-center",

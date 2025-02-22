@@ -65,7 +65,7 @@ export function AnimateCount({
         return (
           <div
             key={`${index}-${digit}`}
-            className={cn("relative h-full flex items-center min-w-[0.6em] text-center", {
+            className={cn("relative flex h-full min-w-[0.6em] items-center text-center", {
               "min-w-[0.2em]": digit === ".",
             })}
           >

@@ -47,8 +47,8 @@ export function NetworkChartClient({
     return (
       <>
         <div className="flex flex-col items-center justify-center">
-          <p className="text-sm font-medium opacity-40">{error.message}</p>
-          <p className="text-sm font-medium opacity-40">{t("chart_fetch_error_message")}</p>
+          <p className="font-medium text-sm opacity-40">{error.message}</p>
+          <p className="font-medium text-sm opacity-40">{t("chart_fetch_error_message")}</p>
         </div>
         <NetworkChartLoading />
       </>
@@ -123,12 +123,12 @@ export const NetworkChart = React.memo(function NetworkChart({
           key={key}
           data-active={activeChart === key}
           className={
-            "relative z-30 flex cursor-pointer grow basis-0 flex-col justify-center gap-1 border-b border-neutral-200 dark:border-neutral-800 px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-6"
+            "relative z-30 flex grow basis-0 cursor-pointer flex-col justify-center gap-1 border-neutral-200 border-b px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-t-0 sm:border-l sm:px-6 dark:border-neutral-800"
           }
           onClick={() => handleButtonClick(key)}
         >
-          <span className="whitespace-nowrap text-xs text-muted-foreground">{key}</span>
-          <span className="text-md font-bold leading-none sm:text-lg">
+          <span className="whitespace-nowrap text-muted-foreground text-xs">{key}</span>
+          <span className="font-bold text-md leading-none sm:text-lg">
             {chartData[key][chartData[key].length - 1].avg_delay.toFixed(2)}ms
           </span>
         </button>
@@ -269,16 +269,16 @@ export const NetworkChart = React.memo(function NetworkChart({
           <CardDescription className="text-xs">
             {chartDataKey.length} {t("ServerMonitorCount")}
           </CardDescription>
-          <div className="flex items-center mt-0.5 space-x-2">
+          <div className="mt-0.5 flex items-center space-x-2">
             <Switch id="Peak" checked={isPeakEnabled} onCheckedChange={setIsPeakEnabled} />
             <Label className="text-xs" htmlFor="Peak">
               Peak cut
             </Label>
           </div>
         </div>
-        <div className="flex flex-wrap w-full">{chartButtons}</div>
+        <div className="flex w-full flex-wrap">{chartButtons}</div>
       </CardHeader>
-      <CardContent className="pr-2 pl-0 py-4 sm:pt-6 sm:pb-6 sm:pr-6 sm:pl-2">
+      <CardContent className="py-4 pr-2 pl-0 sm:pt-6 sm:pr-6 sm:pb-6 sm:pl-2">
         <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
           <LineChart accessibilityLayer data={processedData} margin={{ left: 12, right: 12 }}>
             <CartesianGrid vertical={false} />

@@ -9,10 +9,10 @@ export default function NotFoundPage() {
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex min-h-[calc(100vh-calc(var(--spacing)*16))] flex-1 flex-col gap-4 bg-background p-4 md:p-10 md:pt-8">
         <Header />
-        <section className="flex flex-col items-center flex-1 justify-center gap-2">
-          <p className="text-sm font-semibold">{t("h1_490-590_404NotFound")}</p>
+        <section className="flex flex-1 flex-col items-center justify-center gap-2">
+          <p className="font-semibold text-sm">{t("h1_490-590_404NotFound")}</p>
           <Link href="/" className="flex items-center gap-1">
-            <p className="text-sm font-medium opacity-40">{t("h1_490-590_404NotFoundBack")}</p>
+            <p className="font-medium text-sm opacity-40">{t("h1_490-590_404NotFoundBack")}</p>
           </Link>
         </section>
         <Footer />

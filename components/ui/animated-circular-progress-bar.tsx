@@ -21,7 +21,7 @@ export default function AnimatedCircularProgressBar({
 
   return (
     <div
-      className={cn("relative size-40 text-2xl font-semibold", className)}
+      className={cn("relative size-40 font-semibold text-2xl", className)}
       style={
         {
           "--circle-size": "100px",
@@ -48,7 +48,7 @@ export default function AnimatedCircularProgressBar({
             strokeDashoffset="0"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="opacity-100 stroke-muted"
+            className="stroke-muted opacity-100"
             style={
               {
                 "--stroke-percent": 90 - currentPercent,
@@ -71,7 +71,7 @@ export default function AnimatedCircularProgressBar({
           strokeDashoffset="0"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className={cn("opacity-100 stroke-current", {
+          className={cn("stroke-current opacity-100", {
             "stroke-[var(--stroke-primary-color)]": primaryColor,
           })}
           style={
@@ -92,7 +92,7 @@ export default function AnimatedCircularProgressBar({
       </svg>
       <span
         data-current-value={currentPercent}
-        className="duration-[var(--transition-length)] delay-[var(--delay)] absolute inset-0 m-auto size-fit ease-linear animate-in fade-in"
+        className="fade-in absolute inset-0 m-auto size-fit animate-in delay-[var(--delay)] duration-[var(--transition-length)] ease-linear"
       >
         {currentPercent}
       </span>

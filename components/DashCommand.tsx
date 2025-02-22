@@ -103,9 +103,9 @@ export function DashCommand() {
                 }}
               >
                 {server.online_status ? (
-                  <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center" />
+                  <span className="h-2 w-2 shrink-0 self-center rounded-full bg-green-500" />
                 ) : (
-                  <span className="h-2 w-2 shrink-0 rounded-full bg-red-500 self-center" />
+                  <span className="h-2 w-2 shrink-0 self-center rounded-full bg-red-500" />
                 )}
                 <span>{server.name}</span>
               </CommandItem>

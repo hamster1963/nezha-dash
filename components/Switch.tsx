@@ -86,7 +86,7 @@ export default function Switch({
       <div className="relative flex items-center gap-1 rounded-[50px] bg-stone-100 p-[3px] dark:bg-stone-800">
         {indicator.w > 0 && (
           <div
-            className="absolute top-[3px] left-0 z-10 h-[35px] bg-white shadow-lg shadow-black/5 dark:bg-stone-700 dark:shadow-white/5"
+            className="absolute top-[3px] left-0 z-10 h-[35px] bg-white shadow-black/5 shadow-lg dark:bg-stone-700 dark:shadow-white/5"
             style={{
               borderRadius: 24,
               width: `${indicator.w}px`,
@@ -104,18 +104,18 @@ export default function Switch({
               sessionStorage.setItem("selectedTag", tag)
             }}
             className={cn(
-              "relative cursor-pointer rounded-3xl px-2.5 py-[8px] text-[13px] font-[600]",
-              "transition-all duration-500 ease-in-out text-stone-400 dark:text-stone-500 hover:text-stone-950 hover:dark:text-stone-50",
+              "relative cursor-pointer rounded-3xl px-2.5 py-[8px] font-[600] text-[13px]",
+              "text-stone-400 transition-all duration-500 ease-in-out hover:text-stone-950 dark:text-stone-500 hover:dark:text-stone-50",
               {
                 "text-stone-950 dark:text-stone-50": nowTag === tag,
               },
             )}
           >
             <div className="relative z-20 flex items-center gap-1">
-              <div className="whitespace-nowrap flex items-center gap-2">
+              <div className="flex items-center gap-2 whitespace-nowrap">
                 {tag === "defaultTag" ? t("defaultTag") : tag}{" "}
                 {getEnv("NEXT_PUBLIC_ShowTagCount") === "true" && tag !== "defaultTag" && (
-                  <div className="w-fit px-1.5 rounded-full bg-muted">{tagCountMap[tag]}</div>
+                  <div className="w-fit rounded-full bg-muted px-1.5">{tagCountMap[tag]}</div>
                 )}
               </div>
             </div>

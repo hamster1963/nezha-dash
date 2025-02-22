@@ -15,7 +15,7 @@ const FooterLink = ({ href, children }: LinkProps) => (
   <a
     href={href}
     target="_blank"
-    className="cursor-pointer font-normal underline decoration-yellow-500 hover:decoration-yellow-600 transition-colors decoration-2 underline-offset-2 dark:decoration-yellow-500/60 dark:hover:decoration-yellow-500/80"
+    className="cursor-pointer font-normal underline decoration-2 decoration-yellow-500 underline-offset-2 transition-colors hover:decoration-yellow-600 dark:decoration-yellow-500/60 dark:hover:decoration-yellow-500/80"
     rel="noreferrer"
   >
     {children}
@@ -36,7 +36,7 @@ export default function Footer() {
   }, [])
 
   return (
-    <footer className="mx-auto w-full max-w-5xl flex items-center justify-between">
+    <footer className="mx-auto flex w-full max-w-5xl items-center justify-between">
       <section className="flex flex-col">
         <p className={`mt-3 flex gap-1 ${baseTextStyles}`}>
           {t("p_146-598_Findthecodeon")}{" "}
@@ -49,7 +49,7 @@ export default function Footer() {
         </section>
       </section>
       <p className={`mt-1 ${baseTextStyles}`}>
-        <kbd className="pointer-events-none mx-1 inline-flex h-4 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+        <kbd className="pointer-events-none mx-1 inline-flex h-4 select-none items-center gap-1 rounded border bg-muted px-1.5 font-medium font-mono text-[10px] text-muted-foreground opacity-100">
           {isMac ? <span className="text-xs">⌘</span> : "Ctrl "}K
         </kbd>
       </p>

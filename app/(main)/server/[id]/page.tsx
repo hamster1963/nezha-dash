@@ -35,9 +35,9 @@ export default function Page({ params }: PageProps) {
     <main className="mx-auto grid w-full max-w-5xl gap-2">
       <ServerDetailClient server_id={serverId} />
 
-      <nav className="flex items-center my-2 w-full">
+      <nav className="my-2 flex w-full items-center">
         <Separator className="flex-1" />
-        <div className="flex justify-center w-full max-w-[200px]">
+        <div className="flex w-full max-w-[200px] justify-center">
           <TabSwitch
             tabs={tabs}
             currentTab={currentTab}

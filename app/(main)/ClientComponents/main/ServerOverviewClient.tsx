@@ -24,10 +24,10 @@ export default function ServerOverviewClient() {
     const errorInfo = error as any
     return (
       <div className="flex flex-col items-center justify-center">
-        <p className="text-sm font-medium opacity-40">
+        <p className="font-medium text-sm opacity-40">
           Error status:{errorInfo?.status} {errorInfo.info?.cause ?? errorInfo?.message}
         </p>
-        <p className="text-sm font-medium opacity-40">{t("error_message")}</p>
+        <p className="font-medium text-sm opacity-40">{t("error_message")}</p>
       </div>
     )
   }
@@ -40,17 +40,17 @@ export default function ServerOverviewClient() {
             setFilter(false)
             setStatus("all")
           }}
-          className={cn("cursor-pointer hover:border-blue-500 transition-all group")}
+          className={cn("group cursor-pointer transition-all hover:border-blue-500")}
         >
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
-              <p className="text-sm font-medium md:text-base">{t("p_816-881_Totalservers")}</p>
-              <div className="flex items-center gap-2 min-h-[28px]">
+              <p className="font-medium text-sm md:text-base">{t("p_816-881_Totalservers")}</p>
+              <div className="flex min-h-[28px] items-center gap-2">
                 <span className="relative flex h-2 w-2">
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
                 </span>
                 {data?.result ? (
-                  <div className="text-lg font-semibold">
+                  <div className="font-semibold text-lg">
                     <AnimateCountClient count={data?.result.length} />
                   </div>
                 ) : (
@@ -68,22 +68,22 @@ export default function ServerOverviewClient() {
             setStatus("online")
           }}
           className={cn(
-            "cursor-pointer hover:ring-green-500 ring-1 ring-transparent transition-all",
+            "cursor-pointer ring-1 ring-transparent transition-all hover:ring-green-500",
             {
-              "ring-green-500 ring-2 border-transparent": status === "online",
+              "border-transparent ring-2 ring-green-500": status === "online",
             },
           )}
         >
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
-              <p className="text-sm font-medium md:text-base">{t("p_1610-1676_Onlineservers")}</p>
-              <div className="flex items-center gap-2 min-h-[28px]">
+              <p className="font-medium text-sm md:text-base">{t("p_1610-1676_Onlineservers")}</p>
+              <div className="flex min-h-[28px] items-center gap-2">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
                 </span>
                 {data?.result ? (
-                  <div className="text-lg font-semibold">
+                  <div className="font-semibold text-lg">
                     <AnimateCountClient count={data?.live_servers} />
                   </div>
                 ) : (
@@ -101,22 +101,22 @@ export default function ServerOverviewClient() {
             setStatus("offline")
           }}
           className={cn(
-            "cursor-pointer hover:ring-red-500 ring-1 ring-transparent transition-all",
+            "cursor-pointer ring-1 ring-transparent transition-all hover:ring-red-500",
             {
-              "ring-red-500 ring-2 border-transparent": status === "offline",
+              "border-transparent ring-2 ring-red-500": status === "offline",
             },
           )}
         >
           <CardContent className="flex h-full items-center px-6 py-3">
             <section className="flex flex-col gap-1">
-              <p className="text-sm font-medium md:text-base">{t("p_2532-2599_Offlineservers")}</p>
-              <div className="flex items-center gap-2 min-h-[28px]">
+              <p className="font-medium text-sm md:text-base">{t("p_2532-2599_Offlineservers")}</p>
+              <div className="flex min-h-[28px] items-center gap-2">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
                 </span>
                 {data?.result ? (
-                  <div className="text-lg font-semibold">
+                  <div className="font-semibold text-lg">
                     <AnimateCountClient count={data?.offline_servers} />
                   </div>
                 ) : (
@@ -134,34 +134,34 @@ export default function ServerOverviewClient() {
             setFilter(true)
           }}
           className={cn(
-            "cursor-pointer hover:ring-purple-500 ring-1 ring-transparent transition-all group",
+            "group cursor-pointer ring-1 ring-transparent transition-all hover:ring-purple-500",
             {
-              "ring-purple-500 ring-2 border-transparent": filter === true,
+              "border-transparent ring-2 ring-purple-500": filter === true,
             },
           )}
         >
-          <CardContent className="flex h-full items-center relative px-6 py-3">
-            <section className="flex flex-col gap-1 w-full">
-              <div className="flex items-center w-full justify-between">
-                <p className="text-sm font-medium md:text-base">{t("network")}</p>
+          <CardContent className="relative flex h-full items-center px-6 py-3">
+            <section className="flex w-full flex-col gap-1">
+              <div className="flex w-full items-center justify-between">
+                <p className="font-medium text-sm md:text-base">{t("network")}</p>
               </div>
               {data?.result ? (
                 <>
-                  <section className="flex flex-row flex-wrap items-start pr-0 gap-1">
-                    <p className="text-[12px] text-blue-800 dark:text-blue-400   text-nowrap font-medium">
+                  <section className="flex flex-row flex-wrap items-start gap-1 pr-0">
+                    <p className="text-nowrap font-medium text-[12px] text-blue-800 dark:text-blue-400">
                       ↑{formatBytes(data?.total_out_bandwidth)}
                     </p>
-                    <p className="text-[12px]  text-purple-800 dark:text-purple-400  text-nowrap font-medium">
+                    <p className="text-nowrap font-medium text-[12px] text-purple-800 dark:text-purple-400">
                       ↓{formatBytes(data?.total_in_bandwidth)}
                     </p>
                   </section>
-                  <section className="flex flex-row flex-wrap -mr-1 sm:items-center items-start gap-1">
-                    <p className="text-[11px] flex items-center text-nowrap font-semibold">
-                      <ArrowUpCircleIcon className="size-3 mr-0.5 sm:mb-[1px]" />
+                  <section className="-mr-1 flex flex-row flex-wrap items-start gap-1 sm:items-center">
+                    <p className="flex items-center text-nowrap font-semibold text-[11px]">
+                      <ArrowUpCircleIcon className="mr-0.5 size-3 sm:mb-[1px]" />
                       {formatBytes(data?.total_out_speed)}/s
                     </p>
-                    <p className="text-[11px] flex items-center  text-nowrap font-semibold">
-                      <ArrowDownCircleIcon className="size-3 mr-0.5" />
+                    <p className="flex items-center text-nowrap font-semibold text-[11px]">
+                      <ArrowDownCircleIcon className="mr-0.5 size-3" />
                       {formatBytes(data?.total_in_speed)}/s
                     </p>
                   </section>
@@ -174,7 +174,7 @@ export default function ServerOverviewClient() {
             </section>
             {!disableCartoon && (
               <Image
-                className="absolute right-3 top-[-85px] z-50 w-20 scale-90 group-hover:opacity-50 md:scale-100 transition-all"
+                className="absolute top-[-85px] right-3 z-50 w-20 scale-90 transition-all group-hover:opacity-50 md:scale-100"
                 alt={"Hamster1963"}
                 src={blogMan}
                 priority
@@ -186,7 +186,7 @@ export default function ServerOverviewClient() {
       </section>
       {data?.result === undefined && !isLoading && (
         <div className="flex flex-col items-center justify-center">
-          <p className="text-sm font-medium opacity-40">{t("error_message")}</p>
+          <p className="font-medium text-sm opacity-40">{t("error_message")}</p>
         </div>
       )}
     </>
