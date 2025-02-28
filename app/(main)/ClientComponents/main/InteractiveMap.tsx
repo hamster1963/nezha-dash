@@ -56,14 +56,14 @@ export function InteractiveMap({
             fill="transparent"
             onMouseEnter={() => setTooltipData(null)}
           />
-          {filteredFeatures.map((feature) => {
+          {filteredFeatures.map((feature, index) => {
             const isHighlighted = countries.includes(feature.properties.iso_a2_eh)
 
             const serverCount = serverCounts[feature.properties.iso_a2_eh] || 0
 
             return (
               <path
-                key={feature.properties.iso_a2_eh}
+                key={feature.properties.iso_a2_eh + String(index)}
                 d={path(feature) || ""}
                 className={
                   isHighlighted
