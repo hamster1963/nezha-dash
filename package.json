@@ -1,6 +1,6 @@
 {
   "name": "nezha-dash",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 3040",
