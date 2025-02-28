@@ -4,6 +4,7 @@ import AnimateCountClient from "@/components/AnimatedCount"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { ModeToggle } from "@/components/ThemeSwitcher"
 import { Separator } from "@/components/ui/separator"
+import { Skeleton } from "@/components/ui/skeleton"
 
 import getEnv from "@/lib/env-entry"
 import { DateTime } from "luxon"
@@ -71,19 +72,30 @@ const Links = memo(function Links() {
 const Overview = memo(function Overview() {
   const t = useTranslations("Overview")
   const time = useCurrentTime()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <section className={"mt-10 flex flex-col md:mt-16"}>
       <p className="font-semibold text-base">{t("p_2277-2331_Overview")}</p>
       <div className="flex items-center gap-1">
         <p className="font-medium text-sm opacity-50">{t("p_2390-2457_wherethetimeis")}</p>
-        <div className="flex items-center font-medium text-sm">
-          <AnimateCountClient count={time.hh} minDigits={2} />
-          <span className="mb-[1px] font-medium text-sm opacity-50">:</span>
-          <AnimateCountClient count={time.mm} minDigits={2} />
-          <span className="mb-[1px] font-medium text-sm opacity-50">:</span>
-          <span className="font-medium text-sm">{time.ss.toString().padStart(2, "0")}</span>
-        </div>
+        {mounted ? (
+          <div className="flex items-center font-medium text-sm">
+            <AnimateCountClient count={time.hh} minDigits={2} />
+            <span className="mb-[1px] font-medium text-sm opacity-50">:</span>
+            <AnimateCountClient count={time.mm} minDigits={2} />
+            <span className="mb-[1px] font-medium text-sm opacity-50">:</span>
+            <span className="font-medium text-sm">
+              <AnimateCountClient count={time.ss} minDigits={2} />
+            </span>
+          </div>
+        ) : (
+          <Skeleton className="h-[21px] w-16 animate-none rounded-[5px] bg-muted-foreground/10" />
+        )}
       </div>
     </section>
   )
