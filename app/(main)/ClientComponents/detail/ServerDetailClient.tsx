@@ -83,6 +83,7 @@ export default function ServerDetailClient({
     net_out_transfer,
     net_in_transfer,
     last_active_time_string,
+    boot_time_string,
   } = formatNezhaInfo(serverData)
 
   return (
@@ -251,6 +252,14 @@ export default function ServerDetailClient({
         </Card>
       </section>
       <section className="mt-1 flex flex-wrap gap-2">
+        <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+          <CardContent className="px-1.5 py-1">
+            <section className="flex flex-col items-start gap-0.5">
+              <p className="text-muted-foreground text-xs">{t("BootTime")}</p>
+              <div className="text-xs">{boot_time_string ? boot_time_string : "N/A"}</div>
+            </section>
+          </CardContent>
+        </Card>
         <Card className="rounded-[10px] border-none bg-transparent shadow-none">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
