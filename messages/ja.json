@@ -86,7 +86,8 @@
     "Load": "負荷",
     "Upload": "Upload",
     "Download": "Download",
-    "LastActive": "Last Active"
+    "LastActive": "Last Active",
+    "BootTime": "Boot Time"
   },
   "ServerDetailChartClient": {
     "chart_fetch_error_message": "環境変数を確認し、サーバーコンソールを確認してください",

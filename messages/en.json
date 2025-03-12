@@ -86,7 +86,8 @@
     "Upload": "Upload",
     "Download": "Download",
     "Load": "Load",
-    "LastActive": "Last Active"
+    "LastActive": "Last Active",
+    "BootTime": "Boot Time"
   },
   "ServerDetailChartClient": {
     "chart_fetch_error_message": "Please check your environment variables and review the server console",

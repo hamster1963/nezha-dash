@@ -16,6 +16,10 @@ export function formatNezhaInfo(serverInfo: NezhaAPISafe) {
     last_active_time_string: serverInfo.last_active
       ? new Date(serverInfo.last_active * 1000).toLocaleString()
       : "",
+    boot_time: serverInfo.host.BootTime,
+    boot_time_string: serverInfo.host.BootTime
+      ? new Date(serverInfo.host.BootTime * 1000).toLocaleString()
+      : "",
     online: serverInfo.online_status,
     uptime: serverInfo.status.Uptime || 0,
     version: serverInfo.host.Version || null,
