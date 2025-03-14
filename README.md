@@ -20,7 +20,7 @@
 - Cloudflare
 - Docker
 
-[演示站点](https://nezha-cf.buycoffee.top)
+[演示站点](https://nezha-vercel.vercel.app)
 [说明文档](https://nezhadash-docs.vercel.app)
 
 ### 如何更新
