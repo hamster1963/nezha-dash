@@ -121,8 +121,8 @@ export default function ServerDetailClient({
               <div className="text-xs">
                 {" "}
                 {uptime / 86400 >= 1
-                  ? `${(uptime / 86400).toFixed(0)} ${t("Days")}`
-                  : `${(uptime / 3600).toFixed(0)} ${t("Hours")}`}
+                  ? `${Math.floor(uptime / 86400)} ${t("Days")} ${Math.floor((uptime % 86400) / 3600)} ${t("Hours")}`
+                  : `${Math.floor(uptime / 3600)} ${t("Hours")}`}
               </div>
             </section>
           </CardContent>
