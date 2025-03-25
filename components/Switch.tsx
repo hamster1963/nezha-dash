@@ -57,7 +57,7 @@ export default function Switch({
         w: currentTagElement.offsetWidth,
       })
     }
-    
+
     if (isFirstRender) {
       setTimeout(() => {
         setIsFirstRender(false)
@@ -95,7 +95,7 @@ export default function Switch({
               borderRadius: 24,
               width: `${indicator.w}px`,
               transform: `translateX(${indicator.x}px)`,
-              transition: isFirstRender ? 'none' : "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+              transition: isFirstRender ? "none" : "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
         )}
