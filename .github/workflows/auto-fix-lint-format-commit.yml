@@ -1,6 +1,6 @@
 name: Auto Fix Lint and Format
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 on:
