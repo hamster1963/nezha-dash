@@ -20,10 +20,8 @@ export default function Switch({
   const tagRefs = useRef(allTag.map(() => createRef<HTMLDivElement>()))
   const t = useTranslations("ServerListClient")
   const locale = useLocale()
-  const [indicator, setIndicator] = useState<{ x: number; w: number }>({
-    x: 0,
-    w: 0,
-  })
+  const [indicator, setIndicator] = useState<{ x: number; w: number } | null>(null)
+  const [isFirstRender, setIsFirstRender] = useState(true)
 
   useEffect(() => {
     const savedTag = sessionStorage.getItem("selectedTag")
@@ -59,7 +57,13 @@ export default function Switch({
         w: currentTagElement.offsetWidth,
       })
     }
-  }, [nowTag, locale])
+
+    if (isFirstRender) {
+      setTimeout(() => {
+        setIsFirstRender(false)
+      }, 50)
+    }
+  }, [nowTag, locale, allTag, isFirstRender])
 
   useEffect(() => {
     const currentTagElement = tagRefs.current[allTag.indexOf(nowTag)]?.current
@@ -84,14 +88,14 @@ export default function Switch({
       className="scrollbar-hidden z-50 flex flex-col items-start overflow-x-scroll rounded-[50px]"
     >
       <div className="relative flex items-center gap-1 rounded-[50px] bg-stone-100 p-[3px] dark:bg-stone-800">
-        {indicator.w > 0 && (
+        {indicator && (
           <div
             className="absolute top-[3px] left-0 z-10 h-[35px] bg-white shadow-black/5 shadow-lg dark:bg-stone-700 dark:shadow-white/5"
             style={{
               borderRadius: 24,
               width: `${indicator.w}px`,
               transform: `translateX(${indicator.x}px)`,
-              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+              transition: isFirstRender ? "none" : "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
         )}
