@@ -1,7 +1,7 @@
 name: Build and push Docker image
 permissions:
-  contents: read
-
+  contents: write
+  
 on:
   push:
     tags:
