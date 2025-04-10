@@ -40,9 +40,9 @@ export function ModeToggle() {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="px-3 pt-3 pb-2" align="end">
+      <DropdownMenuContent className="px-2 pt-2 pb-1.5" align="end">
         <fieldset className="space-y-4">
-          <RadioGroup className="flex gap-3" defaultValue={theme} onValueChange={handleSelect}>
+          <RadioGroup className="flex gap-2" defaultValue={theme} onValueChange={handleSelect}>
             {items.map((item) => (
               <label key={`${id}-${item.value}`}>
                 <RadioGroupItem
