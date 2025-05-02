@@ -10,6 +10,7 @@ export function formatNezhaInfo(serverInfo: NezhaAPISafe) {
   return {
     ...serverInfo,
     cpu: serverInfo.status.CPU,
+    gpu: serverInfo.status.GPU,
     process: serverInfo.status.ProcessCount || 0,
     up: serverInfo.status.NetOutSpeed / 1024 / 1024 || 0,
     down: serverInfo.status.NetInSpeed / 1024 / 1024 || 0,
