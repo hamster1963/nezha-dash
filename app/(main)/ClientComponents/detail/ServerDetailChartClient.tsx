@@ -80,7 +80,7 @@ export default function ServerDetailChartClient({
   return (
     <section className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
       <CpuChart data={data} history={history} />
-      {data.status.GPU && data.host.GPU.length > 0 ? (
+      {data.host.GPU && data.host.GPU.length > 0 ? (
         <GpuChart data={data} history={history} />
       ) : null}
       <ProcessChart data={data} history={history} />
