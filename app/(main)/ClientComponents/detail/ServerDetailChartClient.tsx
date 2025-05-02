@@ -15,6 +15,11 @@ import { useTranslations } from "next-intl"
 import { useEffect, useRef, useState } from "react"
 import { Area, AreaChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 
+type gpuChartData = {
+  timeStamp: string
+  gpu: number
+}
+
 type cpuChartData = {
   timeStamp: string
   cpu: number
@@ -75,6 +80,9 @@ export default function ServerDetailChartClient({
   return (
     <section className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
       <CpuChart data={data} history={history} />
+      {data.status.GPU && data.host.GPU.length > 0 ? (
+        <GpuChart data={data} history={history} />
+      ) : null}
       <ProcessChart data={data} history={history} />
       <DiskChart data={data} history={history} />
       <MemChart data={data} history={history} />
@@ -197,6 +205,128 @@ function CpuChart({
                 fill="hsl(var(--chart-1))"
                 fillOpacity={0.3}
                 stroke="hsl(var(--chart-1))"
+              />
+            </AreaChart>
+          </ChartContainer>
+        </section>
+      </CardContent>
+    </Card>
+  )
+}
+
+function GpuChart({
+  history,
+  data,
+}: {
+  history: ServerDataWithTimestamp[]
+  data: NezhaAPISafe
+}) {
+  const [gpuChartData, setGpuChartData] = useState([] as gpuChartData[])
+  const hasInitialized = useRef(false)
+  const [historyLoaded, setHistoryLoaded] = useState(false)
+
+  useEffect(() => {
+    if (!hasInitialized.current && history.length > 0) {
+      const historyData = history
+        .map((msg) => {
+          const server = msg.data?.result?.find((item) => item.id === data.id)
+          if (!server) return null
+          const { gpu } = formatNezhaInfo(server)
+          return {
+            timeStamp: msg.timestamp.toString(),
+            gpu: gpu,
+          }
+        })
+        .filter((item): item is gpuChartData => item !== null)
+        .reverse() // 保持时间顺序
+
+      setGpuChartData(historyData)
+      hasInitialized.current = true
+      setHistoryLoaded(true)
+    } else if (history.length === 0) {
+      setHistoryLoaded(true)
+    }
+  }, [])
+
+  const { gpu } = formatNezhaInfo(data)
+
+  useEffect(() => {
+    if (data && historyLoaded) {
+      const timestamp = Date.now().toString()
+      let newData = [] as gpuChartData[]
+      if (gpuChartData.length === 0) {
+        newData = [
+          { timeStamp: timestamp, gpu: gpu },
+          { timeStamp: timestamp, gpu: gpu },
+        ]
+      } else {
+        newData = [...gpuChartData, { timeStamp: timestamp, gpu: gpu }]
+      }
+      if (newData.length > MAX_HISTORY_LENGTH) {
+        newData.shift()
+      }
+      setGpuChartData(newData)
+    }
+  }, [data, historyLoaded])
+
+  const chartConfig = {
+    gpu: {
+      label: "GPU",
+    },
+  } satisfies ChartConfig
+
+  return (
+    <Card>
+      <CardContent className="px-6 py-3">
+        <section className="flex flex-col gap-1">
+          <div className="flex items-center justify-between">
+            <p className="font-medium text-md">GPU</p>
+            <section className="flex items-center gap-2">
+              <p className="w-10 text-end font-medium text-xs">{gpu.toFixed(0)}%</p>
+              <AnimatedCircularProgressBar
+                className="size-3 text-[0px]"
+                max={100}
+                min={0}
+                value={gpu}
+                primaryColor="hsl(var(--chart-3))"
+              />
+            </section>
+          </div>
+          <ChartContainer config={chartConfig} className="aspect-auto h-[130px] w-full">
+            <AreaChart
+              accessibilityLayer
+              data={gpuChartData}
+              margin={{
+                top: 12,
+                left: 12,
+                right: 12,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="timeStamp"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                minTickGap={200}
+                interval="preserveStartEnd"
+                tickFormatter={(value) => formatRelativeTime(value)}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                mirror={true}
+                tickMargin={-15}
+                domain={[0, 100]}
+                tickFormatter={(value) => `${value}%`}
+              />
+              <Area
+                isAnimationActive={false}
+                dataKey="gpu"
+                type="step"
+                fill="hsl(var(--chart-3))"
+                fillOpacity={0.3}
+                stroke="hsl(var(--chart-3))"
               />
             </AreaChart>
           </ChartContainer>
