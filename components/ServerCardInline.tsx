@@ -145,7 +145,7 @@ export default function ServerCardInline({
           </div>
           <div className="relative w-28">
             <p
-              className={cn("break-all font-bold tracking-tight", showFlag ? "text-xs" : "text-sm")}
+              className={cn("break-normal font-bold tracking-tight", showFlag ? "text-xs" : "text-sm")}
             >
               {name}
             </p>
