@@ -55,7 +55,7 @@ export default function ServerCard({
           <div className="relative">
             <p
               className={cn(
-                "break-all font-bold tracking-tight",
+                "break-normal font-bold tracking-tight",
                 showFlag ? "text-xs " : "text-sm",
               )}
             >

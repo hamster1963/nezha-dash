@@ -48,7 +48,7 @@ export default function ServerCardInline({
           <div className="relative w-28">
             <p
               className={cn(
-                "break-all font-bold tracking-tight",
+                "break-normal font-bold tracking-tight",
                 showFlag ? "text-xs " : "text-sm",
               )}
             >
