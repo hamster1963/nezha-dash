@@ -83,11 +83,11 @@ export default function ServerDetailChartClient({
       {data.host.GPU && data.host.GPU.length > 0 ? (
         <GpuChart data={data} history={history} />
       ) : null}
-      <ProcessChart data={data} history={history} />
-      <DiskChart data={data} history={history} />
       <MemChart data={data} history={history} />
+      <DiskChart data={data} history={history} />
       <NetworkChart data={data} history={history} />
       <ConnectChart data={data} history={history} />
+      <ProcessChart data={data} history={history} />
     </section>
   )
 }
