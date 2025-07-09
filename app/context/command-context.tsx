@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState } from "react"
+import { createContext, useCallback, useContext, useState } from "react"
 import type { ReactNode } from "react"
 
 interface CommandContextType {
@@ -15,9 +15,9 @@ const CommandContext = createContext<CommandContextType | undefined>(undefined)
 export function CommandProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
 
-  const openCommand = () => setIsOpen(true)
-  const closeCommand = () => setIsOpen(false)
-  const toggleCommand = () => setIsOpen(!isOpen)
+  const openCommand = useCallback(() => setIsOpen(true), [])
+  const closeCommand = useCallback(() => setIsOpen(false), [])
+  const toggleCommand = useCallback(() => setIsOpen(!isOpen), [isOpen])
 
   return (
     <CommandContext.Provider
