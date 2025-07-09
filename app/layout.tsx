@@ -1,5 +1,3 @@
-import { FilterProvider } from "@/app/context/network-filter-context"
-import { StatusProvider } from "@/app/context/status-context"
 import { ThemeColorManager } from "@/components/ThemeColorManager"
 import getEnv from "@/lib/env-entry"
 import { cn } from "@/lib/utils"
@@ -73,12 +71,8 @@ export default async function LocaleLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
-            <FilterProvider>
-              <StatusProvider>
-                <ThemeColorManager />
-                {children}
-              </StatusProvider>
-            </FilterProvider>
+            <ThemeColorManager />
+            {children}
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

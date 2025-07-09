@@ -2,6 +2,7 @@
 
 import { Home, Languages, Moon, Sun, SunMoon } from "lucide-react"
 
+import { useCommand } from "@/app/context/command-context"
 import { useServerData } from "@/app/context/server-data-context"
 import {
   CommandDialog,
@@ -20,9 +21,9 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export function DashCommand() {
-  const [open, setOpen] = useState(false)
   const [search, setSearch] = useState("")
   const { data } = useServerData()
+  const { isOpen, closeCommand, toggleCommand } = useCommand()
   const router = useRouter()
   const { setTheme } = useTheme()
   const t = useTranslations("DashCommand")
@@ -31,13 +32,13 @@ export function DashCommand() {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault()
-        setOpen((open) => !open)
+        toggleCommand()
       }
     }
 
     document.addEventListener("keydown", down)
     return () => document.removeEventListener("keydown", down)
-  }, [])
+  }, [toggleCommand])
 
   if (!data?.result) return null
 
@@ -88,7 +89,7 @@ export function DashCommand() {
 
   return (
     <>
-      <CommandDialog open={open} onOpenChange={setOpen}>
+      <CommandDialog open={isOpen} onOpenChange={closeCommand}>
         <CommandInput placeholder={t("TypeCommand")} value={search} onValueChange={setSearch} />
         <CommandList className="border-t">
           <CommandEmpty>{t("NoResults")}</CommandEmpty>
@@ -99,7 +100,7 @@ export function DashCommand() {
                 value={server.name}
                 onSelect={() => {
                   router.push(`/server/${server.id}`)
-                  setOpen(false)
+                  closeCommand()
                 }}
               >
                 {server.online_status ? (
@@ -120,7 +121,7 @@ export function DashCommand() {
                 value={item.value}
                 onSelect={() => {
                   item.action()
-                  setOpen(false)
+                  closeCommand()
                 }}
               >
                 {item.icon}
