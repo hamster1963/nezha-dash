@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch"
 import getEnv from "@/lib/env-entry"
 import { nezhaFetcher } from "@/lib/utils"
 import { useTranslations } from "next-intl"
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import useSWR from "swr"
 
 interface ResultItem {
@@ -22,14 +22,20 @@ export function AggregatedNetworkCharts() {
   const { data: serverData } = useServerData()
   const [selectedServers, setSelectedServers] = useState<number[]>([])
 
-  // Get online servers
+  // Get online servers with stable sorting
   const onlineServers = useMemo(() => {
     if (!serverData?.result) return []
-    return serverData.result.filter((server) => server.online_status)
+    return serverData.result
+      .filter((server) => server.online_status)
+      .sort((a, b) => {
+        // Sort by display_index (descending), then by id (ascending) for stable ordering
+        const displayIndexDiff = (b.display_index || 0) - (a.display_index || 0)
+        return displayIndexDiff !== 0 ? displayIndexDiff : a.id - b.id
+      })
   }, [serverData])
 
   // Initialize selected servers with first 3 online servers when data loads
-  useMemo(() => {
+  useEffect(() => {
     if (onlineServers.length > 0 && selectedServers.length === 0) {
       const initialServers = onlineServers.slice(0, 3).map((server) => server.id)
       setSelectedServers(initialServers)
@@ -97,16 +103,23 @@ export function AggregatedNetworkCharts() {
         </div>
       ) : (
         <div className="space-y-6">
-          {selectedServers.map((serverId) => (
-            <ServerNetworkChart key={serverId} serverId={serverId} />
-          ))}
+          {selectedServers.map((serverId) => {
+            const server = onlineServers.find((s) => s.id === serverId)
+            return (
+              <ServerNetworkChart 
+                key={serverId} 
+                serverId={serverId} 
+                serverName={server?.name || `Server ${serverId}`}
+              />
+            )
+          })}
         </div>
       )}
     </div>
   )
 }
 
-function ServerNetworkChart({ serverId }: { serverId: number }) {
+function ServerNetworkChart({ serverId, serverName }: { serverId: number; serverName: string }) {
   const { data, error } = useSWR<NezhaAPIMonitor[]>(
     `/api/monitor?server_id=${serverId}`,
     nezhaFetcher,
@@ -155,7 +168,7 @@ function ServerNetworkChart({ serverId }: { serverId: number }) {
       chartDataKey={chartDataKey}
       chartConfig={initChartConfig}
       chartData={transformedData}
-      serverName={data[0].server_name}
+      serverName={serverName || data[0]?.server_name || `Server ${serverId}`}
       formattedData={formattedData}
     />
   )
