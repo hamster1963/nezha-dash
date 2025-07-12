@@ -137,25 +137,20 @@ export function AggregatedNetworkCharts() {
           {selectionMode === "multi" ? (
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {onlineServers.map((server) => (
-                <div
+                <Label
                   key={server.id}
+                  htmlFor={`server-${server.id}`}
                   className="flex cursor-pointer items-center justify-between space-x-3 rounded-lg border bg-background p-3 transition-colors hover:bg-muted/50"
-                  onClick={() =>
-                    handleServerToggle(server.id, !selectedServers.includes(server.id))
-                  }
                 >
-                  <Label
-                    htmlFor={`server-${server.id}`}
-                    className="flex-1 cursor-pointer font-medium text-sm leading-none"
-                  >
+                  <span className="flex-1 font-medium text-sm leading-none">
                     {server.name}
-                  </Label>
+                  </span>
                   <Switch
                     id={`server-${server.id}`}
                     checked={selectedServers.includes(server.id)}
                     onCheckedChange={(checked) => handleServerToggle(server.id, checked)}
                   />
-                </div>
+                </Label>
               ))}
             </div>
           ) : (
@@ -165,19 +160,16 @@ export function AggregatedNetworkCharts() {
               className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
             >
               {onlineServers.map((server) => (
-                <div
+                <Label
                   key={server.id}
+                  htmlFor={`server-radio-${server.id}`}
                   className="flex cursor-pointer items-center space-x-3 rounded-lg border bg-background p-3 transition-colors hover:bg-muted/50"
-                  onClick={() => handleSingleSelect(server.id.toString())}
                 >
                   <RadioGroupItem value={server.id.toString()} id={`server-radio-${server.id}`} />
-                  <Label
-                    htmlFor={`server-radio-${server.id}`}
-                    className="flex-1 cursor-pointer font-medium text-sm leading-none"
-                  >
+                  <span className="flex-1 font-medium text-sm leading-none">
                     {server.name}
-                  </Label>
-                </div>
+                  </span>
+                </Label>
               ))}
             </RadioGroup>
           )}
@@ -191,14 +183,14 @@ export function AggregatedNetworkCharts() {
         </div>
       ) : (
         <div className="space-y-6">
-          {selectedServers
+          {[...new Set(selectedServers)]
             .map((serverId) => {
               const server = onlineServers.find((s) => s.id === serverId)
               return server ? { serverId, server } : null
             })
             .filter((item): item is { serverId: number; server: any } => item !== null)
             .map(({ serverId, server }) => (
-              <ServerNetworkChart key={serverId} serverId={serverId} serverName={server.name} />
+              <ServerNetworkChart key={`chart-${serverId}`} serverId={serverId} serverName={server.name} />
             ))}
         </div>
       )}
