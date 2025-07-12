@@ -139,15 +139,17 @@ export function AggregatedNetworkCharts() {
               {onlineServers.map((server) => (
                 <div
                   key={server.id}
-                  className="flex items-center justify-between space-x-3 rounded-lg border bg-background p-3 transition-colors hover:bg-muted/50"
+                  className="flex cursor-pointer items-center justify-between space-x-3 rounded-lg border bg-background p-3 transition-colors hover:bg-muted/50"
+                  onClick={() => handleServerToggle(server.id, !selectedServers.includes(server.id))}
                 >
-                  <Label htmlFor={`server-${server.id}`} className="flex-1 font-medium text-sm leading-none">
+                  <Label htmlFor={`server-${server.id}`} className="flex-1 cursor-pointer font-medium text-sm leading-none">
                     {server.name}
                   </Label>
                   <Switch
                     id={`server-${server.id}`}
                     checked={selectedServers.includes(server.id)}
                     onCheckedChange={(checked) => handleServerToggle(server.id, checked)}
+                    onClick={(e) => e.stopPropagation()}
                   />
                 </div>
               ))}
@@ -162,8 +164,13 @@ export function AggregatedNetworkCharts() {
                 <div
                   key={server.id}
                   className="flex cursor-pointer items-center space-x-3 rounded-lg border bg-background p-3 transition-colors hover:bg-muted/50"
+                  onClick={() => handleSingleSelect(server.id.toString())}
                 >
-                  <RadioGroupItem value={server.id.toString()} id={`server-radio-${server.id}`} />
+                  <RadioGroupItem 
+                    value={server.id.toString()} 
+                    id={`server-radio-${server.id}`}
+                    onClick={(e) => e.stopPropagation()}
+                  />
                   <Label
                     htmlFor={`server-radio-${server.id}`}
                     className="flex-1 cursor-pointer font-medium text-sm leading-none"
