@@ -136,7 +136,11 @@
     "no_online_servers": "没有在线服务器",
     "server_selection": "服务器选择",
     "select_servers_to_display": "选择要显示网络延迟图表的服务器",
-    "no_servers_selected": "未选择服务器。请至少选择一个服务器来显示图表。"
+    "no_servers_selected": "未选择服务器。请至少选择一个服务器来显示图表。",
+    "multi_select_mode": "多选模式",
+    "single_select_mode": "单选模式",
+    "select_servers_multi": "选择多个服务器进行比较",
+    "select_server_single": "选择一个服务器进行监控"
   },
   "DashCommand": {
     "TypeCommand": "输入命令或搜索",

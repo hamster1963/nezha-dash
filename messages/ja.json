@@ -136,7 +136,11 @@
     "no_online_servers": "オンラインサーバーがありません",
     "server_selection": "サーバー選択",
     "select_servers_to_display": "ネットワーク遅延グラフを表示するサーバーを選択してください",
-    "no_servers_selected": "サーバーが選択されていません。グラフを表示するには少なくとも1つのサーバーを選択してください。"
+    "no_servers_selected": "サーバーが選択されていません。グラフを表示するには少なくとも1つのサーバーを選択してください。",
+    "multi_select_mode": "複数選択",
+    "single_select_mode": "単一選択",
+    "select_servers_multi": "比較する複数のサーバーを選択",
+    "select_server_single": "監視する1つのサーバーを選択"
   },
   "DashCommand": {
     "TypeCommand": "コマンドを入力してください",

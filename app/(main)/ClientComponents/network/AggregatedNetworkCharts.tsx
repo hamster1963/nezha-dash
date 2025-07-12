@@ -3,11 +3,13 @@
 import { NetworkChart } from "@/app/(main)/ClientComponents/detail/NetworkChart"
 import { useServerData } from "@/app/context/server-data-context"
 import type { NezhaAPIMonitor } from "@/app/types/nezha-api"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Switch } from "@/components/ui/switch"
 import getEnv from "@/lib/env-entry"
-import { nezhaFetcher } from "@/lib/utils"
+import { cn, nezhaFetcher } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import useSWR from "swr"
@@ -17,10 +19,13 @@ interface ResultItem {
   [key: string]: number
 }
 
+type SelectionMode = "multi" | "single"
+
 export function AggregatedNetworkCharts() {
   const t = useTranslations("AggregatedNetworkCharts")
   const { data: serverData } = useServerData()
   const [selectedServers, setSelectedServers] = useState<number[]>([])
+  const [selectionMode, setSelectionMode] = useState<SelectionMode>("multi")
 
   // Get online servers with stable sorting
   const onlineServers = useMemo(() => {
@@ -34,13 +39,17 @@ export function AggregatedNetworkCharts() {
       })
   }, [serverData])
 
-  // Initialize selected servers with first 3 online servers when data loads
+  // Initialize selected servers with first 3 online servers when data loads (for multi mode)
+  // or first server for single mode
   useEffect(() => {
     if (onlineServers.length > 0 && selectedServers.length === 0) {
-      const initialServers = onlineServers.slice(0, 3).map((server) => server.id)
+      const initialServers =
+        selectionMode === "single"
+          ? [onlineServers[0].id]
+          : onlineServers.slice(0, 3).map((server) => server.id)
       setSelectedServers(initialServers)
     }
-  }, [onlineServers, selectedServers.length])
+  }, [onlineServers, selectedServers.length, selectionMode])
 
   // Clean up selected servers that are no longer online
   useEffect(() => {
@@ -53,6 +62,21 @@ export function AggregatedNetworkCharts() {
     }
   }, [onlineServers, selectedServers])
 
+  // Handle mode switching
+  const handleModeChange = useCallback(
+    (newMode: SelectionMode) => {
+      setSelectionMode(newMode)
+      if (newMode === "single" && selectedServers.length > 1) {
+        // Keep only the first selected server when switching to single mode
+        setSelectedServers([selectedServers[0]])
+      } else if (newMode === "multi" && selectedServers.length === 0 && onlineServers.length > 0) {
+        // Auto-select first 3 servers when switching to multi mode with no selection
+        setSelectedServers(onlineServers.slice(0, 3).map((server) => server.id))
+      }
+    },
+    [selectedServers, onlineServers],
+  )
+
   const handleServerToggle = useCallback((serverId: number, checked: boolean) => {
     setSelectedServers((prev) => {
       if (checked) {
@@ -60,6 +84,10 @@ export function AggregatedNetworkCharts() {
       }
       return prev.filter((id) => id !== serverId)
     })
+  }, [])
+
+  const handleSingleSelect = useCallback((serverId: string) => {
+    setSelectedServers([Number.parseInt(serverId)])
   }, [])
 
   if (!serverData?.result) {
@@ -83,27 +111,74 @@ export function AggregatedNetworkCharts() {
       {/* Server Selection */}
       <Card>
         <CardHeader>
-          <CardTitle>{t("server_selection")}</CardTitle>
-          <CardDescription>{t("select_servers_to_display")}</CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>{t("server_selection")}</CardTitle>
+              <CardDescription>
+                {selectionMode === "multi" ? t("select_servers_multi") : t("select_server_single")}
+              </CardDescription>
+            </div>
+            <div className="flex rounded-lg bg-muted p-1">
+              <Button
+                variant={selectionMode === "multi" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => handleModeChange("multi")}
+                className={cn("h-8 px-3 text-xs", selectionMode === "multi" && "shadow-sm")}
+              >
+                {t("multi_select_mode")}
+              </Button>
+              <Button
+                variant={selectionMode === "single" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => handleModeChange("single")}
+                className={cn("h-8 px-3 text-xs", selectionMode === "single" && "shadow-sm")}
+              >
+                {t("single_select_mode")}
+              </Button>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {onlineServers.map((server) => (
-              <div
-                key={server.id}
-                className="flex items-center justify-between space-x-2 rounded border p-2"
-              >
-                <Label htmlFor={`server-${server.id}`} className="flex-1 font-medium text-sm">
-                  {server.name}
-                </Label>
-                <Switch
-                  id={`server-${server.id}`}
-                  checked={selectedServers.includes(server.id)}
-                  onCheckedChange={(checked) => handleServerToggle(server.id, checked)}
-                />
-              </div>
-            ))}
-          </div>
+          {selectionMode === "multi" ? (
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {onlineServers.map((server) => (
+                <div
+                  key={server.id}
+                  className="flex items-center justify-between space-x-2 rounded border p-2"
+                >
+                  <Label htmlFor={`server-${server.id}`} className="flex-1 font-medium text-sm">
+                    {server.name}
+                  </Label>
+                  <Switch
+                    id={`server-${server.id}`}
+                    checked={selectedServers.includes(server.id)}
+                    onCheckedChange={(checked) => handleServerToggle(server.id, checked)}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <RadioGroup
+              value={selectedServers[0]?.toString() || ""}
+              onValueChange={handleSingleSelect}
+              className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3"
+            >
+              {onlineServers.map((server) => (
+                <div
+                  key={server.id}
+                  className="flex items-center space-x-3 rounded border p-3 hover:bg-muted/50"
+                >
+                  <RadioGroupItem value={server.id.toString()} id={`server-radio-${server.id}`} />
+                  <Label
+                    htmlFor={`server-radio-${server.id}`}
+                    className="flex-1 cursor-pointer font-medium text-sm"
+                  >
+                    {server.name}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          )}
         </CardContent>
       </Card>
 
@@ -121,11 +196,7 @@ export function AggregatedNetworkCharts() {
             })
             .filter((item): item is { serverId: number; server: any } => item !== null)
             .map(({ serverId, server }) => (
-              <ServerNetworkChart 
-                key={serverId} 
-                serverId={serverId} 
-                serverName={server.name}
-              />
+              <ServerNetworkChart key={serverId} serverId={serverId} serverName={server.name} />
             ))}
         </div>
       )}
@@ -135,14 +206,10 @@ export function AggregatedNetworkCharts() {
 
 function ServerNetworkChart({ serverId, serverName }: { serverId: number; serverName: string }) {
   const swrKey = `/api/monitor?server_id=${serverId}`
-  const { data, error } = useSWR<NezhaAPIMonitor[]>(
-    swrKey,
-    nezhaFetcher,
-    {
-      refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 15000,
-      dedupingInterval: 1000, // Prevent excessive requests
-    },
-  )
+  const { data, error } = useSWR<NezhaAPIMonitor[]>(swrKey, nezhaFetcher, {
+    refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 15000,
+    dedupingInterval: 1000, // Prevent excessive requests
+  })
 
   if (error) {
     return (
@@ -167,9 +234,7 @@ function ServerNetworkChart({ serverId, serverName }: { serverId: number; server
       <Card>
         <CardHeader>
           <CardTitle className="text-md">{serverName}</CardTitle>
-          <CardDescription className="text-xs">
-            Loading network monitoring data...
-          </CardDescription>
+          <CardDescription className="text-xs">Loading network monitoring data...</CardDescription>
         </CardHeader>
         <CardContent className="p-8">
           <div className="flex flex-col items-center justify-center">
@@ -198,13 +263,13 @@ function ServerNetworkChart({ serverId, serverName }: { serverId: number; server
       <Card>
         <CardHeader>
           <CardTitle className="text-md">{serverName}</CardTitle>
-          <CardDescription className="text-xs">
-            No monitoring data available
-          </CardDescription>
+          <CardDescription className="text-xs">No monitoring data available</CardDescription>
         </CardHeader>
         <CardContent className="p-8">
           <div className="flex flex-col items-center justify-center">
-            <p className="font-medium text-sm opacity-40">No network monitoring data found for this server</p>
+            <p className="font-medium text-sm opacity-40">
+              No network monitoring data found for this server
+            </p>
           </div>
         </CardContent>
       </Card>
