@@ -133,15 +133,15 @@ export function AggregatedNetworkCharts() {
             </div>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-4">
           {selectionMode === "multi" ? (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {onlineServers.map((server) => (
                 <div
                   key={server.id}
-                  className="flex items-center justify-between space-x-2 rounded border p-2"
+                  className="flex items-center justify-between space-x-3 rounded-lg border bg-background p-3 transition-colors hover:bg-muted/50"
                 >
-                  <Label htmlFor={`server-${server.id}`} className="flex-1 font-medium text-sm">
+                  <Label htmlFor={`server-${server.id}`} className="flex-1 font-medium text-sm leading-none">
                     {server.name}
                   </Label>
                   <Switch
@@ -156,17 +156,17 @@ export function AggregatedNetworkCharts() {
             <RadioGroup
               value={selectedServers[0]?.toString() || ""}
               onValueChange={handleSingleSelect}
-              className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3"
+              className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
             >
               {onlineServers.map((server) => (
                 <div
                   key={server.id}
-                  className="flex items-center space-x-3 rounded border p-3 hover:bg-muted/50"
+                  className="flex cursor-pointer items-center space-x-3 rounded-lg border bg-background p-3 transition-colors hover:bg-muted/50"
                 >
                   <RadioGroupItem value={server.id.toString()} id={`server-radio-${server.id}`} />
                   <Label
                     htmlFor={`server-radio-${server.id}`}
-                    className="flex-1 cursor-pointer font-medium text-sm"
+                    className="flex-1 cursor-pointer font-medium text-sm leading-none"
                   >
                     {server.name}
                   </Label>
