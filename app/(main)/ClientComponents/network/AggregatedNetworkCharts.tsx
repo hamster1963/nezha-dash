@@ -140,16 +140,20 @@ export function AggregatedNetworkCharts() {
                 <div
                   key={server.id}
                   className="flex cursor-pointer items-center justify-between space-x-3 rounded-lg border bg-background p-3 transition-colors hover:bg-muted/50"
-                  onClick={() => handleServerToggle(server.id, !selectedServers.includes(server.id))}
+                  onClick={() =>
+                    handleServerToggle(server.id, !selectedServers.includes(server.id))
+                  }
                 >
-                  <Label htmlFor={`server-${server.id}`} className="flex-1 cursor-pointer font-medium text-sm leading-none">
+                  <Label
+                    htmlFor={`server-${server.id}`}
+                    className="flex-1 cursor-pointer font-medium text-sm leading-none"
+                  >
                     {server.name}
                   </Label>
                   <Switch
                     id={`server-${server.id}`}
                     checked={selectedServers.includes(server.id)}
                     onCheckedChange={(checked) => handleServerToggle(server.id, checked)}
-                    onClick={(e) => e.stopPropagation()}
                   />
                 </div>
               ))}
@@ -166,11 +170,7 @@ export function AggregatedNetworkCharts() {
                   className="flex cursor-pointer items-center space-x-3 rounded-lg border bg-background p-3 transition-colors hover:bg-muted/50"
                   onClick={() => handleSingleSelect(server.id.toString())}
                 >
-                  <RadioGroupItem 
-                    value={server.id.toString()} 
-                    id={`server-radio-${server.id}`}
-                    onClick={(e) => e.stopPropagation()}
-                  />
+                  <RadioGroupItem value={server.id.toString()} id={`server-radio-${server.id}`} />
                   <Label
                     htmlFor={`server-radio-${server.id}`}
                     className="flex-1 cursor-pointer font-medium text-sm leading-none"
