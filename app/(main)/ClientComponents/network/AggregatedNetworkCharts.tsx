@@ -42,6 +42,17 @@ export function AggregatedNetworkCharts() {
     }
   }, [onlineServers, selectedServers.length])
 
+  // Clean up selected servers that are no longer online
+  useEffect(() => {
+    if (selectedServers.length > 0) {
+      const onlineServerIds = new Set(onlineServers.map((server) => server.id))
+      const validSelectedServers = selectedServers.filter((id) => onlineServerIds.has(id))
+      if (validSelectedServers.length !== selectedServers.length) {
+        setSelectedServers(validSelectedServers)
+      }
+    }
+  }, [onlineServers, selectedServers])
+
   const handleServerToggle = useCallback((serverId: number, checked: boolean) => {
     setSelectedServers((prev) => {
       if (checked) {
@@ -103,16 +114,19 @@ export function AggregatedNetworkCharts() {
         </div>
       ) : (
         <div className="space-y-6">
-          {selectedServers.map((serverId) => {
-            const server = onlineServers.find((s) => s.id === serverId)
-            return (
+          {selectedServers
+            .map((serverId) => {
+              const server = onlineServers.find((s) => s.id === serverId)
+              return server ? { serverId, server } : null
+            })
+            .filter((item): item is { serverId: number; server: any } => item !== null)
+            .map(({ serverId, server }) => (
               <ServerNetworkChart 
                 key={serverId} 
                 serverId={serverId} 
-                serverName={server?.name || `Server ${serverId}`}
+                serverName={server.name}
               />
-            )
-          })}
+            ))}
         </div>
       )}
     </div>
@@ -120,17 +134,25 @@ export function AggregatedNetworkCharts() {
 }
 
 function ServerNetworkChart({ serverId, serverName }: { serverId: number; serverName: string }) {
+  const swrKey = `/api/monitor?server_id=${serverId}`
   const { data, error } = useSWR<NezhaAPIMonitor[]>(
-    `/api/monitor?server_id=${serverId}`,
+    swrKey,
     nezhaFetcher,
     {
       refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 15000,
+      dedupingInterval: 1000, // Prevent excessive requests
     },
   )
 
   if (error) {
     return (
       <Card>
+        <CardHeader>
+          <CardTitle className="text-md">{serverName}</CardTitle>
+          <CardDescription className="text-destructive text-xs">
+            Error loading network data
+          </CardDescription>
+        </CardHeader>
         <CardContent className="p-8">
           <div className="flex flex-col items-center justify-center">
             <p className="font-medium text-sm opacity-40">{error.message}</p>
@@ -143,9 +165,16 @@ function ServerNetworkChart({ serverId, serverName }: { serverId: number; server
   if (!data) {
     return (
       <Card>
+        <CardHeader>
+          <CardTitle className="text-md">{serverName}</CardTitle>
+          <CardDescription className="text-xs">
+            Loading network monitoring data...
+          </CardDescription>
+        </CardHeader>
         <CardContent className="p-8">
           <div className="flex flex-col items-center justify-center">
-            <p className="font-medium text-sm opacity-40">Loading...</p>
+            <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+            <p className="mt-2 font-medium text-sm opacity-40">Loading...</p>
           </div>
         </CardContent>
       </Card>
@@ -162,6 +191,25 @@ function ServerNetworkChart({ serverId, serverName }: { serverId: number; server
   }
 
   const chartDataKey = Object.keys(transformedData)
+
+  // Ensure we have valid data to display
+  if (chartDataKey.length === 0 || formattedData.length === 0) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-md">{serverName}</CardTitle>
+          <CardDescription className="text-xs">
+            No monitoring data available
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-8">
+          <div className="flex flex-col items-center justify-center">
+            <p className="font-medium text-sm opacity-40">No network monitoring data found for this server</p>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
 
   return (
     <NetworkChart
