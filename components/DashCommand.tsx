@@ -1,6 +1,6 @@
 "use client"
 
-import { Home, Languages, Moon, Sun, SunMoon } from "lucide-react"
+import { Home, Languages, Moon, Sun, SunMoon, Activity } from "lucide-react"
 
 import { useCommand } from "@/app/context/command-context"
 import { useServerData } from "@/app/context/server-data-context"
@@ -62,6 +62,12 @@ export function DashCommand() {
       icon: <Home />,
       label: t("Home"),
       action: () => router.push("/"),
+    },
+    {
+      keywords: ["network", "latency", "charts", "monitoring"],
+      icon: <Activity />,
+      label: t("NetworkCharts"),
+      action: () => router.push("/network"),
     },
     {
       keywords: ["light", "theme", "lightmode"],

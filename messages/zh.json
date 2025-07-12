@@ -127,6 +127,17 @@
     "h1_490-590_404NotFoundBack": "返回",
     "h1_490-590_Error": "发生错误"
   },
+  "NetworkPage": {
+    "title": "网络延迟图表",
+    "description": "查看和比较不同服务器的网络延迟图表"
+  },
+  "AggregatedNetworkCharts": {
+    "loading": "加载中...",
+    "no_online_servers": "没有在线服务器",
+    "server_selection": "服务器选择",
+    "select_servers_to_display": "选择要显示网络延迟图表的服务器",
+    "no_servers_selected": "未选择服务器。请至少选择一个服务器来显示图表。"
+  },
   "DashCommand": {
     "TypeCommand": "输入命令或搜索",
     "NoResults": "结果为空",
@@ -135,6 +146,7 @@
     "ToggleLightMode": "切换亮色模式",
     "ToggleDarkMode": "切换暗色模式",
     "ToggleSystemMode": "切换系统模式",
-    "Home": "首页"
+    "Home": "首页",
+    "NetworkCharts": "网络图表"
   }
 }

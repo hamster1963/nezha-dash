@@ -127,6 +127,17 @@
     "h1_490-590_404NotFoundBack": "戻る",
     "h1_490-590_Error": "何らかの問題が発生しました"
   },
+  "NetworkPage": {
+    "title": "ネットワーク遅延グラフ",
+    "description": "異なるサーバーのネットワーク遅延グラフを表示・比較します"
+  },
+  "AggregatedNetworkCharts": {
+    "loading": "読み込み中...",
+    "no_online_servers": "オンラインサーバーがありません",
+    "server_selection": "サーバー選択",
+    "select_servers_to_display": "ネットワーク遅延グラフを表示するサーバーを選択してください",
+    "no_servers_selected": "サーバーが選択されていません。グラフを表示するには少なくとも1つのサーバーを選択してください。"
+  },
   "DashCommand": {
     "TypeCommand": "コマンドを入力してください",
     "NoResults": "結果は見つかりませんでした",
@@ -135,6 +146,7 @@
     "ToggleLightMode": "ライトモードに切り替え",
     "ToggleDarkMode": "ダークモードに切り替え",
     "ToggleSystemMode": "システムモードに切り替え",
-    "Home": "ホーム"
+    "Home": "ホーム",
+    "NetworkCharts": "ネットワークグラフ"
   }
 }

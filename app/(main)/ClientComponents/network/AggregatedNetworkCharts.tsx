@@ -1,0 +1,209 @@
+"use client"
+
+import { NetworkChart } from "@/app/(main)/ClientComponents/detail/NetworkChart"
+import type { NezhaAPIMonitor } from "@/app/types/nezha-api"
+import { useServerData } from "@/app/context/server-data-context"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Switch } from "@/components/ui/switch"
+import { Label } from "@/components/ui/label"
+import getEnv from "@/lib/env-entry"
+import { nezhaFetcher } from "@/lib/utils"
+import { useTranslations } from "next-intl"
+import { useCallback, useMemo, useState } from "react"
+import useSWR from "swr"
+
+interface ResultItem {
+  created_at: number
+  [key: string]: number
+}
+
+export function AggregatedNetworkCharts() {
+  const t = useTranslations("AggregatedNetworkCharts")
+  const { data: serverData } = useServerData()
+  const [selectedServers, setSelectedServers] = useState<number[]>([])
+
+  // Get online servers
+  const onlineServers = useMemo(() => {
+    if (!serverData?.result) return []
+    return serverData.result.filter(server => server.online_status)
+  }, [serverData])
+
+  // Initialize selected servers with first 3 online servers when data loads
+  useMemo(() => {
+    if (onlineServers.length > 0 && selectedServers.length === 0) {
+      const initialServers = onlineServers.slice(0, 3).map(server => server.id)
+      setSelectedServers(initialServers)
+    }
+  }, [onlineServers, selectedServers.length])
+
+  const handleServerToggle = useCallback((serverId: number, checked: boolean) => {
+    setSelectedServers(prev => {
+      if (checked) {
+        return [...prev, serverId]
+      }
+      return prev.filter(id => id !== serverId)
+    })
+  }, [])
+
+  if (!serverData?.result) {
+    return (
+      <div className="flex flex-col items-center justify-center p-8">
+        <p className="font-medium text-sm opacity-40">{t("loading")}</p>
+      </div>
+    )
+  }
+
+  if (onlineServers.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center p-8">
+        <p className="font-medium text-sm opacity-40">{t("no_online_servers")}</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Server Selection */}
+      <Card>
+        <CardHeader>
+          <CardTitle>{t("server_selection")}</CardTitle>
+          <CardDescription>{t("select_servers_to_display")}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {onlineServers.map((server) => (
+              <div key={server.id} className="flex items-center justify-between space-x-2 rounded border p-2">
+                <Label htmlFor={`server-${server.id}`} className="flex-1 font-medium text-sm">
+                  {server.name}
+                </Label>
+                <Switch
+                  id={`server-${server.id}`}
+                  checked={selectedServers.includes(server.id)}
+                  onCheckedChange={(checked) => handleServerToggle(server.id, checked)}
+                />
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Network Charts */}
+      {selectedServers.length === 0 ? (
+        <div className="flex flex-col items-center justify-center p-8">
+          <p className="font-medium text-sm opacity-40">{t("no_servers_selected")}</p>
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {selectedServers.map((serverId) => (
+            <ServerNetworkChart key={serverId} serverId={serverId} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function ServerNetworkChart({ serverId }: { serverId: number }) {
+  const { data, error } = useSWR<NezhaAPIMonitor[]>(
+    `/api/monitor?server_id=${serverId}`,
+    nezhaFetcher,
+    {
+      refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 15000,
+    },
+  )
+
+  if (error) {
+    return (
+      <Card>
+        <CardContent className="p-8">
+          <div className="flex flex-col items-center justify-center">
+            <p className="font-medium text-sm opacity-40">{error.message}</p>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  if (!data) {
+    return (
+      <Card>
+        <CardContent className="p-8">
+          <div className="flex flex-col items-center justify-center">
+            <p className="font-medium text-sm opacity-40">Loading...</p>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  const transformedData = transformData(data)
+  const formattedData = formatData(data)
+
+  const initChartConfig = {
+    avg_delay: {
+      label: "Avg Delay",
+    },
+  }
+
+  const chartDataKey = Object.keys(transformedData)
+
+  return (
+    <NetworkChart
+      chartDataKey={chartDataKey}
+      chartConfig={initChartConfig}
+      chartData={transformedData}
+      serverName={data[0].server_name}
+      formattedData={formattedData}
+    />
+  )
+}
+
+const transformData = (data: NezhaAPIMonitor[]) => {
+  const monitorData: { [key: string]: { created_at: number; avg_delay: number }[] } = {}
+
+  for (const item of data) {
+    const monitorName = item.monitor_name
+
+    if (!monitorData[monitorName]) {
+      monitorData[monitorName] = []
+    }
+
+    for (let i = 0; i < item.created_at.length; i++) {
+      monitorData[monitorName].push({
+        created_at: item.created_at[i],
+        avg_delay: item.avg_delay[i],
+      })
+    }
+  }
+
+  return monitorData
+}
+
+const formatData = (rawData: NezhaAPIMonitor[]) => {
+  const result: { [time: number]: ResultItem } = {}
+
+  const allTimes = new Set<number>()
+  for (const item of rawData) {
+    for (const time of item.created_at) {
+      allTimes.add(time)
+    }
+  }
+
+  const allTimeArray = Array.from(allTimes).sort((a, b) => a - b)
+
+  for (const item of rawData) {
+    const { monitor_name, created_at, avg_delay } = item
+
+    for (const time of allTimeArray) {
+      if (!result[time]) {
+        result[time] = { created_at: time }
+      }
+
+      const timeIndex = created_at.indexOf(time)
+      // @ts-expect-error - avg_delay is an array
+      result[time][monitor_name] = timeIndex !== -1 ? avg_delay[timeIndex] : null
+    }
+  }
+
+  return Object.values(result).sort((a, b) => a.created_at - b.created_at)
+}
