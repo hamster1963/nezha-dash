@@ -39,17 +39,12 @@ export function AggregatedNetworkCharts() {
       })
   }, [serverData])
 
-  // Initialize selected servers with first 3 online servers when data loads (for multi mode)
-  // or first server for single mode
+  // Initialize selected servers with first online server when data loads (for both multi and single mode)
   useEffect(() => {
     if (onlineServers.length > 0 && selectedServers.length === 0) {
-      const initialServers =
-        selectionMode === "single"
-          ? [onlineServers[0].id]
-          : onlineServers.slice(0, 3).map((server) => server.id)
-      setSelectedServers(initialServers)
+      setSelectedServers([onlineServers[0].id])
     }
-  }, [onlineServers, selectedServers.length, selectionMode])
+  }, [onlineServers, selectedServers.length])
 
   // Clean up selected servers that are no longer online
   useEffect(() => {
@@ -70,8 +65,8 @@ export function AggregatedNetworkCharts() {
         // Keep only the first selected server when switching to single mode
         setSelectedServers([selectedServers[0]])
       } else if (newMode === "multi" && selectedServers.length === 0 && onlineServers.length > 0) {
-        // Auto-select first 3 servers when switching to multi mode with no selection
-        setSelectedServers(onlineServers.slice(0, 3).map((server) => server.id))
+        // Auto-select first server when switching to multi mode with no selection
+        setSelectedServers([onlineServers[0].id])
       }
     },
     [selectedServers, onlineServers],
