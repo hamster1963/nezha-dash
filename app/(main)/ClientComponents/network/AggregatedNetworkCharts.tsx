@@ -1,11 +1,11 @@
 "use client"
 
 import { NetworkChart } from "@/app/(main)/ClientComponents/detail/NetworkChart"
-import type { NezhaAPIMonitor } from "@/app/types/nezha-api"
 import { useServerData } from "@/app/context/server-data-context"
+import type { NezhaAPIMonitor } from "@/app/types/nezha-api"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
 import getEnv from "@/lib/env-entry"
 import { nezhaFetcher } from "@/lib/utils"
 import { useTranslations } from "next-intl"
@@ -25,23 +25,23 @@ export function AggregatedNetworkCharts() {
   // Get online servers
   const onlineServers = useMemo(() => {
     if (!serverData?.result) return []
-    return serverData.result.filter(server => server.online_status)
+    return serverData.result.filter((server) => server.online_status)
   }, [serverData])
 
   // Initialize selected servers with first 3 online servers when data loads
   useMemo(() => {
     if (onlineServers.length > 0 && selectedServers.length === 0) {
-      const initialServers = onlineServers.slice(0, 3).map(server => server.id)
+      const initialServers = onlineServers.slice(0, 3).map((server) => server.id)
       setSelectedServers(initialServers)
     }
   }, [onlineServers, selectedServers.length])
 
   const handleServerToggle = useCallback((serverId: number, checked: boolean) => {
-    setSelectedServers(prev => {
+    setSelectedServers((prev) => {
       if (checked) {
         return [...prev, serverId]
       }
-      return prev.filter(id => id !== serverId)
+      return prev.filter((id) => id !== serverId)
     })
   }, [])
 
@@ -72,7 +72,10 @@ export function AggregatedNetworkCharts() {
         <CardContent>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {onlineServers.map((server) => (
-              <div key={server.id} className="flex items-center justify-between space-x-2 rounded border p-2">
+              <div
+                key={server.id}
+                className="flex items-center justify-between space-x-2 rounded border p-2"
+              >
                 <Label htmlFor={`server-${server.id}`} className="flex-1 font-medium text-sm">
                   {server.name}
                 </Label>

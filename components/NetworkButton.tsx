@@ -1,7 +1,7 @@
 "use client"
 
-import { useRouter } from "next/navigation"
 import { Activity } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { Button } from "./ui/button"
 
 export function NetworkButton() {
