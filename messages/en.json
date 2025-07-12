@@ -127,6 +127,21 @@
     "h1_490-590_404NotFoundBack": " Press here to go back",
     "h1_490-590_Error": "Something went wrong"
   },
+  "NetworkPage": {
+    "title": "Network Latency Charts",
+    "description": "View and compare network latency charts across different servers"
+  },
+  "AggregatedNetworkCharts": {
+    "loading": "Loading...",
+    "no_online_servers": "No online servers available",
+    "server_selection": "Server Selection",
+    "select_servers_to_display": "Select which servers to display network latency charts for",
+    "no_servers_selected": "No servers selected. Please select at least one server to display charts.",
+    "multi_select_mode": "Multi-select",
+    "single_select_mode": "Single-select",
+    "select_servers_multi": "Select multiple servers to compare",
+    "select_server_single": "Select one server to monitor"
+  },
   "DashCommand": {
     "TypeCommand": "Type a command or search...",
     "NoResults": "No results found.",
@@ -135,6 +150,7 @@
     "ToggleLightMode": "Toggle Light Mode",
     "ToggleDarkMode": "Toggle Dark Mode",
     "ToggleSystemMode": "Toggle System Mode",
-    "Home": "Home"
+    "Home": "Home",
+    "NetworkCharts": "Network Charts"
   }
 }

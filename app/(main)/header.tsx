@@ -2,6 +2,7 @@
 
 import AnimateCountClient from "@/components/AnimatedCount"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
+import { NetworkButton } from "@/components/NetworkButton"
 import { SearchButton } from "@/components/SearchButton"
 import { ModeToggle } from "@/components/ThemeSwitcher"
 import { Separator } from "@/components/ui/separator"
@@ -148,6 +149,7 @@ function Header() {
           <div className="hidden sm:block">
             <Links />
           </div>
+          <NetworkButton />
           <SearchButton />
           <LanguageSwitcher />
           <ModeToggle />
