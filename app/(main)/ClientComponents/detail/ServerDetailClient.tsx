@@ -1,25 +1,21 @@
 "use client"
 
+import countries from "i18n-iso-countries"
+import enLocale from "i18n-iso-countries/langs/en.json"
+import { notFound, useRouter } from "next/navigation"
+import { useTranslations } from "next-intl"
+import { useEffect, useState } from "react"
 import { useServerData } from "@/app/context/server-data-context"
 import { BackIcon } from "@/components/Icon"
-import ServerFlag from "@/components/ServerFlag"
 import { ServerDetailLoading } from "@/components/loading/ServerDetailLoading"
+import ServerFlag from "@/components/ServerFlag"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn, formatBytes, formatNezhaInfo } from "@/lib/utils"
-import countries from "i18n-iso-countries"
-import enLocale from "i18n-iso-countries/langs/en.json"
-import { useTranslations } from "next-intl"
-import { notFound, useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
 
 countries.registerLocale(enLocale)
 
-export default function ServerDetailClient({
-  server_id,
-}: {
-  server_id: number
-}) {
+export default function ServerDetailClient({ server_id }: { server_id: number }) {
   const t = useTranslations("ServerDetailClient")
   const router = useRouter()
 
@@ -53,12 +49,10 @@ export default function ServerDetailClient({
 
   if (error) {
     return (
-      <>
-        <div className="flex flex-col items-center justify-center">
-          <p className="font-medium text-sm opacity-40">{error.message}</p>
-          <p className="font-medium text-sm opacity-40">{t("detail_fetch_error_message")}</p>
-        </div>
-      </>
+      <div className="flex flex-col items-center justify-center">
+        <p className="font-medium text-sm opacity-40">{error.message}</p>
+        <p className="font-medium text-sm opacity-40">{t("detail_fetch_error_message")}</p>
+      </div>
     )
   }
 

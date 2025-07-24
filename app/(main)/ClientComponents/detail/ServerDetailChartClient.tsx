@@ -1,5 +1,8 @@
 "use client"
 
+import { useTranslations } from "next-intl"
+import { useEffect, useRef, useState } from "react"
+import { Area, AreaChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import {
   MAX_HISTORY_LENGTH,
   type ServerDataWithTimestamp,
@@ -11,9 +14,6 @@ import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progr
 import { Card, CardContent } from "@/components/ui/card"
 import { type ChartConfig, ChartContainer } from "@/components/ui/chart"
 import { formatBytes, formatNezhaInfo, formatRelativeTime } from "@/lib/utils"
-import { useTranslations } from "next-intl"
-import { useEffect, useRef, useState } from "react"
-import { Area, AreaChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 
 type gpuChartData = {
   timeStamp: string
@@ -67,12 +67,10 @@ export default function ServerDetailChartClient({
 
   if (error) {
     return (
-      <>
-        <div className="flex flex-col items-center justify-center">
-          <p className="font-medium text-sm opacity-40">{error.message}</p>
-          <p className="font-medium text-sm opacity-40">{t("chart_fetch_error_message")}</p>
-        </div>
-      </>
+      <div className="flex flex-col items-center justify-center">
+        <p className="font-medium text-sm opacity-40">{error.message}</p>
+        <p className="font-medium text-sm opacity-40">{t("chart_fetch_error_message")}</p>
+      </div>
     )
   }
   if (!data) return <ServerDetailChartLoading />
@@ -92,13 +90,7 @@ export default function ServerDetailChartClient({
   )
 }
 
-function CpuChart({
-  history,
-  data,
-}: {
-  history: ServerDataWithTimestamp[]
-  data: NezhaAPISafe
-}) {
+function CpuChart({ history, data }: { history: ServerDataWithTimestamp[]; data: NezhaAPISafe }) {
   const [cpuChartData, setCpuChartData] = useState([] as cpuChartData[])
   const hasInitialized = useRef(false)
   const [historyLoaded, setHistoryLoaded] = useState(false)
@@ -214,13 +206,7 @@ function CpuChart({
   )
 }
 
-function GpuChart({
-  history,
-  data,
-}: {
-  history: ServerDataWithTimestamp[]
-  data: NezhaAPISafe
-}) {
+function GpuChart({ history, data }: { history: ServerDataWithTimestamp[]; data: NezhaAPISafe }) {
   const [gpuChartData, setGpuChartData] = useState([] as gpuChartData[])
   const hasInitialized = useRef(false)
   const [historyLoaded, setHistoryLoaded] = useState(false)
@@ -445,13 +431,7 @@ function ProcessChart({
   )
 }
 
-function MemChart({
-  data,
-  history,
-}: {
-  data: NezhaAPISafe
-  history: ServerDataWithTimestamp[]
-}) {
+function MemChart({ data, history }: { data: NezhaAPISafe; history: ServerDataWithTimestamp[] }) {
   const t = useTranslations("ServerDetailChartClient")
   const [memChartData, setMemChartData] = useState([] as memChartData[])
   const hasInitialized = useRef(false)
@@ -605,13 +585,7 @@ function MemChart({
   )
 }
 
-function DiskChart({
-  data,
-  history,
-}: {
-  data: NezhaAPISafe
-  history: ServerDataWithTimestamp[]
-}) {
+function DiskChart({ data, history }: { data: NezhaAPISafe; history: ServerDataWithTimestamp[] }) {
   const t = useTranslations("ServerDetailChartClient")
   const [diskChartData, setDiskChartData] = useState([] as diskChartData[])
   const hasInitialized = useRef(false)

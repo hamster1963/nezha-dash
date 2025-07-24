@@ -1,5 +1,8 @@
 "use client"
 
+import { ArrowDownCircleIcon, ArrowUpCircleIcon } from "@heroicons/react/20/solid"
+import Image from "next/image"
+import { useTranslations } from "next-intl"
 import { useFilter } from "@/app/context/network-filter-context"
 import { useServerData } from "@/app/context/server-data-context"
 import { useStatus } from "@/app/context/status-context"
@@ -9,9 +12,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import getEnv from "@/lib/env-entry"
 import { cn, formatBytes } from "@/lib/utils"
 import blogMan from "@/public/blog-man.webp"
-import { ArrowDownCircleIcon, ArrowUpCircleIcon } from "@heroicons/react/20/solid"
-import { useTranslations } from "next-intl"
-import Image from "next/image"
 
 export default function ServerOverviewClient() {
   const { data, error, isLoading } = useServerData()

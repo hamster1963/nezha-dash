@@ -1,11 +1,11 @@
 import fs from "node:fs"
 import path from "node:path"
-import { auth } from "@/auth"
-import getEnv from "@/lib/env-entry"
-import { GetServerIP } from "@/lib/serverFetch"
 import { type AsnResponse, type CityResponse, Reader } from "maxmind"
 import { redirect } from "next/navigation"
 import { type NextRequest, NextResponse } from "next/server"
+import { auth } from "@/auth"
+import getEnv from "@/lib/env-entry"
+import { GetServerIP } from "@/lib/serverFetch"
 
 export const dynamic = "force-dynamic"
 

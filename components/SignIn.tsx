@@ -1,8 +1,8 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { getCsrfToken, signIn } from "next-auth/react"
 import { useTranslations } from "next-intl"
-import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import { Loader } from "./loading/Loader"

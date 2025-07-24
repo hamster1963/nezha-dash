@@ -1,8 +1,8 @@
 "use client"
 
-import { cn } from "@/lib/utils"
 import { useLocale, useTranslations } from "next-intl"
 import { useEffect, useRef, useState } from "react"
+import { cn } from "@/lib/utils"
 
 export default function TabSwitch({
   tabs,

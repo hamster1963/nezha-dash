@@ -1,9 +1,9 @@
 "use server"
 
+import { connection } from "next/server"
 import type { NezhaAPI, ServerApi } from "@/app/types/nezha-api"
 import type { MakeOptional } from "@/app/types/utils"
 import getEnv from "@/lib/env-entry"
-import { connection } from "next/server"
 
 export async function GetNezhaData() {
   await connection()
@@ -128,11 +128,7 @@ export async function GetServerMonitor({ server_id }: { server_id: number }) {
   }
 }
 
-export async function GetServerIP({
-  server_id,
-}: {
-  server_id: number
-}): Promise<string> {
+export async function GetServerIP({ server_id }: { server_id: number }): Promise<string> {
   await connection()
 
   let nezhaBaseUrl = getEnv("NezhaBaseUrl")

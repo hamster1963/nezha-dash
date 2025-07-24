@@ -1,8 +1,8 @@
+import { redirect } from "next/navigation"
+import { NextResponse } from "next/server"
 import { auth } from "@/auth"
 import getEnv from "@/lib/env-entry"
 import { GetNezhaData } from "@/lib/serverFetch"
-import { redirect } from "next/navigation"
-import { NextResponse } from "next/server"
 
 export const dynamic = "force-dynamic"
 

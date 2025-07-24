@@ -1,5 +1,5 @@
-import { AggregatedNetworkCharts } from "@/app/(main)/ClientComponents/network/AggregatedNetworkCharts"
 import { useTranslations } from "next-intl"
+import { AggregatedNetworkCharts } from "@/app/(main)/ClientComponents/network/AggregatedNetworkCharts"
 
 export default function NetworkPage() {
   const t = useTranslations("NetworkPage")

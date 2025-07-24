@@ -1,7 +1,7 @@
-import getEnv from "@/lib/env-entry"
 import CryptoJS from "crypto-js"
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import getEnv from "@/lib/env-entry"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret:

@@ -1,19 +1,19 @@
 "use client"
 
+import { MapIcon, ViewColumnsIcon } from "@heroicons/react/20/solid"
+import dynamic from "next/dynamic"
+import { useTranslations } from "next-intl"
+import { useEffect, useRef, useState } from "react"
 import { useFilter } from "@/app/context/network-filter-context"
 import { useServerData } from "@/app/context/server-data-context"
 import { useStatus } from "@/app/context/status-context"
+import GlobalLoading from "@/components/loading/GlobalLoading"
+import { Loader } from "@/components/loading/Loader"
 import ServerCard from "@/components/ServerCard"
 import ServerCardInline from "@/components/ServerCardInline"
 import Switch from "@/components/Switch"
-import GlobalLoading from "@/components/loading/GlobalLoading"
-import { Loader } from "@/components/loading/Loader"
 import getEnv from "@/lib/env-entry"
 import { cn } from "@/lib/utils"
-import { MapIcon, ViewColumnsIcon } from "@heroicons/react/20/solid"
-import { useTranslations } from "next-intl"
-import dynamic from "next/dynamic"
-import { useEffect, useRef, useState } from "react"
 
 const ServerGlobal = dynamic(() => import("./Global"), {
   ssr: false,
@@ -75,7 +75,11 @@ const ServerList = ({
   servers,
   inline,
   containerRef,
-}: { servers: any[]; inline: string; containerRef: any }) => {
+}: {
+  servers: any[]
+  inline: string
+  containerRef: any
+}) => {
   if (inline === "1") {
     return (
       <section

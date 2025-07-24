@@ -1,6 +1,6 @@
+import { useRouter } from "next/navigation"
 import { BackIcon } from "@/components/Icon"
 import { Skeleton } from "@/components/ui/skeleton"
-import { useRouter } from "next/navigation"
 
 export function ServerDetailChartLoading() {
   return (
@@ -22,7 +22,8 @@ export function ServerDetailLoading() {
 
   return (
     <>
-      <div
+      <button
+        type="button"
         onClick={() => {
           router.push("/")
         }}
@@ -30,7 +31,7 @@ export function ServerDetailLoading() {
       >
         <BackIcon />
         <Skeleton className="h-[20px] w-24 animate-none rounded-[5px] bg-muted-foreground/10" />
-      </div>
+      </button>
       <Skeleton className="mt-3 flex h-[81px] w-1/2 animate-none flex-wrap gap-2 rounded-[5px] bg-muted-foreground/10" />
     </>
   )

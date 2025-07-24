@@ -1,3 +1,4 @@
+import type React from "react"
 import Footer from "@/app/(main)/footer"
 import Header from "@/app/(main)/header"
 import { CommandProvider } from "@/app/context/command-context"
@@ -8,7 +9,6 @@ import { auth } from "@/auth"
 import { DashCommand } from "@/components/DashCommand"
 import { SignIn } from "@/components/SignIn"
 import getEnv from "@/lib/env-entry"
-import type React from "react"
 
 type DashboardProps = {
   children: React.ReactNode

@@ -1,5 +1,5 @@
-import { getClientEnv, getServerEnv } from "./env"
 import type { EnvKey } from "./env"
+import { getClientEnv, getServerEnv } from "./env"
 
 export default function getEnv(key: EnvKey): string | undefined {
   if (key.startsWith("NEXT_PUBLIC_")) {

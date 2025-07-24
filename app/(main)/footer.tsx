@@ -1,8 +1,9 @@
 "use client"
 
-import pack from "@/package.json"
 import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
+import pack from "@/package.json"
+
 const GITHUB_URL = "https://github.com/hamster1963/nezha-dash"
 const PERSONAL_URL = "https://buycoffee.top"
 

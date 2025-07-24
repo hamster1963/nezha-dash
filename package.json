@@ -41,7 +41,7 @@
     "d3-selection": "^3.0.0",
     "flag-icons": "^7.5.0",
     "i18n-iso-countries": "^7.14.0",
-    "lucide-react": "^0.474.0",
+    "lucide-react": "^0.525.0",
     "luxon": "^3.7.1",
     "maxmind": "^4.3.28",
     "next": "^15.4.3",
@@ -54,23 +54,23 @@
     "react-dom": "^19.1.0",
     "react-intersection-observer": "^9.16.0",
     "react-wrap-balancer": "^1.1.1",
-    "recharts": "^2.15.4",
-    "sharp": "^0.33.5",
+    "recharts": "^3.1.0",
+    "sharp": "^0.34.3",
     "swr": "^2.3.4",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "^2.1.2",
     "@next/bundle-analyzer": "^15.4.3",
     "@tailwindcss/postcss": "^4.1.11",
-    "@types/node": "^22.16.5",
+    "@types/node": "^24.1.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
-    "vercel": "^41.7.8"
+    "vercel": "^44.5.5"
   },
   "overrides": {
     "react-is": "^19.0.0-rc-69d4b800-20241021"

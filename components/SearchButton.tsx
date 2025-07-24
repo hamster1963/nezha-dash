@@ -1,7 +1,7 @@
 "use client"
 
-import { useCommand } from "@/app/context/command-context"
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid"
+import { useCommand } from "@/app/context/command-context"
 import { Button } from "./ui/button"
 
 export function SearchButton() {

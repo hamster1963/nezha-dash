@@ -1,7 +1,7 @@
 "use client"
 
-import { Loader } from "@/components/loading/Loader"
 import { useTranslations } from "next-intl"
+import { Loader } from "@/components/loading/Loader"
 
 export default function GlobalLoading() {
   const t = useTranslations("Global")

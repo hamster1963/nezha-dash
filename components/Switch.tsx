@@ -1,9 +1,9 @@
 "use client"
 
-import getEnv from "@/lib/env-entry"
-import { cn } from "@/lib/utils"
 import { useLocale, useTranslations } from "next-intl"
 import { createRef, useEffect, useRef, useState } from "react"
+import getEnv from "@/lib/env-entry"
+import { cn } from "@/lib/utils"
 
 export default function Switch({
   allTag,

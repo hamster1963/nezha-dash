@@ -1,5 +1,6 @@
 "use client"
 
+import { use, useState } from "react"
 import { NetworkChartClient } from "@/app/(main)/ClientComponents/detail/NetworkChart"
 import ServerDetailChartClient from "@/app/(main)/ClientComponents/detail/ServerDetailChartClient"
 import ServerDetailClient from "@/app/(main)/ClientComponents/detail/ServerDetailClient"
@@ -7,7 +8,6 @@ import ServerIPInfo from "@/app/(main)/ClientComponents/detail/ServerIPInfo"
 import TabSwitch from "@/components/TabSwitch"
 import { Separator } from "@/components/ui/separator"
 import getEnv from "@/lib/env-entry"
-import { use, useState } from "react"
 
 type PageProps = {
   params: Promise<{ id: string }>

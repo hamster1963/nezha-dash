@@ -1,7 +1,7 @@
 "use server"
 
-import getEnv from "@/lib/env-entry"
 import { cookies } from "next/headers"
+import getEnv from "@/lib/env-entry"
 
 const COOKIE_NAME = "NEXT_LOCALE"
 

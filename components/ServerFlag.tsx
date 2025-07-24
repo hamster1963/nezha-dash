@@ -1,7 +1,7 @@
-import getEnv from "@/lib/env-entry"
-import { cn } from "@/lib/utils"
 import getUnicodeFlagIcon from "country-flag-icons/unicode"
 import { useEffect, useState } from "react"
+import getEnv from "@/lib/env-entry"
+import { cn } from "@/lib/utils"
 
 export default function ServerFlag({
   country_code,

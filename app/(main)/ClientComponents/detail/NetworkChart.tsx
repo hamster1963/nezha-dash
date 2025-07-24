@@ -1,5 +1,10 @@
 "use client"
 
+import { useTranslations } from "next-intl"
+import * as React from "react"
+import { useCallback, useMemo } from "react"
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
+import useSWR from "swr"
 import type { NezhaAPIMonitor, ServerMonitorChart } from "@/app/types/nezha-api"
 import NetworkChartLoading from "@/components/loading/NetworkChartLoading"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -15,24 +20,13 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import getEnv from "@/lib/env-entry"
 import { formatTime, nezhaFetcher } from "@/lib/utils"
-import { useTranslations } from "next-intl"
-import * as React from "react"
-import { useCallback, useMemo } from "react"
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
-import useSWR from "swr"
 
 interface ResultItem {
   created_at: number
   [key: string]: number
 }
 
-export function NetworkChartClient({
-  server_id,
-  show,
-}: {
-  server_id: number
-  show: boolean
-}) {
+export function NetworkChartClient({ server_id, show }: { server_id: number; show: boolean }) {
   const t = useTranslations("NetworkChartClient")
   const { data, error } = useSWR<NezhaAPIMonitor[]>(
     `/api/monitor?server_id=${server_id}`,

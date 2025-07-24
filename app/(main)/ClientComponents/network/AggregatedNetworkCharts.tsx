@@ -1,5 +1,8 @@
 "use client"
 
+import { useTranslations } from "next-intl"
+import { useCallback, useEffect, useMemo, useState } from "react"
+import useSWR from "swr"
 import { NetworkChart } from "@/app/(main)/ClientComponents/detail/NetworkChart"
 import { useServerData } from "@/app/context/server-data-context"
 import type { NezhaAPIMonitor } from "@/app/types/nezha-api"
@@ -11,9 +14,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Switch } from "@/components/ui/switch"
 import getEnv from "@/lib/env-entry"
 import { cn, nezhaFetcher } from "@/lib/utils"
-import { useTranslations } from "next-intl"
-import { useCallback, useEffect, useMemo, useState } from "react"
-import useSWR from "swr"
 
 interface ResultItem {
   created_at: number

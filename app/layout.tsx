@@ -2,13 +2,12 @@ import { ThemeColorManager } from "@/components/ThemeColorManager"
 import getEnv from "@/lib/env-entry"
 import { cn } from "@/lib/utils"
 import "@/styles/globals.css"
-import type { Metadata } from "next"
-import type { Viewport } from "next"
+import type { Metadata, Viewport } from "next"
+import { Inter as FontSans } from "next/font/google"
 import { NextIntlClientProvider } from "next-intl"
 import { getLocale, getMessages } from "next-intl/server"
 import { PublicEnvScript } from "next-runtime-env"
 import { ThemeProvider } from "next-themes"
-import { Inter as FontSans } from "next/font/google"
 import type React from "react"
 
 const fontSans = FontSans({
@@ -42,11 +41,7 @@ export const viewport: Viewport = {
   userScalable: false,
 }
 
-export default async function LocaleLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function LocaleLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale()
   const messages = await getMessages()
 
