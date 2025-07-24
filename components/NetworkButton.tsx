@@ -7,6 +7,8 @@ import { Button } from "./ui/button"
 export function NetworkButton() {
   const router = useRouter()
 
+  router.prefetch("/network")
+
   return (
     <Button
       variant="outline"
