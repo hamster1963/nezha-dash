@@ -3,6 +3,7 @@
 import { NetworkChart } from "@/app/(main)/ClientComponents/detail/NetworkChart"
 import { useServerData } from "@/app/context/server-data-context"
 import type { NezhaAPIMonitor } from "@/app/types/nezha-api"
+import { Loader } from "@/components/loading/Loader"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
@@ -108,40 +109,46 @@ export function AggregatedNetworkCharts() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle>{t("server_selection")}</CardTitle>
+              <CardTitle className=" text-lg">{t("server_selection")}</CardTitle>
               <CardDescription>
                 {selectionMode === "multi" ? t("select_servers_multi") : t("select_server_single")}
               </CardDescription>
             </div>
-            <div className="flex rounded-lg bg-muted p-1">
-              <Button
-                variant={selectionMode === "multi" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => handleModeChange("multi")}
-                className={cn("h-8 px-3 text-xs", selectionMode === "multi" && "shadow-sm")}
-              >
-                {t("multi_select_mode")}
-              </Button>
+            <div className="flex rounded-full bg-muted p-1">
               <Button
                 variant={selectionMode === "single" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => handleModeChange("single")}
-                className={cn("h-8 px-3 text-xs", selectionMode === "single" && "shadow-sm")}
+                className={cn(
+                  "h-8 rounded-full px-3 text-xs",
+                  selectionMode === "single" && "shadow-sm",
+                )}
               >
                 {t("single_select_mode")}
+              </Button>
+              <Button
+                variant={selectionMode === "multi" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => handleModeChange("multi")}
+                className={cn(
+                  "h-8 rounded-full px-3 text-xs",
+                  selectionMode === "multi" && "shadow-sm",
+                )}
+              >
+                {t("multi_select_mode")}
               </Button>
             </div>
           </div>
         </CardHeader>
         <CardContent className="pt-4">
           {selectionMode === "multi" ? (
-            <div className="max-h-80 overflow-y-auto">
+            <div className="max-h-[100px] overflow-y-auto">
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {onlineServers.map((server) => (
                   <Label
                     key={server.id}
                     htmlFor={`server-${server.id}`}
-                    className="flex cursor-pointer items-center justify-between space-x-3 rounded-lg border bg-background p-3 transition-colors hover:bg-muted/50"
+                    className="flex cursor-pointer items-center justify-between space-x-3 rounded-sm border bg-background p-3 transition-colors hover:bg-muted/50"
                   >
                     <span className="flex-1 font-medium text-sm leading-none">{server.name}</span>
                     <Switch
@@ -154,7 +161,7 @@ export function AggregatedNetworkCharts() {
               </div>
             </div>
           ) : (
-            <div className="max-h-80 overflow-y-auto">
+            <div className="max-h-[100px] overflow-y-auto">
               <RadioGroup
                 value={selectedServers[0]?.toString() || ""}
                 onValueChange={handleSingleSelect}
@@ -164,7 +171,7 @@ export function AggregatedNetworkCharts() {
                   <Label
                     key={server.id}
                     htmlFor={`server-radio-${server.id}`}
-                    className="flex cursor-pointer items-center space-x-3 rounded-lg border bg-background p-3 transition-colors hover:bg-muted/50"
+                    className="flex cursor-pointer items-center space-x-3 rounded-sm border bg-background p-3 transition-colors hover:bg-muted/50"
                   >
                     <RadioGroupItem value={server.id.toString()} id={`server-radio-${server.id}`} />
                     <span className="flex-1 font-medium text-sm leading-none">{server.name}</span>
@@ -203,6 +210,7 @@ export function AggregatedNetworkCharts() {
 }
 
 function ServerNetworkChart({ serverId, serverName }: { serverId: number; serverName: string }) {
+  const t = useTranslations("AggregatedNetworkCharts")
   const swrKey = `/api/monitor?server_id=${serverId}`
   const { data, error } = useSWR<NezhaAPIMonitor[]>(swrKey, nezhaFetcher, {
     refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 15000,
@@ -231,13 +239,12 @@ function ServerNetworkChart({ serverId, serverName }: { serverId: number; server
     return (
       <Card>
         <CardHeader>
-          <CardTitle className="text-md">{serverName}</CardTitle>
-          <CardDescription className="text-xs">Loading network monitoring data...</CardDescription>
+          <CardTitle className="-mt-2 text-md">{serverName}</CardTitle>
         </CardHeader>
-        <CardContent className="p-8">
-          <div className="flex flex-col items-center justify-center">
-            <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-            <p className="mt-2 font-medium text-sm opacity-40">Loading...</p>
+        <CardContent className="flex h-[333px] flex-col items-center justify-center p-8">
+          <div className="flex items-center justify-center">
+            <Loader visible />
+            <p className="ml-2 font-medium text-xs opacity-40">{t("loading")}</p>
           </div>
         </CardContent>
       </Card>
