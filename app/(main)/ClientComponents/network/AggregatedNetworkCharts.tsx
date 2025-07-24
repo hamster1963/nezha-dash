@@ -142,7 +142,7 @@ export function AggregatedNetworkCharts() {
         </CardHeader>
         <CardContent className="pt-4">
           {selectionMode === "multi" ? (
-            <div className="max-h-[100px] overflow-y-auto">
+            <div className="max-h-[200px] overflow-y-auto sm:max-h-[100px]">
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {onlineServers.map((server) => (
                   <Label
@@ -161,7 +161,7 @@ export function AggregatedNetworkCharts() {
               </div>
             </div>
           ) : (
-            <div className="max-h-[100px] overflow-y-auto">
+            <div className="max-h-[200px] overflow-y-auto sm:max-h-[100px]">
               <RadioGroup
                 value={selectedServers[0]?.toString() || ""}
                 onValueChange={handleSingleSelect}
