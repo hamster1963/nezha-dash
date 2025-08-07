@@ -240,7 +240,6 @@ const ChartTooltipContent = React.forwardRef<
                           {typeof item.value === "number"
                             ? item.value.toFixed(2).toLocaleString()
                             : item.value}{" "}
-                          ms
                         </span>
                       )}
                     </div>

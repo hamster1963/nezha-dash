@@ -257,6 +257,11 @@ function ServerNetworkChart({ serverId, serverName }: { serverId: number; server
   const initChartConfig = {
     avg_delay: {
       label: "Avg Delay",
+      color: "hsl(var(--chart-1))",
+    },
+    packet_loss: {
+      label: "Packet Loss",
+      color: "hsl(45, 100%, 60%)", // Yellow color for packet loss area
     },
   }
 
@@ -293,7 +298,9 @@ function ServerNetworkChart({ serverId, serverName }: { serverId: number; server
 }
 
 const transformData = (data: NezhaAPIMonitor[]) => {
-  const monitorData: { [key: string]: { created_at: number; avg_delay: number }[] } = {}
+  const monitorData: {
+    [key: string]: { created_at: number; avg_delay: number; packet_loss?: number }[]
+  } = {}
 
   for (const item of data) {
     const monitorName = item.monitor_name
@@ -306,6 +313,7 @@ const transformData = (data: NezhaAPIMonitor[]) => {
       monitorData[monitorName].push({
         created_at: item.created_at[i],
         avg_delay: item.avg_delay[i],
+        packet_loss: item.packet_loss?.[i] ?? 0,
       })
     }
   }
@@ -336,6 +344,12 @@ const formatData = (rawData: NezhaAPIMonitor[]) => {
       const timeIndex = created_at.indexOf(time)
       // @ts-expect-error - avg_delay is an array
       result[time][monitor_name] = timeIndex !== -1 ? avg_delay[timeIndex] : null
+      // Add packet loss data if available
+      if (item.packet_loss) {
+        // @ts-expect-error - packet_loss is an array
+        result[time][`${monitor_name}_packet_loss`] =
+          timeIndex !== -1 ? item.packet_loss[timeIndex] : null
+      }
     }
   }
 

@@ -54,6 +54,7 @@
   },
   "NetworkChartClient": {
     "avg_delay": "Latency",
+    "packet_loss": "Packet Loss",
     "chart_fetch_error_message": "Failed to fetch network data, please check if the server monitoring is enabled"
   },
   "IPInfo": {
@@ -66,6 +67,8 @@
     "latitude": "Latitude"
   },
   "NetworkChart": {
+    "avg_delay": "Latency",
+    "packet_loss": "Packet Loss",
     "ServerMonitorCount": "Services"
   },
   "ServerDetailClient": {

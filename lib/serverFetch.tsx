@@ -1,9 +1,74 @@
 "use server"
 
 import { connection } from "next/server"
-import type { NezhaAPI, ServerApi } from "@/app/types/nezha-api"
+import type { NezhaAPI, NezhaAPIMonitor, ServerApi } from "@/app/types/nezha-api"
 import type { MakeOptional } from "@/app/types/utils"
 import getEnv from "@/lib/env-entry"
+
+// Packet loss calculation utility
+function calculatePacketLoss(delays: number[]): number[] {
+  if (!delays || delays.length === 0) return []
+
+  const packetLossRates: number[] = []
+  const windowSize = Math.min(10, Math.max(3, Math.floor(delays.length / 10))) // Adaptive window size
+  const timeoutThreshold = 3000 // Consider delays over 3000ms as potential packet loss
+  const extremeDelayThreshold = 10000 // Delays over 10000ms indicate severe issues
+
+  for (let i = 0; i < delays.length; i++) {
+    const currentDelay = delays[i]
+    let lossRate = 0
+
+    // Calculate packet loss based on delay characteristics
+    if (currentDelay === 0 || currentDelay === null || currentDelay === undefined) {
+      // No response - 100% packet loss
+      lossRate = 100
+    } else if (currentDelay >= extremeDelayThreshold) {
+      // Extreme delay suggests high packet loss
+      lossRate = Math.min(95, 60 + (currentDelay - extremeDelayThreshold) / 1000)
+    } else if (currentDelay >= timeoutThreshold) {
+      // High delay suggests some packet loss
+      lossRate = Math.min(50, (currentDelay - timeoutThreshold) / 200)
+    } else {
+      // Analyze variance in a sliding window
+      const start = Math.max(0, i - Math.floor(windowSize / 2))
+      const end = Math.min(delays.length, i + Math.ceil(windowSize / 2))
+      const windowDelays = delays.slice(start, end).filter((d) => d > 0)
+
+      if (windowDelays.length > 2) {
+        const mean = windowDelays.reduce((sum, d) => sum + d, 0) / windowDelays.length
+        const variance =
+          windowDelays.reduce((sum, d) => sum + (d - mean) ** 2, 0) / windowDelays.length
+        const standardDeviation = Math.sqrt(variance)
+        const coefficientOfVariation = standardDeviation / mean
+
+        // High variation suggests network instability and potential packet loss
+        if (coefficientOfVariation > 0.8) {
+          lossRate = Math.min(25, coefficientOfVariation * 15)
+        } else if (coefficientOfVariation > 0.5) {
+          lossRate = Math.min(10, coefficientOfVariation * 8)
+        } else if (coefficientOfVariation > 0.3) {
+          lossRate = Math.min(5, coefficientOfVariation * 5)
+        }
+
+        // Additional factor: if current delay is significantly higher than average
+        if (currentDelay > mean * 2.5) {
+          lossRate += Math.min(15, (currentDelay / mean - 2.5) * 10)
+        }
+      }
+    }
+
+    // Smooth the packet loss rate with exponential moving average
+    if (i > 0) {
+      const alpha = 0.3 // Smoothing factor
+      lossRate = alpha * lossRate + (1 - alpha) * packetLossRates[i - 1]
+    }
+
+    // Ensure packet loss rate is within bounds
+    packetLossRates.push(Math.max(0, Math.min(100, lossRate)))
+  }
+
+  return packetLossRates.map((rate) => Number(rate.toFixed(2)))
+}
 
 export async function GetNezhaData() {
   await connection()
@@ -114,14 +179,29 @@ export async function GetServerMonitor({ server_id }: { server_id: number }) {
     }
 
     const resData = await response.json()
-    const monitorData = resData.result
+    const monitorData = resData.result as NezhaAPIMonitor[]
 
     if (!monitorData) {
       console.error("MonitorData fetch failed:", resData)
       throw new Error("MonitorData fetch failed: 'result' field is missing")
     }
 
-    return monitorData
+    // Check if packet loss calculation is enabled (default to true for backward compatibility)
+    const enablePacketLoss = getEnv("EnablePacketLossCalculation") !== "false"
+
+    // Calculate packet loss for each monitor if enabled
+    const enhancedMonitorData = monitorData.map((monitor) => {
+      if (enablePacketLoss && monitor.avg_delay?.length > 0) {
+        const packetLossRates = calculatePacketLoss(monitor.avg_delay)
+        return {
+          ...monitor,
+          packet_loss: packetLossRates,
+        } as NezhaAPIMonitor
+      }
+      return monitor
+    })
+
+    return enhancedMonitorData
   } catch (error) {
     console.error("GetServerMonitor error:", error)
     throw error

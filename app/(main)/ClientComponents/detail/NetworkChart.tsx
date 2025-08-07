@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl"
 import * as React from "react"
 import { useCallback, useMemo } from "react"
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
+import { Area, CartesianGrid, ComposedChart, Line, XAxis, YAxis } from "recharts"
 import useSWR from "swr"
 import type { NezhaAPIMonitor, ServerMonitorChart } from "@/app/types/nezha-api"
 import NetworkChartLoading from "@/components/loading/NetworkChartLoading"
@@ -58,6 +58,11 @@ export function NetworkChartClient({ server_id, show }: { server_id: number; sho
   const initChartConfig = {
     avg_delay: {
       label: t("avg_delay"),
+      color: "hsl(var(--chart-1))",
+    },
+    packet_loss: {
+      label: t("packet_loss"),
+      color: "hsl(45, 100%, 60%)", // Yellow color for packet loss area
     },
   } satisfies ChartConfig
 
@@ -122,39 +127,73 @@ export const NetworkChart = React.memo(function NetworkChart({
           onClick={() => handleButtonClick(key)}
         >
           <span className="whitespace-nowrap text-muted-foreground text-xs">{key}</span>
-          <span className="font-bold text-md leading-none sm:text-lg">
-            {chartData[key][chartData[key].length - 1].avg_delay.toFixed(2)}ms
-          </span>
+          <div className="flex flex-col gap-0.5">
+            <span className="font-bold text-md leading-none sm:text-lg">
+              {chartData[key][chartData[key].length - 1].avg_delay.toFixed(2)}ms
+            </span>
+            {chartData[key].some((item) => item.packet_loss !== undefined) && (
+              <span className="text-muted-foreground text-xs">
+                {(
+                  chartData[key]
+                    .filter((item) => item.packet_loss !== undefined)
+                    .reduce((sum, item) => sum + (item.packet_loss ?? 0), 0) /
+                  chartData[key].filter((item) => item.packet_loss !== undefined).length
+                ).toFixed(2)}
+                % avg loss
+              </span>
+            )}
+          </div>
         </button>
       )),
     [chartDataKey, activeChart, chartData, handleButtonClick],
   )
 
-  const chartLines = useMemo(() => {
+  const chartElements = useMemo(() => {
+    const elements = []
+
     if (activeChart !== defaultChart) {
-      return (
+      // Single chart view - show delay line and packet loss area
+      elements.push(
+        <Area
+          key="packet-loss-area"
+          isAnimationActive={false}
+          dataKey="packet_loss"
+          stroke="none"
+          fill="hsl(45, 100%, 60%)"
+          fillOpacity={0.3}
+          yAxisId="packet-loss"
+        />,
         <Line
+          key="delay-line"
           isAnimationActive={false}
           strokeWidth={1}
           type="linear"
           dot={false}
           dataKey="avg_delay"
           stroke={getColorByIndex(activeChart)}
-        />
+          yAxisId="delay"
+        />,
+      )
+    } else {
+      // Multi chart view - only show delay lines for all monitors
+      elements.push(
+        ...chartDataKey.map((key) => (
+          <Line
+            key={key}
+            isAnimationActive={false}
+            strokeWidth={1}
+            type="linear"
+            dot={false}
+            dataKey={key}
+            stroke={getColorByIndex(key)}
+            connectNulls={true}
+            yAxisId="delay"
+          />
+        )),
       )
     }
-    return chartDataKey.map((key) => (
-      <Line
-        key={key}
-        isAnimationActive={false}
-        strokeWidth={1}
-        type="linear"
-        dot={false}
-        dataKey={key}
-        stroke={getColorByIndex(key)}
-        connectNulls={true}
-      />
-    ))
+
+    return elements
   }, [activeChart, defaultChart, chartDataKey, getColorByIndex])
 
   const processedData = useMemo(() => {
@@ -274,7 +313,7 @@ export const NetworkChart = React.memo(function NetworkChart({
       </CardHeader>
       <CardContent className="py-4 pr-2 pl-0 sm:pt-6 sm:pr-6 sm:pb-6 sm:pl-2">
         <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
-          <LineChart accessibilityLayer data={processedData} margin={{ left: 12, right: 12 }}>
+          <ComposedChart accessibilityLayer data={processedData} margin={{ left: 12, right: 12 }}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="created_at"
@@ -314,12 +353,24 @@ export const NetworkChart = React.memo(function NetworkChart({
               }}
             />
             <YAxis
+              yAxisId="delay"
               tickLine={false}
               axisLine={false}
               tickMargin={15}
               minTickGap={20}
               tickFormatter={(value) => `${value}ms`}
             />
+            {activeChart !== defaultChart && (
+              <YAxis
+                yAxisId="packet-loss"
+                orientation="right"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={15}
+                minTickGap={20}
+                tickFormatter={(value) => `${value}%`}
+              />
+            )}
             <ChartTooltip
               isAnimationActive={false}
               content={
@@ -329,12 +380,37 @@ export const NetworkChart = React.memo(function NetworkChart({
                   labelFormatter={(_, payload) => {
                     return formatTime(payload[0].payload.created_at)
                   }}
+                  formatter={(value, name) => {
+                    let formattedValue: string
+                    let label: string
+
+                    if (name === "packet_loss") {
+                      formattedValue = `${Number(value).toFixed(2)}%`
+                      label = t("packet_loss")
+                    } else if (name === "avg_delay") {
+                      formattedValue = `${Number(value).toFixed(2)}ms`
+                      label = t("avg_delay")
+                    } else {
+                      // For monitor names (in multi-chart view) - delay data
+                      formattedValue = `${Number(value).toFixed(2)}ms`
+                      label = name as string
+                    }
+
+                    return (
+                      <div className="flex flex-1 items-center justify-between leading-none">
+                        <span className="text-muted-foreground">{label}</span>
+                        <span className="ml-2 font-medium text-foreground tabular-nums">
+                          {formattedValue}
+                        </span>
+                      </div>
+                    )
+                  }}
                 />
               }
             />
             {activeChart === defaultChart && <ChartLegend content={<ChartLegendContent />} />}
-            {chartLines}
-          </LineChart>
+            {chartElements}
+          </ComposedChart>
         </ChartContainer>
       </CardContent>
     </Card>
@@ -355,6 +431,7 @@ const transformData = (data: NezhaAPIMonitor[]) => {
       monitorData[monitorName].push({
         created_at: item.created_at[i],
         avg_delay: item.avg_delay[i],
+        packet_loss: item.packet_loss?.[i] ?? 0,
       })
     }
   }
@@ -385,6 +462,12 @@ const formatData = (rawData: NezhaAPIMonitor[]) => {
       const timeIndex = created_at.indexOf(time)
       // @ts-expect-error - avg_delay is an array
       result[time][monitor_name] = timeIndex !== -1 ? avg_delay[timeIndex] : null
+      // Add packet loss data if available
+      if (item.packet_loss) {
+        // @ts-expect-error - packet_loss is an array
+        result[time][`${monitor_name}_packet_loss`] =
+          timeIndex !== -1 ? item.packet_loss[timeIndex] : null
+      }
     }
   }
 

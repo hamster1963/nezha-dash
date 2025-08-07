@@ -54,6 +54,7 @@
   },
   "NetworkChartClient": {
     "avg_delay": "遅延",
+    "packet_loss": "パケットロス率",
     "chart_fetch_error_message": "ネットワークデータの取得に失敗しました。サーバーの監視が有効になっているかどうかを確認してください"
   },
   "IPInfo": {
@@ -66,6 +67,8 @@
     "latitude": "緯度"
   },
   "NetworkChart": {
+    "avg_delay": "遅延",
+    "packet_loss": "パケットロス率",
     "ServerMonitorCount": "サービス"
   },
   "ServerDetailClient": {

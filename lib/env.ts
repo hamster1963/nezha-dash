@@ -14,6 +14,8 @@ export interface ServerEnvConfig {
   ForceShowAllServers: boolean
   /** Site password */
   SitePassword: string
+  /** Enable packet loss calculation */
+  EnablePacketLossCalculation: boolean
 }
 
 /**
@@ -124,6 +126,7 @@ export function getAllEnvConfig(): { server: ServerEnvConfig; client: ClientEnvC
       DefaultLocale: getServerEnv("DefaultLocale") || "",
       ForceShowAllServers: parseBoolean(getServerEnv("ForceShowAllServers")),
       SitePassword: getServerEnv("SitePassword") || "",
+      EnablePacketLossCalculation: parseBoolean(getServerEnv("EnablePacketLossCalculation")),
     },
     client: {
       NezhaFetchInterval: parseNumber(getClientEnv("NezhaFetchInterval"), 5000),
