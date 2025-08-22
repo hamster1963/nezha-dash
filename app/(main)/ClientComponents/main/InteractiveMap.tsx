@@ -42,7 +42,7 @@ export function InteractiveMap({
       >
         <title>Interactive Map</title>
         <defs>
-          <pattern id="dots" width="2" height="2" patternUnits="userSpaceOnUse">
+          <pattern width="2" height="2" patternUnits="userSpaceOnUse">
             <circle cx="1" cy="1" r="0.5" fill="currentColor" />
           </pattern>
         </defs>

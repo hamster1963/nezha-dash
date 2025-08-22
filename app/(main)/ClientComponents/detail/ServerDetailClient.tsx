@@ -98,8 +98,8 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
                 className={cn(
                   "-mt-[0.3px] w-fit rounded-[6px] px-1 py-0 text-[9px] dark:text-white",
                   {
-                    " bg-green-800": online,
-                    " bg-red-600": !online,
+                    "bg-green-800": online,
+                    "bg-red-600": !online,
                   },
                 )}
               >

@@ -67,7 +67,7 @@
     "latitude": "緯度"
   },
   "NetworkChart": {
-     "avg_delay": "延遲",
+    "avg_delay": "延遲",
     "packet_loss": "封包遺失率",
     "ServerMonitorCount": "個監測服務"
   },
