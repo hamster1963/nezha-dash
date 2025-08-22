@@ -83,7 +83,7 @@ export function AggregatedNetworkCharts() {
   }, [])
 
   const handleSingleSelect = useCallback((serverId: string) => {
-    setSelectedServers([Number.parseInt(serverId)])
+    setSelectedServers([Number.parseInt(serverId, 10)])
   }, [])
 
   if (!serverData?.result) {
@@ -109,7 +109,7 @@ export function AggregatedNetworkCharts() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className=" text-lg">{t("server_selection")}</CardTitle>
+              <CardTitle className="text-lg">{t("server_selection")}</CardTitle>
               <CardDescription>
                 {selectionMode === "multi" ? t("select_servers_multi") : t("select_server_single")}
               </CardDescription>

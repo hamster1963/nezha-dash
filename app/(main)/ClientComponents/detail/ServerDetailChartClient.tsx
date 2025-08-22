@@ -498,7 +498,7 @@ function MemChart({ data, history }: { data: NezhaAPISafe; history: ServerDataWi
           <div className="flex items-center justify-between">
             <section className="flex items-center gap-4">
               <div className="flex flex-col">
-                <p className=" text-muted-foreground text-xs">{t("Mem")}</p>
+                <p className="text-muted-foreground text-xs">{t("Mem")}</p>
                 <div className="flex items-center gap-2">
                   <AnimatedCircularProgressBar
                     className="size-3 text-[0px]"
@@ -511,7 +511,7 @@ function MemChart({ data, history }: { data: NezhaAPISafe; history: ServerDataWi
                 </div>
               </div>
               <div className="flex flex-col">
-                <p className=" text-muted-foreground text-xs">{t("Swap")}</p>
+                <p className="text-muted-foreground text-xs">{t("Swap")}</p>
                 <div className="flex items-center gap-2">
                   <AnimatedCircularProgressBar
                     className="size-3 text-[0px]"
@@ -793,7 +793,7 @@ function NetworkChart({
                 </div>
               </div>
               <div className="flex w-20 flex-col">
-                <p className=" text-muted-foreground text-xs">{t("Download")}</p>
+                <p className="text-muted-foreground text-xs">{t("Download")}</p>
                 <div className="flex items-center gap-1">
                   <span className="relative inline-flex size-1.5 rounded-full bg-[hsl(var(--chart-4))]" />
                   <p className="font-medium text-xs">{down.toFixed(2)} M/s</p>
@@ -935,7 +935,7 @@ function ConnectChart({
                 </div>
               </div>
               <div className="flex w-12 flex-col">
-                <p className=" text-muted-foreground text-xs">UDP</p>
+                <p className="text-muted-foreground text-xs">UDP</p>
                 <div className="flex items-center gap-1">
                   <span className="relative inline-flex size-1.5 rounded-full bg-[hsl(var(--chart-4))]" />
                   <p className="font-medium text-xs">{udp}</p>

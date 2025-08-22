@@ -52,7 +52,7 @@ export default function ServerCard({ serverInfo }: { serverInfo: NezhaAPISafe })
             <p
               className={cn(
                 "break-normal font-bold tracking-tight",
-                showFlag ? "text-xs " : "text-sm",
+                showFlag ? "text-xs" : "text-sm",
               )}
             >
               {name}

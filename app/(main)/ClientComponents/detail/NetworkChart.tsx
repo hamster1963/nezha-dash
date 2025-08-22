@@ -303,7 +303,7 @@ export const NetworkChart = React.memo(function NetworkChart({
             {chartDataKey.length} {t("ServerMonitorCount")}
           </CardDescription>
           <div className="mt-0.5 flex items-center space-x-2">
-            <Switch id="Peak" checked={isPeakEnabled} onCheckedChange={setIsPeakEnabled} />
+            <Switch checked={isPeakEnabled} onCheckedChange={setIsPeakEnabled} />
             <Label className="text-xs" htmlFor="Peak">
               Peak cut
             </Label>

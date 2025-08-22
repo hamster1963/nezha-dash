@@ -9,7 +9,7 @@
     "lint:fix": "biome lint --fix",
     "format": "biome format --write .",
     "check": "biome check",
-    "check:fix": "biome check --fix",
+    "check:fix": "biome check --fix --unsafe",
     "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/"
   },
   "dependencies": {
