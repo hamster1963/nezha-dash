@@ -1,6 +1,7 @@
 "use client"
 
-import { CheckCircleIcon, Moon, Sun } from "lucide-react"
+import { CheckCircleIcon } from "@heroicons/react/20/solid"
+import { Moon, Sun } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useTheme } from "next-themes"
 import { Button } from "@/components/ui/button"
