@@ -3,7 +3,7 @@ FROM --platform=$BUILDPLATFORM oven/bun:1 AS base
 # Stage 1: Install dependencies
 FROM base AS deps
 WORKDIR /app
-COPY package.json bun.lockb ./
+COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
 # Stage 2: Build the application
