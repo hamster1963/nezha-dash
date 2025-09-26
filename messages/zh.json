@@ -29,7 +29,8 @@
   },
   "TabSwitch": {
     "Detail": "详情",
-    "Network": "网络"
+    "Network": "网络",
+    "disabled_tooltip": "此功能在当前模式下不可用"
   },
   "SignIn": {
     "SignInMessage": "请输入密码",

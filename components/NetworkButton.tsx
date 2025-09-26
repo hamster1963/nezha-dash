@@ -2,9 +2,17 @@
 
 import { Activity } from "lucide-react"
 import Link from "next/link"
+import getEnv from "@/lib/env-entry"
 import { Button } from "./ui/button"
 
 export function NetworkButton() {
+  // Hide network button in Komari mode since network delay charts are not supported
+  const isKomariMode = getEnv("NEXT_PUBLIC_Komari") === "true"
+
+  if (isKomariMode) {
+    return null
+  }
+
   return (
     <Link href="/network" prefetch={true}>
       <Button

@@ -1,7 +1,7 @@
 import getUnicodeFlagIcon from "country-flag-icons/unicode"
 import { useEffect, useState } from "react"
 import getEnv from "@/lib/env-entry"
-import { cn } from "@/lib/utils"
+import { cn, isEmojiFlag } from "@/lib/utils"
 
 export default function ServerFlag({
   country_code,
@@ -39,6 +39,13 @@ export default function ServerFlag({
   }, [useSvgFlag]) // 将 `useSvgFlag` 作为依赖，当其变化时重新触发
 
   if (!country_code) return null
+
+  // If the country_code is already an emoji flag, display it directly
+  if (isEmojiFlag(country_code)) {
+    return (
+      <span className={cn("text-[12px] text-muted-foreground", className)}>{country_code}</span>
+    )
+  }
 
   return (
     <span className={cn("text-[12px] text-muted-foreground", className)}>
