@@ -25,21 +25,7 @@ export async function GET() {
   } catch (error) {
     const err = error as ResError
     console.error("Error in GET handler:", err)
-
-    // Even if driver info fails, return configuration information
-    const fallbackInfo = {
-      error: err.message || "Driver initialization failed",
-      environment: {
-        komariMode: getEnv("NEXT_PUBLIC_Komari") === "true",
-        hasKomariUrl: !!getEnv("KomariBaseUrl"),
-        hasNezhaUrl: !!getEnv("NezhaBaseUrl"),
-        hasNezhaAuth: !!getEnv("NezhaAuth"),
-      },
-      availableDrivers: ["nezha", "komari"],
-      configuredDriver: getEnv("NEXT_PUBLIC_Komari") === "true" ? "komari" : "nezha",
-    }
-
     const statusCode = err.statusCode || 500
-    return NextResponse.json(fallbackInfo, { status: statusCode })
+    return NextResponse.json({ error: err.message || "Internal Server Error" }, { status: statusCode })
   }
 }
