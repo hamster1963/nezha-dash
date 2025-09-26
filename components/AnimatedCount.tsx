@@ -32,6 +32,8 @@ export function AnimateCountClient({
   )
 }
 
+export default AnimateCountClient
+
 export function AnimateCount({
   children: count,
   className,
