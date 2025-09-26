@@ -610,7 +610,8 @@ export async function GetServerDetail({ server_id }: { server_id: number }) {
       return serverDetail
     } catch (error) {
       console.warn(
-        `Failed to get detailed data for server ${server_id}, falling back to basic data:`,
+        "Failed to get detailed data for server %s, falling back to basic data:",
+        server_id,
         error,
       )
       // Fallback to basic data if detailed fetch fails
