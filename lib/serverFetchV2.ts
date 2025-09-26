@@ -143,22 +143,5 @@ export async function PerformHealthCheck(): Promise<boolean> {
   }
 }
 
-/**
- * Switch to a different data source driver (for admin use)
- * Note: This would require additional authentication/authorization in a real application
- */
-export async function SwitchDataSource(driverType: string, config: any): Promise<void> {
-  try {
-    const driverManager = await getOrInitializeDriverManager()
-    await driverManager.switchDriver(driverType, config)
-
-    // Reset the promise to force re-initialization with new driver
-    driverManagerPromise = null
-  } catch (error) {
-    console.error("SwitchDataSource error:", error)
-    throw error
-  }
-}
-
 // Legacy compatibility exports - these maintain the same API as the original functions
 export { GetServerData as GetNezhaData }
