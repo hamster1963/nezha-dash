@@ -6,6 +6,7 @@ import { useServerData } from "@/app/context/server-data-context"
 import { TooltipProvider } from "@/app/context/tooltip-context"
 import GlobalLoading from "@/components/loading/GlobalLoading"
 import { geoJsonString } from "@/lib/geo/geo-json-string"
+import { getCountryCodeForMap } from "@/lib/utils"
 
 export default function ServerGlobal() {
   const { data: nezhaServerList, error } = useServerData()
@@ -26,11 +27,15 @@ export default function ServerGlobal() {
 
   for (const server of nezhaServerList.result) {
     if (server.host.CountryCode) {
-      const countryCode = server.host.CountryCode.toUpperCase()
-      if (!countryList.includes(countryCode)) {
-        countryList.push(countryCode)
+      // Convert emoji flags or country identifiers to standard country codes for map display
+      const countryCode = getCountryCodeForMap(server.host.CountryCode)
+
+      if (countryCode) {
+        if (!countryList.includes(countryCode)) {
+          countryList.push(countryCode)
+        }
+        serverCounts[countryCode] = (serverCounts[countryCode] || 0) + 1
       }
-      serverCounts[countryCode] = (serverCounts[countryCode] || 0) + 1
     }
   }
 

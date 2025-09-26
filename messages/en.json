@@ -29,7 +29,8 @@
   },
   "TabSwitch": {
     "Detail": "Detail",
-    "Network": "Network"
+    "Network": "Network",
+    "disabled_tooltip": "This feature is not available in current mode"
   },
   "SignIn": {
     "SignInMessage": "Please enter the password",

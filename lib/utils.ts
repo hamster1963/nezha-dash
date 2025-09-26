@@ -140,3 +140,85 @@ export function formatTime12(timestamp: number): string {
   const hours12 = hours % 12 || 12
   return `${hours12}:${minutes.toString().padStart(2, "0")} ${ampm}`
 }
+
+// Emoji flag to country code mapping
+const EMOJI_TO_COUNTRY_CODE: { [key: string]: string } = {
+  "🇭🇰": "HK", // Hong Kong
+  "🇨🇳": "CN", // China
+  "🇯🇵": "JP", // Japan
+  "🇸🇬": "SG", // Singapore
+  "🇩🇪": "DE", // Germany
+  "🇳🇱": "NL", // Netherlands
+  "🇺🇸": "US", // United States
+  "🇬🇧": "GB", // United Kingdom
+  "🇫🇷": "FR", // France
+  "🇰🇷": "KR", // South Korea
+  "🇦🇺": "AU", // Australia
+  "🇨🇦": "CA", // Canada
+  "🇧🇷": "BR", // Brazil
+  "🇮🇳": "IN", // India
+  "🇷🇺": "RU", // Russia
+  "🇮🇹": "IT", // Italy
+  "🇪🇸": "ES", // Spain
+  "🇹🇼": "TW", // Taiwan
+  "🇲🇴": "MO", // Macau
+  "🇹🇭": "TH", // Thailand
+  "🇲🇾": "MY", // Malaysia
+  "🇻🇳": "VN", // Vietnam
+  "🇵🇭": "PH", // Philippines
+  "🇮🇩": "ID", // Indonesia
+  "🇳🇴": "NO", // Norway
+  "🇸🇪": "SE", // Sweden
+  "🇫🇮": "FI", // Finland
+  "🇩🇰": "DK", // Denmark
+  "🇨🇭": "CH", // Switzerland
+  "🇦🇹": "AT", // Austria
+  "🇧🇪": "BE", // Belgium
+  "🇮🇪": "IE", // Ireland
+  "🇵🇹": "PT", // Portugal
+  "🇵🇱": "PL", // Poland
+  "🇨🇿": "CZ", // Czech Republic
+  "🇭🇺": "HU", // Hungary
+  "🇬🇷": "GR", // Greece
+  "🇹🇷": "TR", // Turkey
+  "🇺🇦": "UA", // Ukraine
+  "🇷🇴": "RO", // Romania
+  "🇧🇬": "BG", // Bulgaria
+  "🇭🇷": "HR", // Croatia
+  "🇸🇮": "SI", // Slovenia
+  "🇸🇰": "SK", // Slovakia
+  "🇱🇹": "LT", // Lithuania
+  "🇱🇻": "LV", // Latvia
+  "🇪🇪": "EE", // Estonia
+  "🇮🇸": "IS", // Iceland
+  "🇱🇺": "LU", // Luxembourg
+  "🇲🇹": "MT", // Malta
+  "🇨🇾": "CY", // Cyprus
+}
+
+// Function to check if a string is an emoji flag
+export function isEmojiFlag(str: string): boolean {
+  const flagEmojiRegex = /[\u{1F1E6}-\u{1F1FF}]{2}/u
+  return flagEmojiRegex.test(str)
+}
+
+// Function to convert emoji flag to country code
+export function convertEmojiToCountryCode(emoji: string): string | null {
+  if (!isEmojiFlag(emoji)) {
+    return emoji.toUpperCase() // Return as-is if it's already a country code
+  }
+  return EMOJI_TO_COUNTRY_CODE[emoji] || null
+}
+
+// Function to get country code for map display (handles both emoji and country codes)
+export function getCountryCodeForMap(countryIdentifier: string): string | null {
+  if (!countryIdentifier) return null
+
+  // If it's an emoji, convert it to country code
+  if (isEmojiFlag(countryIdentifier)) {
+    return EMOJI_TO_COUNTRY_CODE[countryIdentifier] || null
+  }
+
+  // If it's already a country code, return as-is
+  return countryIdentifier.toUpperCase()
+}

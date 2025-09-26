@@ -31,6 +31,20 @@
 
 [环境变量介绍](https://nezhadash-docs.vercel.app/environment)
 
+#### Komari 面板兼容
+
+NezhaDash 现在支持 Komari 面板数据源。要启用 Komari 模式，请设置以下环境变量：
+
+- `NEXT_PUBLIC_Komari=true` - 启用 Komari 面板兼容模式
+- `KomariBaseUrl=https://ss.akz.moe` - Komari 面板的基础 URL
+
+当启用 Komari 模式时，系统将从以下 API 端点获取数据：
+- `KomariBaseUrl/api/nodes` - 获取服务器列表信息
+- `KomariBaseUrl/api/recent/{uuid}` - 获取每个服务器的实时监控数据
+
+> [!NOTE]
+> 在 Komari 模式下，系统会并发获取所有服务器的实时数据，提供准确的当前状态监控。如果某个服务器的实时数据获取失败，系统会gracefully降级到基础信息显示。
+
 ![screen](/.github/v2-1.webp)
 ![screen](/.github/v2-2.webp)
 ![screen](/.github/v2-3.webp)

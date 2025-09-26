@@ -11,9 +11,28 @@ import { ServerDetailLoading } from "@/components/loading/ServerDetailLoading"
 import ServerFlag from "@/components/ServerFlag"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { cn, formatBytes, formatNezhaInfo } from "@/lib/utils"
+import {
+  cn,
+  convertEmojiToCountryCode,
+  formatBytes,
+  formatNezhaInfo,
+  isEmojiFlag,
+} from "@/lib/utils"
 
 countries.registerLocale(enLocale)
+
+// Function to get country name, handling both country codes and emoji flags
+function getCountryDisplayName(countryCode: string): string {
+  if (isEmojiFlag(countryCode)) {
+    // Convert emoji to country code for name lookup
+    const convertedCode = convertEmojiToCountryCode(countryCode)
+    if (convertedCode) {
+      return countries.getName(convertedCode, "en") || ""
+    }
+    return ""
+  }
+  return countries.getName(countryCode, "en") || ""
+}
 
 export default function ServerDetailClient({ server_id }: { server_id: number }) {
   const t = useTranslations("ServerDetailClient")
@@ -164,7 +183,9 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
               <section className="flex flex-col items-start gap-0.5">
                 <p className="text-muted-foreground text-xs">{t("Region")}</p>
                 <section className="flex items-start gap-1">
-                  <div className="text-start text-xs">{countries.getName(country_code, "en")}</div>
+                  {getCountryDisplayName(country_code) && (
+                    <div className="text-start text-xs">{getCountryDisplayName(country_code)}</div>
+                  )}
                   <ServerFlag className="-mt-[1px] text-[11px]" country_code={country_code} />
                 </section>
               </section>

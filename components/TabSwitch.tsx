@@ -8,10 +8,12 @@ export default function TabSwitch({
   tabs,
   currentTab,
   setCurrentTab,
+  disabledTabs = [],
 }: {
   tabs: string[]
   currentTab: string
   setCurrentTab: (tab: string) => void
+  disabledTabs?: string[]
 }) {
   const t = useTranslations("TabSwitch")
   const [indicator, setIndicator] = useState<{ x: number; w: number }>({
@@ -49,26 +51,34 @@ export default function TabSwitch({
             }}
           />
         )}
-        {tabs.map((tab: string, index) => (
-          <div
-            key={tab}
-            ref={(el) => {
-              tabRefs.current[index] = el
-            }}
-            onClick={() => setCurrentTab(tab)}
-            className={cn(
-              "relative cursor-pointer rounded-3xl px-2.5 py-[8px] font-[600] text-[13px]",
-              "text-stone-400 transition-all duration-500 ease-in-out hover:text-stone-950 dark:text-stone-500 hover:dark:text-stone-50",
-              {
-                "text-stone-950 dark:text-stone-50": currentTab === tab,
-              },
-            )}
-          >
-            <div className="relative z-20 flex items-center gap-1">
-              <p className="whitespace-nowrap">{t(tab)}</p>
+        {tabs.map((tab: string, index) => {
+          const isDisabled = disabledTabs.includes(tab)
+          return (
+            <div
+              key={tab}
+              ref={(el) => {
+                tabRefs.current[index] = el
+              }}
+              onClick={() => !isDisabled && setCurrentTab(tab)}
+              className={cn(
+                "relative rounded-3xl px-2.5 py-[8px] font-[600] text-[13px]",
+                "transition-all duration-500 ease-in-out",
+                {
+                  "cursor-pointer text-stone-400 hover:text-stone-950 dark:text-stone-500 hover:dark:text-stone-50":
+                    !isDisabled,
+                  "cursor-not-allowed text-stone-300 dark:text-stone-600": isDisabled,
+                  "text-stone-950 dark:text-stone-50": currentTab === tab && !isDisabled,
+                },
+              )}
+              title={isDisabled ? t("disabled_tooltip") : undefined}
+            >
+              <div className="relative z-20 flex items-center gap-1">
+                <p className="whitespace-nowrap">{t(tab)}</p>
+                {isDisabled && <span className="ml-1 text-[10px] opacity-50">🚫</span>}
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )
