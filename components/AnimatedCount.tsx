@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 
-export default function AnimateCountClient({
+export function AnimateCountClient({
   count,
   className,
   minDigits,
@@ -31,6 +31,8 @@ export default function AnimateCountClient({
     </AnimateCount>
   )
 }
+
+export default AnimateCountClient
 
 export function AnimateCount({
   children: count,

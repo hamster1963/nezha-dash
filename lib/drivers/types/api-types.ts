@@ -1,3 +1,10 @@
+/**
+ * API Types for Data Source Drivers
+ *
+ * This file contains all the API type definitions for different monitoring systems.
+ * Originally from app/types/nezha-api.ts, now centralized in the drivers layer.
+ */
+
 export type ServerApi = {
   live_servers: number
   offline_servers: number

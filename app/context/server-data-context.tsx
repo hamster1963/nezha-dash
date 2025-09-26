@@ -2,7 +2,7 @@
 
 import { createContext, type ReactNode, useContext, useEffect, useState } from "react"
 import useSWR from "swr"
-import type { ServerApi } from "@/app/types/nezha-api"
+import type { ServerApi } from "@/lib/drivers/types"
 import getEnv from "@/lib/env-entry"
 import { nezhaFetcher } from "@/lib/utils"
 

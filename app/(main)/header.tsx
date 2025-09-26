@@ -4,7 +4,8 @@ import { DateTime } from "luxon"
 import { useRouter } from "next/navigation"
 import { useTranslations } from "next-intl"
 import { memo, useCallback, useEffect, useState } from "react"
-import AnimateCountClient from "@/components/AnimatedCount"
+import { DriverBadge } from "@/app/(main)/ClientComponents/DriverBadge"
+import { AnimateCountClient } from "@/components/AnimatedCount"
 import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 import { NetworkButton } from "@/components/NetworkButton"
 import { SearchButton } from "@/components/SearchButton"
@@ -146,6 +147,7 @@ function Header() {
           </p>
         </button>
         <section className="flex items-center gap-2">
+          <DriverBadge />
           <div className="hidden sm:block">
             <Links />
           </div>
