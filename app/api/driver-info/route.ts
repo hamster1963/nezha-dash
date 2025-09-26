@@ -26,6 +26,9 @@ export async function GET() {
     const err = error as ResError
     console.error("Error in GET handler:", err)
     const statusCode = err.statusCode || 500
-    return NextResponse.json({ error: err.message || "Internal Server Error" }, { status: statusCode })
+    return NextResponse.json(
+      { error: err.message || "Internal Server Error" },
+      { status: statusCode },
+    )
   }
 }
