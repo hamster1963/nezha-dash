@@ -80,9 +80,9 @@ export class NezhaDriver extends BaseDriver {
         }
 
         // Remove sensitive properties
-        element.ipv4 = undefined
-        element.ipv6 = undefined
-        element.valid_ip = undefined
+        element.ipv4 = ""
+        element.ipv6 = ""
+        element.valid_ip = ""
 
         return element
       },
@@ -115,9 +115,9 @@ export class NezhaDriver extends BaseDriver {
     const timestamp = Date.now() / 1000
     const detailData = detailDataList.map((element) => {
       element.online_status = timestamp - element.last_active <= 180
-      element.ipv4 = undefined
-      element.ipv6 = undefined
-      element.valid_ip = undefined
+      element.ipv4 = ""
+      element.ipv6 = ""
+      element.valid_ip = ""
       return element
     })[0]
 
