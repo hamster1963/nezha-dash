@@ -264,6 +264,12 @@ export function getDriverManager(): DriverManager {
  */
 export async function initializeDriverManager(): Promise<DriverManager> {
   const manager = getDriverManager()
-  await manager.initialize()
-  return manager
+  try {
+    // If already initialized, avoid resetting the selected driver
+    manager.getCurrentDriver()
+    return manager
+  } catch {
+    await manager.initialize()
+    return manager
+  }
 }
