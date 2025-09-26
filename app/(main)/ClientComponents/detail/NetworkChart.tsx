@@ -5,7 +5,6 @@ import * as React from "react"
 import { useCallback, useMemo } from "react"
 import { Area, CartesianGrid, ComposedChart, Line, XAxis, YAxis } from "recharts"
 import useSWR from "swr"
-import type { NezhaAPIMonitor, ServerMonitorChart } from "@/app/types/nezha-api"
 import NetworkChartLoading from "@/components/loading/NetworkChartLoading"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/chart"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
+import type { NezhaAPIMonitor, ServerMonitorChart } from "@/lib/drivers/types"
 import getEnv from "@/lib/env-entry"
 import { formatTime, nezhaFetcher } from "@/lib/utils"
 

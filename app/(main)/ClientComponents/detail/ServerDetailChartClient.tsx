@@ -8,11 +8,11 @@ import {
   type ServerDataWithTimestamp,
   useServerData,
 } from "@/app/context/server-data-context"
-import type { NezhaAPISafe } from "@/app/types/nezha-api"
 import { ServerDetailChartLoading } from "@/components/loading/ServerDetailLoading"
 import AnimatedCircularProgressBar from "@/components/ui/animated-circular-progress-bar"
 import { Card, CardContent } from "@/components/ui/card"
 import { type ChartConfig, ChartContainer } from "@/components/ui/chart"
+import type { NezhaAPISafe } from "@/lib/drivers/types"
 import { formatBytes, formatNezhaInfo, formatRelativeTime } from "@/lib/utils"
 
 type gpuChartData = {

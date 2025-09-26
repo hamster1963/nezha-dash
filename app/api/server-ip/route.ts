@@ -5,7 +5,7 @@ import { redirect } from "next/navigation"
 import { type NextRequest, NextResponse } from "next/server"
 import { auth } from "@/auth"
 import getEnv from "@/lib/env-entry"
-import { GetServerIP } from "@/lib/serverFetch"
+import { GetServerIP } from "@/lib/serverFetchV2"
 
 export const dynamic = "force-dynamic"
 
