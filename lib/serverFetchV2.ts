@@ -5,11 +5,11 @@
 
 "use server"
 
-import type { NezhaAPI, NezhaAPIMonitor, ServerApi } from "./drivers"
+import type { NezhaAPI, NezhaAPIMonitor, ServerApi, DriverManager } from "./drivers"
 import { initializeDriverManager } from "./drivers"
 
 // Singleton driver manager instance
-let driverManagerPromise: Promise<any> | null = null
+let driverManagerPromise: Promise<DriverManager> | null = null
 
 /**
  * Get or initialize the driver manager
