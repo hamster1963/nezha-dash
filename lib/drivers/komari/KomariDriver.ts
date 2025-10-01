@@ -69,7 +69,7 @@ export class KomariDriver extends BaseDriver {
     return {
       id: id,
       name: komariServer.name,
-      tag: komariServer.tags || komariServer.group || "",
+      tag: komariServer.group || "",
       last_active: timestamp,
       online_status: true,
       ipv4: "",
