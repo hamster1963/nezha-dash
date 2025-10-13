@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Switch } from "@/components/ui/switch"
 import type { NezhaAPIMonitor } from "@/lib/drivers/types"
-import getEnv from "@/lib/env-entry"
+import { getClientPollingInterval } from "@/lib/polling"
 import { cn, nezhaFetcher } from "@/lib/utils"
 
 interface ResultItem {
@@ -212,8 +212,9 @@ export function AggregatedNetworkCharts() {
 function ServerNetworkChart({ serverId, serverName }: { serverId: number; serverName: string }) {
   const t = useTranslations("AggregatedNetworkCharts")
   const swrKey = `/api/monitor?server_id=${serverId}`
+  const refreshInterval = getClientPollingInterval(15000)
   const { data, error } = useSWR<NezhaAPIMonitor[]>(swrKey, nezhaFetcher, {
-    refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 15000,
+    refreshInterval,
     dedupingInterval: 1000, // Prevent excessive requests
   })
 

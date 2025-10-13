@@ -6,10 +6,11 @@ import getEnv from "@/lib/env-entry"
 import { Button } from "./ui/button"
 
 export function NetworkButton() {
-  // Hide network button in Komari mode since network delay charts are not supported
+  // Hide network button when the active driver does not support network charts
   const isKomariMode = getEnv("NEXT_PUBLIC_Komari") === "true"
+  const isMyNodeQueryMode = getEnv("NEXT_PUBLIC_MyNodeQuery") === "true"
 
-  if (isKomariMode) {
+  if (isKomariMode || isMyNodeQueryMode) {
     return null
   }
 

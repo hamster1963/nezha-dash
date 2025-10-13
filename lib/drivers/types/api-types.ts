@@ -165,3 +165,79 @@ export interface KomariRecentData {
   message: string
   updated_at: string
 }
+
+// MyNodeQuery API types
+export interface MyNodeQueryNode {
+  UniqueID: string
+  Name: string
+  Status: string
+  IPv4: string
+  IPv6: string
+  RXSpeed: string
+  TXSpeed: string
+  Load: number
+  RAM: number
+  Disk: number
+  LastUptime: string
+  EnableNotifi: boolean
+  LoadNotifiValue: number
+  RAMNotifiValue: number
+  DiskNotifiValue: number
+  Country: string
+}
+
+export interface MyNodeQueryListResponse {
+  Success: boolean
+  Message: string | null
+  Data: MyNodeQueryNode[]
+}
+
+export interface MyNodeQueryDetailResponse {
+  Success: boolean
+  Message: string | null
+  Data: {
+    Name: string
+    Overview: MyNodeQueryOverview
+  } | null
+}
+
+export interface MyNodeQueryOverview {
+  IP: string
+  IPv4: string
+  IPv6: string
+  NodeStatus: string
+  LastUptime: string
+  Uptime: string
+  OSName: string
+  OSkernel: string
+  CPUName: string
+  CPUFlags: string
+  CPUCoreCount: number
+  CPUFreq: string
+  CPUFreqs: string
+  AllCPUTemps: string
+  FileHandles: string
+  FileHandles_Formated: string
+  RXSpeed: string
+  TXSpeed: string
+  RX: string
+  TX: string
+  LoadCPU: string
+  LoadCPURate: number
+  Load: string
+  RAMUsage: string
+  RAMTotal: string
+  RAMUsageRate: number
+  DiskUsage: string
+  DiskTotal: string
+  DiskUsageRate: number
+  EnableNotifi: boolean
+  LoadNotifiValue: number
+  RAMNotifiValue: number
+  DiskNotifiValue: number
+  NIC: string
+  PingNodeGroupID: number
+  Country: string
+  BuyUrl: string
+  ShowRealReport: boolean
+}

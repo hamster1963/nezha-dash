@@ -3,7 +3,7 @@
 import { createContext, type ReactNode, useContext, useEffect, useState } from "react"
 import useSWR from "swr"
 import type { ServerApi } from "@/lib/drivers/types"
-import getEnv from "@/lib/env-entry"
+import { getClientPollingInterval } from "@/lib/polling"
 import { nezhaFetcher } from "@/lib/utils"
 
 export interface ServerDataWithTimestamp {
@@ -25,8 +25,10 @@ export const MAX_HISTORY_LENGTH = 30
 export function ServerDataProvider({ children }: { children: ReactNode }) {
   const [history, setHistory] = useState<ServerDataWithTimestamp[]>([])
 
+  const refreshInterval = getClientPollingInterval(2000)
+
   const { data, error, isLoading } = useSWR<ServerApi>("/api/server", nezhaFetcher, {
-    refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 2000,
+    refreshInterval,
     dedupingInterval: 1000,
   })
 

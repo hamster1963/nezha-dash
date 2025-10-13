@@ -36,36 +36,74 @@ export class DriverManager implements IDriverManager {
     }
 
     // Determine driver type from environment
+    const isMyNodeQueryMode = getEnv("NEXT_PUBLIC_MyNodeQuery") === "true"
     const isKomariMode = getEnv("NEXT_PUBLIC_Komari") === "true"
-    const driverType = isKomariMode ? "komari" : "nezha"
+    const hasMyNodeQueryConfig = !!getEnv("MyNodeQueryBaseUrl")
+    const hasKomariConfig = !!getEnv("KomariBaseUrl")
+    const hasNezhaConfig = !!getEnv("NezhaBaseUrl") && !!getEnv("NezhaAuth")
+    const driverPreferences: SupportedDriverType[] = []
 
-    try {
-      // Create configuration based on driver type
-      const config = this.createDriverConfig(driverType as SupportedDriverType)
+    if (isMyNodeQueryMode) {
+      if (hasMyNodeQueryConfig) {
+        driverPreferences.push("mynodequery")
+      } else {
+        console.warn("MyNodeQuery mode enabled but MyNodeQueryBaseUrl is not configured")
+      }
+    }
 
-      // Switch to the determined driver
-      await this.switchDriver(driverType, config)
-    } catch (error) {
-      console.error(`Failed to initialize ${driverType} driver:`, error)
+    if (isKomariMode) {
+      if (hasKomariConfig) {
+        driverPreferences.push("komari")
+      } else {
+        console.warn("Komari mode enabled but KomariBaseUrl is not configured")
+      }
+    }
 
-      // If we're in Komari mode but it fails, try to fallback to Nezha if available
-      if (isKomariMode) {
-        console.warn("Komari driver initialization failed, attempting Nezha fallback...")
-        try {
-          const nezhaConfig = this.createDriverConfig("nezha")
-          if (nezhaConfig.baseUrl && nezhaConfig.auth) {
-            await this.switchDriver("nezha", nezhaConfig)
-            console.log("Successfully fell back to Nezha driver")
-            return
-          }
-        } catch (fallbackError) {
-          console.error("Nezha fallback also failed:", fallbackError)
-        }
+    // Always consider Nezha as a fallback when credentials are available
+    if (hasNezhaConfig && !driverPreferences.includes("nezha")) {
+      driverPreferences.push("nezha")
+    }
+
+    if (driverPreferences.length === 0) {
+      throw new DriverOperationError(
+        "manager",
+        "initialize",
+        "No driver preferences available. Check datasource environment variables.",
+      )
+    }
+
+    let lastError: unknown = null
+
+    for (const driverType of driverPreferences) {
+      let config: DriverConfig
+
+      try {
+        config = this.createDriverConfig(driverType)
+      } catch (configError) {
+        console.warn(`Configuration for driver ${driverType} is invalid:`, configError)
+        lastError = configError
+        continue
       }
 
-      // If all else fails, rethrow the original error
-      throw error
+      try {
+        await this.switchDriver(driverType, config)
+        console.info(`Initialized ${driverType} driver`)
+        return
+      } catch (error) {
+        console.error(`Failed to initialize ${driverType} driver:`, error)
+        lastError = error
+      }
     }
+
+    if (lastError) {
+      throw lastError
+    }
+
+    throw new DriverOperationError(
+      "manager",
+      "initialize",
+      "No suitable driver could be initialized",
+    )
   }
 
   /**
@@ -192,6 +230,24 @@ export class DriverManager implements IDriverManager {
         }
       }
 
+      case "mynodequery": {
+        const baseUrl = getEnv("MyNodeQueryBaseUrl") || ""
+
+        if (!baseUrl) {
+          throw new DriverOperationError(
+            "manager",
+            "createDriverConfig",
+            "MyNodeQueryBaseUrl is required for MyNodeQuery driver",
+          )
+        }
+
+        return {
+          baseUrl,
+          timeout: 30000,
+          revalidate: 0,
+        }
+      }
+
       default:
         throw new DriverOperationError(
           "manager",
@@ -208,7 +264,7 @@ export class DriverManager implements IDriverManager {
     const availableDrivers = this.getAvailableDrivers()
 
     // Priority order for auto-detection
-    const detectionOrder: SupportedDriverType[] = ["nezha", "komari"]
+    const detectionOrder: SupportedDriverType[] = ["nezha", "komari", "mynodequery"]
 
     for (const driverType of detectionOrder) {
       if (!availableDrivers.includes(driverType)) continue

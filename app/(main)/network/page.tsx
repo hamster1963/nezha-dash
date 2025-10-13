@@ -6,9 +6,11 @@ import getEnv from "@/lib/env-entry"
 export default function NetworkPage() {
   const t = useTranslations("NetworkPage")
 
-  // Check if Komari mode is enabled and redirect to main page
+  // Check if driver mode supports network monitoring
   const isKomariMode = getEnv("NEXT_PUBLIC_Komari") === "true"
-  if (isKomariMode) {
+  const isMyNodeQueryMode = getEnv("NEXT_PUBLIC_MyNodeQuery") === "true"
+
+  if (isKomariMode || isMyNodeQueryMode) {
     redirect("/")
   }
 

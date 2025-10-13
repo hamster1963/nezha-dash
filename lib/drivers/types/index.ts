@@ -8,6 +8,10 @@ import type {
   KomariRecentData as _KomariRecentData,
   KomariRecentResponse as _KomariRecentResponse,
   KomariServer as _KomariServer,
+  MyNodeQueryDetailResponse as _MyNodeQueryDetailResponse,
+  MyNodeQueryListResponse as _MyNodeQueryListResponse,
+  MyNodeQueryNode as _MyNodeQueryNode,
+  MyNodeQueryOverview as _MyNodeQueryOverview,
   NezhaAPI as _NezhaAPI,
   NezhaAPIHost as _NezhaAPIHost,
   NezhaAPIMonitor as _NezhaAPIMonitor,
@@ -29,6 +33,10 @@ export type KomariAPIResponse = _KomariAPIResponse
 export type KomariServer = _KomariServer
 export type KomariRecentResponse = _KomariRecentResponse
 export type KomariRecentData = _KomariRecentData
+export type MyNodeQueryNode = _MyNodeQueryNode
+export type MyNodeQueryOverview = _MyNodeQueryOverview
+export type MyNodeQueryListResponse = _MyNodeQueryListResponse
+export type MyNodeQueryDetailResponse = _MyNodeQueryDetailResponse
 
 /**
  * Driver configuration interface

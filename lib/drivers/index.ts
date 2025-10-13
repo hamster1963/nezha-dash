@@ -9,6 +9,7 @@ export type { SupportedDriverType } from "./factory"
 export { createDriver, DriverFactory, getDriverCapabilities, getSupportedDrivers } from "./factory"
 export { KomariDriver } from "./komari"
 export { DriverManager, getDriverManager, initializeDriverManager } from "./manager"
+export { MyNodeQueryDriver } from "./mynodequery"
 // Concrete driver implementations
 export { NezhaDriver } from "./nezha"
 // Core types and interfaces

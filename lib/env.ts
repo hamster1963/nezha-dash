@@ -18,6 +18,8 @@ export interface ServerEnvConfig {
   EnablePacketLossCalculation: boolean
   /** Komari API base URL */
   KomariBaseUrl: string
+  /** MyNodeQuery API base URL */
+  MyNodeQueryBaseUrl: string
 }
 
 /**
@@ -54,6 +56,8 @@ export interface ClientEnvConfig {
   ShowIpInfo: boolean
   /** Enable Komari panel compatibility */
   Komari: boolean
+  /** Enable MyNodeQuery panel compatibility */
+  MyNodeQuery: boolean
 }
 
 /**
@@ -132,6 +136,7 @@ export function getAllEnvConfig(): { server: ServerEnvConfig; client: ClientEnvC
       SitePassword: getServerEnv("SitePassword") || "",
       EnablePacketLossCalculation: parseBoolean(getServerEnv("EnablePacketLossCalculation")),
       KomariBaseUrl: getServerEnv("KomariBaseUrl") || "",
+      MyNodeQueryBaseUrl: getServerEnv("MyNodeQueryBaseUrl") || "",
     },
     client: {
       NezhaFetchInterval: parseNumber(getClientEnv("NezhaFetchInterval"), 5000),
@@ -149,6 +154,7 @@ export function getAllEnvConfig(): { server: ServerEnvConfig; client: ClientEnvC
       ShowTagCount: parseBoolean(getClientEnv("ShowTagCount")),
       ShowIpInfo: parseBoolean(getClientEnv("ShowIpInfo")),
       Komari: parseBoolean(getClientEnv("Komari")),
+      MyNodeQuery: parseBoolean(getClientEnv("MyNodeQuery")),
     },
   }
 }

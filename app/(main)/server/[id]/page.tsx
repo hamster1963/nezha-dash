@@ -19,12 +19,14 @@ export default function Page({ params }: PageProps) {
   const { id } = use(params)
   const serverId = Number(id)
 
-  // Check if Komari mode is enabled
+  // Check if alternative driver modes are enabled
   const isKomariMode = getEnv("NEXT_PUBLIC_Komari") === "true"
+  const isMyNodeQueryMode = getEnv("NEXT_PUBLIC_MyNodeQuery") === "true"
+  const disableNetworkTab = isKomariMode || isMyNodeQueryMode
 
   // Always show both tabs, but disable Network tab in Komari mode
   const tabs: TabType[] = ["Detail", "Network"]
-  const disabledTabs: TabType[] = isKomariMode ? ["Network"] : []
+  const disabledTabs: TabType[] = disableNetworkTab ? ["Network"] : []
   const [currentTab, setCurrentTab] = useState<TabType>(tabs[0])
 
   // Handle tab switching - prevent switching to disabled tabs
@@ -36,12 +38,12 @@ export default function Page({ params }: PageProps) {
 
   const tabContent = {
     Detail: <ServerDetailChartClient server_id={serverId} show={currentTab === "Detail"} />,
-    Network: isKomariMode ? (
+    Network: disableNetworkTab ? (
       <div className="flex flex-col items-center justify-center p-8">
         <div className="text-center">
           <p className="mb-2 font-medium text-lg">网络延迟图表不可用</p>
           <p className="text-muted-foreground text-sm">
-            在 Komari 模式下，网络延迟监控功能未提供。
+            当前数据源模式下，网络延迟监控功能未提供。
           </p>
         </div>
       </div>

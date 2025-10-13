@@ -40,6 +40,9 @@ export default function ServerFlag({
 
   if (!country_code) return null
 
+  const normalizedUpper = country_code.toUpperCase()
+  const normalizedLower = country_code.toLowerCase()
+
   // If the country_code is already an emoji flag, display it directly
   if (isEmojiFlag(country_code)) {
     return (
@@ -50,9 +53,9 @@ export default function ServerFlag({
   return (
     <span className={cn("text-[12px] text-muted-foreground", className)}>
       {useSvgFlag || !supportsEmojiFlags ? (
-        <span className={`fi fi-${country_code}`} />
+        <span className={`fi fi-${normalizedLower}`} />
       ) : (
-        getUnicodeFlagIcon(country_code)
+        getUnicodeFlagIcon(normalizedUpper)
       )}
     </span>
   )

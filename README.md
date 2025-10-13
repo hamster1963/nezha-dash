@@ -48,6 +48,20 @@ NezhaDash 现在支持 Komari 面板数据源。要启用 Komari 模式，请设
 > [!NOTE]
 > 在 Komari 模式下，系统会并发获取所有服务器的实时数据，提供准确的当前状态监控。如果某个服务器的实时数据获取失败，系统会降级到基础信息显示。
 
+#### MyNodeQuery 面板兼容
+
+NezhaDash 同样支持 [MyNodeQuery](https://status.idcoffer.com/) 数据源。要启用 MyNodeQuery 模式，请设置以下环境变量：
+
+- `NEXT_PUBLIC_MyNodeQuery=true` - 启用 MyNodeQuery 兼容模式
+- `MyNodeQueryBaseUrl=https://status.idcoffer.com` - MyNodeQuery 面板的基础 URL
+
+启用后系统会调用官方面板提供的 POST 接口：
+- `MyNodeQueryBaseUrl/Dashboard/GetNodes` - 获取服务器列表
+- `MyNodeQueryBaseUrl/Detail/GetDetail` - 获取指定服务器的详细信息（请求体：`{"UniqueID":"<节点 UniqueID>"}`）
+
+> [!NOTE]
+> MyNodeQuery 模式下仪表盘的网络图表会自动隐藏。
+
 ![screen](/.github/v2-1.webp)
 ![screen](/.github/v2-2.webp)
 ![screen](/.github/v2-3.webp)

@@ -30,6 +30,8 @@ export async function GET() {
       environment: {
         komariMode: getEnv("NEXT_PUBLIC_Komari") === "true",
         hasKomariUrl: !!getEnv("KomariBaseUrl"),
+        myNodeQueryMode: getEnv("NEXT_PUBLIC_MyNodeQuery") === "true",
+        hasMyNodeQueryUrl: !!getEnv("MyNodeQueryBaseUrl"),
         hasNezhaUrl: !!getEnv("NezhaBaseUrl"),
         hasNezhaAuth: !!getEnv("NezhaAuth"),
       },
@@ -50,6 +52,8 @@ export async function GET() {
       environment: {
         komariMode: getEnv("NEXT_PUBLIC_Komari") === "true",
         hasKomariUrl: !!getEnv("KomariBaseUrl"),
+        myNodeQueryMode: getEnv("NEXT_PUBLIC_MyNodeQuery") === "true",
+        hasMyNodeQueryUrl: !!getEnv("MyNodeQueryBaseUrl"),
         hasNezhaUrl: !!getEnv("NezhaBaseUrl"),
         hasNezhaAuth: !!getEnv("NezhaAuth"),
       },

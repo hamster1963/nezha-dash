@@ -24,6 +24,8 @@ interface DriverInfoError {
     hasKomariUrl: boolean
     hasNezhaUrl: boolean
     hasNezhaAuth: boolean
+    myNodeQueryMode: boolean
+    hasMyNodeQueryUrl: boolean
   }
   availableDrivers: string[]
   configuredDriver: string

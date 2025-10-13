@@ -18,7 +18,7 @@ import {
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import type { NezhaAPIMonitor, ServerMonitorChart } from "@/lib/drivers/types"
-import getEnv from "@/lib/env-entry"
+import { getClientPollingInterval } from "@/lib/polling"
 import { formatTime, nezhaFetcher } from "@/lib/utils"
 
 interface ResultItem {
@@ -28,11 +28,12 @@ interface ResultItem {
 
 export function NetworkChartClient({ server_id, show }: { server_id: number; show: boolean }) {
   const t = useTranslations("NetworkChartClient")
+  const refreshInterval = getClientPollingInterval(15000)
   const { data, error } = useSWR<NezhaAPIMonitor[]>(
     `/api/monitor?server_id=${server_id}`,
     nezhaFetcher,
     {
-      refreshInterval: Number(getEnv("NEXT_PUBLIC_NezhaFetchInterval")) || 15000,
+      refreshInterval,
       isVisible: () => show,
     },
   )
