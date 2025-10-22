@@ -72,7 +72,7 @@ export default function AnimatedCircularProgressBar({
           strokeLinecap="round"
           strokeLinejoin="round"
           className={cn("stroke-current opacity-100", {
-            "stroke-[var(--stroke-primary-color)]": primaryColor,
+            "stroke-(--stroke-primary-color)": primaryColor,
           })}
           style={
             {
@@ -92,7 +92,7 @@ export default function AnimatedCircularProgressBar({
       </svg>
       <span
         data-current-value={currentPercent}
-        className="fade-in absolute inset-0 m-auto size-fit animate-in delay-[var(--delay)] duration-[var(--transition-length)] ease-linear"
+        className="fade-in absolute inset-0 m-auto size-fit animate-in delay-(--delay) duration-(--transition-length) ease-linear"
       >
         {currentPercent}
       </span>
