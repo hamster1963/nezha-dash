@@ -22,21 +22,13 @@ const withPWA = withPWAInit({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true,
     inlineCss: true,
-    reactCompiler: true,
     serverActions: {
       allowedOrigins: ["*"],
     },
   },
+  reactCompiler: true,
   output: "standalone",
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
   logging: {
     fetches: {
       fullUrl: true,
