@@ -30,7 +30,7 @@
     "@types/crypto-js": "^4.2.2",
     "@types/d3-geo": "^3.1.0",
     "@types/luxon": "^3.7.1",
-    "babel-plugin-react-compiler": "^19.0.0-beta-ebf51a3-20250411",
+    "babel-plugin-react-compiler": "^1.0.0",
     "caniuse-lite": "^1.0.30001751",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
