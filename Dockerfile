@@ -2,7 +2,7 @@ FROM --platform=$BUILDPLATFORM node:25-alpine AS base
 
 # Stage 1: Install dependencies
 FROM base AS deps
-RUN apk add --no-cache curl unzip
+RUN apk add --no-cache curl unzip bash
 RUN curl -fsSL https://bun.sh/install | bash
 ENV PATH="/root/.bun/bin:$PATH"
 WORKDIR /app
@@ -11,7 +11,7 @@ RUN bun install --frozen-lockfile
 
 # Stage 2: Build the application
 FROM base AS builder
-RUN apk add --no-cache curl unzip
+RUN apk add --no-cache curl unzip bash
 RUN curl -fsSL https://bun.sh/install | bash
 ENV PATH="/root/.bun/bin:$PATH"
 WORKDIR /app
