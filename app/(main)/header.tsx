@@ -88,9 +88,9 @@ const Overview = memo(function Overview() {
         {mounted ? (
           <div className="flex items-center font-medium text-sm">
             <AnimateCountClient count={time.hh} minDigits={2} />
-            <span className="mb-[1px] font-medium text-sm opacity-50">:</span>
+            <span className="mb-px font-medium text-sm opacity-50">:</span>
             <AnimateCountClient count={time.mm} minDigits={2} />
-            <span className="mb-[1px] font-medium text-sm opacity-50">:</span>
+            <span className="mb-px font-medium text-sm opacity-50">:</span>
             <span className="font-medium text-sm">
               <AnimateCountClient count={time.ss} minDigits={2} />
             </span>
@@ -141,7 +141,7 @@ function Header() {
             />
           </div>
           {customTitle ? customTitle : "NezhaDash"}
-          <Separator orientation="vertical" className="mx-2 hidden h-4 w-[1px] md:block" />
+          <Separator orientation="vertical" className="mx-2 hidden h-4 w-px md:block" />
           <p className="hidden font-medium text-sm opacity-40 md:block">
             {customDescription ? customDescription : t("p_1079-1199_Simpleandbeautifuldashbo")}
           </p>

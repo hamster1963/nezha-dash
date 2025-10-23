@@ -157,7 +157,7 @@ export default function ServerOverviewClient() {
                   </section>
                   <section className="-mr-1 flex flex-row flex-wrap items-start gap-1 sm:items-center">
                     <p className="flex items-center text-nowrap font-semibold text-[11px]">
-                      <ArrowUpCircleIcon className="mr-0.5 size-3 sm:mb-[1px]" />
+                      <ArrowUpCircleIcon className="mr-0.5 size-3 sm:mb-px" />
                       {formatBytes(data?.total_out_speed)}/s
                     </p>
                     <p className="flex items-center text-nowrap font-semibold text-[11px]">

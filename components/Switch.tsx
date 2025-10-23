@@ -108,7 +108,7 @@ export default function Switch({
               sessionStorage.setItem("selectedTag", tag)
             }}
             className={cn(
-              "relative cursor-pointer rounded-3xl px-2.5 py-[8px] font-[600] text-[13px]",
+              "relative cursor-pointer rounded-3xl px-2.5 py-[8px] font-semibold text-[13px]",
               "text-stone-400 transition-all duration-500 ease-in-out hover:text-stone-950 dark:text-stone-500 hover:dark:text-stone-50",
               {
                 "text-stone-950 dark:text-stone-50": nowTag === tag,

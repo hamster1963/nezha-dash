@@ -186,7 +186,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
                   {getCountryDisplayName(country_code) && (
                     <div className="text-start text-xs">{getCountryDisplayName(country_code)}</div>
                   )}
-                  <ServerFlag className="-mt-[1px] text-[11px]" country_code={country_code} />
+                  <ServerFlag className="-mt-px text-[11px]" country_code={country_code} />
                 </section>
               </section>
             </CardContent>

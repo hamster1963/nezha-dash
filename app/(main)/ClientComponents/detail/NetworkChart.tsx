@@ -409,7 +409,13 @@ export const NetworkChart = React.memo(function NetworkChart({
                 />
               }
             />
-            {activeChart === defaultChart && <ChartLegend content={<ChartLegendContent />} />}
+            {activeChart === defaultChart && (
+              <ChartLegend
+                content={(props: any) => (
+                  <ChartLegendContent payload={props.payload} verticalAlign={props.verticalAlign} />
+                )}
+              />
+            )}
             {chartElements}
           </ComposedChart>
         </ChartContainer>

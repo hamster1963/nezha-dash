@@ -61,7 +61,7 @@ export function SignIn() {
           )}
           <p className="font-semibold text-base">{t("SignInMessage")}</p>
           <input
-            className="rounded-[5px] border-[1px] border-stone-300 px-1 dark:border-stone-800"
+            className="rounded-[5px] border border-stone-300 px-1 dark:border-stone-800"
             name="password"
             type="password"
           />

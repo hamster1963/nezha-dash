@@ -33,7 +33,7 @@ export function InteractiveMap({
   const path = geoPath().projection(projection)
 
   return (
-    <div className="relative aspect-[2/1] w-full" onMouseLeave={() => setTooltipData(null)}>
+    <div className="relative aspect-2/1 w-full" onMouseLeave={() => setTooltipData(null)}>
       <svg
         width={width}
         height={height}
