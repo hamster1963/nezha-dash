@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3040",
+    "dev": "next dev -p 3040 --webpack",
     "start": "node .next/standalone/server.js",
     "lint": "biome lint",
     "lint:fix": "biome lint --fix",

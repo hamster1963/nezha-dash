@@ -58,7 +58,7 @@ export default function ServerCardInline({ serverInfo }: { serverInfo: NezhaAPIS
             <div className={"flex flex-row items-center gap-2 whitespace-nowrap"}>
               <div className="font-semibold text-xs">
                 {host.Platform.includes("Windows") ? (
-                  <MageMicrosoftWindows className="size-[10px]" />
+                  <MageMicrosoftWindows className="size-2.5" />
                 ) : (
                   <p className={`fl-${GetFontLogoClass(host.Platform)}`} />
                 )}

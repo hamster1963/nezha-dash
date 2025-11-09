@@ -4,6 +4,7 @@ import { use, useState } from "react"
 import { NetworkChartClient } from "@/app/(main)/ClientComponents/detail/NetworkChart"
 import ServerDetailChartClient from "@/app/(main)/ClientComponents/detail/ServerDetailChartClient"
 import ServerDetailClient from "@/app/(main)/ClientComponents/detail/ServerDetailClient"
+import ServerDetailSummary from "@/app/(main)/ClientComponents/detail/ServerDetailSummary"
 import ServerIPInfo from "@/app/(main)/ClientComponents/detail/ServerIPInfo"
 import TabSwitch from "@/components/TabSwitch"
 import { Separator } from "@/components/ui/separator"
@@ -72,6 +73,11 @@ export default function Page({ params }: PageProps) {
         </div>
         <Separator className="flex-1" />
       </nav>
+
+      {/* detail lists */}
+      <section>
+        <ServerDetailSummary server_id={serverId} />
+      </section>
 
       {tabContent[currentTab]}
     </main>
