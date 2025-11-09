@@ -39,6 +39,8 @@
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-shine: shine 5s linear infinite;
+  --animate-mask-left-to-right: mask-left-to-right var(--animation-duration, 0.5s) ease-in-out forwards;
 
   @keyframes accordion-down {
     from {
@@ -54,6 +56,25 @@
     }
     to {
       height: 0;
+    }
+  }
+  @keyframes shine {
+    0% {
+      background-position: -100% top;
+    }
+    70% {
+      background-position: 250% top;
+    }
+    100% {
+      background-position: 250% top;
+    }
+  }
+  @keyframes mask-left-to-right {
+    from {
+      mask-position: left;
+    }
+    to {
+      mask-position: right;
     }
   }
 }

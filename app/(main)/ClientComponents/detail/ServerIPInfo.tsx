@@ -5,7 +5,8 @@ import useSWRImmutable from "swr/immutable"
 import type { IPInfo } from "@/app/api/server-ip/route"
 import { Loader } from "@/components/loading/Loader"
 import { Card, CardContent } from "@/components/ui/card"
-import { nezhaFetcher } from "@/lib/utils"
+import ShinyText from "@/components/ui/shiny-text"
+import { cn, nezhaFetcher } from "@/lib/utils"
 
 export default function ServerIPInfo({ server_id }: { server_id: number }) {
   const t = useTranslations("IPInfo")
@@ -14,8 +15,14 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
 
   if (!data) {
     return (
-      <div className="mb-11">
-        <Loader visible />
+      <div className="mb-4 flex min-h-[42px] flex-col items-start justify-center">
+        <ShinyText
+          icon={<Loader visible={true} />}
+          text={t("analysing")}
+          speed={3}
+          delay={0}
+          className={cn("font-medium text-xs")}
+        />
       </div>
     )
   }

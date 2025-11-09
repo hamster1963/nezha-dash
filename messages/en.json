@@ -59,6 +59,7 @@
     "chart_fetch_error_message": "Failed to fetch network data, please check if the server monitoring is enabled"
   },
   "IPInfo": {
+    "analysing": "Analysing IP info...",
     "asn_number": "Origin ASN",
     "registered_country": "Registered Country",
     "time_zone": "Time Zone",

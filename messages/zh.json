@@ -64,6 +64,7 @@
     "ServerMonitorCount": "个监控服务"
   },
   "IPInfo": {
+    "analysing": "正在分析 IP 信息...",
     "asn_number": "ASN 编号",
     "registered_country": "注册地",
     "time_zone": "时区",
