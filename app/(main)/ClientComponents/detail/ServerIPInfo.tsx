@@ -18,7 +18,7 @@ export default function ServerIPInfo({ server_id }: { server_id: number }) {
       <div className="mb-4 flex min-h-[42px] flex-col items-start justify-center">
         <ShinyText
           icon={<Loader visible={true} />}
-          text={"Analysing IP info..."}
+          text={t("analysing")}
           speed={3}
           delay={0}
           className={cn("font-medium text-xs")}

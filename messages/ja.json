@@ -58,6 +58,7 @@
     "chart_fetch_error_message": "ネットワークデータの取得に失敗しました。サーバーの監視が有効になっているかどうかを確認してください"
   },
   "IPInfo": {
+    "analysing": "IP情報を分析中...",
     "asn_number": "ASN",
     "registered_country": "Registered Country",
     "time_zone": "時刻",
