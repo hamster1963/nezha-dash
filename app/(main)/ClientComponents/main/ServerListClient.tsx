@@ -12,6 +12,7 @@ import { Loader } from "@/components/loading/Loader"
 import ServerCard from "@/components/ServerCard"
 import ServerCardInline from "@/components/ServerCardInline"
 import Switch from "@/components/Switch"
+import ShinyText from "@/components/ui/shiny-text"
 import getEnv from "@/lib/env-entry"
 import { cn } from "@/lib/utils"
 
@@ -58,8 +59,15 @@ const getTagCounts = (servers: any[]) => {
 const LoadingState = ({ t }: { t: any }) => (
   <div className="flex min-h-96 flex-col items-center justify-center">
     <div className="flex items-center gap-2 font-semibold text-sm">
-      <Loader visible={true} />
-      {t("connecting")}...
+      <ShinyText
+        icon={<Loader visible={true} />}
+        text={`${t("connecting")}...`}
+        speed={3}
+        delay={0}
+        className={cn(
+          "font-medium text-[14px] opacity-90 transition-opacity duration-500 hover:opacity-100",
+        )}
+      />
     </div>
   </div>
 )
