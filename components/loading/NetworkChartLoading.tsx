@@ -21,9 +21,7 @@ export default function NetworkChartLoading() {
             text={`${t("connecting")}...`}
             speed={3}
             delay={0}
-            className={cn(
-              "font-medium text-[14px] opacity-50 transition-opacity duration-500 hover:opacity-100",
-            )}
+            className={cn("font-medium text-[14px]")}
           />
         </div>
       </CardHeader>

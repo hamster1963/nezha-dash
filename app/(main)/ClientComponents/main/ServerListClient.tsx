@@ -64,9 +64,7 @@ const LoadingState = ({ t }: { t: any }) => (
         text={`${t("connecting")}...`}
         speed={3}
         delay={0}
-        className={cn(
-          "font-medium text-[14px] opacity-90 transition-opacity duration-500 hover:opacity-100",
-        )}
+        className={cn("font-medium text-[14px]")}
       />
     </div>
   </div>
