@@ -1,5 +1,8 @@
+"use client"
+
 import { useTheme } from "next-themes"
 import type React from "react"
+import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 
 interface ShinyTextProps {
@@ -25,12 +28,16 @@ const ShinyText: React.FC<ShinyTextProps> = ({
   className = "",
   style,
 }) => {
-  const { theme, systemTheme } = useTheme()
-  const resolvedTheme = theme === "system" ? systemTheme : theme
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
   const animationDuration = `${speed}s`
   const animationDelay = `${delay}s`
-  const defaultTextColor = resolvedTheme === "dark" ? "#f0f0f0" : "#333333"
-  const defaultHighlightColor = resolvedTheme === "dark" ? "#646464" : "#ffffff"
+  const defaultTextColor = mounted && resolvedTheme === "dark" ? "#f0f0f0" : "#333333"
+  const defaultHighlightColor = mounted && resolvedTheme === "dark" ? "#646464" : "#ffffff"
   const finalTextColor = textColor ?? defaultTextColor
   const finalHighlightColor = highlightColor ?? defaultHighlightColor
   const computedStyle: React.CSSProperties = {
