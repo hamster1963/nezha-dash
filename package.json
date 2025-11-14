@@ -10,7 +10,7 @@
     "format": "biome format --write .",
     "check": "biome check",
     "check:fix": "biome check --fix --unsafe",
-    "build": "next build",
+    "build": "next build --webpack",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
