@@ -5,7 +5,6 @@ import { NetworkChartClient } from "@/app/(main)/ClientComponents/detail/Network
 import ServerDetailChartClient from "@/app/(main)/ClientComponents/detail/ServerDetailChartClient"
 import ServerDetailClient from "@/app/(main)/ClientComponents/detail/ServerDetailClient"
 import ServerDetailSummary from "@/app/(main)/ClientComponents/detail/ServerDetailSummary"
-import ServerIPInfo from "@/app/(main)/ClientComponents/detail/ServerIPInfo"
 import TabSwitch from "@/components/TabSwitch"
 import { Separator } from "@/components/ui/separator"
 import getEnv from "@/lib/env-entry"
@@ -50,7 +49,6 @@ export default function Page({ params }: PageProps) {
       </div>
     ) : (
       <>
-        {getEnv("NEXT_PUBLIC_ShowIpInfo") && <ServerIPInfo server_id={serverId} />}
         <NetworkChartClient server_id={serverId} show={currentTab === "Network"} />
       </>
     ),
