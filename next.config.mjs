@@ -22,6 +22,7 @@ const withPWA = withPWAInit({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
+    inlineCss: true,
     serverActions: {
       allowedOrigins: ["*"],
     },
