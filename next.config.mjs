@@ -23,7 +23,6 @@ const withPWA = withPWAInit({
 const nextConfig = {
   experimental: {
     inlineCss: true,
-    turbopackFileSystemCacheForDev: true,
     serverActions: {
       allowedOrigins: ["*"],
     },
