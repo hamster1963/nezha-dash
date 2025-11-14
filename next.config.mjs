@@ -23,13 +23,11 @@ const withPWA = withPWAInit({
 const nextConfig = {
   experimental: {
     inlineCss: true,
-    turbopackFileSystemCacheForDev: true,
     serverActions: {
       allowedOrigins: ["*"],
     },
   },
   reactCompiler: true,
-  output: "standalone",
   logging: {
     fetches: {
       fullUrl: true,
@@ -37,3 +35,7 @@ const nextConfig = {
   },
 }
 export default bundleAnalyzer(withPWA(withNextIntl(nextConfig)))
+
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare"
+
+initOpenNextCloudflareForDev()
