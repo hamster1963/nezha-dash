@@ -47,3 +47,5 @@ next-env.d.ts
 .env
 
 CLAUDE.md
+
+.open-next

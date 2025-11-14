@@ -29,7 +29,6 @@ const nextConfig = {
     },
   },
   reactCompiler: true,
-  output: "standalone",
   logging: {
     fetches: {
       fullUrl: true,
@@ -37,3 +36,6 @@ const nextConfig = {
   },
 }
 export default bundleAnalyzer(withPWA(withNextIntl(nextConfig)))
+
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+initOpenNextCloudflareForDev();
