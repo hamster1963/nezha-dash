@@ -79,9 +79,9 @@ export class MyNodeQueryDriver extends BaseDriver {
       uniqueIdSet.add(node.UniqueID)
     }
 
-    const serverPromises = nodeList.map(async (node) => {
+    const serverPromises = nodeList.map(async (node, index) => {
       const overview = await this.getOverviewWithCache(node.UniqueID)
-      const nezhaServer = this.convertNodeToNezha(node, overview, timestamp)
+      const nezhaServer = this.convertNodeToNezha(node, overview, timestamp, nodeList.length - index)
 
       if (nezhaServer.online_status) {
         data.live_servers += 1
@@ -128,7 +128,7 @@ export class MyNodeQueryDriver extends BaseDriver {
     }
 
     const timestamp = Math.floor(Date.now() / 1000)
-    return this.convertNodeToNezha(node, overview, timestamp)
+    return this.convertNodeToNezha(node, overview, timestamp, 0)
   }
 
   protected async onGetServerMonitor(_serverId: number): Promise<NezhaAPIMonitor[]> {
@@ -340,6 +340,7 @@ export class MyNodeQueryDriver extends BaseDriver {
     node: MyNodeQueryNode,
     overview: MyNodeQueryOverview | null,
     timestamp: number,
+    displayIndex = 0,
   ): NezhaAPI {
     const id = this.generateNumericId(node.UniqueID)
     this.serverIdMap.set(id, node.UniqueID)
@@ -389,7 +390,7 @@ export class MyNodeQueryDriver extends BaseDriver {
       ipv4: "",
       ipv6: "",
       valid_ip: "",
-      display_index: 0,
+      display_index: displayIndex,
       hide_for_guest: false,
       host: {
         Platform: overview?.OSName || "",
