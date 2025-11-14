@@ -36,5 +36,6 @@ const nextConfig = {
 }
 export default bundleAnalyzer(withPWA(withNextIntl(nextConfig)))
 
-import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
-initOpenNextCloudflareForDev();
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare"
+
+initOpenNextCloudflareForDev()

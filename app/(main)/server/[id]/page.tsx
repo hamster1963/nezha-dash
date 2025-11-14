@@ -48,9 +48,7 @@ export default function Page({ params }: PageProps) {
         </div>
       </div>
     ) : (
-      <>
-        <NetworkChartClient server_id={serverId} show={currentTab === "Network"} />
-      </>
+      <NetworkChartClient server_id={serverId} show={currentTab === "Network"} />
     ),
   }
 
