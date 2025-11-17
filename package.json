@@ -1,6 +1,6 @@
 {
   "name": "nezha-dash",
-  "version": "cloudflare-3.1.0",
+  "version": "3.1.0-cloudflare",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3040 --webpack",
