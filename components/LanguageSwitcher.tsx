@@ -34,7 +34,10 @@ export function LanguageSwitcher() {
           <span className="sr-only">Change language</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="flex flex-col gap-0.5" align="end">
+      <DropdownMenuContent
+        className="flex flex-col gap-0.5 border-none shadow-md shadow-stone-200/50 ring ring-stone-200 dark:shadow-none dark:ring-stone-800"
+        align="end"
+      >
         {localeItems.map((item, index) => (
           <DropdownMenuItem
             key={item.code}
