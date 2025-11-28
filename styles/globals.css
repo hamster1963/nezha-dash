@@ -342,14 +342,14 @@
 
 .tooltip-animate {
   opacity: 0;
-  filter: blur(10px);
-  animation: tooltip-fade-in 0.2s ease-in-out forwards;
+  filter: blur(5px);
+  animation: tooltip-fade-in 0.1s ease-in-out forwards;
 }
 
 @keyframes tooltip-fade-in {
   from {
     opacity: 0;
-    filter: blur(10px);
+    filter: blur(5px);
   }
   to {
     opacity: 1;
