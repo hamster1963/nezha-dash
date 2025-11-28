@@ -109,7 +109,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
         {name}
       </div>
       <section className="mt-3 flex flex-wrap gap-2">
-        <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+        <Card className="border-none bg-transparent shadow-none ring-0">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
               <p className="text-muted-foreground text-xs">{t("status")}</p>
@@ -127,7 +127,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
             </section>
           </CardContent>
         </Card>
-        <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+        <Card className="border-none bg-transparent shadow-none ring-0">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
               <p className="text-muted-foreground text-xs">{t("Uptime")}</p>
@@ -141,7 +141,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
           </CardContent>
         </Card>
         {version && (
-          <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+          <Card className="border-none bg-transparent shadow-none ring-0">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
                 <p className="text-muted-foreground text-xs">{t("Version")}</p>
@@ -151,7 +151,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
           </Card>
         )}
         {arch && (
-          <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+          <Card className="border-none bg-transparent shadow-none ring-0">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
                 <p className="text-muted-foreground text-xs">{t("Arch")}</p>
@@ -161,7 +161,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
           </Card>
         )}
 
-        <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+        <Card className="border-none bg-transparent shadow-none ring-0">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
               <p className="text-muted-foreground text-xs">{t("Mem")}</p>
@@ -169,7 +169,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
             </section>
           </CardContent>
         </Card>
-        <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+        <Card className="border-none bg-transparent shadow-none ring-0">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
               <p className="text-muted-foreground text-xs">{t("Disk")}</p>
@@ -178,7 +178,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
           </CardContent>
         </Card>
         {country_code && (
-          <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+          <Card className="border-none bg-transparent shadow-none ring-0">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
                 <p className="text-muted-foreground text-xs">{t("Region")}</p>
@@ -195,7 +195,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
       </section>
       <section className="mt-1 flex flex-wrap gap-2">
         {platform && (
-          <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+          <Card className="border-none bg-transparent shadow-none ring-0">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
                 <p className="text-muted-foreground text-xs">{t("System")}</p>
@@ -209,7 +209,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
           </Card>
         )}
         {cpu_info && cpu_info.length > 0 && (
-          <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+          <Card className="border-none bg-transparent shadow-none ring-0">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
                 <p className="text-muted-foreground text-xs">{t("CPU")}</p>
@@ -220,7 +220,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
           </Card>
         )}
         {gpu_info && gpu_info.length > 0 && (
-          <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+          <Card className="border-none bg-transparent shadow-none ring-0">
             <CardContent className="px-1.5 py-1">
               <section className="flex flex-col items-start gap-0.5">
                 <p className="text-muted-foreground text-xs">{"GPU"}</p>
@@ -231,7 +231,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
         )}
       </section>
       <section className="mt-1 flex flex-wrap gap-2">
-        <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+        <Card className="border-none bg-transparent shadow-none ring-0">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
               <p className="text-muted-foreground text-xs">{t("Load")}</p>
@@ -241,7 +241,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
             </section>
           </CardContent>
         </Card>
-        <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+        <Card className="border-none bg-transparent shadow-none ring-0">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
               <p className="text-muted-foreground text-xs">{t("Upload")}</p>
@@ -253,7 +253,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
             </section>
           </CardContent>
         </Card>
-        <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+        <Card className="border-none bg-transparent shadow-none ring-0">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
               <p className="text-muted-foreground text-xs">{t("Download")}</p>
@@ -267,7 +267,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
         </Card>
       </section>
       <section className="mt-1 flex flex-wrap gap-2">
-        <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+        <Card className="border-none bg-transparent shadow-none ring-0">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
               <p className="text-muted-foreground text-xs">{t("BootTime")}</p>
@@ -275,7 +275,7 @@ export default function ServerDetailClient({ server_id }: { server_id: number })
             </section>
           </CardContent>
         </Card>
-        <Card className="rounded-[10px] border-none bg-transparent shadow-none">
+        <Card className="border-none bg-transparent shadow-none ring-0">
           <CardContent className="px-1.5 py-1">
             <section className="flex flex-col items-start gap-0.5">
               <p className="text-muted-foreground text-xs">{t("LastActive")}</p>

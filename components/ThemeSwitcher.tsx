@@ -36,7 +36,10 @@ export function ModeToggle() {
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="flex flex-col gap-0.5" align="end">
+      <DropdownMenuContent
+        className="flex flex-col gap-0.5 border-none shadow-md shadow-stone-200/50 ring ring-stone-200 dark:shadow-none dark:ring-stone-800"
+        align="end"
+      >
         <DropdownMenuItem
           className={cn("rounded-b-[5px]", {
             "gap-3 bg-muted font-semibold": theme === "light",

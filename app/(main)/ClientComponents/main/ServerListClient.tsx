@@ -90,7 +90,7 @@ const ServerList = ({
     return (
       <section
         ref={containerRef}
-        className="scrollbar-hidden flex flex-col gap-2 overflow-x-scroll"
+        className="scrollbar-hidden flex flex-col gap-2 overflow-x-scroll p-px"
       >
         {servers.map((serverInfo) => (
           <ServerCardInline key={serverInfo.id} serverInfo={serverInfo} />
