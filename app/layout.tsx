@@ -2,6 +2,8 @@ import { ThemeColorManager } from "@/components/ThemeColorManager"
 import getEnv from "@/lib/env-entry"
 import { cn } from "@/lib/utils"
 import "@/styles/globals.css"
+import "flag-icons/css/flag-icons.min.css"
+import "font-logos/assets/font-logos.css"
 import type { Metadata, Viewport } from "next"
 import { Inter as FontSans } from "next/font/google"
 import { NextIntlClientProvider } from "next-intl"
@@ -49,14 +51,6 @@ export default async function LocaleLayout({ children }: { children: React.React
     <html lang={locale} suppressHydrationWarning>
       <head>
         <PublicEnvScript />
-        <link
-          rel="stylesheet"
-          href="https://fastly.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fastly.jsdelivr.net/npm/font-logos@1/assets/font-logos.css"
-        />
       </head>
       <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
         <ThemeProvider
