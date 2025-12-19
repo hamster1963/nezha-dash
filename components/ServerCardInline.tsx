@@ -6,7 +6,7 @@ import { Card } from "@/components/ui/card"
 import type { NezhaAPISafe } from "@/lib/drivers/types"
 import getEnv from "@/lib/env-entry"
 import { GetFontLogoClass, GetOsName, MageMicrosoftWindows } from "@/lib/logo-class"
-import { cn, formatBytes, formatNezhaInfo } from "@/lib/utils"
+import { cn, formatBytes, formatNezhaInfo, getRemainingDays } from "@/lib/utils"
 
 import { Separator } from "./ui/separator"
 
@@ -115,6 +115,24 @@ export default function ServerCardInline({ serverInfo }: { serverInfo: NezhaAPIS
                 {formatBytes(serverInfo.status.NetInTransfer)}
               </div>
             </div>
+            {serverInfo.billing_data?.amount && (
+              <div className={"flex w-32 flex-col"}>
+                <p className="text-muted-foreground text-xs">{t("Price")}</p>
+                <div className="flex items-center font-semibold text-xs">
+                  {serverInfo.billing_data.amount}
+                </div>
+              </div>
+            )}
+            {serverInfo.billing_data?.cycle &&
+              serverInfo.billing_data.cycle.trim() !== "" &&
+              serverInfo.billing_data.expired_at && (
+                <div className={"flex w-24 flex-col"}>
+                  <p className="text-muted-foreground text-xs">{t("RemainingDays")}</p>
+                  <div className="flex items-center font-semibold text-xs">
+                    {getRemainingDays(serverInfo.billing_data.expired_at)} {t("Days")}
+                  </div>
+                </div>
+              )}
           </section>
         </div>
       </Card>

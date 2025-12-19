@@ -4,6 +4,7 @@
 
 // Import and re-export API types
 import type {
+  BillingData as _BillingData,
   KomariAPIResponse as _KomariAPIResponse,
   KomariRecentData as _KomariRecentData,
   KomariRecentResponse as _KomariRecentResponse,
@@ -29,6 +30,7 @@ export type NezhaAPIHost = _NezhaAPIHost
 export type NezhaAPIStatus = _NezhaAPIStatus
 export type NezhaAPIMonitor = _NezhaAPIMonitor
 export type ServerMonitorChart = _ServerMonitorChart
+export type BillingData = _BillingData
 export type KomariAPIResponse = _KomariAPIResponse
 export type KomariServer = _KomariServer
 export type KomariRecentResponse = _KomariRecentResponse

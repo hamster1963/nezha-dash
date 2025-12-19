@@ -6,6 +6,7 @@ import { connection } from "next/server"
 import getEnv from "@/lib/env-entry"
 import { BaseDriver } from "../base"
 import type {
+  BillingData,
   DriverConfig,
   KomariAPIResponse,
   KomariRecentData,
@@ -66,6 +67,35 @@ export class KomariDriver extends BaseDriver {
     // Store UUID mapping for later use
     this.serverUuidMap.set(id, komariServer.uuid)
 
+    // Parse billing data from public_remark if it contains billingDataMod
+    let billingData: BillingData | undefined
+    if (komariServer.public_remark) {
+      try {
+        const remarkData = JSON.parse(komariServer.public_remark)
+        if (remarkData.billingDataMod) {
+          billingData = {
+            cycle: remarkData.billingDataMod.cycle || "",
+            amount: remarkData.billingDataMod.amount || "",
+          }
+        }
+      } catch (_e) {
+        // public_remark is not JSON or doesn't contain billingDataMod, ignore
+      }
+    }
+
+    // If no billingDataMod, use Komari's native billing fields
+    if (
+      !billingData &&
+      (komariServer.price || komariServer.billing_cycle || komariServer.expired_at)
+    ) {
+      billingData = {
+        price: komariServer.price,
+        billing_cycle: komariServer.billing_cycle,
+        currency: komariServer.currency,
+        expired_at: komariServer.expired_at,
+      }
+    }
+
     return {
       id: id,
       name: komariServer.name,
@@ -110,6 +140,7 @@ export class KomariDriver extends BaseDriver {
         Temperatures: 0,
         GPU: 0,
       },
+      billing_data: billingData,
     }
   }
 

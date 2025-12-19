@@ -30,6 +30,16 @@ export interface NezhaAPI {
   hide_for_guest: boolean
   host: NezhaAPIHost
   status: NezhaAPIStatus
+  billing_data?: BillingData
+}
+
+export interface BillingData {
+  price?: number
+  billing_cycle?: number
+  currency?: string
+  expired_at?: string | null
+  cycle?: string
+  amount?: string
 }
 
 export interface NezhaAPIHost {

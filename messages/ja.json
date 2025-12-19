@@ -25,7 +25,10 @@
     "Uptime": "Uptime",
     "TotalUpload": "Upload",
     "TotalDownload": "Download",
-    "Region": "Region"
+    "Region": "Region",
+    "Price": "価格",
+    "RemainingDays": "残り日数",
+    "Days": "日"
   },
   "TabSwitch": {
     "Detail": "詳細",

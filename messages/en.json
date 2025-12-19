@@ -25,7 +25,10 @@
     "Uptime": "Uptime",
     "TotalUpload": "Upload",
     "TotalDownload": "Download",
-    "Region": "Region"
+    "Region": "Region",
+    "Price": "Price",
+    "RemainingDays": "Remaining Days",
+    "Days": "Days"
   },
   "TabSwitch": {
     "Detail": "Detail",

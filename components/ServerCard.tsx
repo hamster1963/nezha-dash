@@ -4,10 +4,11 @@ import ServerFlag from "@/components/ServerFlag"
 import ServerUsageBar from "@/components/ServerUsageBar"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
+import { Progress } from "@/components/ui/progress"
 import type { NezhaAPISafe } from "@/lib/drivers/types"
 import getEnv from "@/lib/env-entry"
 import { GetFontLogoClass, GetOsName, MageMicrosoftWindows } from "@/lib/logo-class"
-import { cn, formatBytes, formatNezhaInfo } from "@/lib/utils"
+import { cn, formatBytes, formatNezhaInfo, getRemainingDays } from "@/lib/utils"
 
 export default function ServerCard({ serverInfo }: { serverInfo: NezhaAPISafe }) {
   const t = useTranslations("ServerCard")
@@ -124,6 +125,39 @@ export default function ServerCard({ serverInfo }: { serverInfo: NezhaAPISafe })
               >
                 {t("Download")}:{formatBytes(serverInfo.status.NetInTransfer)}
               </Badge>
+            </section>
+          )}
+          {serverInfo.billing_data?.amount && (
+            <section className="flex flex-col gap-1">
+              <div className="flex items-center justify-between text-xs">
+                <span className="text-muted-foreground">
+                  {t("Price")}: {serverInfo.billing_data.amount}
+                </span>
+              </div>
+              {serverInfo.billing_data.cycle && serverInfo.billing_data.cycle.trim() !== "" && (
+                <>
+                  {serverInfo.billing_data.expired_at && (
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-muted-foreground">
+                        {t("RemainingDays")}: {getRemainingDays(serverInfo.billing_data.expired_at)}{" "}
+                        {t("Days")}
+                      </span>
+                    </div>
+                  )}
+                  {serverInfo.billing_data.expired_at && (
+                    <Progress
+                      value={Math.min(
+                        100,
+                        (getRemainingDays(serverInfo.billing_data.expired_at) /
+                          (serverInfo.billing_data.billing_cycle || 30)) *
+                          100,
+                      )}
+                      className="h-1"
+                      indicatorClassName="bg-blue-500"
+                    />
+                  )}
+                </>
+              )}
             </section>
           )}
         </div>

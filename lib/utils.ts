@@ -68,6 +68,15 @@ export function getDaysBetweenDates(date1: string, date2: string): number {
   return Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay))
 }
 
+export function getRemainingDays(expiredAt: string | null | undefined): number {
+  if (!expiredAt) return 0
+  const now = new Date()
+  const expireDate = new Date(expiredAt)
+  const diffTime = expireDate.getTime() - now.getTime()
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+  return Math.max(0, diffDays)
+}
+
 export const fetcher = (url: string) =>
   fetch(url)
     .then((res) => {

@@ -25,7 +25,10 @@
     "Uptime": "运行时间",
     "TotalUpload": "总上传",
     "TotalDownload": "总下载",
-    "Region": "地区"
+    "Region": "地区",
+    "Price": "价格",
+    "RemainingDays": "剩余天数",
+    "Days": "天"
   },
   "TabSwitch": {
     "Detail": "详情",
