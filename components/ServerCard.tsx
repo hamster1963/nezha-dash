@@ -10,6 +10,8 @@ import getEnv from "@/lib/env-entry"
 import { GetFontLogoClass, GetOsName, MageMicrosoftWindows } from "@/lib/logo-class"
 import { cn, formatBytes, formatNezhaInfo, getRemainingDays } from "@/lib/utils"
 
+const DEFAULT_BILLING_CYCLE_DAYS = 30
+
 export default function ServerCard({ serverInfo }: { serverInfo: NezhaAPISafe }) {
   const t = useTranslations("ServerCard")
   const { id, name, country_code, online, cpu, up, down, mem, stg, host } =
@@ -149,7 +151,7 @@ export default function ServerCard({ serverInfo }: { serverInfo: NezhaAPISafe })
                       value={Math.min(
                         100,
                         (getRemainingDays(serverInfo.billing_data.expired_at) /
-                          (serverInfo.billing_data.billing_cycle || 30)) *
+                          (serverInfo.billing_data.billing_cycle || DEFAULT_BILLING_CYCLE_DAYS)) *
                           100,
                       )}
                       className="h-1"
