@@ -63,7 +63,7 @@ export default function Page({ params }: PageProps) {
       {/* Always show tab navigation */}
       <nav className="my-2 flex w-full items-center">
         <Separator className="flex-1" />
-        <div className="flex w-full max-w-[200px] justify-center">
+        <div className="flex w-full max-w-50 justify-center">
           <TabSwitch
             tabs={tabs}
             currentTab={currentTab}
