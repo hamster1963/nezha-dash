@@ -10,7 +10,7 @@
     "format": "biome format --write .",
     "check": "biome check",
     "check:fix": "biome check --fix --unsafe",
-    "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
+    "build": "next build --webpack && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
     "cf-preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "cf-deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
