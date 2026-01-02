@@ -3,7 +3,7 @@
   "vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!**/.next", "!**/public", "!**/styles/globals.css"]
+    "includes": ["**", "!**/.next", "!**/public", "!**/styles/globals.css", "!**/.open-next"]
   },
   "formatter": {
     "enabled": true,
