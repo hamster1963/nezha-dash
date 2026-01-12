@@ -58,6 +58,8 @@ export interface ClientEnvConfig {
   Komari: boolean
   /** Enable MyNodeQuery panel compatibility */
   MyNodeQuery: boolean
+  /** Show server detail summary */
+  ShowServerDetailSummary: boolean
 }
 
 /**
@@ -155,6 +157,7 @@ export function getAllEnvConfig(): { server: ServerEnvConfig; client: ClientEnvC
       ShowIpInfo: parseBoolean(getClientEnv("ShowIpInfo")),
       Komari: parseBoolean(getClientEnv("Komari")),
       MyNodeQuery: parseBoolean(getClientEnv("MyNodeQuery")),
+      ShowServerDetailSummary: parseBoolean(getClientEnv("ShowServerDetailSummary")),
     },
   }
 }

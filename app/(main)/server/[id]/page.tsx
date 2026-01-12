@@ -30,6 +30,8 @@ export default function Page({ params }: PageProps) {
   const disabledTabs: TabType[] = disableNetworkTab ? ["Network"] : []
   const [currentTab, setCurrentTab] = useState<TabType>(tabs[0])
 
+  const showServerDetailSummary = getEnv("NEXT_PUBLIC_ShowServerDetailSummary") === "true"
+
   // Handle tab switching - prevent switching to disabled tabs
   const handleTabSwitch = (tab: string) => {
     if (!disabledTabs.includes(tab as TabType)) {
@@ -75,9 +77,11 @@ export default function Page({ params }: PageProps) {
       </nav>
 
       {/* detail lists */}
-      <section>
-        <ServerDetailSummary server_id={serverId} />
-      </section>
+      {showServerDetailSummary && (
+        <section>
+          <ServerDetailSummary server_id={serverId} />
+        </section>
+      )}
 
       {tabContent[currentTab]}
     </main>
