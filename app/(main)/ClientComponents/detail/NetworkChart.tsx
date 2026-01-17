@@ -115,38 +115,66 @@ export const NetworkChart = React.memo(function NetworkChart({
     [chartDataKey],
   )
 
+  // Calculate statistics for chart data (min/max delay)
+  const chartStats = useMemo(() => {
+    const stats: {
+      [key: string]: { minDelay: number; maxDelay: number }
+    } = {}
+
+    for (const key of chartDataKey) {
+      const data = chartData[key] || []
+      if (data.length > 0) {
+        const delays = data.map((item) => item.avg_delay)
+        const minDelay = Math.min(...delays)
+        const maxDelay = Math.max(...delays)
+        stats[key] = { minDelay, maxDelay }
+      } else {
+        stats[key] = { minDelay: 0, maxDelay: 0 }
+      }
+    }
+
+    return stats
+  }, [chartDataKey, chartData])
+
   const chartButtons = useMemo(
     () =>
-      chartDataKey.map((key) => (
-        <button
-          type="button"
-          key={key}
-          data-active={activeChart === key}
-          className={
-            "relative z-30 flex grow basis-0 cursor-pointer flex-col justify-center gap-1 border-neutral-200 border-b px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-t-0 sm:border-l sm:px-6 dark:border-neutral-800"
-          }
-          onClick={() => handleButtonClick(key)}
-        >
-          <span className="whitespace-nowrap text-muted-foreground text-xs">{key}</span>
-          <div className="flex flex-col gap-0.5">
-            <span className="font-bold text-md leading-none sm:text-lg">
-              {chartData[key][chartData[key].length - 1].avg_delay.toFixed(2)}ms
-            </span>
-            {chartData[key].some((item) => item.packet_loss !== undefined) && (
-              <span className="text-muted-foreground text-xs">
-                {(
-                  chartData[key]
-                    .filter((item) => item.packet_loss !== undefined)
-                    .reduce((sum, item) => sum + (item.packet_loss ?? 0), 0) /
-                  chartData[key].filter((item) => item.packet_loss !== undefined).length
-                ).toFixed(2)}
-                % avg loss
+      chartDataKey.map((key) => {
+        const stats = chartStats[key]
+        return (
+          <button
+            type="button"
+            key={key}
+            data-active={activeChart === key}
+            className={
+              "relative z-30 flex grow basis-0 cursor-pointer flex-col justify-center gap-1 border-neutral-200 border-b px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-t-0 sm:border-l sm:px-6 dark:border-neutral-800"
+            }
+            onClick={() => handleButtonClick(key)}
+          >
+            <span className="whitespace-nowrap text-muted-foreground text-xs">{key}</span>
+            <div className="flex flex-col gap-0.5">
+              <span className="font-bold text-md leading-none sm:text-lg">
+                {chartData[key][chartData[key].length - 1].avg_delay.toFixed(2)}ms
               </span>
-            )}
-          </div>
-        </button>
-      )),
-    [chartDataKey, activeChart, chartData, handleButtonClick],
+              <div className="flex items-center gap-2 text-[10px]">
+                <span className="text-green-500">↓{stats.minDelay.toFixed(0)}</span>
+                <span className="text-red-500">↑{stats.maxDelay.toFixed(0)}</span>
+                {chartData[key].some((item) => item.packet_loss !== undefined) && (
+                  <span className="text-muted-foreground">
+                    {(
+                      chartData[key]
+                        .filter((item) => item.packet_loss !== undefined)
+                        .reduce((sum, item) => sum + (item.packet_loss ?? 0), 0) /
+                      chartData[key].filter((item) => item.packet_loss !== undefined).length
+                    ).toFixed(2)}
+                    %
+                  </span>
+                )}
+              </div>
+            </div>
+          </button>
+        )
+      }),
+    [chartDataKey, activeChart, chartData, chartStats, handleButtonClick],
   )
 
   const chartElements = useMemo(() => {
@@ -300,14 +328,16 @@ export const NetworkChart = React.memo(function NetworkChart({
           <CardTitle className="flex flex-none items-center gap-0.5 text-md">
             {serverName}
           </CardTitle>
-          <CardDescription className="text-xs">
-            {chartDataKey.length} {t("ServerMonitorCount")}
-          </CardDescription>
-          <div className="mt-0.5 flex items-center space-x-2">
-            <Switch checked={isPeakEnabled} onCheckedChange={setIsPeakEnabled} />
-            <Label className="text-xs" htmlFor="Peak">
-              Peak cut
-            </Label>
+          <div className="flex items-center justify-between">
+            <CardDescription className="mr-2 text-xs">
+              {chartDataKey.length} {t("ServerMonitorCount")}
+            </CardDescription>
+            <div className="flex items-center space-x-2">
+              <Switch checked={isPeakEnabled} onCheckedChange={setIsPeakEnabled} />
+              <Label className="text-xs" htmlFor="Peak">
+                {t("peak_cut") || "Peak cut"}
+              </Label>
+            </div>
           </div>
         </div>
         <div className="flex w-full flex-wrap">{chartButtons}</div>
