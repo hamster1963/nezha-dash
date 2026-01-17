@@ -70,7 +70,8 @@
   "NetworkChart": {
     "avg_delay": "延遲",
     "packet_loss": "封包遺失率",
-    "ServerMonitorCount": "個監測服務"
+    "ServerMonitorCount": "個監測服務",
+    "peak_cut": "削峰"
   },
   "ServerDetailClient": {
     "detail_fetch_error_message": "獲取伺服器詳情失敗,請檢查您的環境變數並檢查伺服器控制台",
