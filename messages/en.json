@@ -71,7 +71,8 @@
   "NetworkChart": {
     "avg_delay": "Latency",
     "packet_loss": "Packet Loss",
-    "ServerMonitorCount": "Services"
+    "ServerMonitorCount": "Services",
+    "peak_cut": "Peak Cut"
   },
   "ServerDetailClient": {
     "detail_fetch_error_message": "Please check your environment variables and review the server console",

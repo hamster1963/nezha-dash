@@ -70,7 +70,8 @@
   "NetworkChart": {
     "avg_delay": "遅延",
     "packet_loss": "パケットロス率",
-    "ServerMonitorCount": "サービス"
+    "ServerMonitorCount": "サービス",
+    "peak_cut": "ピークカット"
   },
   "ServerDetailClient": {
     "detail_fetch_error_message": "環境変数を確認し、サーバーコンソールを確認してください",
