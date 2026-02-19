@@ -1,23 +1,17 @@
 FROM --platform=$BUILDPLATFORM node:25-alpine AS base
+RUN corepack enable
+WORKDIR /app
 
 # Stage 1: Install dependencies
 FROM base AS deps
-RUN apk add --no-cache curl unzip bash
-RUN curl -fsSL https://bun.sh/install | bash
-ENV PATH="/root/.bun/bin:$PATH"
-WORKDIR /app
-COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
 # Stage 2: Build the application
 FROM base AS builder
-RUN apk add --no-cache curl unzip bash
-RUN curl -fsSL https://bun.sh/install | bash
-ENV PATH="/root/.bun/bin:$PATH"
-WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN bun run build
+RUN pnpm run build
 
 # Stage 3: Production image
 FROM node:25-alpine AS runner
