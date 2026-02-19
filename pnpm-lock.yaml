@@ -60,7 +60,7 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       caniuse-lite:
-        specifier: ^1.0.30001764
+        specifier: ^1.0.30001770
         version: 1.0.30001770
       class-variance-authority:
         specifier: ^0.7.1
@@ -72,7 +72,7 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       country-flag-icons:
-        specifier: ^1.6.4
+        specifier: ^1.6.13
         version: 1.6.13
       crypto-js:
         specifier: ^4.2.0
@@ -102,13 +102,13 @@ importers:
         specifier: ^4.3.29
         version: 4.3.29
       next:
-        specifier: ^16.1.3
+        specifier: ^16.1.6
         version: 16.1.6(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next-auth:
-        specifier: ^5.0.0-beta.30
+        specifier: 5.0.0-beta.30
         version: 5.0.0-beta.30(next@16.1.6(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
       next-intl:
-        specifier: ^4.7.0
+        specifier: ^4.8.3
         version: 4.8.3(next@16.1.6(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
       next-runtime-env:
         specifier: ^3.3.0
@@ -117,47 +117,47 @@ importers:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react:
-        specifier: ^19.2.3
+        specifier: ^19.2.4
         version: 19.2.4
       react-device-detect:
         specifier: ^2.2.3
         version: 2.2.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react-dom:
-        specifier: ^19.2.3
+        specifier: ^19.2.4
         version: 19.2.4(react@19.2.4)
       react-wrap-balancer:
         specifier: ^1.1.1
         version: 1.1.1(react@19.2.4)
       recharts:
-        specifier: ^3.6.0
+        specifier: ^3.7.0
         version: 3.7.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react-is@19.2.4)(react@19.2.4)(redux@5.0.1)
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
       swr:
-        specifier: ^2.3.8
+        specifier: ^2.4.0
         version: 2.4.0(react@19.2.4)
       tailwind-merge:
-        specifier: ^3.4.0
+        specifier: ^3.5.0
         version: 3.5.0
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@4.2.0)
     devDependencies:
       '@biomejs/biome':
-        specifier: ^2.3.11
+        specifier: ^2.4.2
         version: 2.4.2
       '@next/bundle-analyzer':
-        specifier: ^16.1.3
+        specifier: ^16.1.6
         version: 16.1.6
       '@tailwindcss/postcss':
-        specifier: ^4.1.18
+        specifier: ^4.2.0
         version: 4.2.0
       '@types/node':
-        specifier: ^25.0.9
+        specifier: ^25.3.0
         version: 25.3.0
       '@types/react':
-        specifier: ^19.2.8
+        specifier: ^19.2.14
         version: 19.2.14
       '@types/react-dom':
         specifier: ^19.2.3
@@ -166,13 +166,13 @@ importers:
         specifier: ^8.5.6
         version: 8.5.6
       tailwindcss:
-        specifier: ^4.1.18
+        specifier: ^4.2.0
         version: 4.2.0
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
       vercel:
-        specifier: ^50.4.5
+        specifier: ^50.19.1
         version: 50.19.1(rollup@2.79.2)(typescript@5.9.3)
 
 packages:
@@ -3776,6 +3776,15 @@ packages:
       encoding:
         optional: true
 
+  node-fetch@2.7.0:
+    resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
+    engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
+
   node-gyp-build@4.8.4:
     resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
     hasBin: true
@@ -5760,7 +5769,7 @@ snapshots:
       consola: 3.4.2
       detect-libc: 2.1.2
       https-proxy-agent: 7.0.6
-      node-fetch: 2.6.9
+      node-fetch: 2.7.0
       nopt: 8.1.0
       semver: 7.7.4
       tar: 7.5.9
@@ -8336,6 +8345,10 @@ snapshots:
       whatwg-url: 5.0.0
 
   node-fetch@2.6.9:
+    dependencies:
+      whatwg-url: 5.0.0
+
+  node-fetch@2.7.0:
     dependencies:
       whatwg-url: 5.0.0
 
