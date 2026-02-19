@@ -1,6 +1,6 @@
 {
   "name": "nezha-dash",
-  "version": "3.1.8",
+  "version": "3.1.9",
   "private": true,
   "packageManager": "pnpm@10.29.3",
   "scripts": {
