@@ -1,5 +1,5 @@
 FROM --platform=$BUILDPLATFORM node:25-alpine AS base
-RUN corepack enable
+RUN npm install -g pnpm@10.29.3
 WORKDIR /app
 
 # Stage 1: Install dependencies
