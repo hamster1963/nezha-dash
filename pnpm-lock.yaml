@@ -93,14 +93,14 @@ importers:
         specifier: ^7.14.0
         version: 7.14.0
       lucide-react:
-        specifier: ^0.525.0
-        version: 0.525.0(react@19.2.4)
+        specifier: ^0.574.0
+        version: 0.574.0(react@19.2.4)
       luxon:
         specifier: ^3.7.2
         version: 3.7.2
       maxmind:
-        specifier: ^4.3.29
-        version: 4.3.29
+        specifier: ^5.0.5
+        version: 5.0.5
       next:
         specifier: ^16.1.6
         version: 16.1.6(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -3577,8 +3577,8 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
 
-  lucide-react@0.525.0:
-    resolution: {integrity: sha512-Tm1txJ2OkymCGkvwoHt33Y2JpN5xucVq1slHcgE6Lk0WjDfjgKWor5CdVER8U6DvcfMwh4M8XxmpTiyzfmfDYQ==}
+  lucide-react@0.574.0:
+    resolution: {integrity: sha512-dJ8xb5juiZVIbdSn3HTyHsjjIwUwZ4FNwV0RtYDScOyySOeie1oXZTymST6YPJ4Qwt3Po8g4quhYl4OxtACiuQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -3596,8 +3596,8 @@ packages:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
 
-  maxmind@4.3.29:
-    resolution: {integrity: sha512-Vxx0rh7omBekjZnsDxpw35SrGGM3Uy7NoIKWzZlvh3UcjihGaySR8n+YSQ8YBseCvhEn+yehA98rZkTDW+uhPw==}
+  maxmind@5.0.5:
+    resolution: {integrity: sha512-1lcH2kMjbBpCFhuHaMU32vz8CuOsKttRcWMQyXvtlklopCzN7NNHSVR/h9RYa8JPuFTGmkn2vYARm+7cIGuqDw==}
     engines: {node: '>=12', npm: '>=6'}
 
   merge-stream@2.0.0:
@@ -3656,8 +3656,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  mmdb-lib@2.2.1:
-    resolution: {integrity: sha512-DXO4L9W+08T+A7h5+xdT32l7IMot8z7WOH+7C1Maol571PnktQ8un7Ni4CyPFp4H+vht/FDA5/tpjRvWMFQDMw==}
+  mmdb-lib@3.0.2:
+    resolution: {integrity: sha512-7e87vk0DdWT647wjcfEtWeMtjm+zVGqNohN/aeIymbUfjHQ2T4Sx5kM+1irVDBSloNC3CkGKxswdMoo8yhqTDg==}
     engines: {node: '>=10', npm: '>=6'}
 
   mri@1.2.0:
@@ -4410,8 +4410,8 @@ packages:
   tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
 
-  tiny-lru@11.3.4:
-    resolution: {integrity: sha512-UxWEfRKpFCabAf6fkTNdlfSw/RDUJ/4C6i1aLZaDnGF82PERHyYhz5CMCVYXtLt34LbqgfpJ2bjmgGKgxuF/6A==}
+  tiny-lru@11.4.7:
+    resolution: {integrity: sha512-w/Te7uMUVeH0CR8vZIjr+XiN41V+30lkDdK+NRIDCUYKKuL9VcmaUEmaPISuwGhLlrTGh5yu18lENtR9axSxYw==}
     engines: {node: '>=12'}
 
   tinyexec@0.3.2:
@@ -8190,7 +8190,7 @@ snapshots:
 
   lru-cache@7.18.3: {}
 
-  lucide-react@0.525.0(react@19.2.4):
+  lucide-react@0.574.0(react@19.2.4):
     dependencies:
       react: 19.2.4
 
@@ -8206,10 +8206,10 @@ snapshots:
 
   math-intrinsics@1.1.0: {}
 
-  maxmind@4.3.29:
+  maxmind@5.0.5:
     dependencies:
-      mmdb-lib: 2.2.1
-      tiny-lru: 11.3.4
+      mmdb-lib: 3.0.2
+      tiny-lru: 11.4.7
 
   merge-stream@2.0.0: {}
 
@@ -8258,7 +8258,7 @@ snapshots:
 
   mkdirp@1.0.4: {}
 
-  mmdb-lib@2.2.1: {}
+  mmdb-lib@3.0.2: {}
 
   mri@1.2.0: {}
 
@@ -9050,7 +9050,7 @@ snapshots:
 
   tiny-invariant@1.3.3: {}
 
-  tiny-lru@11.3.4: {}
+  tiny-lru@11.4.7: {}
 
   tinyexec@0.3.2: {}
 
