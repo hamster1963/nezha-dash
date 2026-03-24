@@ -1,22 +1,14 @@
-import { redirect } from "next/navigation"
 import { NextResponse } from "next/server"
-import { auth } from "@/auth"
+import { createErrorResponse, requireApiSession } from "@/lib/api-route"
 import getEnv from "@/lib/env-entry"
 import { PerformHealthCheck } from "@/lib/serverFetchV2"
 
 export const dynamic = "force-dynamic"
 
-interface ResError extends Error {
-  statusCode: number
-  message: string
-}
-
 export async function GET() {
-  if (getEnv("SitePassword")) {
-    const session = await auth()
-    if (!session) {
-      redirect("/")
-    }
+  const unauthorizedResponse = await requireApiSession()
+  if (unauthorizedResponse) {
+    return unauthorizedResponse
   }
 
   try {
@@ -41,12 +33,10 @@ export async function GET() {
       status: isHealthy ? 200 : 503,
     })
   } catch (error) {
-    const err = error as ResError
-    console.error("Error in health check:", err)
-
+    console.error("Error in health check:", error)
     const responseData = {
       healthy: false,
-      error: err.message || "Health check failed",
+      error: error instanceof Error ? error.message : "Health check failed",
       timestamp: new Date().toISOString(),
       status: "error",
       environment: {
@@ -59,8 +49,9 @@ export async function GET() {
       },
     }
 
+    const errorResponse = createErrorResponse(error, "Health check failed")
     return NextResponse.json(responseData, {
-      status: err.statusCode || 500,
+      status: errorResponse.status,
     })
   }
 }

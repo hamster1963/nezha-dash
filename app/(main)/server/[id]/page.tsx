@@ -40,7 +40,7 @@ export default function Page({ params }: PageProps) {
   }
 
   const tabContent = {
-    Detail: <ServerDetailChartClient server_id={serverId} show={currentTab === "Detail"} />,
+    Detail: <ServerDetailChartClient server_id={serverId} />,
     Network: disableNetworkTab ? (
       <div className="flex flex-col items-center justify-center p-8">
         <div className="text-center">
@@ -52,7 +52,7 @@ export default function Page({ params }: PageProps) {
       </div>
     ) : (
       <>
-        {getEnv("NEXT_PUBLIC_ShowIpInfo") && <ServerIPInfo server_id={serverId} />}
+        {getEnv("NEXT_PUBLIC_ShowIpInfo") === "true" && <ServerIPInfo server_id={serverId} />}
         <NetworkChartClient server_id={serverId} show={currentTab === "Network"} />
       </>
     ),

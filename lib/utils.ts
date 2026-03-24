@@ -6,6 +6,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+function toPercentage(used: number, total: number) {
+  if (total <= 0) {
+    return 0
+  }
+
+  return (used / total) * 100
+}
+
 export function formatNezhaInfo(serverInfo: NezhaAPISafe) {
   return {
     ...serverInfo,
@@ -32,10 +40,10 @@ export function formatNezhaInfo(serverInfo: NezhaAPISafe) {
     disk_total: serverInfo.host.DiskTotal || 0,
     platform: serverInfo.host.Platform || "",
     platform_version: serverInfo.host.PlatformVersion || "",
-    mem: (serverInfo.status.MemUsed / serverInfo.host.MemTotal) * 100 || 0,
-    swap: (serverInfo.status.SwapUsed / serverInfo.host.SwapTotal) * 100 || 0,
-    disk: (serverInfo.status.DiskUsed / serverInfo.host.DiskTotal) * 100 || 0,
-    stg: (serverInfo.status.DiskUsed / serverInfo.host.DiskTotal) * 100 || 0,
+    mem: toPercentage(serverInfo.status.MemUsed, serverInfo.host.MemTotal),
+    swap: toPercentage(serverInfo.status.SwapUsed, serverInfo.host.SwapTotal),
+    disk: toPercentage(serverInfo.status.DiskUsed, serverInfo.host.DiskTotal),
+    stg: toPercentage(serverInfo.status.DiskUsed, serverInfo.host.DiskTotal),
     net_out_transfer: serverInfo.status.NetOutTransfer || 0,
     net_in_transfer: serverInfo.status.NetInTransfer || 0,
     country_code: serverInfo.host.CountryCode,
