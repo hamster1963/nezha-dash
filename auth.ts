@@ -6,7 +6,7 @@ import getEnv from "@/lib/env-entry"
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret:
     process.env.AUTH_SECRET ??
-    createHash("md5")
+    createHash("sha256")
       .update(`this_is_nezha_dash_web_secret_${getEnv("SitePassword")}`)
       .digest("hex"),
   trustHost: process.env.AUTH_TRUST_HOST ? process.env.AUTH_TRUST_HOST === "true" : true,
