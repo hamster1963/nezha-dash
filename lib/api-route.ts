@@ -26,8 +26,7 @@ export function createErrorResponse(error: unknown, fallbackMessage = "Internal 
     typeof routeError?.message === "string" && routeError.message.length > 0
       ? routeError.message
       : fallbackMessage
-  const statusCode =
-    typeof routeError?.statusCode === "number" ? routeError.statusCode : 500
+  const statusCode = typeof routeError?.statusCode === "number" ? routeError.statusCode : 500
 
   return NextResponse.json({ error: message }, { status: statusCode })
 }

@@ -62,11 +62,7 @@ function buildServerMetricHistory<T extends Record<string, number>>({
   return [...historyPoints, currentPoint].slice(-MAX_HISTORY_LENGTH)
 }
 
-export default function ServerDetailChartClient({
-  server_id,
-}: {
-  server_id: number
-}) {
+export default function ServerDetailChartClient({ server_id }: { server_id: number }) {
   const t = useTranslations("ServerDetailChartClient")
 
   const { data: serverList, error, history } = useServerData()
