@@ -13,12 +13,47 @@ export type IPInfo = {
   asn: AsnResponse
 }
 
-const cityLookup = new Reader<CityResponse>(
-  fs.readFileSync(path.join(process.cwd(), "lib", "maxmind-db", "GeoLite2-City.mmdb")),
-)
-const asnLookup = new Reader<AsnResponse>(
-  fs.readFileSync(path.join(process.cwd(), "lib", "maxmind-db", "GeoLite2-ASN.mmdb")),
-)
+type LookupReaders = {
+  cityLookup: Reader<CityResponse>
+  asnLookup: Reader<AsnResponse>
+}
+
+type RouteError = Error & {
+  statusCode: number
+}
+
+let lookupReaders: LookupReaders | null = null
+
+function createRouteError(message: string, statusCode = 500): RouteError {
+  return Object.assign(new Error(message), { statusCode })
+}
+
+function getLookupReaders(): LookupReaders {
+  if (lookupReaders) {
+    return lookupReaders
+  }
+
+  try {
+    lookupReaders = {
+      cityLookup: new Reader<CityResponse>(
+        fs.readFileSync(path.join(process.cwd(), "lib", "maxmind-db", "GeoLite2-City.mmdb")),
+      ),
+      asnLookup: new Reader<AsnResponse>(
+        fs.readFileSync(path.join(process.cwd(), "lib", "maxmind-db", "GeoLite2-ASN.mmdb")),
+      ),
+    }
+
+    return lookupReaders
+  } catch (error) {
+    console.error("Failed to initialize IP database readers:", error)
+
+    if ((error as NodeJS.ErrnoException)?.code === "ENOENT") {
+      throw createRouteError("IP database files are missing", 500)
+    }
+
+    throw createRouteError("IP database is unavailable", 500)
+  }
+}
 
 export async function GET(req: NextRequest) {
   const unauthorizedResponse = await requireApiSession()
@@ -43,6 +78,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "server_id must be a valid number" }, { status: 400 })
     }
 
+    const { cityLookup, asnLookup } = getLookupReaders()
     const ip = await GetServerIP({ server_id: serverIdNum })
 
     const data: IPInfo = {
