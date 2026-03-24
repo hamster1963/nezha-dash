@@ -1,22 +1,13 @@
-import { redirect } from "next/navigation"
 import { type NextRequest, NextResponse } from "next/server"
-import { auth } from "@/auth"
-import getEnv from "@/lib/env-entry"
+import { createErrorResponse, requireApiSession } from "@/lib/api-route"
 import { GetServerDetail } from "@/lib/serverFetchV2"
 
 export const dynamic = "force-dynamic"
 
-interface ResError extends Error {
-  statusCode: number
-  message: string
-}
-
 export async function GET(req: NextRequest) {
-  if (getEnv("SitePassword")) {
-    const session = await auth()
-    if (!session) {
-      redirect("/")
-    }
+  const unauthorizedResponse = await requireApiSession()
+  if (unauthorizedResponse) {
+    return unauthorizedResponse
   }
 
   const { searchParams } = new URL(req.url)
@@ -35,10 +26,7 @@ export async function GET(req: NextRequest) {
     const detailData = await GetServerDetail({ server_id: serverIdNum })
     return NextResponse.json(detailData, { status: 200 })
   } catch (error) {
-    const err = error as ResError
-    console.error("Error in GET handler:", err)
-    const statusCode = err.statusCode || 500
-    const message = err.message || "Internal Server Error"
-    return NextResponse.json({ error: message }, { status: statusCode })
+    console.error("Error in GET handler:", error)
+    return createErrorResponse(error)
   }
 }

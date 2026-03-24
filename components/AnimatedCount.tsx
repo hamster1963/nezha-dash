@@ -14,9 +14,13 @@ export function AnimateCountClient({
 
   useEffect(() => {
     if (count !== previousCount) {
-      setTimeout(() => {
+      const timeoutId = window.setTimeout(() => {
         setPreviousCount(count)
       }, 300)
+
+      return () => {
+        window.clearTimeout(timeoutId)
+      }
     }
   }, [count])
   return (
@@ -60,15 +64,21 @@ export function AnimateCount({
     currentDigits.unshift("0")
   }
 
+  const digitSlots = currentDigits.map((digit, index) => ({
+    id: `digit-slot-${maxLength - index}`,
+    digit,
+    previousDigit: previousDigits[index],
+  }))
+
   return (
     <div {...props} className={cn("flex h-[1em] items-center", className)}>
-      {currentDigits.map((digit, index) => {
-        const hasChanged = digit !== previousDigits[index]
+      {digitSlots.map((slot) => {
+        const hasChanged = slot.digit !== slot.previousDigit
         return (
           <div
-            key={`${index}-${digit}`}
+            key={slot.id}
             className={cn("relative flex h-full min-w-[0.6em] items-center text-center", {
-              "min-w-[0.2em]": digit === ".",
+              "min-w-[0.2em]": slot.digit === ".",
             })}
           >
             <div
@@ -79,7 +89,7 @@ export function AnimateCount({
                 hasChanged ? "animate" : "opacity-0",
               )}
             >
-              {previousDigits[index]}
+              {slot.previousDigit}
             </div>
             <div
               data-issues-count-enter
@@ -88,7 +98,7 @@ export function AnimateCount({
                 hasChanged && "animate",
               )}
             >
-              {digit}
+              {slot.digit}
             </div>
           </div>
         )

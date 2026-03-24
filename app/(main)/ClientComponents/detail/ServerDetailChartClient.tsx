@@ -1,7 +1,6 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { useEffect, useRef, useState } from "react"
 import { Area, AreaChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import {
   MAX_HISTORY_LENGTH,
@@ -15,50 +14,55 @@ import { type ChartConfig, ChartContainer } from "@/components/ui/chart"
 import type { NezhaAPISafe } from "@/lib/drivers/types"
 import { formatBytes, formatNezhaInfo, formatRelativeTime } from "@/lib/utils"
 
-type gpuChartData = {
-  timeStamp: string
-  gpu: number
-}
+type FormattedServerInfo = ReturnType<typeof formatNezhaInfo>
 
-type cpuChartData = {
-  timeStamp: string
-  cpu: number
-}
-
-type processChartData = {
-  timeStamp: string
-  process: number
-}
-
-type diskChartData = {
-  timeStamp: string
-  disk: number
-}
-
-type memChartData = {
-  timeStamp: string
-  mem: number
-  swap: number
-}
-
-type networkChartData = {
-  timeStamp: string
-  upload: number
-  download: number
-}
-
-type connectChartData = {
-  timeStamp: string
-  tcp: number
-  udp: number
-}
-
-export default function ServerDetailChartClient({
-  server_id,
+function buildServerMetricHistory<T extends Record<string, number>>({
+  data,
+  history,
+  select,
 }: {
-  server_id: number
-  show: boolean
+  data: NezhaAPISafe
+  history: ServerDataWithTimestamp[]
+  select: (server: FormattedServerInfo) => T
 }) {
+  const historyPoints = [...history]
+    .reverse()
+    .map((snapshot) => {
+      const server = snapshot.data.result.find((item) => item.id === data.id)
+      if (!server) {
+        return null
+      }
+
+      return {
+        timeStamp: snapshot.timestamp.toString(),
+        ...select(formatNezhaInfo(server)),
+      }
+    })
+    .filter((point): point is { timeStamp: string } & T => point !== null)
+
+  const currentMetrics = select(formatNezhaInfo(data))
+  const currentPoint = {
+    timeStamp: Date.now().toString(),
+    ...currentMetrics,
+  }
+
+  if (historyPoints.length === 0) {
+    return [currentPoint, currentPoint]
+  }
+
+  const lastPoint = historyPoints[historyPoints.length - 1]
+  const hasCurrentSnapshot = Object.entries(currentMetrics).every(
+    ([key, value]) => lastPoint[key] === value,
+  )
+
+  if (hasCurrentSnapshot) {
+    return historyPoints.slice(-MAX_HISTORY_LENGTH)
+  }
+
+  return [...historyPoints, currentPoint].slice(-MAX_HISTORY_LENGTH)
+}
+
+export default function ServerDetailChartClient({ server_id }: { server_id: number }) {
   const t = useTranslations("ServerDetailChartClient")
 
   const { data: serverList, error, history } = useServerData()
@@ -91,53 +95,12 @@ export default function ServerDetailChartClient({
 }
 
 function CpuChart({ history, data }: { history: ServerDataWithTimestamp[]; data: NezhaAPISafe }) {
-  const [cpuChartData, setCpuChartData] = useState([] as cpuChartData[])
-  const hasInitialized = useRef(false)
-  const [historyLoaded, setHistoryLoaded] = useState(false)
-
-  useEffect(() => {
-    if (!hasInitialized.current && history.length > 0) {
-      const historyData = history
-        .map((msg) => {
-          const server = msg.data?.result?.find((item) => item.id === data.id)
-          if (!server) return null
-          const { cpu } = formatNezhaInfo(server)
-          return {
-            timeStamp: msg.timestamp.toString(),
-            cpu: cpu,
-          }
-        })
-        .filter((item): item is cpuChartData => item !== null)
-        .reverse() // 保持时间顺序
-
-      setCpuChartData(historyData)
-      hasInitialized.current = true
-      setHistoryLoaded(true)
-    } else if (history.length === 0) {
-      setHistoryLoaded(true)
-    }
-  }, [])
-
   const { cpu } = formatNezhaInfo(data)
-
-  useEffect(() => {
-    if (data && historyLoaded) {
-      const timestamp = Date.now().toString()
-      let newData = [] as cpuChartData[]
-      if (cpuChartData.length === 0) {
-        newData = [
-          { timeStamp: timestamp, cpu: cpu },
-          { timeStamp: timestamp, cpu: cpu },
-        ]
-      } else {
-        newData = [...cpuChartData, { timeStamp: timestamp, cpu: cpu }]
-      }
-      if (newData.length > MAX_HISTORY_LENGTH) {
-        newData.shift()
-      }
-      setCpuChartData(newData)
-    }
-  }, [data, historyLoaded])
+  const cpuChartData = buildServerMetricHistory({
+    data,
+    history,
+    select: (server) => ({ cpu: server.cpu }),
+  })
 
   const chartConfig = {
     cpu: {
@@ -207,53 +170,12 @@ function CpuChart({ history, data }: { history: ServerDataWithTimestamp[]; data:
 }
 
 function GpuChart({ history, data }: { history: ServerDataWithTimestamp[]; data: NezhaAPISafe }) {
-  const [gpuChartData, setGpuChartData] = useState([] as gpuChartData[])
-  const hasInitialized = useRef(false)
-  const [historyLoaded, setHistoryLoaded] = useState(false)
-
-  useEffect(() => {
-    if (!hasInitialized.current && history.length > 0) {
-      const historyData = history
-        .map((msg) => {
-          const server = msg.data?.result?.find((item) => item.id === data.id)
-          if (!server) return null
-          const { gpu } = formatNezhaInfo(server)
-          return {
-            timeStamp: msg.timestamp.toString(),
-            gpu: gpu,
-          }
-        })
-        .filter((item): item is gpuChartData => item !== null)
-        .reverse() // 保持时间顺序
-
-      setGpuChartData(historyData)
-      hasInitialized.current = true
-      setHistoryLoaded(true)
-    } else if (history.length === 0) {
-      setHistoryLoaded(true)
-    }
-  }, [])
-
   const { gpu } = formatNezhaInfo(data)
-
-  useEffect(() => {
-    if (data && historyLoaded) {
-      const timestamp = Date.now().toString()
-      let newData = [] as gpuChartData[]
-      if (gpuChartData.length === 0) {
-        newData = [
-          { timeStamp: timestamp, gpu: gpu },
-          { timeStamp: timestamp, gpu: gpu },
-        ]
-      } else {
-        newData = [...gpuChartData, { timeStamp: timestamp, gpu: gpu }]
-      }
-      if (newData.length > MAX_HISTORY_LENGTH) {
-        newData.shift()
-      }
-      setGpuChartData(newData)
-    }
-  }, [data, historyLoaded])
+  const gpuChartData = buildServerMetricHistory({
+    data,
+    history,
+    select: (server) => ({ gpu: server.gpu }),
+  })
 
   const chartConfig = {
     gpu: {
@@ -330,53 +252,12 @@ function ProcessChart({
   history: ServerDataWithTimestamp[]
 }) {
   const t = useTranslations("ServerDetailChartClient")
-  const [processChartData, setProcessChartData] = useState([] as processChartData[])
-  const hasInitialized = useRef(false)
-  const [historyLoaded, setHistoryLoaded] = useState(false)
-
-  useEffect(() => {
-    if (!hasInitialized.current && history.length > 0) {
-      const historyData = history
-        .map((msg) => {
-          const server = msg.data?.result?.find((item) => item.id === data.id)
-          if (!server) return null
-          const { process } = formatNezhaInfo(server)
-          return {
-            timeStamp: msg.timestamp.toString(),
-            process: process,
-          }
-        })
-        .filter((item): item is processChartData => item !== null)
-        .reverse()
-
-      setProcessChartData(historyData)
-      hasInitialized.current = true
-      setHistoryLoaded(true)
-    } else if (history.length === 0) {
-      setHistoryLoaded(true)
-    }
-  }, [])
-
   const { process } = formatNezhaInfo(data)
-
-  useEffect(() => {
-    if (data && historyLoaded) {
-      const timestamp = Date.now().toString()
-      let newData = [] as processChartData[]
-      if (processChartData.length === 0) {
-        newData = [
-          { timeStamp: timestamp, process: process },
-          { timeStamp: timestamp, process: process },
-        ]
-      } else {
-        newData = [...processChartData, { timeStamp: timestamp, process: process }]
-      }
-      if (newData.length > MAX_HISTORY_LENGTH) {
-        newData.shift()
-      }
-      setProcessChartData(newData)
-    }
-  }, [data, historyLoaded])
+  const processChartData = buildServerMetricHistory({
+    data,
+    history,
+    select: (server) => ({ process: server.process }),
+  })
 
   const chartConfig = {
     process: {
@@ -433,54 +314,12 @@ function ProcessChart({
 
 function MemChart({ data, history }: { data: NezhaAPISafe; history: ServerDataWithTimestamp[] }) {
   const t = useTranslations("ServerDetailChartClient")
-  const [memChartData, setMemChartData] = useState([] as memChartData[])
-  const hasInitialized = useRef(false)
-  const [historyLoaded, setHistoryLoaded] = useState(false)
-
-  useEffect(() => {
-    if (!hasInitialized.current && history.length > 0) {
-      const historyData = history
-        .map((msg) => {
-          const server = msg.data?.result?.find((item) => item.id === data.id)
-          if (!server) return null
-          const { mem, swap } = formatNezhaInfo(server)
-          return {
-            timeStamp: msg.timestamp.toString(),
-            mem: mem,
-            swap: swap,
-          }
-        })
-        .filter((item): item is memChartData => item !== null)
-        .reverse()
-
-      setMemChartData(historyData)
-      hasInitialized.current = true
-      setHistoryLoaded(true)
-    } else if (history.length === 0) {
-      setHistoryLoaded(true)
-    }
-  }, [])
-
   const { mem, swap } = formatNezhaInfo(data)
-
-  useEffect(() => {
-    if (data && historyLoaded) {
-      const timestamp = Date.now().toString()
-      let newData = [] as memChartData[]
-      if (memChartData.length === 0) {
-        newData = [
-          { timeStamp: timestamp, mem: mem, swap: swap },
-          { timeStamp: timestamp, mem: mem, swap: swap },
-        ]
-      } else {
-        newData = [...memChartData, { timeStamp: timestamp, mem: mem, swap: swap }]
-      }
-      if (newData.length > MAX_HISTORY_LENGTH) {
-        newData.shift()
-      }
-      setMemChartData(newData)
-    }
-  }, [data, historyLoaded])
+  const memChartData = buildServerMetricHistory({
+    data,
+    history,
+    select: (server) => ({ mem: server.mem, swap: server.swap }),
+  })
 
   const chartConfig = {
     mem: {
@@ -587,53 +426,12 @@ function MemChart({ data, history }: { data: NezhaAPISafe; history: ServerDataWi
 
 function DiskChart({ data, history }: { data: NezhaAPISafe; history: ServerDataWithTimestamp[] }) {
   const t = useTranslations("ServerDetailChartClient")
-  const [diskChartData, setDiskChartData] = useState([] as diskChartData[])
-  const hasInitialized = useRef(false)
-  const [historyLoaded, setHistoryLoaded] = useState(false)
-
-  useEffect(() => {
-    if (!hasInitialized.current && history.length > 0) {
-      const historyData = history
-        .map((msg) => {
-          const server = msg.data?.result?.find((item) => item.id === data.id)
-          if (!server) return null
-          const { disk } = formatNezhaInfo(server)
-          return {
-            timeStamp: msg.timestamp.toString(),
-            disk: disk,
-          }
-        })
-        .filter((item): item is diskChartData => item !== null)
-        .reverse()
-
-      setDiskChartData(historyData)
-      hasInitialized.current = true
-      setHistoryLoaded(true)
-    } else if (history.length === 0) {
-      setHistoryLoaded(true)
-    }
-  }, [])
-
   const { disk } = formatNezhaInfo(data)
-
-  useEffect(() => {
-    if (data && historyLoaded) {
-      const timestamp = Date.now().toString()
-      let newData = [] as diskChartData[]
-      if (diskChartData.length === 0) {
-        newData = [
-          { timeStamp: timestamp, disk: disk },
-          { timeStamp: timestamp, disk: disk },
-        ]
-      } else {
-        newData = [...diskChartData, { timeStamp: timestamp, disk: disk }]
-      }
-      if (newData.length > MAX_HISTORY_LENGTH) {
-        newData.shift()
-      }
-      setDiskChartData(newData)
-    }
-  }, [data, historyLoaded])
+  const diskChartData = buildServerMetricHistory({
+    data,
+    history,
+    select: (server) => ({ disk: server.disk }),
+  })
 
   const chartConfig = {
     disk: {
@@ -715,54 +513,12 @@ function NetworkChart({
   history: ServerDataWithTimestamp[]
 }) {
   const t = useTranslations("ServerDetailChartClient")
-  const [networkChartData, setNetworkChartData] = useState([] as networkChartData[])
-  const hasInitialized = useRef(false)
-  const [historyLoaded, setHistoryLoaded] = useState(false)
-
-  useEffect(() => {
-    if (!hasInitialized.current && history.length > 0) {
-      const historyData = history
-        .map((msg) => {
-          const server = msg.data?.result?.find((item) => item.id === data.id)
-          if (!server) return null
-          const { up, down } = formatNezhaInfo(server)
-          return {
-            timeStamp: msg.timestamp.toString(),
-            upload: up,
-            download: down,
-          }
-        })
-        .filter((item): item is networkChartData => item !== null)
-        .reverse()
-
-      setNetworkChartData(historyData)
-      hasInitialized.current = true
-      setHistoryLoaded(true)
-    } else if (history.length === 0) {
-      setHistoryLoaded(true)
-    }
-  }, [])
-
   const { up, down } = formatNezhaInfo(data)
-
-  useEffect(() => {
-    if (data && historyLoaded) {
-      const timestamp = Date.now().toString()
-      let newData = [] as networkChartData[]
-      if (networkChartData.length === 0) {
-        newData = [
-          { timeStamp: timestamp, upload: up, download: down },
-          { timeStamp: timestamp, upload: up, download: down },
-        ]
-      } else {
-        newData = [...networkChartData, { timeStamp: timestamp, upload: up, download: down }]
-      }
-      if (newData.length > MAX_HISTORY_LENGTH) {
-        newData.shift()
-      }
-      setNetworkChartData(newData)
-    }
-  }, [data, historyLoaded])
+  const networkChartData = buildServerMetricHistory({
+    data,
+    history,
+    select: (server) => ({ upload: server.up, download: server.down }),
+  })
 
   let maxDownload = Math.max(...networkChartData.map((item) => item.download))
   maxDownload = Math.ceil(maxDownload)
@@ -863,54 +619,12 @@ function ConnectChart({
   data: NezhaAPISafe
   history: ServerDataWithTimestamp[]
 }) {
-  const [connectChartData, setConnectChartData] = useState([] as connectChartData[])
-  const hasInitialized = useRef(false)
-  const [historyLoaded, setHistoryLoaded] = useState(false)
-
-  useEffect(() => {
-    if (!hasInitialized.current && history.length > 0) {
-      const historyData = history
-        .map((msg) => {
-          const server = msg.data?.result?.find((item) => item.id === data.id)
-          if (!server) return null
-          const { tcp, udp } = formatNezhaInfo(server)
-          return {
-            timeStamp: msg.timestamp.toString(),
-            tcp: tcp,
-            udp: udp,
-          }
-        })
-        .filter((item): item is connectChartData => item !== null)
-        .reverse()
-
-      setConnectChartData(historyData)
-      hasInitialized.current = true
-      setHistoryLoaded(true)
-    } else if (history.length === 0) {
-      setHistoryLoaded(true)
-    }
-  }, [])
-
   const { tcp, udp } = formatNezhaInfo(data)
-
-  useEffect(() => {
-    if (data && historyLoaded) {
-      const timestamp = Date.now().toString()
-      let newData = [] as connectChartData[]
-      if (connectChartData.length === 0) {
-        newData = [
-          { timeStamp: timestamp, tcp: tcp, udp: udp },
-          { timeStamp: timestamp, tcp: tcp, udp: udp },
-        ]
-      } else {
-        newData = [...connectChartData, { timeStamp: timestamp, tcp: tcp, udp: udp }]
-      }
-      if (newData.length > MAX_HISTORY_LENGTH) {
-        newData.shift()
-      }
-      setConnectChartData(newData)
-    }
-  }, [data, historyLoaded])
+  const connectChartData = buildServerMetricHistory({
+    data,
+    history,
+    select: (server) => ({ tcp: server.tcp, udp: server.udp }),
+  })
 
   const chartConfig = {
     tcp: {

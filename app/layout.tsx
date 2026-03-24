@@ -19,7 +19,7 @@ const fontSans = FontSans({
 
 const customTitle = getEnv("NEXT_PUBLIC_CustomTitle")
 const customDescription = getEnv("NEXT_PUBLIC_CustomDescription")
-const disableIndex = getEnv("NEXT_PUBLIC_DisableIndex")
+const disableIndex = getEnv("NEXT_PUBLIC_DisableIndex") === "true"
 
 export const metadata: Metadata = {
   manifest: "/manifest.json",

@@ -1,11 +1,13 @@
-const bars = Array(8).fill(0)
+const bars = Array.from({ length: 8 }, (_, index) => ({
+  id: `hamster-bar-${index + 1}`,
+}))
 
 export const Loader = ({ visible }: { visible: boolean }) => {
   return (
     <div className="hamster-loading-wrapper" data-visible={visible}>
       <div className="hamster-spinner">
-        {bars.map((_, i) => (
-          <div className="hamster-loading-bar" key={`hamster-bar-${i + 1}`} />
+        {bars.map((bar) => (
+          <div className="hamster-loading-bar" key={bar.id} />
         ))}
       </div>
     </div>

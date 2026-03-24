@@ -3,7 +3,7 @@
 import { MapIcon, ViewColumnsIcon } from "@heroicons/react/20/solid"
 import dynamic from "next/dynamic"
 import { useTranslations } from "next-intl"
-import { useEffect, useRef, useState } from "react"
+import { type RefObject, useEffect, useRef, useState } from "react"
 import { useFilter } from "@/app/context/network-filter-context"
 import { useServerData } from "@/app/context/server-data-context"
 import { useStatus } from "@/app/context/status-context"
@@ -13,6 +13,7 @@ import ServerCard from "@/components/ServerCard"
 import ServerCardInline from "@/components/ServerCardInline"
 import Switch from "@/components/Switch"
 import ShinyText from "@/components/ui/shiny-text"
+import type { ServerApi } from "@/lib/drivers/types"
 import getEnv from "@/lib/env-entry"
 import { cn } from "@/lib/utils"
 
@@ -21,24 +22,30 @@ const ServerGlobal = dynamic(() => import("./Global"), {
   loading: () => <GlobalLoading />,
 })
 
-const sortServersByDisplayIndex = (servers: any[]) => {
-  return servers.sort((a, b) => {
+type ServerItem = ServerApi["result"][number]
+type TranslationFn = ReturnType<typeof useTranslations>
+
+const sortServersByDisplayIndex = (servers: ServerItem[]) => {
+  return [...servers].sort((a, b) => {
     const displayIndexDiff = (b.display_index || 0) - (a.display_index || 0)
     return displayIndexDiff !== 0 ? displayIndexDiff : a.id - b.id
   })
 }
 
-const filterServersByStatus = (servers: any[], status: string) => {
+const filterServersByStatus = (
+  servers: ServerItem[],
+  status: ReturnType<typeof useStatus>["status"],
+) => {
   return status === "all"
     ? servers
     : servers.filter((server) => [status].includes(server.online_status ? "online" : "offline"))
 }
 
-const filterServersByTag = (servers: any[], tag: string, defaultTag: string) => {
+const filterServersByTag = (servers: ServerItem[], tag: string, defaultTag: string) => {
   return tag === defaultTag ? servers : servers.filter((server) => server.tag === tag)
 }
 
-const sortServersByNetwork = (servers: any[]) => {
+const sortServersByNetwork = (servers: ServerItem[]) => {
   return [...servers].sort((a, b) => {
     if (!a.online_status && b.online_status) return 1
     if (a.online_status && !b.online_status) return -1
@@ -47,7 +54,7 @@ const sortServersByNetwork = (servers: any[]) => {
   })
 }
 
-const getTagCounts = (servers: any[]) => {
+const getTagCounts = (servers: ServerItem[]) => {
   return servers.reduce((acc: Record<string, number>, server) => {
     if (server.tag) {
       acc[server.tag] = (acc[server.tag] || 0) + 1
@@ -56,7 +63,7 @@ const getTagCounts = (servers: any[]) => {
   }, {})
 }
 
-const LoadingState = ({ t }: { t: any }) => (
+const LoadingState = ({ t }: { t: TranslationFn }) => (
   <div className="flex min-h-96 flex-col items-center justify-center">
     <div className="flex items-center gap-2 font-semibold text-sm">
       <ShinyText
@@ -70,7 +77,7 @@ const LoadingState = ({ t }: { t: any }) => (
   </div>
 )
 
-const ErrorState = ({ error, t }: { error: Error; t: any }) => (
+const ErrorState = ({ error, t }: { error: Error; t: TranslationFn }) => (
   <div className="flex flex-col items-center justify-center">
     <p className="font-medium text-sm opacity-40">{error.message}</p>
     <p className="font-medium text-sm opacity-40">{t("error_message")}</p>
@@ -82,9 +89,9 @@ const ServerList = ({
   inline,
   containerRef,
 }: {
-  servers: any[]
+  servers: ServerItem[]
   inline: string
-  containerRef: any
+  containerRef: RefObject<HTMLElement | null>
 }) => {
   if (inline === "1") {
     return (
@@ -112,7 +119,7 @@ export default function ServerListClient() {
   const { status } = useStatus()
   const { filter } = useFilter()
   const t = useTranslations("ServerListClient")
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLElement>(null)
   const defaultTag = "defaultTag"
 
   const [tag, setTag] = useState<string>(defaultTag)
