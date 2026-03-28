@@ -1,7 +1,15 @@
-import { createHash } from "node:crypto"
+import { createHash, timingSafeEqual } from "node:crypto"
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import getEnv from "@/lib/env-entry"
+
+function safeEqual(a: string, b: string): boolean {
+  try {
+    return timingSafeEqual(Buffer.from(a), Buffer.from(b))
+  } catch {
+    return false
+  }
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret:
@@ -17,7 +25,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       async authorize(credentials) {
         const password = typeof credentials?.password === "string" ? credentials.password : ""
 
-        if (password === getEnv("SitePassword")) {
+        const sitePassword = getEnv("SitePassword")
+        if (sitePassword && safeEqual(password, sitePassword)) {
           return { id: "nezha-dash-auth" }
         }
 
