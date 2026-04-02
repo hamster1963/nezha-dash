@@ -5,8 +5,14 @@ import getEnv from "@/lib/env-entry"
 
 function safeEqual(a: string, b: string): boolean {
   try {
-    return timingSafeEqual(Buffer.from(a), Buffer.from(b))
-  } catch {
+    const bufA = Buffer.isBuffer(a) ? a : Buffer.from(a)
+    const bufB = Buffer.isBuffer(b) ? b : Buffer.from(b)
+
+    const hashA = createHash("sha256").update(bufA).digest()
+    const hashB = createHash("sha256").update(bufB).digest()
+
+    return timingSafeEqual(hashA, hashB)
+  } catch (_err) {
     return false
   }
 }
