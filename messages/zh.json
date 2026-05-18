@@ -3,11 +3,8 @@
     "p_816-881_Totalservers": "服务器总数",
     "p_1610-1676_Onlineservers": "在线服务器",
     "p_2532-2599_Offlineservers": "离线服务器",
-    "p_3463-3530_Totalbandwidth": "总流量",
-    "speed": "速率",
     "network": "网络",
-    "error_message": "请检查您的环境变量并检查服务器控制台",
-    "no_data_message": "无数据"
+    "error_message": "请检查您的环境变量并检查服务器控制台"
   },
   "ServerListClient": {
     "error_message": "请检查您的环境变量并检查服务器控制台",
@@ -21,11 +18,9 @@
     "STG": "存储",
     "Upload": "上传",
     "Download": "下载",
-    "Offline": "离线",
     "Uptime": "运行时间",
     "TotalUpload": "总上传",
-    "TotalDownload": "总下载",
-    "Region": "地区"
+    "TotalDownload": "总下载"
   },
   "TabSwitch": {
     "Detail": "详情",
@@ -37,21 +32,6 @@
     "Submit": "登录",
     "ErrorMessage": "密码错误",
     "SuccessMessage": "登录成功"
-  },
-  "ServerCardPopover": {
-    "System": "系统",
-    "CPU": "CPU",
-    "Mem": "内存",
-    "STG": "存储",
-    "Swap": "虚拟内存",
-    "Network": "网络",
-    "Load": "负载",
-    "Online": "在线时间",
-    "Offline": "离线",
-    "Uptime": "运行时间",
-    "Upload": "上传",
-    "Download": "下载",
-    "Region": "地区"
   },
   "NetworkChartClient": {
     "avg_delay": "延迟",
@@ -130,8 +110,7 @@
   },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "服务器不存在",
-    "h1_490-590_404NotFoundBack": "返回",
-    "h1_490-590_Error": "发生错误"
+    "h1_490-590_404NotFoundBack": "返回"
   },
   "NetworkPage": {
     "title": "网络延迟图表",
@@ -141,7 +120,6 @@
     "loading": "加载中...",
     "no_online_servers": "没有在线服务器",
     "server_selection": "服务器选择",
-    "select_servers_to_display": "选择要显示网络延迟图表的服务器",
     "no_servers_selected": "未选择服务器。请至少选择一个服务器来显示图表。",
     "multi_select_mode": "多选模式",
     "single_select_mode": "单选模式",

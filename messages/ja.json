@@ -3,11 +3,8 @@
     "p_816-881_Totalservers": "サーバーの総数",
     "p_1610-1676_Onlineservers": "オンラインサーバー",
     "p_2532-2599_Offlineservers": "オフラインサーバー",
-    "p_3463-3530_Totalbandwidth": "総流量",
-    "speed": "速度",
     "network": "ネットワーク",
-    "error_message": "環境変数を確認し、サーバーコンソールを確認してください",
-    "no_data_message": "データなし"
+    "error_message": "環境変数を確認し、サーバーコンソールを確認してください"
   },
   "ServerListClient": {
     "error_message": "環境変数を確認し、サーバーコンソールを確認してください",
@@ -17,40 +14,24 @@
   "ServerCard": {
     "System": "システム",
     "CPU": "CPU",
-    "Mem": "Mem",
-    "STG": "STG",
-    "Upload": "Upload",
-    "Download": "Download",
-    "Offline": "Offline",
-    "Uptime": "Uptime",
-    "TotalUpload": "Upload",
-    "TotalDownload": "Download",
-    "Region": "Region"
+    "Mem": "メモリ",
+    "STG": "ストレージ",
+    "Upload": "アップロード",
+    "Download": "ダウンロード",
+    "Uptime": "稼働時間",
+    "TotalUpload": "合計アップロード",
+    "TotalDownload": "合計ダウンロード"
   },
   "TabSwitch": {
     "Detail": "詳細",
-    "Network": "ネットワーク"
+    "Network": "ネットワーク",
+    "disabled_tooltip": "この機能は現在のモードでは利用できません"
   },
   "SignIn": {
     "SignInMessage": "パスワードを入力してください",
     "Submit": "ログイン",
     "ErrorMessage": "パスワードが間違っています",
     "SuccessMessage": "ログイン成功"
-  },
-  "ServerCardPopover": {
-    "System": "システム",
-    "CPU": "CPU",
-    "Mem": "メモリ",
-    "STG": "ストレージ",
-    "Swap": "スワップ",
-    "Network": "ネットワーク",
-    "Load": "負荷",
-    "Online": "オンライン時間",
-    "Offline": "オフライン",
-    "Uptime": "アップタイム",
-    "Upload": "アップロード",
-    "Download": "ダウンロード",
-    "Region": "地域"
   },
   "NetworkChartClient": {
     "avg_delay": "遅延",
@@ -60,8 +41,8 @@
   "IPInfo": {
     "analysing": "IP情報を分析中...",
     "asn_number": "ASN",
-    "registered_country": "Registered Country",
-    "time_zone": "時刻",
+    "registered_country": "登録国",
+    "time_zone": "タイムゾーン",
     "postal_code": "郵便番号",
     "city": "都市",
     "longitude": "経度",
@@ -89,14 +70,14 @@
     "System": "システム",
     "CPU": "CPU",
     "Load": "負荷",
-    "Upload": "Upload",
-    "Download": "Download",
-    "LastActive": "Last Active",
-    "BootTime": "Boot Time"
+    "Upload": "アップロード",
+    "Download": "ダウンロード",
+    "LastActive": "最終報告時刻",
+    "BootTime": "起動時刻"
   },
   "ServerDetailChartClient": {
     "chart_fetch_error_message": "環境変数を確認し、サーバーコンソールを確認してください",
-    "Process": "進捗状況",
+    "Process": "プロセス",
     "Disk": "ディスク",
     "Mem": "メモリ",
     "Swap": "スワップ",
@@ -122,15 +103,14 @@
     "p_2390-2457_wherethetimeis": "現在の時間"
   },
   "Global": {
-    "Loading": "Loading...",
+    "Loading": "読み込み中...",
     "Distributions": "サーバーは",
     "Regions": "つの地域に分散されています",
     "Servers": "サーバー"
   },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "サーバーは見つかりません",
-    "h1_490-590_404NotFoundBack": "戻る",
-    "h1_490-590_Error": "何らかの問題が発生しました"
+    "h1_490-590_404NotFoundBack": "戻る"
   },
   "NetworkPage": {
     "title": "ネットワーク遅延グラフ",
@@ -140,7 +120,6 @@
     "loading": "読み込み中...",
     "no_online_servers": "オンラインサーバーがありません",
     "server_selection": "サーバー選択",
-    "select_servers_to_display": "ネットワーク遅延グラフを表示するサーバーを選択してください",
     "no_servers_selected": "サーバーが選択されていません。グラフを表示するには少なくとも1つのサーバーを選択してください。",
     "multi_select_mode": "複数選択",
     "single_select_mode": "単一選択",

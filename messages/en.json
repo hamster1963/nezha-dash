@@ -3,11 +3,8 @@
     "p_816-881_Totalservers": "Total servers",
     "p_1610-1676_Onlineservers": "Online servers",
     "p_2532-2599_Offlineservers": "Offline servers",
-    "p_3463-3530_Totalbandwidth": "Total bandwidth",
-    "speed": "speed",
     "network": "Network",
-    "error_message": "Please check your environment variables and review the server console",
-    "no_data_message": "No data"
+    "error_message": "Please check your environment variables and review the server console"
   },
   "ServerListClient": {
     "error_message": "Please check your environment variables and review the server console",
@@ -21,11 +18,9 @@
     "STG": "STG",
     "Upload": "Upload",
     "Download": "Download",
-    "Offline": "Offline",
     "Uptime": "Uptime",
     "TotalUpload": "Upload",
-    "TotalDownload": "Download",
-    "Region": "Region"
+    "TotalDownload": "Download"
   },
   "TabSwitch": {
     "Detail": "Detail",
@@ -37,21 +32,6 @@
     "Submit": "Login",
     "ErrorMessage": "Invalid password",
     "SuccessMessage": "Login successful"
-  },
-  "ServerCardPopover": {
-    "System": "System",
-    "CPU": "CPU",
-    "Mem": "Mem",
-    "STG": "STG",
-    "Swap": "Swap",
-    "Network": "Network",
-    "Load": "Load",
-    "Online": "Online",
-    "Offline": "Offline",
-    "Uptime": "Uptime",
-    "Upload": "Upload",
-    "Download": "Download",
-    "Region": "Region"
   },
   "NetworkChartClient": {
     "avg_delay": "Latency",
@@ -130,8 +110,7 @@
   },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "Server Not Found",
-    "h1_490-590_404NotFoundBack": " Press here to go back",
-    "h1_490-590_Error": "Something went wrong"
+    "h1_490-590_404NotFoundBack": " Press here to go back"
   },
   "NetworkPage": {
     "title": "Network Latency Charts",
@@ -141,7 +120,6 @@
     "loading": "Loading...",
     "no_online_servers": "No online servers available",
     "server_selection": "Server Selection",
-    "select_servers_to_display": "Select which servers to display network latency charts for",
     "no_servers_selected": "No servers selected. Please select at least one server to display charts.",
     "multi_select_mode": "Multi-select",
     "single_select_mode": "Single-select",

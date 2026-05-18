@@ -3,11 +3,8 @@
     "p_816-881_Totalservers": "伺服器總數",
     "p_1610-1676_Onlineservers": "在線伺服器",
     "p_2532-2599_Offlineservers": "離線伺服器",
-    "p_3463-3530_Totalbandwidth": "總流量",
-    "speed": "速率",
     "network": "網路",
-    "error_message": "請檢查您的環境變數並檢查伺服器控制台",
-    "no_data_message": "無資料"
+    "error_message": "請檢查您的環境變數並檢查伺服器控制台"
   },
   "ServerListClient": {
     "error_message": "請檢查您的環境變數並檢查伺服器控制台",
@@ -21,15 +18,14 @@
     "STG": "儲存",
     "Upload": "上傳",
     "Download": "下載",
-    "Offline": "離線",
-    "Uptime": "稼働時間",
-    "TotalUpload": "总上傳",
-    "TotalDownload": "总下載",
-    "Region": "地區"
+    "Uptime": "運行時間",
+    "TotalUpload": "總上傳",
+    "TotalDownload": "總下載"
   },
   "TabSwitch": {
     "Detail": "詳細",
-    "Network": "網路"
+    "Network": "網路",
+    "disabled_tooltip": "此功能在目前模式下無法使用"
   },
   "SignIn": {
     "SignInMessage": "請輸入密碼",
@@ -37,30 +33,15 @@
     "ErrorMessage": "密碼錯誤",
     "SuccessMessage": "登入成功"
   },
-  "ServerCardPopover": {
-    "System": "系統",
-    "CPU": "CPU",
-    "Mem": "記憶體",
-    "STG": "儲存",
-    "Swap": "虛擬記憶體",
-    "Network": "網路",
-    "Load": "負載",
-    "Online": "在線時間",
-    "Offline": "離線",
-    "Uptime": "稼働時間",
-    "Upload": "上傳",
-    "Download": "下載",
-    "Region": "地域"
-  },
   "NetworkChartClient": {
     "avg_delay": "延遲",
     "packet_loss": "封包遺失率",
-    "chart_fetch_error_message": "獲取網絡數據失敗，請檢查是否開啟服務端監控"
+    "chart_fetch_error_message": "獲取網路資料失敗，請檢查是否開啟服務端監控"
   },
   "IPInfo": {
     "analysing": "正在分析 IP 資訊...",
-    "asn_number": "ASN Number",
-    "registered_country": "注册地區",
+    "asn_number": "ASN 編號",
+    "registered_country": "註冊地區",
     "time_zone": "時區",
     "postal_code": "郵遞區號",
     "city": "城市",
@@ -78,7 +59,7 @@
     "status": "狀態",
     "Online": "在線",
     "Offline": "離線",
-    "Uptime": "稼働時間",
+    "Uptime": "運行時間",
     "Days": "天",
     "Hours": "小時",
     "Version": "版本",
@@ -115,7 +96,7 @@
     "a_800-850_Hamster1963": "@Hamster1963"
   },
   "Header": {
-    "p_1079-1199_Simpleandbeautifuldashbo": "簡單美觀的儀錶板"
+    "p_1079-1199_Simpleandbeautifuldashbo": "簡單美觀的儀表板"
   },
   "Overview": {
     "p_2277-2331_Overview": "概覽",
@@ -129,18 +110,16 @@
   },
   "NotFoundPage": {
     "h1_490-590_404NotFound": "伺服器未找到",
-    "h1_490-590_404NotFoundBack": "返回",
-    "h1_490-590_Error": "發生錯誤"
+    "h1_490-590_404NotFoundBack": "返回"
   },
   "NetworkPage": {
-    "title": "網絡延遲圖表",
-    "description": "查看和比較不同伺服器的網絡延遲圖表"
+    "title": "網路延遲圖表",
+    "description": "查看和比較不同伺服器的網路延遲圖表"
   },
   "AggregatedNetworkCharts": {
-    "loading": "加載中...",
+    "loading": "載入中...",
     "no_online_servers": "沒有在線伺服器",
     "server_selection": "伺服器選擇",
-    "select_servers_to_display": "選擇要顯示網絡延遲圖表的伺服器",
     "no_servers_selected": "未選擇伺服器。請至少選擇一個伺服器來顯示圖表。",
     "multi_select_mode": "多選模式",
     "single_select_mode": "單選模式",
@@ -156,6 +135,6 @@
     "ToggleDarkMode": "切換暗色模式",
     "ToggleSystemMode": "切換系統模式",
     "Home": "首頁",
-    "NetworkCharts": "網絡圖表"
+    "NetworkCharts": "網路圖表"
   }
 }
