@@ -1,17 +1,16 @@
-import { createHash, timingSafeEqual } from "node:crypto"
+import { timingSafeEqual } from "node:crypto"
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import getEnv from "@/lib/env-entry"
 
 function safeEqual(a: string, b: string): boolean {
   try {
-    const bufA = Buffer.isBuffer(a) ? a : Buffer.from(a)
-    const bufB = Buffer.isBuffer(b) ? b : Buffer.from(b)
+    const bufA = Buffer.from(a)
+    const bufB = Buffer.from(b)
 
-    const hashA = createHash("sha256").update(bufA).digest()
-    const hashB = createHash("sha256").update(bufB).digest()
+    if (bufA.length !== bufB.length) return false
 
-    return timingSafeEqual(hashA, hashB)
+    return timingSafeEqual(bufA, bufB)
   } catch (_err) {
     return false
   }
