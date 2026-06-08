@@ -333,7 +333,7 @@ export class KomariDriver extends BaseDriver {
     }
 
     const data = await response.json()
-    if (!data || data.status !== "success") {
+    if (data?.status !== "success") {
       throw new DriverOperationError(this.name, "healthCheck", "Invalid API response")
     }
   }
@@ -358,7 +358,7 @@ export class KomariDriver extends BaseDriver {
     }
 
     const data = await response.json()
-    if (!data || data.status !== "success") {
+    if (data?.status !== "success") {
       throw new Error("Invalid API response")
     }
   }
