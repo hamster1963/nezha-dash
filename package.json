@@ -67,7 +67,7 @@
     "@types/node": "^25.9.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "postcss": "^8.5.15",
+    "postcss": "^8.5.18",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3",
     "vercel": "^54.9.1"
