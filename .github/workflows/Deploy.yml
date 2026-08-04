@@ -66,7 +66,7 @@ jobs:
           node-version: 24
 
       - name: Set up pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v6.0.9
 
       - name: Changelog
         run: pnpm dlx changelogithub
