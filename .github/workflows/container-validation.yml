@@ -4,6 +4,11 @@ permissions:
   contents: read
 
 on:
+  workflow_call:
+    inputs:
+      release-tag:
+        type: string
+        default: ""
   pull_request:
   push:
     branches: ["main"]
@@ -26,8 +31,34 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: 24
-      - name: Build Docker image without publishing
-        run: docker build --platform linux/${{ matrix.arch }} --progress plain -t nezha-validation .
+      - name: Verify release policy
+        env:
+          RELEASE_TAG: ${{ inputs.release-tag }}
+        run: |
+          node --test scripts/*.test.cjs
+          if [ -n "$RELEASE_TAG" ]; then node scripts/release-policy.cjs check "$RELEASE_TAG"; fi
+      - name: Docker image metadata
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: hamster1963/nezha-dash
+          tags: type=sha
+          labels: |
+            org.opencontainers.image.version=${{ inputs.release-tag || github.sha }}
+      - uses: docker/setup-buildx-action@v4
+      - name: Build native image without publishing
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          platforms: linux/${{ matrix.arch }}
+          load: true
+          tags: nezha-validation:latest
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            RELEASE_TAG=${{ inputs.release-tag }}
+            COMMIT_SHA=${{ github.sha }}
+          # A Docker archive contains the image tested below. No later rebuild.
+          provenance: false
       - name: Start isolated container and fixture backend
         run: |
           docker run -d --name nezha-validation -p 127.0.0.1:3041:3000 \
@@ -49,8 +80,45 @@ jobs:
         env:
           AGENT_BROWSER_BIN: ${{ runner.temp }}/pwa-browser/node_modules/.bin/agent-browser
         run: node scripts/verify-pwa.cjs
+      - name: Save tested image
+        env:
+          ARCH: ${{ matrix.arch }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/tested-image"
+          docker image inspect nezha-validation --format '{{.Id}}' > "$RUNNER_TEMP/tested-image/$ARCH.id"
+          docker save nezha-validation | gzip > "$RUNNER_TEMP/tested-image/$ARCH.tar.gz"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tested-image-${{ matrix.arch }}
+          path: ${{ runner.temp }}/tested-image/
+          compression-level: 0
+          retention-days: 7
+          if-no-files-found: error
       - name: Container logs and cleanup
         if: always()
         run: |
           docker logs nezha-validation || true
           docker rm -f nezha-validation || true
+
+  archive-check:
+    name: Verify tested image transport
+    needs: container
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: tested-image-*
+          merge-multiple: true
+          path: tested-images
+      - name: Reload and verify both tested image archives without publishing
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          for arch in amd64 arm64; do
+            docker load -i "tested-images/$arch.tar.gz"
+            id=$(cat "tested-images/$arch.id")
+            test "$(docker image inspect nezha-validation --format '{{.Id}}')" = "$id"
+            test "$(docker image inspect "$id" --format '{{.Architecture}}')" = "$arch"
+            test "$(docker image inspect "$id" --format '{{index .Config.Labels "org.opencontainers.image.revision"}}')" = "$COMMIT_SHA"
+          done

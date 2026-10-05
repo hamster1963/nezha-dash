@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
-import pack from "@/package.json"
 
 const GITHUB_URL = "https://github.com/hamster1963/nezha-dash"
 const PERSONAL_URL = "https://buycoffee.top"
@@ -28,7 +27,8 @@ const baseTextStyles =
 
 export default function Footer() {
   const t = useTranslations("Footer")
-  const version = pack.version
+  const buildLabel = process.env.NEXT_PUBLIC_BUILD_LABEL || "local"
+  const buildUrl = process.env.NEXT_PUBLIC_BUILD_URL || GITHUB_URL
   const currentYear = new Date().getFullYear()
   const [isMac, setIsMac] = useState(true)
 
@@ -42,7 +42,7 @@ export default function Footer() {
         <p className={`mt-3 flex gap-1 ${baseTextStyles}`}>
           {t("p_146-598_Findthecodeon")}{" "}
           <FooterLink href={GITHUB_URL}>{t("a_303-585_GitHub")}</FooterLink>
-          <FooterLink href={`${GITHUB_URL}/releases/tag/v${version}`}>v{version}</FooterLink>
+          <FooterLink href={buildUrl}>{buildLabel}</FooterLink>
         </p>
         <section className={`mt-1 flex items-center gap-2 ${baseTextStyles}`}>
           {t("section_607-869_2020")}
