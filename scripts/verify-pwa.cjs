@@ -23,7 +23,25 @@ try {
       navigator.serviceWorker.ready,
       new Promise((_, reject) => setTimeout(() => reject(new Error('SW activation timeout')), 30000))
     ]);
-    return { state: registration.active.state, script: registration.active.scriptURL };
+    const worker = registration.active;
+    if (worker.state !== 'activated') {
+      await new Promise((resolve, reject) => {
+        const timer = setTimeout(() => reject(new Error('SW activation timeout')), 30000);
+        const changed = () => {
+          if (worker.state === 'activated') {
+            clearTimeout(timer);
+            worker.removeEventListener('statechange', changed);
+            resolve();
+          } else if (worker.state === 'redundant') {
+            clearTimeout(timer);
+            reject(new Error('SW became redundant'));
+          }
+        };
+        worker.addEventListener('statechange', changed);
+        changed();
+      });
+    }
+    return { state: worker.state, script: worker.scriptURL };
   })()`)
   assert.equal(registration.state, "activated")
   assert(registration.script.endsWith("/sw.js"))

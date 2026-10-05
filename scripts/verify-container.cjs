@@ -86,6 +86,13 @@ async function main() {
   check(response.ok && Array.isArray((await response.json()).result), "fixture server API works")
   response = await request("/api/health")
   check(response.ok && (await response.json()).healthy, "fixture health API works")
+  response = await request("/_next/image?url=%2Fandroid-chrome-192x192.png&w=32&q=75", {
+    headers: { accept: "image/webp" },
+  })
+  check(
+    response.ok && response.headers.get("content-type").startsWith("image/"),
+    "native image optimization works",
+  )
   response = await request("/api/auth/csrf")
   await post("/api/auth/signout", {
     csrfToken: (await response.json()).csrfToken,
