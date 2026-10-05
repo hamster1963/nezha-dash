@@ -1,74 +1,58 @@
-name: Build and push Docker image
-permissions:
-  contents: write
-  
+name: Validate and publish release
+
 on:
   push:
-    tags:
-      - "v*"
+    tags: ["v*"]
 
-env:
-  REGISTRY_IMAGE: hamster1963/nezha-dash
-  ALIYUN_REGISTRY_IMAGE: registry.cn-guangzhou.aliyuncs.com/hamster-home/nezha-dash
+permissions:
+  contents: read
 
 jobs:
-  build-and-push:
-    name: Build and push Docker image
+  validate:
+    uses: ./.github/workflows/container-validation.yml
+    with:
+      release-tag: ${{ github.ref_name }}
+
+  publish:
+    needs: validate
     runs-on: ubuntu-latest
     environment: Production
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    # Serialize all versions through the latest check and publication.
+    concurrency:
+      group: release-publication
+      cancel-in-progress: false
+    env:
+      REGISTRY_IMAGE: hamster1963/nezha-dash
+      ALIYUN_REGISTRY_IMAGE: registry.cn-guangzhou.aliyuncs.com/hamster-home/nezha-dash
+      RELEASE_TAG: ${{ github.ref_name }}
+      COMMIT_SHA: ${{ github.sha }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4
+      - uses: actions/setup-node@v7
         with:
-          driver-opts: network=host
-
+          node-version: 24
+      - uses: docker/setup-buildx-action@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: tested-image-*
+          merge-multiple: true
+          path: tested-images
       - name: Login to Docker Hub
         uses: docker/login-action@v4
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Login to AliYun Container Registry
+      - name: Login to Aliyun Container Registry
         uses: docker/login-action@v4
         with:
           registry: registry.cn-guangzhou.aliyuncs.com
           username: ${{ secrets.ALI_USERNAME }}
           password: ${{ secrets.ALI_TOKEN }}
-
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v6
-        with:
-          images: |
-            ${{ env.REGISTRY_IMAGE }}
-            ${{ env.ALIYUN_REGISTRY_IMAGE }}
-          tags: |
-            type=raw,value=latest
-            type=ref,event=tag
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v7
-        with:
-          context: .
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: 24
-
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v6.1.0
-
-      - name: Changelog
-        run: pnpm dlx changelogithub
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Publish tested images and release
+        run: bash scripts/publish-release.sh tested-images

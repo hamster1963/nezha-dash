@@ -1,6 +1,6 @@
 {
   "name": "nezha-dash",
-  "version": "3.1.11",
+  "version": "3.1.13",
   "private": true,
   "packageManager": "pnpm@11.28.4",
   "scripts": {
@@ -11,6 +11,7 @@
     "format": "biome format --write .",
     "check": "biome check",
     "check:fix": "biome check --fix --unsafe",
+    "test:release": "node --test scripts/release-policy.test.cjs scripts/build-info.test.cjs scripts/publish-release.test.cjs",
     "build": "next build --webpack && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/"
   },
   "dependencies": {
