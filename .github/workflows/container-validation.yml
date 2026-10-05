@@ -1,0 +1,56 @@
+name: Container and PWA validation
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+jobs:
+  container:
+    name: Docker ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-latest
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Build Docker image without publishing
+        run: docker build --platform linux/${{ matrix.arch }} --progress plain -t nezha-validation .
+      - name: Start isolated container and fixture backend
+        run: |
+          docker run -d --name nezha-validation -p 127.0.0.1:3041:3000 \
+            -e HOSTNAME=0.0.0.0 -e SitePassword=local-validation-only \
+            -e AUTH_SECRET=local-validation-secret-not-production \
+            -e NezhaBaseUrl=http://127.0.0.1:3042 -e NezhaAuth=local-fixture \
+            -e NEXT_TELEMETRY_DISABLED=1 nezha-validation
+          docker exec -d nezha-validation node -e 'require("node:http").createServer((req,res)=>{res.setHeader("Content-Type","application/json");res.end(JSON.stringify({code:0,result:[]}))}).listen(3042,"127.0.0.1")'
+          docker exec nezha-validation node -e 'if(!process.version.startsWith("v24."))process.exit(1);console.log(process.version,process.arch)'
+      - name: Verify standalone container and authentication
+        run: node scripts/verify-container.cjs
+      - name: Install browser test tooling
+        if: matrix.arch == 'amd64'
+        run: |
+          npm install --prefix "$RUNNER_TEMP/pwa-browser" --no-audit --no-fund agent-browser@0.38.2
+          "$RUNNER_TEMP/pwa-browser/node_modules/.bin/agent-browser" install --with-deps
+      - name: Verify service worker and offline reload in Chromium
+        if: matrix.arch == 'amd64'
+        env:
+          AGENT_BROWSER_BIN: ${{ runner.temp }}/pwa-browser/node_modules/.bin/agent-browser
+        run: node scripts/verify-pwa.cjs
+      - name: Container logs and cleanup
+        if: always()
+        run: |
+          docker logs nezha-validation || true
+          docker rm -f nezha-validation || true
