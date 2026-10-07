@@ -10,6 +10,22 @@ const commit = "a".repeat(40)
 const ids = { amd64: `sha256:${"a".repeat(64)}`, arm64: `sha256:${"b".repeat(64)}` }
 const digests = { amd64: `sha256:${"c".repeat(64)}`, arm64: `sha256:${"d".repeat(64)}` }
 const indexDigest = `sha256:${"e".repeat(64)}`
+const pendingBody = (tag = "v3.1.13", sha = commit) =>
+  `Publication pending: native image validation and registry publication are not complete.\n\n<!-- nezha-dash:pending-release ${tag} ${sha} -->`
+const pendingRelease = (overrides = {}) => ({
+  id: 42,
+  tag_name: "v3.1.13",
+  target_commitish: "main",
+  name: "v3.1.13 (publication pending)",
+  body: pendingBody(),
+  draft: false,
+  prerelease: true,
+  immutable: true,
+  published_at: "2026-10-07T12:00:00Z",
+  author: { login: "operator", id: 123, type: "User" },
+  assets: [],
+  ...overrides,
+})
 const registries = ["example.invalid/team/image", "mirror.invalid/team/image"]
 
 // These tests exercise the real Bash script and real release policy. Every
@@ -36,11 +52,82 @@ function mockCli() {
   }
   if (tool === "git") {
     if (args.join(" ") === "rev-parse HEAD") finish(config.checkout || config.commit)
+    if (args[0] === "rev-parse" && args[1] === `refs/tags/${config.tag}^{commit}`) {
+      state.tagReads = (state.tagReads || 0) + 1
+      finish(
+        state.tagReads > 1 ? config.changedTag || config.commit : config.tagCommit || config.commit,
+      )
+    }
     if (args.join(" ") === "fetch origin --tags") finish("", config.fetchFailure ? 1 : 0)
     if (args.join(" ") === "tag --list v*") finish(config.gitTags.join("\n"))
     unexpected()
   }
   if (tool === "gh") {
+    if (args[0] === "api") {
+      if (args[1] === "graphql") {
+        if (config.draftCheckFailure) finish("draft lookup unavailable", 1)
+        finish(
+          JSON.stringify(
+            config.draftResponse || {
+              data: { repository: { release: config.savedDraft ? { id: "draft-id" } : null } },
+            },
+          ),
+        )
+      }
+      const endpoint = args.find((arg) => arg.startsWith("repos/"))
+      const method = args.includes("--method") ? args[args.indexOf("--method") + 1] : "GET"
+      if (endpoint === `repos/example/repository/releases/tags/${config.tag}`) {
+        state.releaseReads = (state.releaseReads || 0) + 1
+        const failure = state.releaseReads > 1 ? config.recheckFailure : config.releaseReadFailure
+        if (failure) {
+          if (failure.status) process.stdout.write(`HTTP/2.0 ${failure.status} Error\r\n\r\n{}\n`)
+          finish(failure.message || "GitHub API failure", 1)
+        }
+        const release =
+          state.releaseReads > 1 && config.changedRelease !== undefined
+            ? config.changedRelease
+            : config.release
+        if (!release) {
+          process.stdout.write('HTTP/2.0 404 Not Found\r\n\r\n{"message":"Not Found"}\n')
+          finish("gh: Not Found (HTTP 404)", 1)
+        }
+        finish(
+          `HTTP/2.0 200 OK\r\nContent-Type: application/json\r\n\r\n${config.malformedRelease || JSON.stringify(release)}`,
+        )
+      }
+      if (endpoint === "repos/example/repository/collaborators/operator/permission") {
+        if (config.permissionFailure) finish("permission endpoint unavailable", 1)
+        finish(
+          JSON.stringify(
+            config.permission || { permission: "write", user: { login: "operator", id: 123 } },
+          ),
+        )
+      }
+      if (method === "POST" && endpoint === "repos/example/repository/releases/generate-notes") {
+        if (config.notesFailure) finish("notes endpoint unavailable", 1)
+        finish(JSON.stringify({ body: "Generated changes" }))
+      }
+      if (method === "PATCH" && endpoint === "repos/example/repository/releases/42") {
+        const fields = {}
+        for (let i = 0; i < args.length; i++) {
+          if (!["-f", "-F"].includes(args[i])) continue
+          const typed = args[i] === "-F"
+          const [key, ...parts] = args[++i].split("=")
+          let value = parts.join("=")
+          if (typed && value.startsWith("@")) value = fs.readFileSync(value.slice(1), "utf8")
+          else if (typed && ["true", "false"].includes(value)) value = value === "true"
+          fields[key] = value
+        }
+        state.patches.push(fields)
+        if (config.patchFailure || (config.latestPatchFailure && fields.make_latest === "true")) {
+          finish("GitHub release update failed", 1)
+        }
+        state.release = { ...(state.release || config.release), ...fields }
+        if (fields.body) fs.writeFileSync(path.join(directory, "release-notes"), fields.body)
+        finish(JSON.stringify({ ...state.release, ...config.patchResponse }))
+      }
+      unexpected()
+    }
     if (args[0] !== "release" || !["create", "edit"].includes(args[1])) unexpected()
     if (args[1] === "create") {
       const notes = args[args.indexOf("--notes-file") + 1]
@@ -93,6 +180,8 @@ function mockCli() {
   if (args[0] === "push") {
     const arch = state.localTags[args[1]]
     if (!arch) finish("Can only push a previously tagged tested image", 1)
+    if (config.pushFailure && args[1].startsWith(config.pushFailure))
+      finish("registry push failed", 1)
     state.remoteTags[args[1]] = config.digests[arch]
     finish()
   }
@@ -122,6 +211,8 @@ function mockCli() {
     if (!sources.length || sources.some((source) => !/@sha256:[0-9a-f]{64}$/.test(source))) {
       finish("Manifest assembly must use immutable digests", 1)
     }
+    if (config.manifestFailure && tags.includes(config.manifestFailure))
+      finish("manifest publish failed", 1)
     for (const tag of tags) state.remoteTags[tag] = config.indexDigest
     finish()
   }
@@ -154,7 +245,7 @@ function publication(t, options = {}) {
   fs.writeFileSync(path.join(directory, "config.json"), JSON.stringify(config))
   fs.writeFileSync(
     path.join(directory, "state.json"),
-    JSON.stringify({ loaded: [], localTags: {}, remoteTags: {} }),
+    JSON.stringify({ loaded: [], localTags: {}, remoteTags: {}, patches: [] }),
   )
   fs.writeFileSync(path.join(directory, "calls.jsonl"), "")
   for (const tool of ["docker", "git", "gh"]) {
@@ -188,6 +279,9 @@ function publication(t, options = {}) {
       GITHUB_RUN_ATTEMPT: "2",
       GITHUB_REPOSITORY: "example/repository",
       GITHUB_STEP_SUMMARY: summary,
+      GITHUB_ACTOR: "operator",
+      GITHUB_ACTOR_ID: "123",
+      GITHUB_TRIGGERING_ACTOR: config.triggeringActor || "operator",
       GH_TOKEN: "not-a-real-token",
     },
     encoding: "utf8",
@@ -204,13 +298,19 @@ function publication(t, options = {}) {
     fs.existsSync(path.join(directory, name))
       ? fs.readFileSync(path.join(directory, name), "utf8")
       : ""
-  return { ...result, calls, summary: read("summary"), notes: read("release-notes") }
+  return {
+    ...result,
+    calls,
+    summary: read("summary"),
+    notes: read("release-notes"),
+    state: JSON.parse(read("state.json")),
+  }
 }
 
 function writes(result) {
   return result.calls.filter(
     ({ tool, args }) =>
-      tool === "gh" ||
+      (tool === "gh" && (args[0] === "release" || args.includes("PATCH"))) ||
       (tool === "docker" &&
         (args[0] === "push" || args.slice(0, 3).join(" ") === "buildx imagetools create")),
   )
@@ -233,7 +333,10 @@ function assertNoLatest(result) {
     false,
   )
   assert.equal(
-    result.calls.some(({ tool, args }) => tool === "gh" && args[1] === "edit"),
+    result.calls.some(
+      ({ tool, args }) =>
+        tool === "gh" && (args[1] === "edit" || args.includes("make_latest=true")),
+    ),
     false,
   )
   assert.match(result.summary, /Latest promoted: false/)
@@ -375,7 +478,7 @@ test("an invalid pushed digest never reaches manifest assembly or GitHub", (t) =
   assert.notEqual(result.status, 0)
   assert.equal(creates(result).length, 0)
   assert.equal(
-    result.calls.some(({ tool }) => tool === "gh"),
+    writes(result).some(({ tool }) => tool === "gh"),
     false,
   )
 })
@@ -383,7 +486,7 @@ test("a mismatched immutable alias digest stops before creating the GitHub relea
   const result = publication(t, { aliasMismatch: true })
   assert.notEqual(result.status, 0)
   assert.equal(
-    result.calls.some(({ tool }) => tool === "gh"),
+    writes(result).some(({ tool }) => tool === "gh"),
     false,
   )
   assert.equal(creates(result).length, 1)
@@ -393,7 +496,10 @@ test("GitHub release failure never promotes registry or GitHub latest", (t) => {
   assert.notEqual(result.status, 0)
   assert.equal(creates(result).length, 2)
   assert.equal(
-    result.calls.some(({ tool, args }) => tool === "gh" && args[1] === "edit"),
+    result.calls.some(
+      ({ tool, args }) =>
+        tool === "gh" && (args[1] === "edit" || args.includes("make_latest=true")),
+    ),
     false,
   )
 })
@@ -445,3 +551,206 @@ test("validation tests native architectures before uploading artifacts and has n
   assert.match(workflow, /docker load -i "tested-images\/\$arch.tar.gz"/)
   assert.match(workflow, /actions\/download-artifact@/)
 })
+
+for (const [name, change] of [
+  ["wrong SHA", { body: pendingBody("v3.1.13", "b".repeat(40)) }],
+  ["wrong marker", { body: pendingBody().replace("pending-release", "completed-release") }],
+  ["missing visible pending wording", { body: pendingBody().split("\n").at(-1) }],
+  ["extra unreviewed notes", { body: `${pendingBody()}\nAdditional notes` }],
+  ["wrong tag", { tag_name: "v3.1.12" }],
+  ["wrong title", { name: "v3.1.13" }],
+  ["wrong author", { author: { login: "someone-else", id: 123, type: "User" } }],
+  ["wrong author ID", { author: { login: "operator", id: 456, type: "User" } }],
+  ["bot author", { author: { login: "operator", id: 123, type: "Bot" } }],
+  ["stable status", { prerelease: false }],
+  ["draft status", { draft: true }],
+  ["unpublished status", { published_at: null }],
+  ["existing assets", { assets: [{ id: 1, name: "download.tar.gz" }] }],
+  ["invalid ID", { id: "42" }],
+]) {
+  test(`an existing release with ${name} fails before any registry write`, (t) => {
+    assertFailedBeforeWrites(publication(t, { release: pendingRelease(change) }))
+  })
+}
+for (const options of [
+  { permission: { permission: "read", user: { login: "operator", id: 123 } } },
+  { permission: { permission: "admin", user: { login: "operator", id: 456 } } },
+  { permissionFailure: true },
+]) {
+  test(`pending author trust fails closed: ${JSON.stringify(options)}`, (t) => {
+    assertFailedBeforeWrites(publication(t, { release: pendingRelease(), ...options }))
+  })
+}
+for (const failure of [
+  { status: 401 },
+  { status: 403 },
+  { status: 429 },
+  { status: 500 },
+  { message: "network connection failed (HTTP 404 is not a response)" },
+]) {
+  test(`GitHub lookup failure never implies absent: ${JSON.stringify(failure)}`, (t) => {
+    assertFailedBeforeWrites(publication(t, { releaseReadFailure: failure }))
+  })
+}
+test("a malformed successful API response fails closed", (t) => {
+  assertFailedBeforeWrites(
+    publication(t, { release: pendingRelease(), malformedRelease: "not JSON" }),
+  )
+})
+test("a tag resolving to the wrong SHA fails before registry access", (t) => {
+  assertFailedBeforeWrites(publication(t, { tagCommit: "b".repeat(40) }))
+})
+test("a valid web pending release is finalized by ID after both registries without creating another release", (t) => {
+  const release = pendingRelease({ body: `${pendingBody().replaceAll("\n", "\r\n")}\r\n` })
+  const result = publication(t, { release, triggeringActor: "another-rerunner" })
+  assert.equal(result.status, 0, result.stderr)
+  assert.equal(
+    result.calls.some(({ tool, args }) => tool === "gh" && args[0] === "release"),
+    false,
+  )
+  assert.equal(result.state.release.id, 42)
+  assert.equal(result.state.release.immutable, true)
+  assert.equal(result.state.release.target_commitish, "main")
+  assert.deepEqual(result.state.release.assets, [])
+  assert.equal(result.state.release.prerelease, false)
+  assert.equal(result.state.release.name, "v3.1.13")
+  assert.deepEqual(Object.keys(result.state.patches[0]).sort(), [
+    "body",
+    "make_latest",
+    "name",
+    "prerelease",
+  ])
+  assert.equal(result.state.patches[0].make_latest, "false")
+  assert.deepEqual(result.state.patches[1], { make_latest: "true" })
+  assert.doesNotMatch(result.notes, /pending-release|Publication pending/)
+  assert.match(result.notes, /Generated changes/)
+  for (const registry of registries) assert.ok(result.notes.includes(`${registry}@${indexDigest}`))
+  const edit = result.calls.findIndex(({ args }) => args.includes("PATCH"))
+  const aliasChecks = result.calls
+    .map(({ args }, i) =>
+      args.includes(`${registries[1]}:sha-${commit}`) && args.includes("--format") ? i : -1,
+    )
+    .filter((i) => i >= 0)
+  assert.equal(aliasChecks.length, 1)
+  assert.ok(aliasChecks[0] < edit)
+  const latestChecks = result.calls
+    .map(({ args }, i) =>
+      args.some((arg) => arg.endsWith(":latest")) && args.includes("--format") ? i : -1,
+    )
+    .filter((i) => i >= 0)
+  assert.equal(latestChecks.length, 2)
+  const promote = result.calls.findIndex(({ args }) => args.includes("make_latest=true"))
+  assert.ok(latestChecks.every((i) => i < promote))
+})
+test("a genuine web prerelease stays prerelease and never becomes latest", (t) => {
+  const tag = "v3.2.0-rc.1"
+  const result = publication(t, {
+    tag,
+    release: pendingRelease({
+      tag_name: tag,
+      name: `${tag} (publication pending)`,
+      body: pendingBody(tag),
+    }),
+  })
+  assertNoLatest(result)
+  assert.equal(result.state.release.prerelease, true)
+  assert.equal(result.state.patches.length, 1)
+})
+test("an older web stable release is finalized without rolling latest back", (t) => {
+  const result = publication(t, { release: pendingRelease(), gitTags: ["v3.1.13", "v3.1.14"] })
+  assertNoLatest(result)
+  assert.equal(result.state.release.prerelease, false)
+  assert.equal(result.state.patches.length, 1)
+})
+test("a pending release does not bypass immutable-image retry rejection", (t) => {
+  assertFailedBeforeWrites(
+    publication(t, { release: pendingRelease(), immutable: [`${registries[1]}:sha-${commit}`] }),
+  )
+})
+for (const change of [
+  { id: 43 },
+  { body: `${pendingBody()}\nChanged` },
+  { prerelease: false },
+  { assets: [{ id: 1 }] },
+  { target_commitish: "another-branch" },
+  { author: { login: "other", id: 456, type: "User" } },
+]) {
+  test(`a pending release changed during publication is never edited: ${JSON.stringify(change)}`, (t) => {
+    const result = publication(t, {
+      release: pendingRelease(),
+      changedRelease: pendingRelease(change),
+    })
+    assert.notEqual(result.status, 0)
+    assert.equal(result.state.patches.length, 0)
+    assert.equal(creates(result).length, 2)
+  })
+}
+for (const options of [
+  { changedRelease: null },
+  { changedTag: "b".repeat(40) },
+  { recheckFailure: { status: 403 } },
+  { notesFailure: true },
+  { patchFailure: true },
+  { patchResponse: { id: 99 } },
+]) {
+  test(`finalization fails closed without promoting latest: ${JSON.stringify(options)}`, (t) => {
+    const result = publication(t, { release: pendingRelease(), ...options })
+    assert.notEqual(result.status, 0)
+    assert.equal(creates(result).length, 2)
+    assert.equal(
+      result.state.patches.some((patch) => patch.make_latest === "true"),
+      false,
+    )
+  })
+}
+for (const options of [
+  { pushFailure: registries[1] },
+  { manifestFailure: `${registries[1]}:v3.1.13` },
+  { aliasMismatch: true },
+]) {
+  test(`partial image publication leaves the web release pending: ${JSON.stringify(options)}`, (t) => {
+    const result = publication(t, { release: pendingRelease(), ...options })
+    assert.notEqual(result.status, 0)
+    assert.equal(result.state.patches.length, 0)
+    assert.equal(
+      result.calls.some(
+        ({ args }) =>
+          args.some((arg) => arg === `${registries[0]}:latest`) && args.includes("create"),
+      ),
+      false,
+    )
+  })
+}
+test("a partial latest failure never promotes GitHub latest", (t) => {
+  const result = publication(t, {
+    release: pendingRelease(),
+    manifestFailure: `${registries[1]}:latest`,
+  })
+  assert.notEqual(result.status, 0)
+  assert.equal(result.state.patches.length, 1)
+  assert.equal(result.state.patches[0].make_latest, "false")
+  assert.equal(result.state.remoteTags[`${registries[0]}:latest`], indexDigest)
+})
+test("an uncertain latest API update is reported as failure rather than retried", (t) => {
+  const result = publication(t, { release: pendingRelease(), latestPatchFailure: true })
+  assert.notEqual(result.status, 0)
+  assert.equal(result.state.patches.length, 2)
+  assert.doesNotMatch(result.summary, /Latest promoted: true/)
+})
+
+for (const options of [
+  { savedDraft: true },
+  { draftCheckFailure: true },
+  { draftResponse: { data: { repository: null } } },
+  { draftResponse: { data: { repository: {} } } },
+  {
+    draftResponse: {
+      errors: [{ message: "Unavailable" }],
+      data: { repository: { release: null } },
+    },
+  },
+]) {
+  test(`a REST 404 must not hide a draft or an inconclusive lookup: ${JSON.stringify(options)}`, (t) => {
+    assertFailedBeforeWrites(publication(t, options))
+  })
+}
