@@ -87,7 +87,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/tested-image"
           docker image inspect nezha-validation --format '{{.Id}}' > "$RUNNER_TEMP/tested-image/$ARCH.id"
           docker save nezha-validation | gzip > "$RUNNER_TEMP/tested-image/$ARCH.tar.gz"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: tested-image-${{ matrix.arch }}
           path: ${{ runner.temp }}/tested-image/
@@ -106,7 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           pattern: tested-image-*
           merge-multiple: true
