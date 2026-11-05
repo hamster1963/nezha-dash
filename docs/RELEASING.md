@@ -2,8 +2,8 @@
 
 ## Version contract
 
-`package.json` is the version authority. The next planned version is **3.1.13**;
-this does not create a release. Use strict SemVer (for example `3.1.13` or
+`package.json` is the version authority. The next planned version is **3.1.14**;
+this does not create a release. Use strict SemVer (for example `3.1.14` or
 `3.2.0-rc.1`), without build metadata or leading zeroes. Create only the matching
 `v<package.version>` tag after reviewing and explicitly approving the release.
 Historical prerelease-style hotfix tags such as `v3.1.9-fix` do not represent
@@ -39,7 +39,7 @@ there is deliberately no second `release` event trigger.
 1. Complete **Before tagging**, including approval, on the exact commit. Select
    the new matching tag and that commit as its target. Do not select a moving
    branch unless you have checked that it still points to the approved SHA.
-2. For `v3.1.13`, use the exact title `v3.1.13 (publication pending)` and the body
+2. For `v3.1.14`, use the exact title `v3.1.14 (publication pending)` and the body
    below, replacing `FULL_40_CHARACTER_COMMIT_SHA` with that commit's lowercase
    full SHA. Do not generate notes or add any other content or uploaded assets.
    CRLF versus LF and final newlines are accepted; all other wording is exact.
@@ -47,7 +47,7 @@ there is deliberately no second `release` event trigger.
    ```text
    Publication pending: native image validation and registry publication are not complete.
 
-   <!-- nezha-dash:pending-release v3.1.13 FULL_40_CHARACTER_COMMIT_SHA -->
+   <!-- nezha-dash:pending-release v3.1.14 FULL_40_CHARACTER_COMMIT_SHA -->
    ```
 
 3. Choose the **Pre-release** label, even for a stable version. Do not choose
