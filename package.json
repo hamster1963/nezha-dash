@@ -1,6 +1,6 @@
 {
   "name": "nezha-dash",
-  "version": "3.1.13",
+  "version": "3.1.14",
   "private": true,
   "packageManager": "pnpm@11.28.4",
   "scripts": {
@@ -12,6 +12,7 @@
     "check": "biome check",
     "check:fix": "biome check --fix --unsafe",
     "test:release": "node --test scripts/release-policy.test.cjs scripts/build-info.test.cjs scripts/publish-release.test.cjs",
+    "test:security": "node --test tests/dependency-security.test.cjs",
     "build": "next build --webpack && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/"
   },
   "dependencies": {
@@ -46,7 +47,7 @@
     "lucide-react": "^1.17.0",
     "luxon": "^3.7.2",
     "maxmind": "^5.0.6",
-    "next": "^16.3.8",
+    "next": "^16.4.5",
     "next-auth": "5.0.0-beta.32",
     "next-intl": "^4.13.0",
     "next-runtime-env": "^3.3.0",
@@ -63,14 +64,13 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.16",
-    "@next/bundle-analyzer": "^16.3.8",
+    "@next/bundle-analyzer": "^16.4.5",
     "@tailwindcss/postcss": "^4.3.0",
     "@types/node": "^25.9.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "postcss": "^8.5.28",
     "tailwindcss": "^4.3.0",
-    "typescript": "^6.0.3",
-    "vercel": "^54.21.1"
+    "typescript": "^6.0.3"
   }
 }
